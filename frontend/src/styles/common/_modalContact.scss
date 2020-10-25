@@ -1,0 +1,180 @@
+#modal-contact {
+  overflow: hidden;
+  max-width: 530px;
+  width: 100%;
+  padding: 15px;
+  margin: 5% auto;
+  .modal-content {
+    border: none;
+    background-color: white;
+    text-align: center;
+    border-radius: 24px;
+  }
+  .modal-header {
+    justify-content: center;
+    padding: 25px 65px;
+    border: none;
+    align-items: center;
+    @media (max-width: 350px) {
+      padding: 20px 65px;
+    }
+    .modal-title {
+      font-size: 32px;
+      font-weight: 200;
+      font-weight: bold;
+    }
+    .close {
+      opacity: 1;
+      padding: 10px;
+      border-radius: 100%;
+      position: absolute;
+      right: 33px;
+      background: #f0f3ff;
+      font-weight: 400;
+    }
+    .close span {
+      font-size: 40px;
+      text-shadow: none;
+    }
+  }
+
+  .modal-body {
+    text-align: center;
+    padding: 0 20px 20px;
+    @media (max-width: 350px) {
+      padding: 0 15px 20px;
+    }
+    form {
+      text-align: left;
+      .modal__input {
+        .modal__input__item {
+          display: flex;
+          justify-content: space-between;
+        }
+        .form-group {
+          width: 49%;
+        }
+        input {
+          width: 100%;
+        }
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      textarea {
+        height: 100px;
+        resize: none;
+      }
+      .react-select__control {
+        .react-select__placeholder {
+          padding-left: 13px;
+          color: $dark-grey;
+        }
+      }
+      .react-single-select__placeholder {
+        color: $dark-grey;
+      }
+    }
+  }
+  .modal__button {
+    margin: 30px 0 20px;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 780px) {
+    width: 90%;
+    .modal-header .modal-title {
+      font-size: 30px;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    width: 100%;
+  }
+  @media only screen and (max-width: 450px) {
+    .modal-header .modal-title {
+      font-size: 27px;
+    }
+    .modal-body form .modal__input {
+      .form-group {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .modal__input__item {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    .modal-body form .modal__input .form-group {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.beneficiary__item {
+  > div:first-child {
+    background: $light-purple;
+    padding: 16px 8px 0px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    position: relative;
+    @media (max-width: 450px) {
+      padding: 10px 8px 1px;
+    }
+  }
+  .name-and-age,
+  .instrument-and-level {
+    display: flex;
+    > div {
+      width: 43%;
+      margin-right: 10px;
+    }
+    input {
+      padding: 10px 16px;
+    }
+    .react-single-select__value-container {
+      padding: 3px 16px;
+    }
+    @media (max-width: 450px) {
+      display: block;
+      > div {
+        width: 100%;
+      }
+      input {
+        padding: 7px 16px;
+      }
+    }
+  }
+  .bt-group {
+    @include position(absolute, 50% 8px null null);
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    button {
+      @include size(35px);
+      border-radius: 100%;
+      margin: 5px;
+      transition: 0.3s ease;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .bt-add {
+      background: $primary-color;
+    }
+    .bt-delete {
+      background: $dark-grey;
+    }
+    @media (max-width: 450px) {
+      text-align: center;
+      position: unset;
+      transform: none;
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140px" height="140px" viewBox="0 0 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" fill="#FCA58C" x="0" y="0" width="140" height="140" rx="25"></rect>
+            <g id="dollar-sign" transform="translate(51.000000, 51.000000)">
+                <line x1="19.4999997" y1="4" x2="19.4999997" y2="36" id="Icons/dollar-sign" stroke="#FFFFFF" stroke-width="3.5"></line>
+                <path d="M26.5833331,10 L15.9583331,10 C13.2199211,10 10.9999997,12.2385763 10.9999997,15 C10.9999997,17.7614237 13.2199211,20 15.9583331,20 L23.0416664,20 C25.7800783,20 27.9999997,22.2385763 27.9999997,25 C27.9999997,27.7614237 25.7800783,30 23.0416664,30 L10.9999997,30" id="Path" stroke="#FFFFFF" stroke-width="3.5"></path>
+                <g id="Icons/dollar-sign-Copy" transform="translate(0.905903, 0.500000)">
+                    <g id="path-1-link" stroke="#FCA58C" stroke-width="4">
+                        <line x1="0.274579121" y1="0.549731249" x2="36.6778049" y2="36.9529571" id="path-1"></line>
+                    </g>
+                    <g id="path-1-link" stroke="#FFFFFF" stroke-width="1.5">
+                        <line x1="0.274579121" y1="0.549731249" x2="36.6778049" y2="36.9529571" id="path-1"></line>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

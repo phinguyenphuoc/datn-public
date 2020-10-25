@@ -1,0 +1,52 @@
+// -----------------------------
+// Global
+// -----------------------------
+@import "./global/reset";
+@import "./global/variables";
+@import "./global/design-system";
+@import "./global/general";
+@import "./global/typography";
+@import "./global/utilities";
+@import "./global/mixins";
+@import "./global/icons";
+// // -----------------------------
+// // Layout
+// // -----------------------------
+@import "./layout/header";
+@import "./layout/headerVer2";
+@import "./layout/sideBar";
+@import "./layout/footer";
+@import "./layout/headerTeachWithUs";
+
+// @import "./layout/sidebar";
+
+// // Common
+// -----------------------------
+@import "./common/cardTeacher";
+@import "./common/modalJoin";
+@import "./common/selectInstruments";
+@import "./common/modalContact";
+
+// All components
+// -----------------------------
+@import "./components/badges";
+@import "./components/buttons";
+@import "./components/form";
+@import "./components/underline";
+
+// -----------------------------
+// All pages
+// -----------------------------
+@import "./pages/home";
+@import "./pages/login";
+@import "./pages/forgotPassword";
+@import "./pages/resetPassword";
+@import "./pages/contactUs";
+@import "./pages/faq";
+@import "./pages/articles";
+@import "./pages/articlepage";
+@import "./pages/howItWork";
+@import "./pages/aboutUs";
+@import "./pages/teachWithUs";
+@import "./pages/teachers";
+@import "./pages/teacher";

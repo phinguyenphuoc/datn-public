@@ -1,0 +1,32 @@
+.side-bar {
+  height: 100vh;
+  width: 270px;
+  float: left;
+  margin-top: 80px;
+  top: 0;
+  position: fixed;
+  z-index: 999;
+  background-color: #ffffff;
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    margin: 48px 70px;
+    align-items: center;
+    &__item {
+      width: 222px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      color: #868497;
+      &:hover {
+        background-color: #6254e8;
+        border-radius: 16px;
+        color: #ffffff;
+      }
+      &:before {
+        content: $icon-arrow-left;
+        padding: 5px 20px;
+      }
+    }
+  }
+}

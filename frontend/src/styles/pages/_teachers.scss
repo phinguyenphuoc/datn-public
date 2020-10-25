@@ -1,0 +1,247 @@
+.teachers {
+  background: $secondary-light-color;
+  overflow: hidden;
+  &__loading {
+    height: 80vh;
+    @include flex_parent_centered();
+  }
+  &__title {
+    background: $white;
+    position: relative;
+    z-index: $zIndexHeader - 1;
+    h1 {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3% 30px 10px;
+    }
+  }
+  .teachers__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3% 15px 6%;
+  }
+  .link {
+    text-align: right;
+    padding: 0 16px;
+    a:hover {
+      color: $primary-color;
+      transition: 0.3s ease;
+    }
+  }
+  .teachers__items {
+    overflow: hidden;
+    margin-bottom: 4%;
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+  }
+  .button__see-more {
+    text-align: center;
+  }
+  .button__go {
+    text-align: center;
+    &__text {
+      margin: 0 0 4%;
+    }
+    h4 {
+      font-size: 33px;
+      @media (max-width: 1600px) {
+        font-size: 29px;
+      }
+      @media (max-width: 1200px) {
+        font-size: 25px;
+      }
+      @media (max-width: 800px) {
+        font-size: 21px;
+      }
+    }
+  }
+  .button__filter {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    > button {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+  }
+  @media only screen and (max-width: 650px) {
+    .teachers__inner {
+      padding: 3% 15px 85px;
+    }
+    .button__filter {
+      display: block;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .teachers__inner {
+      width: 100%;
+    }
+    .teachers__card__inner {
+      margin: 0;
+    }
+  }
+}
+
+.form__filter {
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: $zIndexHeader - 2;
+  transition: 0.3s ease;
+  &:before {
+    @include position(absolute, null 0 100% 0);
+    content: "";
+    height: 200px;
+    background: $white;
+  }
+  &.-sticky {
+    box-shadow: $alternate-shadow;
+  }
+  &__inner {
+    margin: 0 auto;
+    max-width: 1400px;
+    padding: 10px 20px;
+    text-align: left;
+  }
+  .filters {
+    display: flex;
+    justify-content: flex-start;
+    > div {
+      width: 33.33%;
+      max-width: 320px;
+      > div {
+        margin: 0 10px;
+        width: calc(100% - 20px);
+      }
+    }
+  }
+  @media only screen and (max-width: 765px) {
+    .filters {
+      display: inline-block;
+      width: 100%;
+      > div {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  @media only screen and (max-width: 650px) {
+    display: none;
+  }
+  @media only screen and (max-width: 480px) {
+    .form__inner {
+      width: 100%;
+    }
+    .filters {
+      width: 100%;
+    }
+  }
+  .link {
+    text-align: right;
+    a {
+      color: #b5beec;
+      font-size: 16px;
+      text-decoration: none;
+      border-bottom: 1px solid;
+      transition: 0.3s ease;
+      margin: 17px 0 20px;
+      display: inline-block;
+      &:hover {
+        color: #7b8dea;
+      }
+    }
+  }
+  .react-single-select-container {
+    width: 100%;
+  }
+}
+
+.form__filter__mobile {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
+  background: #ffffff;
+  padding: 20px 0;
+  transform: translateY(-100%);
+  transition: 0.5s ease;
+  height: 100vh;
+  overflow-y: scroll;
+  .filter__text {
+    @include flex_parent_between();
+    padding: 0 5px;
+    p {
+      font-family: "GT-Walsheim-Bold";
+      font-size: 24px;
+    }
+    button {
+      background-color: $light-purple;
+      border-radius: 100%;
+      height: 36px;
+      width: 36px;
+      flex-shrink: 0;
+      @include flex_parent_centered;
+    }
+  }
+  .filters {
+    display: flex;
+    flex-direction: column;
+    p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .fillter-lessontype,
+    .fillter-instrument {
+      border-bottom: 2px solid #e2e2e2;
+    }
+    .fillter-instrument {
+      padding: 0 5px;
+    }
+    .fillter-location {
+      padding: 15px 5px;
+      .react-single-select__placeholder,
+      .react-single-select__option,
+      .react-single-select__single-value {
+        font-size: 16px !important;
+      }
+    }
+    .fillter-lessontype {
+      padding: 15px 0;
+      p {
+        padding: 0 5px;
+      }
+      > div {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      button {
+        height: 40px;
+        border-radius: 8px;
+        padding: 0 16px;
+        margin: 0 5px 8px;
+        &:hover,
+        &:focus {
+          background-color: $secondary-color;
+        }
+        @media (max-width: 400px) {
+          padding: 0 10px;
+        }
+      }
+      .-isClickLessonType {
+        background-color: $secondary-color;
+        color: #fff;
+      }
+    }
+  }
+  .button__apply-filter {
+    text-align: center;
+    padding: 20px 0 60px;
+  }
+}
+.form__filter__mobile.-open {
+  transform: translateY(0);
+}

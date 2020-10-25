@@ -1,0 +1,102 @@
+.articlepage__banner {
+  overflow: hidden;
+  background-color: $secondary-light-color;
+  text-align: center;
+  &__text {
+    max-width: 90%;
+    margin: 0 auto;
+    width: 100%;
+    p {
+      line-height: 28px;
+      margin: 15px 0 20px;
+      @media (max-width: 1050px) {
+        line-height: 20px;
+      }
+      @media (max-width: 450px) {
+        line-height: 18px;
+      }
+    }
+    &__date {
+      text-align: right;
+    }
+  }
+}
+
+.articlepage__container {
+  background: white;
+  &__inner {
+    position: relative;
+    width: 100%;
+    &__social {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      height: 100%;
+      @media (max-width: 650px) {
+        left: 30px;
+      }
+      @media (max-width: 500px) {
+        top: 15px;
+        left: 15px;
+      }
+      ul {
+        position: sticky;
+        @media (max-width: 650px) {
+          position: static;
+        }
+        li {
+          margin-bottom: 5px;
+          &:last-child {
+            margin-bottom: 0px;
+          }
+          a {
+            display: flex;
+            font-size: 22px;
+            color: white;
+            width: 30px;
+            height: 30px;
+            transition: 0.3s ease;
+            svg {
+              margin: auto;
+            }
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+    &__wrapper {
+      width: 100%;
+      max-width: 680px;
+      margin: auto;
+      &__img {
+        img {
+          width: 100%;
+        }
+      }
+      &__subtitle {
+        margin-top: 60px;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      &__list {
+        list-style-type: decimal;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+        margin-top: 30px;
+        li {
+          display: list-item;
+          text-align: -webkit-match-parent;
+        }
+      }
+      &__article {
+        margin-top: 30px;
+        margin-bottom: 30px;
+      }
+    }
+  }
+}

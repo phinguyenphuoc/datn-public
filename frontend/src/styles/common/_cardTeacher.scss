@@ -1,0 +1,133 @@
+.card__teacher {
+  float: left;
+  width: 25%;
+  text-align: center;
+  margin: 16px 0;
+  padding: 0 16px;
+
+  // TODO: it should be configed in a place
+  @media only screen and (max-width: 1150px) {
+    width: 33.33%;
+  }
+  @media only screen and (max-width: 870px) {
+    width: 50%;
+  }
+  @media only screen and (max-width: 650px) {
+    width: 100%;
+  }
+  &__inner {
+    background: #ffffff;
+    margin: 0 auto;
+    transition: 0.5s ease;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    &:hover {
+      box-shadow: $shadow;
+    }
+
+    &__avatar {
+      position: relative;
+      margin-bottom: 15px;
+      flex-shrink: 0;
+      min-height: 240px;
+      &__img {
+        width: 100%;
+        border-radius: 24px 24px 0 0;
+        object-fit: cover;
+      }
+      &__instruments {
+        @include position(absolute, 16px null null 16px);
+        display: flex;
+        flex-wrap: wrap;
+        > div {
+          padding: 4px 8px;
+          border-radius: 4px;
+          margin: 0 5px 5px 0;
+        }
+      }
+      &__info {
+        @include position(absolute, null null 16px null);
+        @include flex_parent_centered();
+        flex-direction: column;
+        width: 100%;
+        h4 {
+          line-height: 1.4rem;
+        }
+        &-position {
+          display: flex;
+          align-items: center;
+          > div {
+            display: flex;
+            align-items: center;
+            margin: 0 8px;
+          }
+          .icon-star {
+            color: #fdbf60;
+            font-size: 17px;
+            margin: 0 2px 2px 0;
+          }
+          .icon-map-pin {
+            font-size: 12px;
+            margin: 0 2px 1px 0;
+          }
+        }
+      }
+    }
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      height: 100%;
+    }
+    &__text {
+      &-description {
+        position: relative;
+        padding: 0 20px;
+        margin-bottom: 4%;
+        text-align: left;
+      }
+    }
+    &__footer {
+      display: flex;
+      padding: 0 20px 20px;
+      text-align: left;
+      h4 {
+        margin: 0;
+      }
+      .text--small {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      &__lessons {
+        margin-right: 18px;
+        width: 42%;
+      }
+      .tooltip__group {
+        display: flex;
+        .tooltip__item {
+          @include size(40px);
+          @include flex_parent_centered();
+          background: #f0f3ff;
+          border-radius: 8px;
+          margin-right: 5px;
+        }
+      }
+    }
+    @media (max-width: 650px) {
+      .card__teacher__inner__avatar__img {
+        height: 250px;
+      }
+    }
+  }
+}
+.tooltip__text {
+  .tooltip {
+    top: -1px !important;
+    &-inner {
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+.FAQ__banner {
+  overflow: hidden;
+  background-color: $secondary-light-color;
+  text-align: center;
+  &__text {
+    max-width: 300px;
+    margin: 0 auto;
+    width: 100%;
+    p {
+      line-height: 28px;
+      margin: 15px 0 20px;
+      @media (max-width: 1050px) {
+        line-height: 20px;
+      }
+      @media (max-width: 450px) {
+        line-height: 18px;
+      }
+    }
+  }
+}
+
+.faq {
+  background: white;
+  .faq__inner__wrapper {
+    padding: 15px 0;
+  }
+  .question__item {
+    border: 1px solid #e1e1e1;
+    padding: 13px 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .question {
+      font-size: 21px;
+      line-height: 24px;
+      font-family: "GT-Walsheim-Bold";
+      padding: 12px 0;
+    }
+    .collapse {
+      p {
+        margin-bottom: 12px;
+      }
+    }
+    @media (max-width: 450px) {
+      padding: 8px 15px;
+      > div {
+        button {
+          padding: 10px;
+        }
+      }
+      .question {
+        font-size: 16px;
+        line-height: 20px;
+        padding: 8px 0;
+      }
+      .collapse {
+        p {
+          font-size: 14px;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}

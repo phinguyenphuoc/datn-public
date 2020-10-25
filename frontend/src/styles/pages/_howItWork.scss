@@ -1,0 +1,231 @@
+.how-it-word__banner {
+  background: url("../../assets/images/banner-howitworks.svg")
+    $secondary-light-color no-repeat 100% 100% / 40%;
+  overflow: hidden;
+  padding-bottom: 60px;
+  @media only screen and (min-width: 1400px) {
+    background-size: contain;
+  }
+  &__text {
+    width: 50%;
+    padding: 6% 0%;
+    &__title {
+      max-width: 380px;
+      .author {
+        text-align: center;
+      }
+    }
+  }
+  @media only screen and (max-width: 1052px) {
+    &__text {
+      width: 60%;
+    }
+  }
+  @media only screen and (max-width: 921px) {
+    background-image: none;
+    padding-bottom: 30px;
+    &__text {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      &__title {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.trial-lesson {
+  background: url("../../assets/images/bg-line.svg") $primary-color no-repeat 0%
+    100% / contain;
+  &__inner {
+    @include flex_parent_centered();
+    &__img {
+      @include flex_parent_centered();
+      height: fit-content;
+      position: relative;
+      bottom: -66px;
+      width: 50%;
+      @media (max-width: 940px) {
+        bottom: 0;
+      }
+      img {
+        width: 90%;
+        max-width: 400px;
+      }
+    }
+    &__text {
+      width: 50%;
+      margin: 0 0 0 20px;
+      p {
+        margin-bottom: 15px;
+      }
+      .text-title {
+        position: relative;
+        margin-bottom: 25px;
+        h2 {
+          margin-bottom: 0;
+          position: relative;
+        }
+        .icon-note {
+          @include icon-note__style();
+          bottom: 4px;
+          left: 26px;
+          color: #4d40ce;
+        }
+        .icon-note-double {
+          @include icon-note-double_style();
+          top: -10px;
+          left: 24%;
+          color: #4d40ce;
+        }
+      }
+    }
+    @media (max-width: 650px) {
+      flex-direction: column;
+      &__img,
+      &__text {
+        width: 100%;
+      }
+      &__img {
+        margin: 15px 0 20px;
+        img {
+          width: 100%;
+          max-width: 300px;
+        }
+      }
+      &__text {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.how-it-work__steps {
+  background: url("../../assets/images/bg-line1.svg") $white no-repeat 20% 100% /
+    contain;
+  text-align: center;
+  padding: 7% 0 40px;
+  @media (max-width: 800px) {
+    padding: 50px 0 40px;
+  }
+  &__inner {
+    .text__title {
+      position: relative;
+      margin-bottom: 5%;
+      h2 {
+        margin-bottom: 0;
+        position: relative;
+      }
+      .icon-note {
+        bottom: -17px;
+        left: 49%;
+        transform: rotate(13deg);
+        color: #dedaff;
+        font-size: 30px;
+        position: absolute;
+      }
+      .icon-note-double {
+        font-size: 35px;
+        top: -10px;
+        left: 65%;
+        transform: rotate(-13deg);
+        color: #ffd1c4;
+        position: absolute;
+      }
+    }
+    .step.step1 {
+      background: url("../../assets/images/Rectangle-howitwork1.png") no-repeat
+        100% 100% / contain;
+    }
+    .step.step3 {
+      background: url("../../assets/images/Rectangle-howitwork2.png") no-repeat
+        100% 100% / contain;
+    }
+    .step.step4 {
+      background: url("../../assets/images/Rectangle-howitwork3.png") no-repeat
+        0% 100% / contain;
+    }
+    .step {
+      margin: 30px 0;
+      @media (max-width: 1100px) {
+        background: none !important;
+      }
+      &__wrap {
+        display: flex;
+        align-items: center;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+        text-align: left;
+        padding: 30px;
+        &__text {
+          max-width: 432px;
+          p {
+            margin-bottom: 15px;
+          }
+        }
+        img {
+          margin-right: 6%;
+        }
+        @media (max-width: 645px) {
+          flex-direction: column;
+          padding: 0 30px;
+          img {
+            width: 35%;
+            margin-right: 0;
+            &__text {
+              margin-right: 0;
+            }
+          }
+        }
+        @media (max-width: 450px) {
+          padding: 15px;
+        }
+      }
+    }
+    .step:nth-child(even) .step__wrap {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.start {
+  background: url("../../assets/images/banner-tryhomemuse.svg") $primary-color
+    no-repeat 100% 100% / 55%;
+  padding: 70px 0;
+  @media only screen and (min-width: 1400px) {
+    background-size: contain;
+  }
+  .text__title {
+    position: relative;
+    h2 {
+      position: relative;
+    }
+    .icon-note {
+      @include icon-note__style();
+      bottom: -14px;
+      left: 8%;
+      color: #4d40ce;
+    }
+    .icon-note-double {
+      @include icon-note-double_style();
+      top: -10px;
+      left: 30%;
+      color: #4d40ce;
+    }
+  }
+  @media (max-width: 450px) {
+    h2,
+    p {
+      margin-bottom: 14px !important;
+    }
+    .h2 {
+      font-size: 2.5rem;
+    }
+    .button {
+      font-size: 0.9em;
+      height: 45px;
+    }
+  }
+}

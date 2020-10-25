@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140px" height="140px" viewBox="0 0 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <rect id="Rectangle" fill="#6254E8" x="0" y="0" width="140" height="140" rx="25"></rect>
+            <g id="iconfinder_ic_center_focus_strong_48px_351985" transform="translate(46.000000, 46.000000)">
+                <polygon id="Path" points="0 0 48 0 48 48 0 48"></polygon>
+                <path d="M24,16 C19.58,16 16,19.58 16,24 C16,28.42 19.58,32 24,32 C28.42,32 32,28.42 32,24 C32,19.58 28.42,16 24,16 Z M10,30 L6,30 L6,38 C6,40.21 7.79,42 10,42 L18,42 L18,38 L10,38 L10,30 Z M10,10 L18,10 L18,6 L10,6 C7.79,6 6,7.79 6,10 L6,18 L10,18 L10,10 Z M38,6 L30,6 L30,10 L38,10 L38,18 L42,18 L42,10 C42,7.79 40.21,6 38,6 Z M38,38 L30,38 L30,42 L38,42 C40.21,42 42,40.21 42,38 L42,30 L38,30 L38,38 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
