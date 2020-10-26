@@ -30,7 +30,17 @@ const listTeacher = () => {
         if (err) {
           reject(err)
         } else {
-          resolve(results.rows)
+          const responseData = results.rows.map(item => {
+            return {
+              ...item,
+              tag: `${item.first_name}-${item.last_name}`,
+              rating: 5,
+              city: item.address,
+              member_since: "2020-02-29",
+              teaching_type: { data: ["online"] }
+            }
+          })
+          resolve(responseData)
         }
       }
     )
@@ -119,6 +129,7 @@ const listTeacherAPI = async (req, res) => {
       const arrMedias = []
       media.types.forEach((type, index) => {
         arrMedias.push({
+          details: null,
           name: "abc.jpg",
           tag: media.tags[index],
           type,
@@ -155,7 +166,10 @@ const listTeacherAPI = async (req, res) => {
       item.skills = arrSkill
     }
   })
-  res.status(200).json(profiles)
+  res.status(200).json({
+    status: "OK",
+    teachers: profiles
+  })
 }
 
 module.exports = listTeacherAPI

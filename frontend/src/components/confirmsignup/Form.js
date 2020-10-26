@@ -8,7 +8,7 @@ import ReactGA from "react-ga";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
-  const [form, setForm] = React.useState({ email: "", password: "" });
+  const [form, setForm] = React.useState({ email: "", authCode: "" });
   const [errorLogin, setErrorLogin] = React.useState();
 
   const storeLogin = useSelector((store) => store.login);
@@ -35,8 +35,8 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      login: form.email,
-      password: form.password,
+      email: form.email,
+      authCode: form.authCode,
     };
 
     handleSubmit(formData);
@@ -48,8 +48,8 @@ const Form = ({ handleSubmit }) => {
     if (!isEmail(form.email)) {
       errorState.email = "Wrong email";
     }
-    if (isEmpty(form.password)) {
-      errorState.password = "Wrong password";
+    if (isEmpty(form.authCode)) {
+      errorState.authCode = "Wrong authCode";
     }
     return errorState;
   };
@@ -65,20 +65,6 @@ const Form = ({ handleSubmit }) => {
     });
     setErrorLogin("");
   };
-  const handleGaTracking = (type) => {
-    if (type === "forgot")
-      ReactGA.event({
-        category: "Navigation",
-        action: "Navigation to Forgot Password Page at Login Page",
-        label: "Click 'Forgot Password Link'",
-      });
-    else if (type === "teachers")
-      ReactGA.event({
-        category: "Navigation",
-        action: "Navigation to Teachers Page at Login Page",
-        label: "Click 'Find your teachere Link'",
-      });
-  };
 
   return (
     <section onSubmit={handleSubmitForm} className="login">
@@ -88,7 +74,7 @@ const Form = ({ handleSubmit }) => {
           <span className="icon-note"></span>
           <span className="icon-note note-large"></span>
           <div className="login__inner__form__text">
-            <p>Log in to your account</p>
+            <p>Sign up and become our member</p>
             <div className="error">{errorLogin}</div>
           </div>
 
@@ -106,48 +92,20 @@ const Form = ({ handleSubmit }) => {
 
           <FormBox
             propsInput={{
-              type: "password",
-              name: "password",
-              placeholder: "Password",
+              type: "authCode",
+              name: "authCode",
+              placeholder: "Auth Code",
               onChange: handleChange,
               onFocus: handleFocus,
-              value: form.password,
+              value: form.authCode,
               disabled: isSubmitting,
             }}
-            error={error.password}
+            error={error.authCode}
           />
           <button disabled={isSubmitting} className="button button--secondary">
-            Login
+            Confirm
           </button>
-          <div>
-            <Link
-              to="/signup"
-              className="primary"
-            >
-              Sign Up
-            </Link>
-          </div>
-          <div>
-            <Link
-              onClick={() => handleGaTracking("forgot")}
-              to="/forgot-password"
-              className="primary"
-            >
-              Forgot Password?
-            </Link>
-          </div>
         </ReForm>
-        <p className="--text">
-          Not a Homemuse student yet? Find your teacher{" "}
-          <Link
-            onClick={() => handleGaTracking("teachers")}
-            to="/teachers"
-            className="primary"
-          >
-            here
-          </Link>{" "}
-          and get started today!
-        </p>
       </div>
     </section>
   );

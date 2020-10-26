@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import { CardTeacher } from "../common";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
-
+import _ from "lodash";
 const ListTeachers = ({ data, dataTeachers, handleClick }) => {
   const [settings, setSettings] = React.useState({
     dots: false,
@@ -67,7 +67,7 @@ const ListTeachers = ({ data, dataTeachers, handleClick }) => {
                   id={item.id}
                   onClick={handleClick(item)}
                   key={`teacher-${item.id}`}
-                  image={item.avatar || defaultAvatar}
+                  image={_.get(item, "medias[0].url", null) || defaultAvatar}
                   name={`${item.first_name} ${item.last_name}`}
                   position={item.city}
                   description={item.pickup_line}

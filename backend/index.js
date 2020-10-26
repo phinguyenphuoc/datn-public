@@ -6,15 +6,17 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, parameterLimit: 100000, limit: '50mb' }));
-app.use(cors());
+app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
 
 // import { listTeacherAPI } from "./controller/teacher";
 const listTeacherAPI = require('./controller/teacher')
-
+const instrumentsApi = require('./controller/instrument')
 app.get('/', (req, res) => {
   res.send('welcome')
 })
-app.get('/profiles', listTeacherAPI)
+app.get('/teachers/profiles', listTeacherAPI)
+
+app.get('/instruments', instrumentsApi)
 
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);

@@ -88,7 +88,7 @@ const Form = ({ handleSubmit }) => {
           <span className="icon-note"></span>
           <span className="icon-note note-large"></span>
           <div className="login__inner__form__text">
-            <p>Log in to your account</p>
+            <p>Sign up and become our member</p>
             <div className="error">{errorLogin}</div>
           </div>
 
@@ -117,25 +117,8 @@ const Form = ({ handleSubmit }) => {
             error={error.password}
           />
           <button disabled={isSubmitting} className="button button--secondary">
-            Login
+            Sign Up
           </button>
-          <div>
-            <Link
-              to="/signup"
-              className="primary"
-            >
-              Sign Up
-            </Link>
-          </div>
-          <div>
-            <Link
-              onClick={() => handleGaTracking("forgot")}
-              to="/forgot-password"
-              className="primary"
-            >
-              Forgot Password?
-            </Link>
-          </div>
         </ReForm>
         <p className="--text">
           Not a Homemuse student yet? Find your teacher{" "}

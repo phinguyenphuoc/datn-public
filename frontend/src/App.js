@@ -12,6 +12,7 @@ import Teachers from "./containers/Teachers";
 import TeachWithUsPage from "./containers/TeachWithUsPage";
 import LogIn from "./containers/LogIn";
 import ForgotPassword from "./containers/ForgotPassword";
+import SignUp from "./containers/SignUp";
 import ResetPassword from "./containers/ResetPassword";
 import ContactUs from "./containers/ContactUs";
 import Faq from "./containers/Faq";
@@ -54,6 +55,7 @@ import { hotjar } from "react-hotjar";
 import { GA_TRACKING_ID, HJID, HJSV, HJENABLED } from "./config.js";
 import Articles from "./containers/Articles";
 import ArticlePage from "./containers/ArticlePage";
+import ConfirmSignUp from "./containers/ConfirmSignUp";
 
 ReactGA.initialize(GA_TRACKING_ID);
 if (HJENABLED === "true") {
@@ -102,6 +104,16 @@ function App() {
             path="/forgot-password"
             exact
             component={withLayout(ForgotPassword)}
+          />
+          <Route
+            path="/signup"
+            exact
+            component={withLayout(SignUp)}
+          />
+          <Route
+            path="/confirm-signup"
+            exact
+            component={withLayout(ConfirmSignUp)}
           />
           <Route
             path="/reset-password"

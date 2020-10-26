@@ -8,6 +8,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import store from "./redux/store/index";
 import App from "./App";
+import Amplify from "aws-amplify";
+import config from "./configAuth.json";
 import * as serviceWorker from "./serviceWorker";
 import { STRIPE_KEY } from "./config";
 
@@ -20,6 +22,15 @@ import "./index.scss";
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe(STRIPE_KEY);
+
+Amplify.configure({
+  Auth: {
+    mandatorySignId: true,
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID,
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>

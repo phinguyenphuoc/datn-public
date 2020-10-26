@@ -4,7 +4,7 @@ import { RATE_DURATIONS } from "../../utils/constants";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 import HomemuseCertified from "../../assets/images/HomemuseCertified.svg";
 import { useSelector } from "react-redux";
-
+import _ from "lodash";
 const TeacherCard = ({ data, dataReview, onClickButton }) => {
   const storeGlobal = useSelector((store) => store.global);
   const [rateDurations, setRateDurations] = React.useState({});
@@ -37,7 +37,7 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
       style={{ top: storeGlobal.heightHeader + 45 }}
     >
       <img
-        src={data.avatar || defaultAvatar}
+        src={_.get(data, "medias[0].url", null) || defaultAvatar}
         alt={data.first_name}
         className="teacher__card__avatar"
       />

@@ -20,13 +20,13 @@ export const request = (opts = {}, optsHeader = {}) => {
     withCredentials: true,
   });
 
-  if (process.env.NODE_ENV === "development") {
-    axiosApi.interceptors.request.use((config) => {
-      config.params = config.params || {};
-      config.params["dev"] = "true";
-      return config;
-    });
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   axiosApi.interceptors.request.use((config) => {
+  //     config.params = config.params || {};
+  //     config.params["dev"] = "true";
+  //     return config;
+  //   });
+  // }
 
   // error will be showed in catch block instead of appeared in then
   axiosApi.interceptors.response.use(
