@@ -19,6 +19,23 @@ const instruments = {
   'trombone': 14,
   'upright bass': 15
 }
+
+const insertMusicalInstrument = (name) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `INSERT INTO instrument(name) VALUES($1) RETURNING *`,
+      [name],
+      (error, results) => {
+        if (error) {
+          console.log(error)
+          reject(error)
+        } else {
+          resolve(results.rows[0].id)
+        }
+      }
+    )
+  })
+}
 const insertProfileTable = ({
   first_name,
   last_name,
@@ -53,14 +70,19 @@ const insertProfileTable = ({
   })
 }
 
-const insertSkillTable = (profile_id, skills) => {
+const insertSkillTable = async (profile_id, skills) => {
   let valuesStr = `VALUES`
-  skills.forEach(item => {
+  for (let i = 0; i < skills.length; i++) {
+    const item = skills[i];
     const ins = item.instrument;
-    const level = item.level ? item.level : "advanced"
-    const instrument_id = instruments[`${ins}`] ? instruments[`${ins}`] : 1;
+    const level = item.level ? item.level : "advanced";
+    let instrument_id = instruments[`${ins}`]
+    if (!instrument_id) {
+      instrument_id = await insertMusicalInstrument(ins);
+      instruments[`${ins}`] = instrument_id;
+    }
     valuesStr += `(${profile_id}, ${instrument_id}, '${level}', 1),`
-  })
+  }
   valuesStr = valuesStr.slice(0, -1);
 
   return new Promise((resolve, reject) => {
@@ -153,7 +175,7 @@ const results = axios.get("https://homemuse.io/api/v1/teachers/profiles", {
       const pricings = profile.pricings;
       const medias = profile.medias;
       const profileInserted = await insertProfileTable(profile);
-      insertSkillTable(profileInserted.id, skills)
+      await insertSkillTable(profileInserted.id, skills)
       insertPriceTable(profileInserted.id, pricings)
       insertMediaTable(profileInserted.id, medias)
     }
