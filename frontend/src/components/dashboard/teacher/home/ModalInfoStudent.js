@@ -4,7 +4,7 @@ import { ModalHeader, ModalBody } from "reactstrap";
 import { Modal } from "../../../common";
 import moment from "moment";
 import avatarDefault from "../../../../assets/images/avatar-picture.svg";
-import { getSchedulesUpcomming } from "../../../../redux/actions/teacher";
+// import { getSchedulesUpcomming } from "../../../../redux/actions/teacher";
 import { useSelector } from "react-redux";
 import { formatPhoneNumber, formatTime2 } from "../../../../utils/helpers";
 import camera from "../../../../assets/images/cameraZoom.svg";

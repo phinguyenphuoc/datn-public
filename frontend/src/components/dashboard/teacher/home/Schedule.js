@@ -18,11 +18,11 @@ import {
 import { EllipsisV } from "../../../common/icons";
 import { formatTime1, formatTime2 } from "../../../../utils/helpers";
 import {
-  getInitBookings,
+  // getInitBookings,
   updateDateSchedule,
   updateDateScheduleSelected,
 } from "../../../../redux/actions/teacher";
-import { getSchedules } from "../../../../redux/actions/teacher";
+// import { getSchedules } from "../../../../redux/actions/teacher";
 import camera from "../../../../assets/images/cameraZoom.svg";
 import camera_gray from "../../../../assets/images/cameraZoomGray.svg";
 

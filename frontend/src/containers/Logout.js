@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { logout } from "../redux/actions/logout";
-import { updateIsBadToken } from "../redux/actions/global";
+// import { logout } from "../redux/actions/logout";
+// import { updateIsBadToken } from "../redux/actions/global";
 
 function Logout() {
   const history = useHistory();

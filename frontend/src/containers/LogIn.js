@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Form } from "../components/login";
 // import { openModalMessage } from "../redux/actions/modalMessage";
 import { login, updateRememberedPath } from "../redux/actions/login";
-import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "../utils/constants";
+// import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "../utils/constants";
 import { useSelector } from "react-redux";
 import { setAuth } from "../utils/helpers";
 import { Auth } from "aws-amplify";

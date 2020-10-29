@@ -1,10 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { MyStudent } from "../../../components/dashboard/teacher/myStudent";
-import {
-  getStudents,
-  getStudentProgressReport,
-} from "../../../redux/actions/teacher";
+// import {
+//   getStudents,
+//   getStudentProgressReport,
+// } from "../../../redux/actions/teacher";
 function MyStudentPage(props) {
   const storeStudents = useSelector((store) => store.teacher.students);
   const storeStudentsProgressReport = useSelector(

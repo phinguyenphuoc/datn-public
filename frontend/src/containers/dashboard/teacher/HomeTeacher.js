@@ -14,12 +14,12 @@ import {
 } from "../../../components/common";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import {
-  getStudents,
-  cancelLesson,
-  suspendLesson,
-  getEarningCurrentDetails,
-} from "../../../redux/actions/teacher";
+// import {
+//   getStudents,
+//   cancelLesson,
+//   suspendLesson,
+//   getEarningCurrentDetails,
+// } from "../../../redux/actions/teacher";
 import { reportProblem } from "../../../redux/actions/reportProblem";
 import { getAuth } from "../../../utils/helpers";
 import star from "../../../assets/images/modal-star.svg";

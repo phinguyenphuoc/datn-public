@@ -12,11 +12,11 @@ import {
   ModalStripeSuccess,
   ModalStripeWrong,
 } from "../../../components/dashboard/teacher/profile";
-import {
-  getTeacherProfile,
-  updateTeacherInfo,
-  getZoomAuthCode,
-} from "../../../redux/actions/teacher";
+// import {
+//   getTeacherProfile,
+//   updateTeacherInfo,
+//   getZoomAuthCode,
+// } from "../../../redux/actions/teacher";
 import { updatePassword } from "../../../redux/actions/updatePassword";
 import { useSelector } from "react-redux";
 import { openModalMessage } from "../../../redux/actions/modalMessage";

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";

@@ -9,19 +9,19 @@ import {
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  getBookingStudent,
-  // updateBooklesson,
-  createLesson,
-  getSchedules,
-  getSetupBooking,
-  createMakeupSchedule,
-  resetInitBookings,
-} from "../../../redux/actions/teacher";
+// import {
+//   getBookingStudent,
+//   // updateBooklesson,
+//   createLesson,
+//   getSchedules,
+//   getSetupBooking,
+//   createMakeupSchedule,
+//   resetInitBookings,
+// } from "../../../redux/actions/teacher";
 import {
   getParam,
   convertTimeToNumber,
-  roundCurrentTime,
+  // roundCurrentTime,
 } from "../../../utils/helpers";
 
 function BookALesson(props) {
@@ -336,25 +336,25 @@ function BookALesson(props) {
       }
     }
 
-    const handleAfterCallingAPISuccess = () => {
-      // resetInitBookings();
-      setOpenModalMessageBookLesson(!openModalMessageBookLesson);
-      // Reset data
-      setStudent({});
-      setForm({
-        duration: "",
-        checkboxOnetime: false,
-      });
-      // updateBooklesson({
-      //   date: "",
-      //   time: roundCurrentTime(),
-      // });
-      setError({});
-      setErrorDuration("");
-      setErrorTrial("");
-      setErrorTime("");
-      setErrorDate("");
-    };
+    // const handleAfterCallingAPISuccess = () => {
+    //   // resetInitBookings();
+    //   setOpenModalMessageBookLesson(!openModalMessageBookLesson);
+    //   // Reset data
+    //   setStudent({});
+    //   setForm({
+    //     duration: "",
+    //     checkboxOnetime: false,
+    //   });
+    //   // updateBooklesson({
+    //   //   date: "",
+    //   //   time: roundCurrentTime(),
+    //   // });
+    //   setError({});
+    //   setErrorDuration("");
+    //   setErrorTrial("");
+    //   setErrorTime("");
+    //   setErrorDate("");
+    // };
 
     if (isCancelingLesson) {
       // createMakeupSchedule(schedule_id, formData, () => {
