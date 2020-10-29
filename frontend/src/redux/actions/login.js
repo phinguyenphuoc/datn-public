@@ -1,26 +1,21 @@
 import * as types from "../constants";
-import request from "../../utils/request";
 import store from "../store";
+import { Auth } from "aws-amplify"
 
-export function login(data, resolve = () => {}) {
+export async function login() {
+  // const user = await Auth.currentUserInfo()
+  const user = await Auth.currentSession()
   store.dispatch({
-    type: types.LOGIN_API,
+    payload: user.accessToken.payload,
+    type: types.LOGIN_API_SUCCEED,
   });
-  return request()
-    .post("/login", data)
-    .then((response) => {
-      resolve(response.data);
-      store.dispatch({
-        payload: response.data,
-        type: types.LOGIN_API_SUCCEED,
-      });
-    })
-    .catch((error) => {
-      store.dispatch({
-        payload: error.data,
-        type: types.LOGIN_API_FAIL,
-      });
-    });
+}
+
+export function loginFailed(error) {
+  store.dispatch({
+    payload: error.data,
+    type: types.LOGIN_API_FAIL,
+  });
 }
 export function updateRememberedPath(path) {
   store.dispatch({

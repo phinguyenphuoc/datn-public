@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: {},
   rememberedPath: "",
+  user: {}
 };
 
 export default function reducer(state = initialState, actions) {
@@ -19,6 +20,7 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         data: actions.payload,
+        user: actions.payload,
         loading: false,
       };
     case types.LOGIN_API_FAIL:

@@ -1,12 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty } from "validator";
 
-const Form = ({ handleSubmit }) => {
-  const location = useLocation();
+const Form = (props) => {
+  const { handleSubmit } = props;
+  // const location = useLocation();
 
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({
@@ -15,9 +16,9 @@ const Form = ({ handleSubmit }) => {
   });
 
   const storeResetPassword = useSelector((store) => store.resetPassword);
-  const storeCheckPasswordResetcode = useSelector(
-    (store) => store.checkPasswordResetCode
-  );
+  // const storeCheckPasswordResetcode = useSelector(
+  //   (store) => store.checkPasswordResetCode
+  // );
   const isSubmitting = storeResetPassword.loading;
 
   const handleSubmitForm = (event) => {
@@ -29,8 +30,8 @@ const Form = ({ handleSubmit }) => {
     }
 
     const formData = {
-      code: location.search.replace("?code=", ""),
-      login: storeCheckPasswordResetcode.data.user_login,
+      code: form.code,
+      email: form.email,
       new_password: form.newPassword,
     };
 
@@ -40,6 +41,12 @@ const Form = ({ handleSubmit }) => {
   const validate = () => {
     const errorState = {};
     // check validate
+    if (isEmpty(form.email)) {
+      errorState.email = "Email is required";
+    }
+    if (isEmpty(form.code)) {
+      errorState.code = "Code is required";
+    }
     if (isEmpty(form.newPassword)) {
       errorState.newPassword = "New password is required";
     }
@@ -72,6 +79,30 @@ const Form = ({ handleSubmit }) => {
           <div className="reset-password__inner__form__text">
             <p className="fw-600">Reset your password</p>
           </div>
+          <FormBox
+            propsInput={{
+              type: "email",
+              name: "email",
+              placeholder: "Email",
+              onChange: handleChange,
+              onFocus: handleFocus,
+              value: form.email,
+              disabled: isSubmitting,
+            }}
+            error={error.newPassword}
+          />
+          <FormBox
+            propsInput={{
+              type: "code",
+              name: "code",
+              placeholder: "Code",
+              onChange: handleChange,
+              onFocus: handleFocus,
+              value: form.code,
+              disabled: isSubmitting,
+            }}
+            error={error.newPassword}
+          />
           <FormBox
             propsInput={{
               type: "password",
