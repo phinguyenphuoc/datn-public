@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function contactUs(data, resolve = () => {}) {
+export function contactUs(data, resolve = () => { }) {
   store.dispatch({
     type: types.CONTACT_US_API,
   });

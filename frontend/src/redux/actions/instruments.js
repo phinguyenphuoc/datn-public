@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function getInstruments(resolve = () => {}) {
+export function getInstruments(resolve = () => { }) {
   store.dispatch({
     type: types.GET_INSTRUMENTS,
   });

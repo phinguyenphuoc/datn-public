@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function reportProblem(data, resolve = () => {}) {
+export function reportProblem(data, resolve = () => { }) {
   store.dispatch({
     type: types.REPORT_PROBLEM,
   });

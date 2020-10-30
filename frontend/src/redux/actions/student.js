@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function registerStudent(data, resolve = () => {}) {
+export function registerStudent(data, resolve = () => { }) {
   store.dispatch({
     type: types.REGISTER_STUDENT_API,
   });
@@ -23,7 +23,7 @@ export function registerStudent(data, resolve = () => {}) {
     });
 }
 
-export function getStudentProfile(resolve = () => {}) {
+export function getStudentProfile(resolve = () => { }) {
   store.dispatch({
     type: types.GET_STUDENT_PROFILE,
   });
@@ -44,7 +44,7 @@ export function getStudentProfile(resolve = () => {}) {
     });
 }
 
-export function updateStudentInfo(data, studentId, resolve = () => {}) {
+export function updateStudentInfo(data, studentId, resolve = () => { }) {
   if (!studentId) {
     throw new Error("studentId is required!");
   }
@@ -68,7 +68,7 @@ export function updateStudentInfo(data, studentId, resolve = () => {}) {
     });
 }
 
-export function updateStudenttAvatar(data, studentId, resolve = () => {}) {
+export function updateStudenttAvatar(data, studentId, resolve = () => { }) {
   store.dispatch({
     type: types.UPDATE_STUDENT_AVATAR,
   });
@@ -89,7 +89,7 @@ export function updateStudenttAvatar(data, studentId, resolve = () => {}) {
       });
     });
 }
-export function updateParentAvatarSticker(data, studentId, resolve = () => {}) {
+export function updateParentAvatarSticker(data, studentId, resolve = () => { }) {
   store.dispatch({
     type: types.UPDATE_STUDENT_AVATAR_STICKER,
   });

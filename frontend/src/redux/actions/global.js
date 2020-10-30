@@ -1,5 +1,5 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
 export function updateIsBadToken(isBadToken) {
@@ -37,7 +37,7 @@ export function setSizeTeachersFilter(payload) {
   });
 }
 
-export function getAllTeachers(resolve = () => {}) {
+export function getAllTeachers(resolve = () => { }) {
   store.dispatch({
     type: types.GET_ALL_TEACHERS,
   });

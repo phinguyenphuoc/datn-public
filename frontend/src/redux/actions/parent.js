@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function getParentProfile(resolve = () => {}) {
+export function getParentProfile(resolve = () => { }) {
   store.dispatch({
     type: types.GET_PARENT_PROFILE,
   });
@@ -23,7 +23,7 @@ export function getParentProfile(resolve = () => {}) {
     });
 }
 
-export function updateParentInfo(data, resolve = () => {}) {
+export function updateParentInfo(data, resolve = () => { }) {
   store.dispatch({
     type: types.UPDATE_PARENT_PROFILE,
   });
@@ -44,7 +44,7 @@ export function updateParentInfo(data, resolve = () => {}) {
     });
 }
 
-export function updateParentAvatar(data, resolve = () => {}) {
+export function updateParentAvatar(data, resolve = () => { }) {
   store.dispatch({
     type: types.UPDATE_PARENT_AVATAR,
   });
@@ -65,7 +65,7 @@ export function updateParentAvatar(data, resolve = () => {}) {
     });
 }
 
-export function updateParentAvatarSticker(data, resolve = () => {}) {
+export function updateParentAvatarSticker(data, resolve = () => { }) {
   store.dispatch({
     type: types.UPDATE_PARENT_AVATAR_STICKER,
   });
@@ -87,7 +87,7 @@ export function updateParentAvatarSticker(data, resolve = () => {}) {
     });
 }
 
-export function getTeachers(resolve = () => {}) {
+export function getTeachers(resolve = () => { }) {
   store.dispatch({
     type: types.GET_TEACHERS_PROFILE,
   });
@@ -108,7 +108,7 @@ export function getTeachers(resolve = () => {}) {
     });
 }
 
-export function getSchedulesParent(date, resolve = () => {}) {
+export function getSchedulesParent(date, resolve = () => { }) {
   store.dispatch({
     type: types.GET_SCHEDULES_PARENT,
   });
@@ -129,7 +129,7 @@ export function getSchedulesParent(date, resolve = () => {}) {
     });
 }
 
-export function getSchedulesParentUpcomming(teacherId, resolve = () => {}) {
+export function getSchedulesParentUpcomming(teacherId, resolve = () => { }) {
   store.dispatch({
     type: types.GET_SCHEDULES_PARENT_UPCOMMING,
   });
@@ -162,7 +162,7 @@ export function updateDateScheduleSelected(date) {
   });
 }
 
-export function getCardSetup(resolve = () => {}) {
+export function getCardSetup(resolve = () => { }) {
   store.dispatch({
     type: types.GET_CARD_SETUP,
   });
@@ -183,7 +183,7 @@ export function getCardSetup(resolve = () => {}) {
     });
 }
 
-export function postCardSave(data, resolve = () => {}) {
+export function postCardSave(data, resolve = () => { }) {
   store.dispatch({
     type: types.POST_CARD_SAVE,
   });
@@ -210,7 +210,7 @@ export function resetCardSaveSuccess() {
   });
 }
 
-export function getCardInfo(resolve = () => {}) {
+export function getCardInfo(resolve = () => { }) {
   store.dispatch({
     type: types.GET_CARD_INFO,
   });
@@ -231,7 +231,7 @@ export function getCardInfo(resolve = () => {}) {
     });
 }
 
-export function cancelLesson(schedule_id, resolve = () => {}) {
+export function cancelLesson(schedule_id, resolve = () => { }) {
   store.dispatch({
     type: types.CANCEL_LESSON_SCHEDULE_FOR_PARENT,
   });
@@ -253,7 +253,7 @@ export function cancelLesson(schedule_id, resolve = () => {}) {
     });
 }
 
-export function suspendLesson(lesson_id, data, resolve = () => {}) {
+export function suspendLesson(lesson_id, data, resolve = () => { }) {
   store.dispatch({
     type: types.CANCEL_LESSON_SCHEDULE_FOR_PARENT,
   });
@@ -276,7 +276,7 @@ export function suspendLesson(lesson_id, data, resolve = () => {}) {
     });
 }
 
-export function getProgressReport(resolve = () => {}) {
+export function getProgressReport(resolve = () => { }) {
   store.dispatch({
     type: types.GET_PROGRESS_REPORT_PARENT,
   });
@@ -297,7 +297,7 @@ export function getProgressReport(resolve = () => {}) {
     });
 }
 
-export function getStudentProgressReport(profil_id, resolve = () => {}) {
+export function getStudentProgressReport(profil_id, resolve = () => { }) {
   store.dispatch({
     type: types.GET_STUDENT_PROGRESS_REPORT_FOR_PARENT,
   });
@@ -321,7 +321,7 @@ export function getStudentProgressReport(profil_id, resolve = () => {}) {
 
 export function getStudentProgressReportItem(
   progress_report_id,
-  resolve = () => {}
+  resolve = () => { }
 ) {
   store.dispatch({
     type: types.GET_PROGRESS_REPORT_ITEM_FOR_PARENT,
@@ -351,7 +351,7 @@ export function updateDatePaymentsInvoices(date) {
   });
 }
 
-export function getPaymentsInvoices(date, resolve = () => {}) {
+export function getPaymentsInvoices(date, resolve = () => { }) {
   store.dispatch({
     type: types.GET_PARENT_PAYMENTS_INVOICES,
   });

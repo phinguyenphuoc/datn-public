@@ -1,6 +1,23 @@
 import axios from "axios";
 import { API_URL } from "../config";
 import { updateIsBadToken } from "../redux/actions/global";
+import { Auth } from "aws-amplify";
+
+export const getHeader = async () => {
+  try {
+    const currentSession = await Auth.currentSession();
+    const accessToken = currentSession.getAccessToken()
+    const token = accessToken.getJwtToken();
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  } catch (error) {
+    localStorage.clear();
+    window.location.replace("/");
+  }
+}
 
 export const request = (opts = {}, optsHeader = {}) => {
   /*
@@ -55,4 +72,3 @@ export const request = (opts = {}, optsHeader = {}) => {
   return axiosApi;
 };
 
-export default request;

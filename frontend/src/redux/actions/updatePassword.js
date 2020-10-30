@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function updatePassword(data, resolve = () => {}) {
+export function updatePassword(data, resolve = () => { }) {
   store.dispatch({
     type: types.UPDATE_PASSWORD,
   });

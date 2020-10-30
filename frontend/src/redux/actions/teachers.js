@@ -1,5 +1,5 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
 export function getTeachers(params = {}, dataFromAPI = []) {

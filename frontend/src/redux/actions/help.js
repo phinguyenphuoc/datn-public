@@ -1,8 +1,8 @@
 import * as types from "../constants";
-import request from "../../utils/request";
+import { request } from "../../utils/request";
 import store from "../store";
 
-export function postHelp(data, resolve = () => {}) {
+export function postHelp(data, resolve = () => { }) {
   store.dispatch({
     type: types.HELP_REQUEST,
   });
