@@ -12,12 +12,12 @@ const withAuth = (Component, rolesAccepted = []) => (props) => {
   const isBadToken = useSelector((store) => store.global.isBadToken);
 
   React.useEffect(() => {
-    // if (isBadToken) {
-    //   updateRememberedPath(
-    //     props.location ? props.location.pathname + props.location.search : "/"
-    //   );
-    //   history.push("/logout");
-    // }
+    if (isBadToken) {
+      updateRememberedPath(
+        props.location ? props.location.pathname + props.location.search : "/"
+      );
+      history.push("/logout");
+    }
   }, [isBadToken, history, props.location]);
 
   const checkAndRedirect = React.useCallback(() => {
