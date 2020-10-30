@@ -1,13 +1,34 @@
 import * as types from "../constants";
 import store from "../store";
 import { Auth } from "aws-amplify"
+import { request, getHeader } from "../../utils/request";
 
-export async function login() {
-  // const user = await Auth.currentUserInfo()
+export async function login(resolve = () => { }) {
   const user = await Auth.currentSession()
+  const headers = await getHeader();
+  return request()
+    .get("/profile", headers)
+    .then((response) => {
+      resolve();
+      store.dispatch({
+        payload: {
+          user: user.accessToken.payload,
+          profile: response.data
+        },
+        type: types.LOGIN_API_SUCCEED,
+      });
+    })
+    .catch((error) => {
+      store.dispatch({
+        payload: error.data,
+        type: types.GET_PROFILE_ERROR,
+      });
+    });
+
+}
+export function startLogin() {
   store.dispatch({
-    payload: user.accessToken.payload,
-    type: types.LOGIN_API_SUCCEED,
+    type: types.LOGIN_API
   });
 }
 

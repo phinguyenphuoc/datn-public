@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Form } from "../components/login";
 import { closeModalMessage } from "../redux/actions/modalMessage";
-import { updateRememberedPath, login as saveUser } from "../redux/actions/login";
+import { updateRememberedPath, login as saveUser, startLogin } from "../redux/actions/login";
 import { USER_ROLE_TEACHER, USER_ROLE_STUDENT } from "../utils/constants";
 import { useSelector } from "react-redux";
-// import { setAuth } from "../utils/helpers";
 import { Auth } from "aws-amplify";
 
 function LogIn() {
@@ -16,12 +15,11 @@ function LogIn() {
   }, [])
   const handleLogin = (formData) => {
     const { login, password } = formData;
+    startLogin() // Disable button
     Auth.signIn(login, password)
-      .then(user => {
+      .then(async user => {
         const user_role = user.signInUserSession.accessToken.payload['cognito:groups'][0]
-        console.log(user.signInUserSession.accessToken.payload['cognito:groups'])
-        // setAuth(user);
-        saveUser()
+        saveUser() // Get profile and save auth
         if (storeLogin.rememberedPath) {
           history.push(storeLogin.rememberedPath);
           updateRememberedPath("");

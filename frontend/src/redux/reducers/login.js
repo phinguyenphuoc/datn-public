@@ -1,11 +1,13 @@
 import * as types from "../constants";
+import { setAuth } from "../../utils/helpers";
 
 const initialState = {
   data: {},
   loading: false,
   error: {},
   rememberedPath: "",
-  user: {}
+  user: {},
+  profile: {}
 };
 
 export default function reducer(state = initialState, actions) {
@@ -17,11 +19,23 @@ export default function reducer(state = initialState, actions) {
         error: {},
       };
     case types.LOGIN_API_SUCCEED:
+      const { user, profile } = actions.payload
+      const auth = {}
+      auth.user_avatar = profile.medias[0].url
+      auth.user_first_name = profile.first_name
+      auth.user_last_name = profile.last_name
+      auth.user_login = user.username
+      auth.user_roles = user['cognito:groups']
+      auth.user_payment_updated = true
+      auth.user_password_updated = true
+      auth.status = "OK"
+      setAuth(auth)
       return {
         ...state,
-        data: actions.payload,
-        user: actions.payload,
-        loading: false,
+        data: user,
+        user: user,
+        profile: profile,
+        loading: false
       };
     case types.LOGIN_API_FAIL:
       return {
@@ -34,7 +48,8 @@ export default function reducer(state = initialState, actions) {
         ...state,
         rememberedPath: actions.payload,
       };
+
     default:
       return state;
   }
-}
+} 

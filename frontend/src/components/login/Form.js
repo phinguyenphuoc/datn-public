@@ -14,12 +14,6 @@ const Form = ({ handleSubmit }) => {
   const storeLogin = useSelector((store) => store.login);
   const isSubmitting = storeLogin.loading;
 
-  React.useEffect(() => {
-    if (storeLogin.error.status === "BAD_CREDENTIALS") {
-      setErrorLogin("Wrong email or password, please try again");
-    }
-  }, [storeLogin]);
-
   const handleSubmitForm = (event) => {
     ReactGA.event({
       category: "Navigation",
