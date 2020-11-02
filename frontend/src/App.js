@@ -190,54 +190,54 @@ function App() {
           />
           {/* Dashboard Pages for parent */}
           <Route
-            path="/dashboard/parent"
+            path="/dashboard/student"
             component={withAuth(withLayoutDashboard(Home), [USER_ROLE_PARENT])}
             exact
           />
           <Route
-            path="/dashboard/parent/progress-report"
+            path="/dashboard/student/progress-report"
             component={withAuth(withLayoutDashboard(ProgressReport), [
               USER_ROLE_PARENT,
             ])}
             exact
           />
           <Route
-            path="/dashboard/parent/progress-report/history"
+            path="/dashboard/student/progress-report/history"
             component={withAuth(withLayoutDashboard(ProgressHistory), [
               USER_ROLE_PARENT,
             ])}
             exact
           />
           <Route
-            path="/dashboard/parent/progress-report/history/:dateReport"
+            path="/dashboard/student/progress-report/history/:dateReport"
             component={withAuth(withLayoutDashboard(OldProgressReport), [
               USER_ROLE_PARENT,
             ])}
             exact
           />
           <Route
-            path="/dashboard/parent/profile/users/:userId"
+            path="/dashboard/student/profile/users/:userId"
             component={withAuth(withLayoutDashboard(UserStudent), [
               USER_ROLE_PARENT,
             ])}
             exact
           />
           <Route
-            path="/dashboard/parent/payment"
+            path="/dashboard/student/payment"
             component={withAuth(withLayoutDashboard(PaymentPage), [
               USER_ROLE_PARENT,
             ])}
             exact
           />
           <Route
-            path="/dashboard/parent/profile"
+            path="/dashboard/student/profile"
             component={withAuth(withLayoutDashboard(ProfileParent), [
               USER_ROLE_PARENT,
             ])}
           />
           {/* Dashboardver2 parent profiles */}
           <Route
-            path="/dashboardver2/parent/profiles"
+            path="/dashboardver2/student/profiles"
             component={withAuth(
               withLayoutDashboardVer2(Profiles, true, "profiles"),
               [USER_ROLE_PARENT]

@@ -23,7 +23,7 @@ function Header({ isDashboard, showHideHeader, page }) {
   const headerRef = React.useRef(null);
   const headerNotiRef = React.useRef(null);
   const isProgressParentPage = location.pathname.includes(
-    "/dashboard/parent/progress-report"
+    "/dashboard/student/progress-report"
   );
   const isMyStudentPage = location.pathname.includes(
     "/dashboard/teacher/my-students-page"
@@ -32,7 +32,7 @@ function Header({ isDashboard, showHideHeader, page }) {
     "/dashboard/teacher/new-lesson"
   );
 
-  const isDashboardParent = location.pathname.includes("/dashboard/parent");
+  const isDashboardParent = location.pathname.includes("/dashboard/student");
   const isDashboardTeacher = location.pathname.includes("/dashboard/teacher");
   const storageNoti = localStorage.getItem("notification");
 
@@ -130,11 +130,11 @@ function Header({ isDashboard, showHideHeader, page }) {
             <Home />
             <span>Home</span>
           </NavLink>
-          <NavLink activeClassName="--active" to="/dashboard/parent/profile">
+          <NavLink activeClassName="--active" to="/dashboard/student/profile">
             <User />
             <span>Profile</span>
           </NavLink>
-          <NavLink activeClassName="--active" to="/dashboard/parent/payment">
+          <NavLink activeClassName="--active" to="/dashboard/student/payment">
             <svg
               width="20"
               height="14"

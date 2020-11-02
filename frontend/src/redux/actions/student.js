@@ -28,7 +28,7 @@ export function getStudentProfile(resolve = () => { }) {
     type: types.GET_STUDENT_PROFILE,
   });
   return request()
-    .get("/parent/students/profiles")
+    .get("/student/students/profiles")
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -52,7 +52,7 @@ export function updateStudentInfo(data, studentId, resolve = () => { }) {
     type: types.UPDATE_STUDENT_PROFILE,
   });
   return request()
-    .put(`/parent/students/profiles/${studentId}`, data)
+    .put(`/student/students/profiles/${studentId}`, data)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -73,7 +73,7 @@ export function updateStudenttAvatar(data, studentId, resolve = () => { }) {
     type: types.UPDATE_STUDENT_AVATAR,
   });
   return request()
-    .post(`/parent/students/profiles/${studentId}/avatar`, data)
+    .post(`/student/students/profiles/${studentId}/avatar`, data)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -95,7 +95,7 @@ export function updateParentAvatarSticker(data, studentId, resolve = () => { }) 
   });
 
   return request()
-    .post(`/parent/students/profiles/${studentId}/avatar`, data)
+    .post(`/student/students/profiles/${studentId}/avatar`, data)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

@@ -28,7 +28,7 @@ function ProfileParent(props) {
     (store) => store.student.students.data
   );
   React.useEffect(() => {
-    getParentProfile();
+    // getParentProfile();
     getStickersInfo();
   }, []);
   const storeStickers = useSelector((store) => store.stickers);
@@ -42,6 +42,8 @@ function ProfileParent(props) {
   };
 
   const handleUpdateProfile = (formData) => {
+    console.log("formData", formData)
+    // const { address, birth_date,  first_name, last_name, phone} = formData
     updateParentInfo(formData, (data) => {
       openModalMessage({
         title: "Profile updated",
@@ -96,13 +98,13 @@ function ProfileParent(props) {
         userInfo={storeParentProfile}
       >
         <Switch>
-          <Route path="/dashboard/parent/profile" exact>
+          <Route path="/dashboard/student/profile" exact>
             <GeneralInfo handleSubmit={handleUpdateProfile} />
           </Route>
-          <Route path="/dashboard/parent/profile/password" exact>
+          <Route path="/dashboard/student/profile/password" exact>
             <Password handleSubmit={handleUpdatePassword} />
           </Route>
-          <Route path="/dashboard/parent/profile/users" exact>
+          <Route path="/dashboard/student/profile/users" exact>
             <Users userInfo={storeStudentProfile} />
           </Route>
         </Switch>

@@ -142,7 +142,7 @@ function GeneralInfo({ handleSubmit }) {
   React.useEffect(() => {
     const address =
       storeParentProfile.data.address &&
-      storeParentProfile.data.address.length >= 4
+        storeParentProfile.data.address.length >= 4
         ? storeParentProfile.data.address
         : ["", "", "", ""];
     setForm({
@@ -171,13 +171,12 @@ function GeneralInfo({ handleSubmit }) {
     }
 
     const formData = {
-      profil: {
-        first_name: form.firstName,
-        last_name: form.lastName,
-        phone: getPhoneNumberOnlyDigits(form.phoneNumber),
-        birth_date: moment(dayOfBirth).format("YYYY/MM/DD"),
-        address: [form.address1, form.address2, form.city, form.addressZip],
-      },
+      first_name: form.firstName,
+      last_name: form.lastName,
+      phone_number: getPhoneNumberOnlyDigits(form.phoneNumber),
+      birth_date: moment(dayOfBirth).format("YYYY/MM/DD"),
+      // address: [form.address1, form.address2, form.city, form.addressZip]
+      address: form.city
     };
     handleSubmit(formData);
   };

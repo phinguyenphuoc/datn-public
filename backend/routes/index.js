@@ -8,7 +8,8 @@ const pem = jwkToPem(jwk.keys[1]);
 
 const byPass = [
   "/instruments",
-  "/teachers/profiles"
+  "/teachers/profiles",
+  "/student/profile"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {

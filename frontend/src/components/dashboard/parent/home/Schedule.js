@@ -485,7 +485,7 @@ function Schedule({
   const dateCancelled = getDataDates("cancelled");
 
   React.useEffect(() => {
-    getSchedulesParent(moment(storeDateSchedule).format("YYYY-MM"));
+    // getSchedulesParent(moment(storeDateSchedule).format("YYYY-MM"));
   }, [storeDateSchedule]);
 
   const handleChangeDateOnPicker = (value) => {
@@ -562,8 +562,8 @@ function Schedule({
                 {dataStudents.length >= 1 ? (
                   <p>{item.lesson.student_info && item.lesson.student_info}</p>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
 
                 <div className="--hour">
                   <h4>
@@ -687,21 +687,21 @@ function Schedule({
                 <ClearIcon onClick={handleClick} />
               </button>
             ) : (
-              <div className="class-schedule__date">
-                <SingleSelectFormat
-                  options={OPTIONS_MONTHS}
-                  placeholder="Month"
-                  onChange={handleChangeMonth}
-                  value={{ value: formatMonth, label: formatMonth }}
-                />
-                <SingleSelectFormat
-                  options={OPTIONS_YEARS}
-                  placeholder="Year"
-                  onChange={handleChangeYear}
-                  value={{ value: formatYear, label: formatYear }}
-                />
-              </div>
-            )}
+                <div className="class-schedule__date">
+                  <SingleSelectFormat
+                    options={OPTIONS_MONTHS}
+                    placeholder="Month"
+                    onChange={handleChangeMonth}
+                    value={{ value: formatMonth, label: formatMonth }}
+                  />
+                  <SingleSelectFormat
+                    options={OPTIONS_YEARS}
+                    placeholder="Year"
+                    onChange={handleChangeYear}
+                    value={{ value: formatYear, label: formatYear }}
+                  />
+                </div>
+              )}
             {dataSchedules.loading ? (
               <Loading />
             ) : upcomingLesson.length || pastLesson.length ? (
@@ -738,8 +738,8 @@ function Schedule({
                 )}
               </div>
             ) : (
-              <NoLesson />
-            )}
+                  <NoLesson />
+                )}
           </div>
         </div>
       </div>

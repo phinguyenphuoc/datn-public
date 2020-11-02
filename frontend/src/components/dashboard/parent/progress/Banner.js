@@ -282,7 +282,7 @@ function Banner({ dataProgressReport }) {
   const oldHistoryState = history.location.state ? history.location.state : {};
 
   const handleClickViewHistory = () => {
-    history.push("/dashboard/parent/progress-report/history", {
+    history.push("/dashboard/student/progress-report/history", {
       ...oldHistoryState,
     });
   };
@@ -292,7 +292,7 @@ function Banner({ dataProgressReport }) {
       <div className="container">
         <div className="progress-header">
           <div className="Banner__text">
-            <Link to="/dashboard/parent">Home</Link>
+            <Link to="/dashboard/student">Home</Link>
             <p className="arrow">
               <ChevronRight />
             </p>
@@ -300,7 +300,7 @@ function Banner({ dataProgressReport }) {
               className="text-color"
               to={{
                 ...history.location,
-                pathname: "/dashboard/parent/progress-report",
+                pathname: "/dashboard/student/progress-report",
               }}
             >
               {dataProgressReport.student &&
@@ -347,13 +347,13 @@ function Banner({ dataProgressReport }) {
                       <img src={star} alt="start" />
                     </>
                   ) : (
-                    <>
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                    </>
-                  )}
+                          <>
+                            <img src={star} alt="start" />
+                            <img src={star} alt="start" />
+                            <img src={star} alt="start" />
+                            <img src={star} alt="start" />
+                          </>
+                        )}
                 </div>
               </div>
             </div>

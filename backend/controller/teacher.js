@@ -47,6 +47,23 @@ const listTeacher = () => {
   })
 }
 
+const getTeacherProfile = ({ sub }) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT * FROM profile WHERE user_id = $1 AND is_teacher = true`,
+      [sub],
+      (err, results) => {
+        if (err) {
+          reject(err)
+        } else {
+          const responseData = results.rows[0]
+          resolve(responseData)
+        }
+      }
+    )
+  })
+}
+
 const getMedias = (listProfileId) => {
   return new Promise((resolve, reject) => {
     query(
@@ -172,4 +189,20 @@ const listTeacherAPI = async (req, res) => {
   })
 }
 
-module.exports = listTeacherAPI
+const getTeacherProfileAPI = async (req, res) => {
+  const profile = await getTeacherProfile(req.body)
+  const id = profile.id
+  await Promise.all([getMedias([id]), getPricing([id]), getSkills([id])])
+    .then(results => {
+      profile.medias = results[0]
+      profile.pricing = results[1]
+      profile.skills = results[2]
+    })
+    .catch(err => console.log(err))
+  res.status(200).json({
+    status: "OK",
+    teachers: [profile]
+  })
+}
+
+module.exports = { listTeacherAPI, getTeacherProfileAPI }

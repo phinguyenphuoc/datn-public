@@ -289,7 +289,7 @@ function Banner({ dataProgressReport }) {
             <Link
               to={{
                 ...history.location,
-                pathname: "/dashboard/parent/progress-report/",
+                pathname: "/dashboard/student/progress-report/",
               }}
             >
               {dataProgressReport.student &&
@@ -301,7 +301,7 @@ function Banner({ dataProgressReport }) {
             <Link
               to={{
                 ...history.location,
-                pathname: "/dashboard/parent/progress-report/history",
+                pathname: "/dashboard/student/progress-report/history",
               }}
             >
               History
@@ -314,7 +314,7 @@ function Banner({ dataProgressReport }) {
             </div>
           </div>
           <div className="button-group">
-            {/* <Link to="/dashboard/parent/progress-report/print">
+            {/* <Link to="/dashboard/student/progress-report/print">
               <button className="fw-500 bt-print">
                 Print my report
                 <span>
@@ -349,13 +349,13 @@ function Banner({ dataProgressReport }) {
                       <img src={star} alt="start" />
                     </>
                   ) : (
-                    <>
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                    </>
-                  )}
+                          <>
+                            <img src={star} alt="start" />
+                            <img src={star} alt="start" />
+                            <img src={star} alt="start" />
+                            <img src={star} alt="start" />
+                          </>
+                        )}
                 </div>
               </div>
             </div>

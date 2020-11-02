@@ -43,7 +43,7 @@ function Users({ userInfo }) {
           userInfo.map((item) => (
             <Link
               key={`student-${item.id}`}
-              to={`/dashboard/parent/profile/users/${item.id}`}
+              to={`/dashboard/student/profile/users/${item.id}`}
               className="user__item"
             >
               <img src={item.avatar || user} alt="avatar" />

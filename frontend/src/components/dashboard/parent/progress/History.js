@@ -225,7 +225,7 @@ function History({ studentProgressReport, dataStudent }) {
 
   const handleClickViewProgressReport = (item = {}) => () => {
     history.push(
-      `/dashboard/parent/progress-report/history/${moment(
+      `/dashboard/student/progress-report/history/${moment(
         item.reported_date
       ).format("MMMM-YYYY")}`,
       {
@@ -249,10 +249,10 @@ function History({ studentProgressReport, dataStudent }) {
       month && year
         ? moment(item.date).format("YYYY-MMMM") === `${year}-${month}`
         : month
-        ? moment(item.date).format("MMMM") === month
-        : year
-        ? moment(item.date).format("YYYY") === year
-        : ""
+          ? moment(item.date).format("MMMM") === month
+          : year
+            ? moment(item.date).format("YYYY") === year
+            : ""
     );
   }
 
@@ -277,7 +277,7 @@ function History({ studentProgressReport, dataStudent }) {
           <Link
             to={{
               ...history.location,
-              pathname: "/dashboard/parent/progress-report",
+              pathname: "/dashboard/student/progress-report",
             }}
           >
             {dataStudent && `My progress: ${dataStudent.name}`}
@@ -287,7 +287,7 @@ function History({ studentProgressReport, dataStudent }) {
           </p>
           <Link
             className="text-color"
-            to="/dashboard/parent/progress-report/history"
+            to="/dashboard/student/progress-report/history"
           >
             History
           </Link>
@@ -315,76 +315,76 @@ function History({ studentProgressReport, dataStudent }) {
               <Loading />
             ) : dataStudentProgressReport &&
               dataStudentProgressReport.length ? (
-              <Table borderless>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Level</th>
-                    <th>Rate</th>
-                    <th>Teacher Comments</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dataStudentProgressReport.map((item, index) => (
-                    <tr key={index}>
-                      <td>
-                        {" "}
-                        <img src={file} alt="file" />{" "}
-                        {moment(item.reported_date).format("MMMM, YYYY")}
-                      </td>
-                      <td>{item.level}</td>
-                      <td>
-                        {windowWidth > 450 ? (
-                          item.rating === 1 ? (
-                            <img src={star} alt="start" />
-                          ) : item.rating === 2 ? (
-                            <>
-                              <img src={star} alt="start" />
-                              <img src={star} alt="start" />
-                            </>
-                          ) : (
-                            <>
-                              <img src={star} alt="start" />
-                              <img src={star} alt="start" />
-                              <img src={star} alt="start" />
-                            </>
-                          )
-                        ) : item.rating === 1 ? (
-                          <span>
-                            1<img src={star} alt="start" />
-                          </span>
-                        ) : item.rating === 2 ? (
-                          <span>
-                            2<img src={star} alt="start" />
-                          </span>
-                        ) : (
-                          <span>
-                            3<img src={star} alt="start" />
-                          </span>
-                        )}
-                      </td>
-                      <td>
-                        <p>{item.comment}</p>
-                      </td>
-                      <td>
-                        <IconButton
-                          className="eye"
-                          onClick={handleClickViewProgressReport(item)}
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            ) : (
-              <NoData
-                noDataText="NO PROGRESS REPORTS FOUND"
-                noDataImage={imgNoDataProgress}
-              />
-            )}
+                  <Table borderless>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Level</th>
+                        <th>Rate</th>
+                        <th>Teacher Comments</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dataStudentProgressReport.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            {" "}
+                            <img src={file} alt="file" />{" "}
+                            {moment(item.reported_date).format("MMMM, YYYY")}
+                          </td>
+                          <td>{item.level}</td>
+                          <td>
+                            {windowWidth > 450 ? (
+                              item.rating === 1 ? (
+                                <img src={star} alt="start" />
+                              ) : item.rating === 2 ? (
+                                <>
+                                  <img src={star} alt="start" />
+                                  <img src={star} alt="start" />
+                                </>
+                              ) : (
+                                    <>
+                                      <img src={star} alt="start" />
+                                      <img src={star} alt="start" />
+                                      <img src={star} alt="start" />
+                                    </>
+                                  )
+                            ) : item.rating === 1 ? (
+                              <span>
+                                1<img src={star} alt="start" />
+                              </span>
+                            ) : item.rating === 2 ? (
+                              <span>
+                                2<img src={star} alt="start" />
+                              </span>
+                            ) : (
+                                    <span>
+                                      3<img src={star} alt="start" />
+                                    </span>
+                                  )}
+                          </td>
+                          <td>
+                            <p>{item.comment}</p>
+                          </td>
+                          <td>
+                            <IconButton
+                              className="eye"
+                              onClick={handleClickViewProgressReport(item)}
+                            >
+                              <VisibilityIcon />
+                            </IconButton>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <NoData
+                    noDataText="NO PROGRESS REPORTS FOUND"
+                    noDataImage={imgNoDataProgress}
+                  />
+                )}
           </div>
         </div>
       </div>

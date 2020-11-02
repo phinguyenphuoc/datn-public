@@ -285,7 +285,7 @@ function InfoSeveralStudent({
   const oldHistoryState = history.location.state ? history.location.state : {};
 
   const handleclickProgressReport = (item = {}) => () => {
-    history.push("/dashboard/parent/progress-report", {
+    history.push("/dashboard/student/progress-report", {
       ...oldHistoryState,
       progress: item,
     });
@@ -333,11 +333,11 @@ function InfoSeveralStudent({
                   ))}
                 </Slider>
               ) : (
-                <NoData
-                  noDataText="NO TEACHERS YET"
-                  noDataImage={imgNoDataTeacher}
-                />
-              )}
+                    <NoData
+                      noDataText="NO TEACHERS YET"
+                      noDataImage={imgNoDataTeacher}
+                    />
+                  )}
             </div>
           </div>
           <div className="musical item">
@@ -376,13 +376,13 @@ function InfoSeveralStudent({
                                 <img src={star} alt="start" />
                               </>
                             ) : (
-                              <>
-                                <img src={star} alt="start" />
-                                <img src={star} alt="start" />
-                                <img src={star} alt="start" />
-                                <img src={star} alt="start" />
-                              </>
-                            )}
+                                    <>
+                                      <img src={star} alt="start" />
+                                      <img src={star} alt="start" />
+                                      <img src={star} alt="start" />
+                                      <img src={star} alt="start" />
+                                    </>
+                                  )}
                           </div>
                           <p className="text-border1"></p>
                           <h3>
@@ -395,11 +395,11 @@ function InfoSeveralStudent({
                   ))}
                 </Slider>
               ) : (
-                <NoData
-                  noDataText="NO PROGRESS REPORTS YET"
-                  noDataImage={imgNoDataProgress}
-                />
-              )}
+                    <NoData
+                      noDataText="NO PROGRESS REPORTS YET"
+                      noDataImage={imgNoDataProgress}
+                    />
+                  )}
             </div>
           </div>
         </div>

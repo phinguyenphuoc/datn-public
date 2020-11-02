@@ -351,11 +351,11 @@ function Student({ handleSubmit, userStudentInfo, onOpenModalUpdateAvatar }) {
     <StyledStudent>
       <div className="container">
         <div className="mystudent__inner__text">
-          <Link to="/dashboard/parent/profile">My profile</Link>
+          <Link to="/dashboard/student/profile">My profile</Link>
           <p className="arrow">
             <ChevronRight />
           </p>
-          <Link to="/dashboard/parent/profile/users">Family members</Link>
+          <Link to="/dashboard/student/profile/users">Family members</Link>
           <p className="arrow">
             <ChevronRight />
           </p>
@@ -384,7 +384,7 @@ function Student({ handleSubmit, userStudentInfo, onOpenModalUpdateAvatar }) {
                 <NavLink
                   className="menu__userInfo"
                   activeClassName="--active"
-                  to="/dashboard/parent/profile"
+                  to="/dashboard/student/profile"
                   exact
                 >
                   <p>General information</p>

@@ -239,9 +239,9 @@ const ModalPaymentMethodUpdated = ({
   });
   const [isLoadingConfirm, setIsLoadingConfirm] = React.useState(false);
 
-  React.useEffect(() => {
-    getCardSetup();
-  }, []);
+  // React.useEffect(() => {
+  //   getCardSetup();
+  // }, []);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -391,13 +391,13 @@ const ModalPaymentMethodUpdated = ({
                 )}
               </div>
             ) : (
-              <div className="message">
-                <h5>Success</h5>
-                <img src={tick} alt="tick" />
-                <h6>Card succesfully added </h6>
-                <p>This credit card is now linked to your account. </p>
-              </div>
-            )}
+                <div className="message">
+                  <h5>Success</h5>
+                  <img src={tick} alt="tick" />
+                  <h6>Card succesfully added </h6>
+                  <p>This credit card is now linked to your account. </p>
+                </div>
+              )}
           </div>
           <p>
             By continuing, I authorise Homemuse to send instructions to the
@@ -414,10 +414,10 @@ const ModalPaymentMethodUpdated = ({
           {!isSubmitCard ? (
             <button disabled={isSubmitting}>Save my card</button>
           ) : (
-            <button onClick={clickAccess}>
-              {isPasswordUpdateSetToFalse ? "Continue" : "Access my dashboard"}
-            </button>
-          )}
+              <button onClick={clickAccess}>
+                {isPasswordUpdateSetToFalse ? "Continue" : "Access my dashboard"}
+              </button>
+            )}
         </Form>
       </ModalBody>
     </StyledModal>

@@ -106,7 +106,7 @@ const DropdownUserMenu = ({
       return (
         <>
           {!isInDashboardParent && (
-            <NavLink to="/dashboard/parent" activeClassName="--active">
+            <NavLink to="/dashboard/student" activeClassName="--active">
               <User />
               <p>Dashboard Student</p>
             </NavLink>
@@ -131,7 +131,7 @@ const DropdownUserMenu = ({
     } else if (isHasDashboardParentLink) {
       return (
         <>
-          <NavLink to="/dashboard/parent" activeClassName="--active">
+          <NavLink to="/dashboard/student" activeClassName="--active">
             <User />
             <p>Dashboard</p>
           </NavLink>

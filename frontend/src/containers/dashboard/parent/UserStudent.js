@@ -30,11 +30,11 @@ function UserStudent(props) {
       (item) => item.id.toString() === userId.toString()
     )[0] || {};
 
-  React.useEffect(() => {
-    if (!storeStudents.success && !storeStudents.loading) {
-      getStudentProfile();
-    }
-  }, [storeStudents]);
+  // React.useEffect(() => {
+  //   if (!storeStudents.success && !storeStudents.loading) {
+  //     getStudentProfile();
+  //   }
+  // }, [storeStudents]);
 
   const handleUpdateProfile = (formData) => {
     updateStudentInfo(formData, userId, (data) => {

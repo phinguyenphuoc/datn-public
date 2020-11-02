@@ -160,11 +160,11 @@ function DashboardProfileParentLayout({
 }) {
   const storeStudents = useSelector((store) => store.student.students);
 
-  React.useEffect(() => {
-    if (!storeStudents.success && !storeStudents.loading) {
-      getStudentProfile();
-    }
-  }, [storeStudents]);
+  // React.useEffect(() => {
+  //   if (!storeStudents.success && !storeStudents.loading) {
+  //     getStudentProfile();
+  //   }
+  // }, [storeStudents]);
 
   return (
     <StyledDashboardProfileLayout>
@@ -190,7 +190,7 @@ function DashboardProfileParentLayout({
                 <NavLink
                   className="menu__userInfo"
                   activeClassName="--active"
-                  to="/dashboard/parent/profile"
+                  to="/dashboard/student/profile"
                   exact
                 >
                   <p>General information</p>
@@ -208,7 +208,7 @@ function DashboardProfileParentLayout({
                 <NavLink
                   className="menu__userInfo"
                   activeClassName="--active"
-                  to="/dashboard/parent/profile/password"
+                  to="/dashboard/student/profile/password"
                   exact
                 >
                   <p>Password</p>
@@ -226,7 +226,7 @@ function DashboardProfileParentLayout({
                   <NavLink
                     className="menu__userInfo"
                     activeClassName="--active"
-                    to="/dashboard/parent/profile/users"
+                    to="/dashboard/student/profile/users"
                     exact
                   >
                     <p>Family members</p>
@@ -241,8 +241,8 @@ function DashboardProfileParentLayout({
                     </UncontrolledTooltip>
                   </NavLink>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
             </div>
             {children}

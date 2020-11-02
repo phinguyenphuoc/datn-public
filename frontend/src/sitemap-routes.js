@@ -66,22 +66,22 @@ export default (
                 path="/dashboard/parent"
             />
             <Route
-                path="/dashboard/parent/progress-report"
+                path="/dashboard/student/progress-report"
             />
             <Route
-                path="/dashboard/parent/progress-report/history"
+                path="/dashboard/student/progress-report/history"
             />
             <Route
-                path="/dashboard/parent/progress-report/history/:dateReport"
+                path="/dashboard/student/progress-report/history/:dateReport"
             />
             <Route
-                path="/dashboard/parent/profile/users/:userId"
+                path="/dashboard/student/profile/users/:userId"
             />
             <Route
-                path="/dashboard/parent/payment"
+                path="/dashboard/student/payment"
             />
             <Route
-                path="/dashboard/parent/profile"
+                path="/dashboard/student/profile"
             />
             {/* Homepage */}
             <Route path="/" />

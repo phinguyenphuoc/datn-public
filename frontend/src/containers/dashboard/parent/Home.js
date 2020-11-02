@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Info,
   Schedule,
@@ -40,42 +40,26 @@ const problems = [
 ];
 
 function Home(props) {
-  const [openModalInfoTeacher, setOpenModalInfoTeacher] = React.useState(false);
-  const [openModalAssistance, setOpenModalAssistance] = React.useState(false);
-  const [openModalCancelLesson, setOpenModalCancelLesson] = React.useState(
-    false
-  );
-  const [openModalReportAProblem, setOpenModalReportAProblem] = React.useState(
-    false
-  );
-  const [dataTeachers, setDataTeachers] = React.useState({});
-
-  const [
-    openModalRescheduleLesson,
-    setOpenModalRescheduleLesson,
-  ] = React.useState(false);
-  const [
-    openModalPaymentMethodUpdated,
-    setOpenModalPaymentMethodUpdated,
-  ] = React.useState(false);
-  const [
-    openModalPasswordUpdated,
-    setOpenModalPasswordUpdated,
-  ] = React.useState(false);
-  const [selectedItem, setSelectedItem] = React.useState({});
-  const [isSubmit, setIsSubmit] = React.useState(false);
+  const [openModalInfoTeacher, setOpenModalInfoTeacher] = useState(false);
+  const [openModalAssistance, setOpenModalAssistance] = useState(false);
+  const [openModalCancelLesson, setOpenModalCancelLesson] = useState(false);
+  const [openModalReportAProblem, setOpenModalReportAProblem] = useState(false);
+  const [dataTeachers, setDataTeachers] = useState({});
+  const [openModalRescheduleLesson, setOpenModalRescheduleLesson] = useState(false);
+  const [openModalPaymentMethodUpdated, setOpenModalPaymentMethodUpdated] = useState(false);
+  const [openModalPasswordUpdated, setOpenModalPasswordUpdated] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const storeStudentProfile = useSelector((store) => store.student.students);
   const storeTeacherProfile = useSelector((store) => store.parent.teachers);
   const storeHelp = useSelector((store) => store.help);
-  const storeProgressReports = useSelector(
-    (store) => store.parent.progressReports
-  );
+  const storeProgressReports = useSelector((store) => store.parent.progressReports);
 
   React.useEffect(() => {
     getTeachers();
-    getStudentProfile();
-    getProgressReport();
+    // getStudentProfile();
+    // getProgressReport();
   }, []);
 
   const auth = getAuth();
@@ -136,7 +120,7 @@ function Home(props) {
   };
   const history = useHistory();
   const handleSubmitPassWordUpdated = () => {
-    history.push("/dashboard/parent/profile/password");
+    history.push("/dashboard/student/profile/password");
   };
 
   const handleHelp = (formData) => {
@@ -200,13 +184,13 @@ function Home(props) {
           dataProgressReports={storeProgressReports}
         />
       ) : (
-        <Info
-          dataTeachers={storeTeacherProfile}
-          dataStudent={storeStudentProfile}
-          handleClick={handleClickTeachers}
-          dataProgressReports={storeProgressReports}
-        />
-      )}
+          <Info
+            dataTeachers={storeTeacherProfile}
+            dataStudent={storeStudentProfile}
+            handleClick={handleClickTeachers}
+            dataProgressReports={storeProgressReports}
+          />
+        )}
       <Schedule
         handleToggleModalAssistance={handleToggleModalAssistance}
         handleToggleModalCancelLesson={handleToggleAndSetItemModalCancelLesson}
@@ -262,7 +246,7 @@ function Home(props) {
               <img src={star} alt="star" />
               <p>
                 For security reasons, please make sure to update your password.{" "}
-                <Link to="/dashboard/parent/profile/password">
+                <Link to="/dashboard/student/profile/password">
                   Go to Profile &gt; Password.
                 </Link>
               </p>

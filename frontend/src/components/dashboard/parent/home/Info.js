@@ -270,7 +270,7 @@ function Info({ dataTeachers, handleClick, dataProgressReports }) {
   const oldHistoryState = history.location.state ? history.location.state : {};
 
   const handleclickProgressReport = (item = {}) => () => {
-    history.push("/dashboard/parent/progress-report", {
+    history.push("/dashboard/student/progress-report", {
       ...oldHistoryState,
       progress: item,
     });
@@ -311,72 +311,72 @@ function Info({ dataTeachers, handleClick, dataProgressReports }) {
                 </div>
               </div>
             ) : (
-              <NoData noDataText="NO TEACHER YET" noDataImage={img} />
-            )}
+                  <NoData noDataText="NO TEACHER YET" noDataImage={img} />
+                )}
           </div>
           <div className="musical item">
             {isLoadingProgressReports ? (
               <Loading />
             ) : dataProgressReports.data.length &&
               dataProgressReports.data[0] ? (
-              <div className="musical__left">
-                <img src={moderato} alt="" />
-                <div className="musical__text">
-                  <h3>Musical progress report</h3>
-                  <p className="text-border1"></p>
-                  <h4>
-                    {dataProgressReports.data[0].student &&
-                      `${dataProgressReports.data[0].student.name} . ${moment(
-                        dataProgressReports.data[0].reported_date
-                      ).format("MMMM, YYYY")}`}
-                  </h4>
-                  <div className="report">
-                    <div className="star">
-                      {dataProgressReports.data[0].rating === 1 ? (
-                        <img src={star} alt="start" />
-                      ) : dataProgressReports.data[0].rating === 2 ? (
-                        <>
-                          <img src={star} alt="start" />
-                          <img src={star} alt="start" />
-                        </>
-                      ) : dataProgressReports.data[0].rating === 3 ? (
-                        <>
-                          <img src={star} alt="start" />
-                          <img src={star} alt="start" />
-                          <img src={star} alt="start" />
-                        </>
-                      ) : (
-                        <>
-                          <img src={star} alt="start" />
-                          <img src={star} alt="start" />
-                          <img src={star} alt="start" />
-                          <img src={star} alt="start" />
-                        </>
-                      )}
+                  <div className="musical__left">
+                    <img src={moderato} alt="" />
+                    <div className="musical__text">
+                      <h3>Musical progress report</h3>
+                      <p className="text-border1"></p>
+                      <h4>
+                        {dataProgressReports.data[0].student &&
+                          `${dataProgressReports.data[0].student.name} . ${moment(
+                            dataProgressReports.data[0].reported_date
+                          ).format("MMMM, YYYY")}`}
+                      </h4>
+                      <div className="report">
+                        <div className="star">
+                          {dataProgressReports.data[0].rating === 1 ? (
+                            <img src={star} alt="start" />
+                          ) : dataProgressReports.data[0].rating === 2 ? (
+                            <>
+                              <img src={star} alt="start" />
+                              <img src={star} alt="start" />
+                            </>
+                          ) : dataProgressReports.data[0].rating === 3 ? (
+                            <>
+                              <img src={star} alt="start" />
+                              <img src={star} alt="start" />
+                              <img src={star} alt="start" />
+                            </>
+                          ) : (
+                                  <>
+                                    <img src={star} alt="start" />
+                                    <img src={star} alt="start" />
+                                    <img src={star} alt="start" />
+                                    <img src={star} alt="start" />
+                                  </>
+                                )}
+                        </div>
+                      </div>
+                      <Link to="/dashboard/student/progress-report">
+                        <button
+                          className="fw-500"
+                          onClick={handleclickProgressReport(
+                            dataProgressReports.data[0]
+                          )}
+                        >
+                          See my progress
+                      <span>
+                            <img src={arrow} alt="" />
+                          </span>
+                        </button>
+                      </Link>
                     </div>
                   </div>
-                  <Link to="/dashboard/parent/progress-report">
-                    <button
-                      className="fw-500"
-                      onClick={handleclickProgressReport(
-                        dataProgressReports.data[0]
-                      )}
-                    >
-                      See my progress
-                      <span>
-                        <img src={arrow} alt="" />
-                      </span>
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div className="no_progress_report">
-                <h2>Musical progress report</h2>
-                <div className="no_progress_report__divider" />
-                <h1>NO PROGRESS REPORT YET</h1>
-              </div>
-            )}
+                ) : (
+                  <div className="no_progress_report">
+                    <h2>Musical progress report</h2>
+                    <div className="no_progress_report__divider" />
+                    <h1>NO PROGRESS REPORT YET</h1>
+                  </div>
+                )}
           </div>
         </div>
       </div>

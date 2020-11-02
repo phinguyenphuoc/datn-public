@@ -26,6 +26,7 @@ export default function reducer(state = initialState, actions) {
       auth.user_last_name = profile.last_name
       auth.user_login = user.username
       auth.user_roles = user['cognito:groups']
+      auth.user_roles = ["parent", "student", "teacher"]
       auth.user_payment_updated = true
       auth.user_password_updated = true
       auth.status = "OK"

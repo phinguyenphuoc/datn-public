@@ -3,17 +3,19 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv').config()
 const app = express();
-
+var multer = require('multer')
+var upload = multer({ dest: 'uploads/' })
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true, parameterLimit: 100000, limit: '50mb' }));
 app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
 const router = require("./routes/index");
 
+
 // import { listTeacherAPI } from "./controller/teacher";
-const listTeacherAPI = require('./controller/teacher')
+const { listTeacherAPI, getTeacherProfileAPI } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
-
+const { updateStudentProfileAPI, addStudentProfileAPI } = require('./controller/student')
 app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
@@ -23,6 +25,12 @@ app.get('/teachers/profiles', listTeacherAPI)
 app.get('/instruments', instrumentsApi)
 
 app.get('/profile', getUserProfileApi)
+
+app.get('/teachers/profile', getTeacherProfileAPI)
+
+app.put('/student/profile', upload.single('profileImage'), updateStudentProfileAPI) // to student/profile
+
+app.post('/student/profile', upload.single('profileImage'), addStudentProfileAPI)
 
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);

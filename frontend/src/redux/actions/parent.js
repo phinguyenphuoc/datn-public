@@ -1,5 +1,5 @@
 import * as types from "../constants";
-import { request } from "../../utils/request";
+import { request, getHeader } from "../../utils/request";
 import store from "../store";
 
 export function getParentProfile(resolve = () => { }) {
@@ -23,12 +23,14 @@ export function getParentProfile(resolve = () => { }) {
     });
 }
 
-export function updateParentInfo(data, resolve = () => { }) {
+export async function updateParentInfo(data, resolve = () => { }) {
+  const headers = await getHeader()
+
   store.dispatch({
     type: types.UPDATE_PARENT_PROFILE,
   });
   return request()
-    .put("/parent/profile", data)
+    .put("/student/profile", data, headers)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -49,7 +51,7 @@ export function updateParentAvatar(data, resolve = () => { }) {
     type: types.UPDATE_PARENT_AVATAR,
   });
   return request()
-    .post("/parent/profile/avatar", data)
+    .post("/student/profile/avatar", data)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -71,7 +73,7 @@ export function updateParentAvatarSticker(data, resolve = () => { }) {
   });
 
   return request()
-    .post("/parent/profile/avatar", data)
+    .post("/student/profile/avatar", data)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -87,12 +89,13 @@ export function updateParentAvatarSticker(data, resolve = () => { }) {
     });
 }
 
-export function getTeachers(resolve = () => { }) {
+export async function getTeachers(resolve = () => { }) {
+  const headers = await getHeader()
   store.dispatch({
     type: types.GET_TEACHERS_PROFILE,
   });
   return request()
-    .get("/parent/teachers/profiles")
+    .get("/teachers/profile", headers)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -167,7 +170,7 @@ export function getCardSetup(resolve = () => { }) {
     type: types.GET_CARD_SETUP,
   });
   return request()
-    .get("/parent/customer/card_setup")
+    .get("/student/customer/card_setup")
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -188,7 +191,7 @@ export function postCardSave(data, resolve = () => { }) {
     type: types.POST_CARD_SAVE,
   });
   return request()
-    .post("/parent/customer/card_save", data)
+    .post("/student/customer/card_save", data)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -215,7 +218,7 @@ export function getCardInfo(resolve = () => { }) {
     type: types.GET_CARD_INFO,
   });
   return request()
-    .get("/parent/customer/card_info")
+    .get("/student/customer/card_info")
     .then((response) => {
       resolve(response.data);
       store.dispatch({
