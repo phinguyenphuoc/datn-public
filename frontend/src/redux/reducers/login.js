@@ -7,7 +7,8 @@ const initialState = {
   error: {},
   rememberedPath: "",
   user: {},
-  profile: {}
+  profile: {},
+  auth: false
 };
 
 export default function reducer(state = initialState, actions) {
@@ -25,8 +26,7 @@ export default function reducer(state = initialState, actions) {
       auth.user_first_name = profile.first_name
       auth.user_last_name = profile.last_name
       auth.user_login = user.username
-      auth.user_roles = user['cognito:groups']
-      auth.user_roles = ["parent", "student", "teacher"]
+      auth.user_roles = user['cognito:groups'] || ['student']
       auth.user_payment_updated = true
       auth.user_password_updated = true
       auth.status = "OK"
@@ -36,7 +36,8 @@ export default function reducer(state = initialState, actions) {
         data: user,
         user: user,
         profile: profile,
-        loading: false
+        loading: false,
+        auth: true
       };
     case types.LOGIN_API_FAIL:
       return {
