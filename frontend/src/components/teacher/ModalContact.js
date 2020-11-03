@@ -30,7 +30,7 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit, data }) => {
   const optionsInstruments = data.skills
     ? data.skills.map((skill) => {
       return {
-        value: skill.instrument,
+        value: skill.instrument_id,
         label: convertedInstruments[skill.instrument],
       };
     })
@@ -95,10 +95,13 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit, data }) => {
     }
 
     const formData = {
+      teacher_profile_id: data.id,
       lessonType: form.lessonType,
       instrument: form.instrument,
       level: form.level,
       duration: form.duration,
+      price: form.duration,
+      description: form.description
     };
     handleSubmit(formData);
   };
@@ -123,13 +126,6 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit, data }) => {
 
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
-  };
-
-  const handleFocus = (event) => {
-    setError({
-      ...error,
-      [event.target.name]: "",
-    });
   };
 
   const handleStringTrim = (event) => {
@@ -182,12 +178,11 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit, data }) => {
 
   const durations = data?.pricings ? data.pricings.map(item => {
     return {
-      value: item.duration,
+      value: item.id,
       label: item.duration.split("_").join(" ")
     }
   }) : [];
 
-  console.log(form)
   return (
     <Modal
       isOpen={isOpen}
@@ -263,7 +258,7 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit, data }) => {
           <FormBox
             propsInput={{
               type: "textarea",
-              name: "info",
+              name: "description",
               onChange: handleChange,
               onBlur: handleStringTrim,
               value: form.info,
