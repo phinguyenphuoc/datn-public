@@ -17,4 +17,20 @@ const bookingALesson = ({ teacher_profile_id, lessonType, instrument, level, pri
   })
 }
 
-module.exports = { bookingALesson }
+const getTeacherPendingBooking = ({ teacher_profile_id }) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT * FROM public.booking WHERE teacher_profile_id = $1 and approve = $2`,
+      [teacher_profile_id, false],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+
+module.exports = { bookingALesson, getTeacherPendingBooking }

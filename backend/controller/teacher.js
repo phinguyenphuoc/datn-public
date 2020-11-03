@@ -1,4 +1,6 @@
-const { query } = require('../config')
+const { getTeacherPendingBooking } = require("../access/booking");
+const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
+const { getProfileByUserId } = require('../access/common');
 
 const instruments = [
   "",
@@ -22,113 +24,7 @@ const instruments = [
   'french horn'
 ]
 
-const listTeacher = () => {
-  return new Promise((resolve, reject) => {
-    query(
-      `SELECT * FROM profile`,
-      (err, results) => {
-        if (err) {
-          reject(err)
-        } else {
-          const responseData = results.rows.map(item => {
-            return {
-              ...item,
-              tag: `${item.first_name}-${item.last_name}`,
-              rating: 5,
-              city: item.address,
-              member_since: "2020-02-29",
-              teaching_type: { data: ["online"] }
-            }
-          })
-          resolve(responseData)
-        }
-      }
-    )
-  })
-}
 
-const getTeacherProfile = ({ sub }) => {
-  return new Promise((resolve, reject) => {
-    query(
-      `SELECT * FROM profile WHERE user_id = $1 AND roles @> ARRAY['teacher']`,
-      [sub],
-      (err, results) => {
-        if (err) {
-          reject(err)
-        } else {
-          const responseData = results.rows[0]
-          resolve(responseData)
-        }
-      }
-    )
-  })
-}
-
-const getMedias = (listProfileId) => {
-  return new Promise((resolve, reject) => {
-    query(
-      `SELECT profile_id, 
-      ARRAY_AGG(type) as types, 
-      ARRAY_AGG(tag) AS tags, 
-      ARRAY_AGG(url) AS urls 
-      FROM media 
-      WHERE profile_id = ANY ($1)
-      GROUP BY profile_id`,
-      [listProfileId],
-      (err, results) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(results.rows)
-        }
-      }
-    )
-  })
-}
-
-const getPricing = (listProfileId) => {
-  return new Promise((resolve, reject) => {
-    query(
-      `SELECT profile_id,
-      ARRAY_AGG(id) AS ids,
-      ARRAY_AGG(gross_price) AS gross_prices, 
-      ARRAY_AGG(duration) AS durations, 
-      ARRAY_AGG(enabled) AS enabled
-      FROM pricing WHERE profile_id = ANY ($1)
-      GROUP BY profile_id`,
-      [listProfileId],
-      (err, results) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(results.rows)
-        }
-      }
-    )
-  })
-}
-
-const getSkills = (listProfileId) => {
-  return new Promise((resolve, reject) => {
-    query(
-      `SELECT profile_id,
-      ARRAY_AGG(id) AS ids,
-      ARRAY_AGG(instrument_id) AS instruments, 
-      ARRAY_AGG(level) AS levels, 
-      ARRAY_AGG(week_frequency) AS week_frequencies
-      FROM skill WHERE profile_id = ANY ($1)
-      GROUP BY profile_id`,
-      [listProfileId],
-      (err, results) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(results.rows)
-        }
-      }
-    )
-  })
-}
 
 const listTeacherAPI = async (req, res) => {
   const profiles = await listTeacher()
@@ -209,4 +105,23 @@ const getTeacherProfileAPI = async (req, res) => {
   })
 }
 
-module.exports = { listTeacherAPI, getTeacherProfileAPI }
+const getPendingBookingsAPI = async (req, res) => {
+  try {
+    const { sub } = req.body;
+    const teacherProfile = await getProfileByUserId(sub);
+    const teacher_profile_id = teacherProfile.id;
+    const pendingBooking = await getTeacherPendingBooking({ teacher_profile_id })
+    res.status(200).json({
+      status: "OK",
+      bookings: pendingBooking
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAILED",
+      message: error.message
+    })
+  }
+
+}
+
+module.exports = { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI }

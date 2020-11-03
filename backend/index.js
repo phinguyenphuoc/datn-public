@@ -12,7 +12,7 @@ const router = require("./routes/index");
 
 
 // import { listTeacherAPI } from "./controller/teacher";
-const { listTeacherAPI, getTeacherProfileAPI } = require('./controller/teacher')
+const { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
 const { updateStudentProfileAPI, addStudentProfileAPI, getStudentProfileAPI, uploadStudentAvatarAPI } = require('./controller/student');
@@ -40,6 +40,8 @@ app.post('/students/profile', addStudentProfileAPI)
 app.post('/student/profile/avatar', upload.single('profileImage'), uploadStudentAvatarAPI)
 
 app.post('/register_pending_student', registerPendingStudentAPI)
+
+app.get('/teachers/pending_bookings', getPendingBookingsAPI)
 
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);
