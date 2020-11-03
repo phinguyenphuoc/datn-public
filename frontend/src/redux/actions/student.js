@@ -24,12 +24,13 @@ export async function registerStudent(data, resolve = () => { }) {
     });
 }
 
-export function getStudentProfile(resolve = () => { }) {
+export async function getStudentProfile(resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.GET_STUDENT_PROFILE,
   });
   return request()
-    .get("/student/students/profiles")
+    .get("/students/profile", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

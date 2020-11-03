@@ -16,7 +16,6 @@ import {
   updateParentAvatar,
   // updateParentAvatarSticker,
 } from "../../../redux/actions/parent";
-import { getStickersInfo } from "../../../redux/actions/stickers";
 import { getAuth, setAuth } from "../../../utils/helpers";
 
 function ProfileParent(props) {
@@ -30,7 +29,6 @@ function ProfileParent(props) {
   );
   React.useEffect(() => {
     getParentProfile();
-    getStickersInfo();
   }, []);
 
   const storeStickers = useSelector((store) => store.stickers);
