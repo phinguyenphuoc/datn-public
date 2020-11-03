@@ -15,7 +15,9 @@ const router = require("./routes/index");
 const { listTeacherAPI, getTeacherProfileAPI } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
-const { updateStudentProfileAPI, addStudentProfileAPI } = require('./controller/student')
+const { updateStudentProfileAPI, addStudentProfileAPI, getStudentProfileAPI, uploadStudentAvatarAPI } = require('./controller/student');
+const { registerPendingStudentAPI } = require('./controller/booking');
+
 app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
@@ -28,9 +30,16 @@ app.get('/profile', getUserProfileApi)
 
 app.get('/teachers/profile', getTeacherProfileAPI)
 
-app.put('/student/profile', upload.single('profileImage'), updateStudentProfileAPI) // to student/profile
+app.get('/students/profile', getStudentProfileAPI)
 
-app.post('/student/profile', upload.single('profileImage'), addStudentProfileAPI)
+
+app.put('/students/profile', updateStudentProfileAPI)
+
+app.post('/students/profile', addStudentProfileAPI)
+
+app.post('/student/profile/avatar', upload.single('profileImage'), uploadStudentAvatarAPI)
+
+app.post('/register_pending_student', registerPendingStudentAPI)
 
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);

@@ -50,7 +50,7 @@ const listTeacher = () => {
 const getTeacherProfile = ({ sub }) => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT * FROM profile WHERE user_id = $1 AND is_teacher = true`,
+      `SELECT * FROM profile WHERE user_id = $1 AND roles @> ARRAY['teacher']`,
       [sub],
       (err, results) => {
         if (err) {
@@ -90,6 +90,7 @@ const getPricing = (listProfileId) => {
   return new Promise((resolve, reject) => {
     query(
       `SELECT profile_id,
+      ARRAY_AGG(id) AS ids,
       ARRAY_AGG(gross_price) AS gross_prices, 
       ARRAY_AGG(duration) AS durations, 
       ARRAY_AGG(enabled) AS enabled
@@ -111,6 +112,7 @@ const getSkills = (listProfileId) => {
   return new Promise((resolve, reject) => {
     query(
       `SELECT profile_id,
+      ARRAY_AGG(id) AS ids,
       ARRAY_AGG(instrument_id) AS instruments, 
       ARRAY_AGG(level) AS levels, 
       ARRAY_AGG(week_frequency) AS week_frequencies
@@ -163,7 +165,8 @@ const listTeacherAPI = async (req, res) => {
       price.gross_prices.forEach((gross_price, index) => {
         arrPricing.push({
           gross_price,
-          duration: price.durations[index]
+          duration: price.durations[index],
+          id: price.ids[index]
         })
       })
       item.pricings = arrPricing
@@ -177,7 +180,8 @@ const listTeacherAPI = async (req, res) => {
       skill.instruments.forEach((id, index) => {
         arrSkill.push({
           instrument: instruments[id],
-          level: skill.levels[index]
+          level: skill.levels[index],
+          instrument_id: skill.instruments[index]
         })
       })
       item.skills = arrSkill
