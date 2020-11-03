@@ -2,12 +2,14 @@ import * as types from "../constants";
 import { request, getHeader } from "../../utils/request";
 import store from "../store";
 
-export function getParentProfile(resolve = () => { }) {
+export async function getParentProfile(resolve = () => { }) {
+  const headers = await getHeader()
+
   store.dispatch({
     type: types.GET_PARENT_PROFILE,
   });
   return request()
-    .get("/parent/profile")
+    .get("/students/profile", headers)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -30,7 +32,7 @@ export async function updateParentInfo(data, resolve = () => { }) {
     type: types.UPDATE_PARENT_PROFILE,
   });
   return request()
-    .put("/student/profile", data, headers)
+    .put("/students/profile", data, headers)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

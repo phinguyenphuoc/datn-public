@@ -1,13 +1,14 @@
 import * as types from "../constants";
-import { request } from "../../utils/request";
+import { request, getHeader } from "../../utils/request";
 import store from "../store";
 
-export function registerStudent(data, resolve = () => { }) {
+export async function registerStudent(data, resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.REGISTER_STUDENT_API,
   });
   return request()
-    .post("/register_pending_student", data)
+    .post("/register_pending_student", data, header)
     .then((response) => {
       resolve();
       store.dispatch({

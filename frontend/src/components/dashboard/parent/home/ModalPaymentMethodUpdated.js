@@ -13,7 +13,7 @@ import classNames from "classnames";
 import { ModalBody, Form } from "reactstrap";
 import { Modal, FormGroup, ModalBanner } from "../../../common";
 import { isEmpty } from "validator";
-import { getCardSetup } from "../../../../redux/actions/parent";
+// import { getCardSetup } from "../../../../redux/actions/parent";
 import ErrorIcon from "@material-ui/icons/Error";
 import tick from "../../../../assets/images/tick-CC-welcome.svg";
 

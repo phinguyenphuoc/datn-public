@@ -14,13 +14,14 @@ import {
   getParentProfile,
   updateParentInfo,
   updateParentAvatar,
-  updateParentAvatarSticker,
+  // updateParentAvatarSticker,
 } from "../../../redux/actions/parent";
 import { getStickersInfo } from "../../../redux/actions/stickers";
 import { getAuth, setAuth } from "../../../utils/helpers";
 
 function ProfileParent(props) {
   const storeParentProfile = useSelector((store) => store.parent.profile.data);
+
   const storeParentUpdateAvatar = useSelector(
     (store) => store.parent.updateAvatar
   );
@@ -28,9 +29,10 @@ function ProfileParent(props) {
     (store) => store.student.students.data
   );
   React.useEffect(() => {
-    // getParentProfile();
+    getParentProfile();
     getStickersInfo();
   }, []);
+
   const storeStickers = useSelector((store) => store.stickers);
   const [openModalUpdatePicture, setOpenModalUpdatePicture] = React.useState(
     false
@@ -42,8 +44,6 @@ function ProfileParent(props) {
   };
 
   const handleUpdateProfile = (formData) => {
-    console.log("formData", formData)
-    // const { address, birth_date,  first_name, last_name, phone} = formData
     updateParentInfo(formData, (data) => {
       openModalMessage({
         title: "Profile updated",
@@ -65,31 +65,18 @@ function ProfileParent(props) {
     setAuth(auth);
   };
 
-  const handleUpdateAvatar = (formData, isUploadPicture) => {
-    if (isUploadPicture) {
-      updateParentAvatar(formData, (data) => {
-        setOpenModalUpdatePicture(false);
-        openModalMessage({
-          title: "Avatar updated",
-          body: <p>Your avatar picture has been updated successfully.</p>,
-        });
-        const auth = getAuth();
-        auth.user_avatar = data.media.url;
-        setAuth(auth);
+  const handleUpdateAvatar = (formData) => {
+    updateParentAvatar(formData, (data) => {
+      setOpenModalUpdatePicture(false);
+      openModalMessage({
+        title: "Avatar updated",
+        body: <p>Your avatar picture has been updated successfully.</p>,
       });
-    } else {
-      updateParentAvatarSticker(formData, (data) => {
-        setOpenModalUpdatePicture(false);
-        openModalMessage({
-          title: "Avatar updated",
-          body: <p>Your avatar picture has been updated successfully.</p>,
-        });
-        const auth = getAuth();
-        auth.user_avatar = data.media.url;
-        setAuth(auth);
-      });
-    }
-  };
+      const auth = getAuth();
+      auth.user_avatar = data.media.url;
+      setAuth(auth);
+    });
+  }
 
   return (
     <>

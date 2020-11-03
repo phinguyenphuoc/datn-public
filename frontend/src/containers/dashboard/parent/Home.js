@@ -20,8 +20,8 @@ import {
   getTeachers,
   postCardSave,
   cancelLesson,
-  suspendLesson,
-  getProgressReport,
+  suspendLesson
+  // getProgressReport,
 } from "../../../redux/actions/parent";
 import { getStudentProfile } from "../../../redux/actions/student";
 import { reportProblem } from "../../../redux/actions/reportProblem";
@@ -58,7 +58,7 @@ function Home(props) {
 
   React.useEffect(() => {
     getTeachers();
-    // getStudentProfile();
+    getStudentProfile();
     // getProgressReport();
   }, []);
 

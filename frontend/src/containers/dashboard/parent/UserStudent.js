@@ -7,8 +7,7 @@ import { ModalUpdatePicture } from "../../../components/common";
 import {
   updateStudentInfo,
   updateStudenttAvatar,
-  updateParentAvatarSticker,
-  getStudentProfile,
+  updateParentAvatarSticker
 } from "../../../redux/actions/student";
 
 function UserStudent(props) {

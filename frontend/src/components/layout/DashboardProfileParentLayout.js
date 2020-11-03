@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { Edit, UserEdit, Key, Info } from "../common/icons";
+import { Edit, UserEdit, Key } from "../common/icons";
 import { UncontrolledTooltip } from "reactstrap";
 import avataPicture from "../../assets/images/avatar-picture.svg";
-import { getStudentProfile } from "../../redux/actions/student";
+// import { getStudentProfile } from "../../redux/actions/student";
 
 const StyledDashboardProfileLayout = styled.section`
   margin-bottom: auto;
@@ -158,13 +158,6 @@ function DashboardProfileParentLayout({
   onOpenModalUpdateAvatar,
   userInfo,
 }) {
-  const storeStudents = useSelector((store) => store.student.students);
-
-  // React.useEffect(() => {
-  //   if (!storeStudents.success && !storeStudents.loading) {
-  //     getStudentProfile();
-  //   }
-  // }, [storeStudents]);
 
   return (
     <StyledDashboardProfileLayout>
@@ -222,27 +215,6 @@ function DashboardProfileParentLayout({
                     Password
                   </UncontrolledTooltip>
                 </NavLink>
-                {storeStudents && storeStudents.data.length ? (
-                  <NavLink
-                    className="menu__userInfo"
-                    activeClassName="--active"
-                    to="/dashboard/student/profile/users"
-                    exact
-                  >
-                    <p>Family members</p>
-                    <div className="menu__icon" id="UncontrolledTooltip3">
-                      <Info />
-                    </div>
-                    <UncontrolledTooltip
-                      placement="top"
-                      target="UncontrolledTooltip3"
-                    >
-                      Family members
-                    </UncontrolledTooltip>
-                  </NavLink>
-                ) : (
-                    ""
-                  )}
               </div>
             </div>
             {children}

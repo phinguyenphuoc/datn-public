@@ -19,7 +19,7 @@ import {
   updateDateSchedule,
   updateDateScheduleSelected,
 } from "../../../../redux/actions/parent";
-import { getSchedulesParent } from "../../../../redux/actions/parent";
+// import { getSchedulesParent } from "../../../../redux/actions/parent";
 import camera from "../../../../assets/images/cameraZoom.svg";
 import camera_gray from "../../../../assets/images/cameraZoomGray.svg";
 
@@ -468,6 +468,7 @@ function Schedule({
   const formatYear = moment(storeDateSchedule).format("YYYY");
 
   const [openId, setOpenId] = React.useState("");
+
   const getDataDates = (type) => {
     if (!dataSchedules.data) return [];
     return dataSchedules.data.reduce((dates, item) => {

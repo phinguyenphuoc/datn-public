@@ -4,11 +4,11 @@ import { ModalHeader, ModalBody, Form } from "reactstrap";
 import { Modal, FormGroup } from "../common";
 import AvatarEditor from "react-avatar-editor";
 import Dropzone from "react-dropzone";
-import classNames from "classnames";
+// import classNames from "classnames";
 import Slider from "@material-ui/core/Slider";
 import addfile from "../../assets/images/add-file.svg";
 import avatar from "../../assets/images/avatar-picture.svg";
-import CheckIcon from "@material-ui/icons/Check";
+// import CheckIcon from "@material-ui/icons/Check";
 
 const StyledModal = styled(Modal)`
   && {
@@ -319,7 +319,6 @@ const ModalUpdatePicture = ({
   handleSubmit,
   isSubmitting,
   avatarImage,
-  dataSticker,
 }) => {
   const [scale, setScale] = React.useState(1);
   const [form, setForm] = React.useState({
@@ -327,7 +326,6 @@ const ModalUpdatePicture = ({
     image: avatarImage || avatar,
     name: "default_avatar.jpg",
   });
-  const [nameSticker, setNameSticker] = React.useState("");
 
   React.useEffect(() => {
     if (avatarImage) setForm({ ...form, image: avatarImage });
@@ -339,21 +337,15 @@ const ModalUpdatePicture = ({
   const handleSubmitForm = (event) => {
     event.preventDefault();
     let avatar = {};
-    let isUploadPicture = false;
-    if (form.checkbox === "UPLOAD_PICTURE") {
-      isUploadPicture = true;
-      avatar = {
-        name: form.name,
-        data: imageRef.current.getImageScaledToCanvas().toDataURL(),
-      };
-    } else if (form.checkbox === "CHOOSE_AN_AVATAR") {
-      avatar.sticker = nameSticker;
-    }
+    avatar = {
+      name: form.name,
+      data: imageRef.current.getImageScaledToCanvas().toDataURL(),
+    };
 
     const formData = {
       avatar,
     };
-    handleSubmit(formData, isUploadPicture);
+    handleSubmit(formData);
   };
 
   const handleCheckbok = (event) => {
@@ -374,10 +366,6 @@ const ModalUpdatePicture = ({
 
   const handleChangeScale = (e, value) => {
     setScale(value);
-  };
-  const handleOnclick = (event) => {
-    setNameSticker(event.target.name);
-    setForm({ ...form, checkbox: "CHOOSE_AN_AVATAR" });
   };
 
   return (
@@ -451,45 +439,6 @@ const ModalUpdatePicture = ({
                 </div>
               )}
             </Dropzone>
-          </div>
-          <div className="--border_bottom">
-            <span className="border_left"></span>
-            <p>OR</p>
-            <span className="border-right"></span>
-          </div>
-          <label className="checkbox">
-            Choose an avatar
-            <FormGroup
-              propsInput={{
-                type: "radio",
-                name: "checkbox",
-                onChange: handleCheckbok,
-                value: "CHOOSE_AN_AVATAR",
-                checked: form.checkbox === "CHOOSE_AN_AVATAR",
-              }}
-              type="checkbox"
-            />
-          </label>
-          <div className="avatar-icon">
-            {dataSticker.stickers &&
-              dataSticker.stickers.length &&
-              dataSticker.stickers.map((item, index) => (
-                <div
-                  key={`${index}`}
-                  className={classNames("avatar-icon__item", {
-                    "--tick": nameSticker === item.sticker,
-                  })}
-                >
-                  <div className="--bg"></div>
-                  <img
-                    src={item.url}
-                    alt={item.sticker}
-                    name={item.sticker}
-                    onClick={handleOnclick}
-                  />
-                  <CheckIcon />
-                </div>
-              ))}
           </div>
           <div>
             <button

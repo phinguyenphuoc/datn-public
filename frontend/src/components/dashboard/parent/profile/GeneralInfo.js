@@ -131,10 +131,9 @@ function GeneralInfo({ handleSubmit }) {
   const [form, setForm] = React.useState({
     firstName: "",
     lastName: "",
-    phoneNumber: "",
+    phone_number: "",
     email: "",
-    address1: "",
-    address2: "",
+    address: "",
     city: "",
     addressZip: "",
   });
@@ -149,12 +148,11 @@ function GeneralInfo({ handleSubmit }) {
       ...form,
       firstName: storeParentProfile.data.first_name || "",
       lastName: storeParentProfile.data.last_name || "",
-      phoneNumber: formatPhoneNumber(storeParentProfile.data.phone) || "",
+      phone_number: formatPhoneNumber(storeParentProfile.data.phone_number) || "",
       email: storeParentProfile.data.email || "",
-      address1: address[0],
-      address2: address[1],
-      city: address[2],
-      addressZip: address[3],
+      address: address,
+      city: address,
+      addressZip: 10000,
     });
     setDayOfBirth(
       storeParentProfile.data.birth_date
@@ -173,7 +171,7 @@ function GeneralInfo({ handleSubmit }) {
     const formData = {
       first_name: form.firstName,
       last_name: form.lastName,
-      phone_number: getPhoneNumberOnlyDigits(form.phoneNumber),
+      phone_number: getPhoneNumberOnlyDigits(form.phone_number),
       birth_date: moment(dayOfBirth).format("YYYY/MM/DD"),
       // address: [form.address1, form.address2, form.city, form.addressZip]
       address: form.city
@@ -189,15 +187,14 @@ function GeneralInfo({ handleSubmit }) {
     if (isEmpty(form.lastName)) {
       errorState.lastName = "Last name is required ";
     }
-    if (isEmpty(form.phoneNumber)) {
-      errorState.phoneNumber = "Phone number is required ";
+    if (isEmpty(form.phone_number)) {
+      errorState.phone_number = "Phone number is required ";
     }
     if (isEmpty(form.city)) {
       errorState.city = "City is required ";
     }
     if (
-      isEmpty(form.address1) &&
-      isEmpty(form.address2) &&
+      isEmpty(form.address) &&
       isEmpty(form.addressZip)
     ) {
       errorState.address = "Address, Zip and City fields are required";
@@ -221,13 +218,13 @@ function GeneralInfo({ handleSubmit }) {
   };
 
   const handleChangeNumber = (e) => {
-    const phoneNumber = e.target.value;
-    if (phoneNumber.length > 14) {
+    const phone_number = e.target.value;
+    if (phone_number.length > 14) {
       return;
-    } else if (phoneNumber.length === 4) {
-      return setForm({ ...form, phoneNumber });
+    } else if (phone_number.length === 4) {
+      return setForm({ ...form, phone_number });
     }
-    setForm({ ...form, phoneNumber: formatPhoneNumber(phoneNumber) });
+    setForm({ ...form, phone_number: formatPhoneNumber(phone_number) });
   };
 
   // const handleDateChange = date => {
@@ -290,14 +287,14 @@ function GeneralInfo({ handleSubmit }) {
             <Label>Phone number</Label>
             <FormGroup
               propsInput={{
-                name: "phoneNumber",
+                name: "phone_number",
                 placeholder: "Enter your phone number here…",
                 onChange: handleChangeNumber,
                 onFocus: handleFocus,
-                value: form.phoneNumber,
+                value: form.phone_number,
                 disabled: isSubmitting,
               }}
-              error={error.phoneNumber}
+              error={error.phone_number}
             />
           </div>
         </div>
@@ -316,30 +313,14 @@ function GeneralInfo({ handleSubmit }) {
         </div>
         <div className="form__item">
           <div className="form__item__inner">
-            <Label>Address 1</Label>
+            <Label>Address</Label>
             <FormGroup
               propsInput={{
                 name: "address1",
                 placeholder: "Enter your street address here…",
                 onChange: handleChange,
                 onFocus: handleFocus,
-                value: form.address1,
-                disabled: isSubmitting,
-              }}
-              error={error.address}
-            />
-          </div>
-        </div>
-        <div className="form__item">
-          <div className="form__item__inner">
-            <Label>Address 2</Label>
-            <FormGroup
-              propsInput={{
-                name: "address2",
-                placeholder: "Enter details here…",
-                onChange: handleChange,
-                onFocus: handleFocus,
-                value: form.address2,
+                value: form.address,
                 disabled: isSubmitting,
               }}
               error={error.address}
