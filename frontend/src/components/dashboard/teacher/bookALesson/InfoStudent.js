@@ -104,7 +104,7 @@ function InfoStudent({ handleNext, step, studentSelected, handleClickEdit }) {
         )}`}</h4>
         <div className="student-info__item">
           <h3>Age</h3>
-          {student.age && <p>{student.age.formatted_data}</p>}
+          {student.age && <p>{student.age}</p>}
         </div>
         {student.is_parent && (
           <div className="student-info__item">
@@ -130,8 +130,8 @@ function InfoStudent({ handleNext, step, studentSelected, handleClickEdit }) {
             Edit
           </div>
         ) : (
-          ""
-        )}
+            ""
+          )}
       </div>
     </StyledInfoStudent>
   );

@@ -396,18 +396,18 @@ function Step2({
                       })}
                     </div>
                   ) : (
-                    <div className="--content">
-                      {storeBookLesson.date ? (
-                        <div>
-                          No classes
-                          <br />
+                      <div className="--content">
+                        {storeBookLesson.date ? (
+                          <div>
+                            No classes
+                            <br />
                           scheduled yet
-                        </div>
-                      ) : (
-                        "Pick a date to check your availabilities"
-                      )}
-                    </div>
-                  )}
+                          </div>
+                        ) : (
+                            "Pick a date to check your availabilities"
+                          )}
+                      </div>
+                    )}
                 </div>
                 <div className="select-a-time">
                   <h4>Select a time</h4>
@@ -473,13 +473,13 @@ function Step2({
                   {dataSetupBooking && Object.keys(dataSetupBooking).length ? (
                     ""
                   ) : (
-                    <p>
-                      <span>NOTE:</span> The lesson is set automatically to
+                      <p>
+                        <span>NOTE:</span> The lesson is set automatically to
                       repeat every week at the same day and time. For a{" "}
-                      <span>one-time lesson,</span> please check the following
+                        <span>one-time lesson,</span> please check the following
                       box:
-                    </p>
-                  )}
+                      </p>
+                    )}
                   <label className="checkbox">
                     <input
                       type="checkbox"
@@ -528,29 +528,29 @@ function Step2({
                   )}
                 </div>
               ) : (
-                ""
-              )}
+                  ""
+                )}
               {(error !== "" ||
                 errorTime !== "" ||
                 errorDate !== "" ||
                 errorTrial !== "") && (
-                <StyledErrorPanel>
-                  {[error, errorTime, errorDate, errorTrial].map(
-                    (errorInfo, index) => {
-                      return errorInfo !== "" ? (
-                        <div key={index}>
-                          <div className="warning-info">
-                            <ErrorOutlineIcon />
-                            <span>{errorInfo}</span>
+                  <StyledErrorPanel>
+                    {[error, errorTime, errorDate, errorTrial].map(
+                      (errorInfo, index) => {
+                        return errorInfo !== "" ? (
+                          <div key={index}>
+                            <div className="warning-info">
+                              <ErrorOutlineIcon />
+                              <span>{errorInfo}</span>
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        " "
-                      );
-                    }
-                  )}
-                </StyledErrorPanel>
-              )}
+                        ) : (
+                            " "
+                          );
+                      }
+                    )}
+                  </StyledErrorPanel>
+                )}
               <button className="find back" onClick={handleBack}>
                 Back
               </button>

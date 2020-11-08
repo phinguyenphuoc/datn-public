@@ -130,11 +130,11 @@ function Step1({
               )}
             </>
           ) : (
-            <div className="step1__inner__no-data">
-              <h2>NO NEW STUDENTS YET</h2>
-              <p>Students who have made a lesson request will appear here</p>
-            </div>
-          )}
+                <div className="step1__inner__no-data">
+                  <h2>NO NEW STUDENTS YET</h2>
+                  <p>Students who have made a lesson request will appear here</p>
+                </div>
+              )}
           {student.value && (
             <Link to="/dashboard/teacher" className="cancel find">
               Cancel

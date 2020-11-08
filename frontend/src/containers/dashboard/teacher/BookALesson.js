@@ -9,19 +9,19 @@ import {
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-// import {
-//   getBookingStudent,
-//   // updateBooklesson,
-//   createLesson,
-//   getSchedules,
-//   getSetupBooking,
-//   createMakeupSchedule,
-//   resetInitBookings,
-// } from "../../../redux/actions/teacher";
+import {
+  getBookingStudent,
+  updateBooklesson,
+  createLesson,
+  getSchedules,
+  //   getSetupBooking,
+  createMakeupSchedule,
+  //   resetInitBookings,
+} from "../../../redux/actions/teacher";
 import {
   getParam,
   convertTimeToNumber,
-  // roundCurrentTime,
+  roundCurrentTime
 } from "../../../utils/helpers";
 
 function BookALesson(props) {
@@ -45,7 +45,7 @@ function BookALesson(props) {
     openModalMessageBookLesson,
     setOpenModalMessageBookLesson,
   ] = React.useState(false);
-
+  console.log("form", form)
   const storeBookingStudents = useSelector(
     (store) => store.teacher.bookingStudents
   );
@@ -59,12 +59,9 @@ function BookALesson(props) {
   const isLoadingConfirmBooklesson =
     storeCreateLesson.loading || storeCreateMakeupSchedule.loading;
 
-  const booking_hash_id = getParam("booking");
   React.useEffect(() => {
-    if (booking_hash_id) {
-      // getBookingStudent(booking_hash_id);
-    }
-  }, [booking_hash_id]);
+    getBookingStudent();
+  }, []);
 
   React.useEffect(() => {
     if (lesson_id) {
@@ -74,7 +71,7 @@ function BookALesson(props) {
 
   React.useEffect(() => {
     if (storeBookLesson.date) {
-      // getSchedules(moment(storeBookLesson.date).format("YYYY-MM-DD"));
+      getSchedules(moment(storeBookLesson.date).format("YYYY-MM-DD"));
     }
   }, [storeBookLesson.date]);
 
@@ -143,7 +140,7 @@ function BookALesson(props) {
         duration: "",
         checkboxOnetime: false,
       });
-      // updateBooklesson({ date: "", time: roundCurrentTime() });
+      updateBooklesson({ date: "", time: roundCurrentTime() });
       setError({});
       setErrorDuration("");
       setErrorTrial("");
@@ -187,7 +184,7 @@ function BookALesson(props) {
   };
   const handleClickDate = (value) => () => {
     if (moment(value).isAfter(moment(new Date()).subtract(1, "days"))) {
-      // updateBooklesson({ date: value });
+      updateBooklesson({ date: value });
     }
     setErrorDate("");
     setErrorTime("");
@@ -215,7 +212,7 @@ function BookALesson(props) {
     : {};
 
   const onTimeChange = (value) => {
-    // updateBooklesson({ time: value });
+    updateBooklesson({ time: value });
     setErrorTime("");
   };
 
@@ -316,10 +313,12 @@ function BookALesson(props) {
         },
       };
     } else {
+      console.log(studentSelected)
       formData = {
         lesson: {
           instrument: studentSelected.instrument,
-          date: moment(storeBookLesson.date).format("YYYY-MM-DD"),
+          start_date: moment(storeBookLesson.date).format("YYYY-MM-DD"),
+          end_date: moment(storeBookLesson.date).add(1, "years").format("YYYY-MM-DD"),
           duration: form.duration,
           frequency: form.checkboxOnetime ? "one_time" : "weekly",
           trial: form.checkboxTrial === "true" ? true : false,
@@ -329,6 +328,9 @@ function BookALesson(props) {
         },
         schedule: {
           start_hour: moment(storeBookLesson.time).format("HH:mm"),
+          end_hour: moment(storeBookLesson.time)
+            .add(minute, "minutes")
+            .format("HH:mm")
         },
       };
       if (!studentSelected.trial_available || !form.checkboxOnetime) {
@@ -336,34 +338,34 @@ function BookALesson(props) {
       }
     }
 
-    // const handleAfterCallingAPISuccess = () => {
-    //   // resetInitBookings();
-    //   setOpenModalMessageBookLesson(!openModalMessageBookLesson);
-    //   // Reset data
-    //   setStudent({});
-    //   setForm({
-    //     duration: "",
-    //     checkboxOnetime: false,
-    //   });
-    //   // updateBooklesson({
-    //   //   date: "",
-    //   //   time: roundCurrentTime(),
-    //   // });
-    //   setError({});
-    //   setErrorDuration("");
-    //   setErrorTrial("");
-    //   setErrorTime("");
-    //   setErrorDate("");
-    // };
+    const handleAfterCallingAPISuccess = () => {
+      // resetInitBookings();
+      setOpenModalMessageBookLesson(!openModalMessageBookLesson);
+      // Reset data
+      setStudent({});
+      setForm({
+        duration: "",
+        checkboxOnetime: false,
+      });
+      updateBooklesson({
+        date: "",
+        time: roundCurrentTime(),
+      });
+      setError({});
+      setErrorDuration("");
+      setErrorTrial("");
+      setErrorTime("");
+      setErrorDate("");
+    };
 
     if (isCancelingLesson) {
-      // createMakeupSchedule(schedule_id, formData, () => {
-      //   handleAfterCallingAPISuccess();
-      // });
-      // } else {
-      //   createLesson(formData, () => {
-      //     handleAfterCallingAPISuccess();
-      //   });
+      createMakeupSchedule(schedule_id, formData, () => {
+        handleAfterCallingAPISuccess();
+      });
+    } else {
+      createLesson(formData, () => {
+        handleAfterCallingAPISuccess();
+      });
     }
   };
 
@@ -411,7 +413,7 @@ function BookALesson(props) {
           dataSetupBooking={storeSetupBooking.data}
         />
       )}
-      {step === 3 && !openModalMessageBookLesson && (
+      {(step === 3 && !openModalMessageBookLesson) && (
         <Step3
           storeBookLesson={storeBookLesson}
           studentSelected={studentSelected}
