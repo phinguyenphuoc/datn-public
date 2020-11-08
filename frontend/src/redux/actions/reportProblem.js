@@ -1,13 +1,14 @@
 import * as types from "../constants";
-import { request } from "../../utils/request";
+import { request, getHeader } from "../../utils/request";
 import store from "../store";
 
-export function reportProblem(data, resolve = () => { }) {
+export async function reportProblem(data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.REPORT_PROBLEM,
   });
   return request()
-    .post("supports/report", data)
+    .post("/supports/report", data, header)
     .then((response) => {
       resolve();
       store.dispatch({

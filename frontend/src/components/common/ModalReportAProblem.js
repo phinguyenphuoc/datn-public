@@ -205,22 +205,20 @@ const ModalReportAProblem = ({
     comment: "",
     issues: "",
   });
-
+  console.log(data)
   const lesson_info_Teacher =
     data && data.lesson && data.lesson.student
-      ? `${data.lesson.instrument} class with ${
-          data.lesson.student.first_name
-        } ${data.lesson.student.last_name} on ${moment(data.date).format(
-          "MMM, Do YYYY"
-        )} at ${formatTime2(data.start_hour)}`
+      ? `${data.lesson.instrument} class with ${data.lesson.student.first_name
+      } ${data.lesson.student.last_name} on ${moment(data.date).format(
+        "MMM, Do YYYY"
+      )} at ${formatTime2(data.start_hour)}`
       : null;
   const lesson_info_Parent =
     data && data.lesson && data.lesson.teacher
-      ? `${data.lesson.instrument} class with ${
-          data.lesson.teacher.first_name
-        } ${data.lesson.teacher.last_name} on ${moment(data.date).format(
-          "MMM, Do YYYY"
-        )} at ${formatTime2(data.start_hour)}`
+      ? `${data.lesson.instrument} class with ${data.lesson.teacher.first_name
+      } ${data.lesson.teacher.last_name} on ${moment(data.date).format(
+        "MMM, Do YYYY"
+      )} at ${formatTime2(data.start_hour)}`
       : null;
 
   React.useEffect(() => {
@@ -242,14 +240,14 @@ const ModalReportAProblem = ({
     }
 
     const formData = {
-      report: {
-        lesson_info:
-          data && data.lesson && data.lesson.student
-            ? lesson_info_Teacher
-            : lesson_info_Parent,
-        comment: form.comment,
-        issues: [form.issues],
-      },
+
+      lesson_info:
+        data && data.lesson && data.lesson.student
+          ? lesson_info_Teacher
+          : lesson_info_Parent,
+      comment: form.comment,
+      issues: form.issues,
+      lesson_id: data.lesson.id
     };
     handleSubmit(formData);
   };
