@@ -1,6 +1,6 @@
 const { getTeacherPendingBooking, getBookingInformation, approveBooking, getListStudentFromBooking } = require("../access/booking");
 const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
-const { getProfileByUserId } = require('../access/common');
+const { getProfileByUserId, updateGeneralInfo } = require('../access/common');
 const { createLesson, getActiveTeacherLesson } = require('../access/lesson');
 const { createScheduleForLesson, cancelALessonSchedule, suspendLessonSchedule } = require('../access/schedule');
 
@@ -252,6 +252,84 @@ const suspendLessonAPI = async (req, res) => {
 
 }
 
+const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
+  const profile = await getTeacherProfile(req.body)
+  const id = profile.id
+  let medias, pricing, skills
+  await Promise.all([getMedias([id]), getPricing([id]), getSkills([id])])
+    .then(results => {
+      medias = results[0]
+      pricing = results[1]
+      skills = results[2]
+    })
+    .catch(err => console.log(err))
+
+  medias.forEach(media => {
+    const arrMedias = []
+    media.types.forEach((type, index) => {
+      arrMedias.push({
+        details: null,
+        name: "abc.jpg",
+        tag: media.tags[index],
+        type,
+        url: media.urls[index]
+      })
+    })
+    profile.medias = arrMedias
+    profile.avatar = arrMedias[0].url
+  })
+  pricing.forEach(price => {
+    const arrPricing = []
+    price.gross_prices.forEach((gross_price, index) => {
+      arrPricing.push({
+        gross_price,
+        net_price: gross_price,
+        duration: price.durations[index],
+        id: price.ids[index],
+        visible: true
+      })
+    })
+    profile.pricings = arrPricing
+  })
+
+  skills.forEach(skill => {
+    const arrSkill = []
+    skill.instruments.forEach((id, index) => {
+      arrSkill.push({
+        instrument: instruments[id],
+        level: skill.levels[index],
+        instrument_id: skill.instruments[index]
+      })
+    })
+    profile.skills = arrSkill
+  })
+  res.status(200).json({
+    status: "OK",
+    profile: {
+      ...profile,
+      teaching_type: { data: ["online"] },
+      teaching_experience: { data: "5", formatted_data: "5 years" }
+    }
+  })
+}
+
+const updateTeacherGeneralInfoAPI = async (req, res) => {
+  try {
+    const { sub, phone, address } = req.body
+    const teacher_profile = await getProfileByUserId(sub)
+    const teacher_profile_id = teacher_profile.id
+    await updateGeneralInfo(teacher_profile_id, phone, address)
+    res.status(200).json({
+      status: "OK"
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAIL",
+      error: error.message
+    })
+  }
+}
+
 module.exports = {
   listTeacherAPI,
   getTeacherProfileAPI,
@@ -260,5 +338,7 @@ module.exports = {
   getActiveLessonAPI,
   getStudentsOfTeacherAPI,
   updateLessonAPI,
-  suspendLessonAPI
+  suspendLessonAPI,
+  getTeacherProfileDashboardTeacherAPI,
+  updateTeacherGeneralInfoAPI
 }

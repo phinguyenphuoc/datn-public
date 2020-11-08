@@ -54,7 +54,7 @@ const insertProfileTable = ({
         about,
         background,
         experience,
-        address) VALUES($1,$2,$3,$4,$5,$6,$7)
+        city) VALUES($1,$2,$3,$4,$5,$6,$7)
         RETURNING *
       `,
       [first_name, last_name, pickup_line, about, background, experience, city],

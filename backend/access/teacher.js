@@ -13,7 +13,7 @@ const listTeacher = () => {
               ...item,
               tag: `${item.first_name}-${item.last_name}`,
               rating: 5,
-              city: item.address,
+              city: item.city,
               member_since: "2020-02-29",
               teaching_type: { data: ["online"] }
             }

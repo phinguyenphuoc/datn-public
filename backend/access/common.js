@@ -66,4 +66,23 @@ const getProfileByUserId = (sub) => {
     )
   })
 }
-module.exports = { getMedias, getPricing, getSkills, getProfileByUserId }
+
+const updateGeneralInfo = (id, phone, address) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE  public.profile 
+      SET phone_number = $2,
+      address = $3
+      WHERE id = $1`,
+      [id, phone, address],
+      (err, results) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      }
+    )
+  })
+}
+module.exports = { getMedias, getPricing, getSkills, getProfileByUserId, updateGeneralInfo }

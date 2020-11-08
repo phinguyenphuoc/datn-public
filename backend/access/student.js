@@ -7,7 +7,7 @@ const updateStudentProfile = ({ sub, first_name, last_name, phone_number, addres
         SET first_name = $2,
         last_name = $3,
         phone_number = $4,
-        address = $5
+        city = $5
         WHERE user_id = $1 AND roles @> ARRAY['student'] RETURNING *`,
       [sub, first_name, last_name, phone_number, address],
       (error, results) => {

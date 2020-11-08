@@ -20,7 +20,9 @@ const {
   getActiveLessonAPI,
   getStudentsOfTeacherAPI,
   updateLessonAPI,
-  suspendLessonAPI
+  suspendLessonAPI,
+  getTeacherProfileDashboardTeacherAPI,
+  updateTeacherGeneralInfoAPI
 } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
@@ -40,6 +42,10 @@ app.get('/instruments', instrumentsApi)
 app.get('/profile', getUserProfileApi)
 
 app.get('/teachers/profile', getTeacherProfileAPI)
+
+app.get('/teacher/profile', getTeacherProfileDashboardTeacherAPI)
+
+app.put('/teacher/profile', updateTeacherGeneralInfoAPI)
 
 app.get('/students/profile', getStudentProfileAPI)
 
