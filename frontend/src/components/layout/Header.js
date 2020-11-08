@@ -207,19 +207,6 @@ function Header({ isDashboard, showHideHeader, page }) {
         top: `${storeGlobal.topHeader}px`,
       }}
     >
-      {!isDashboard && storageNoti !== "close" && (
-        <div ref={headerNotiRef} className="header__notification">
-          <p>
-            Get 50% off on your first music lesson. Limited time only.{" "}
-            <b>
-              <NavLink to="/teachers">
-                <u>Find your teacher today!</u>
-              </NavLink>
-            </b>
-          </p>
-          <span onClick={handleCloseNotification}>&#x2716;</span>
-        </div>
-      )}
       <div className="header__inner">
         <NavLink to="/" className="header__inner__logo">
           <img src={logo} alt="Logo" />

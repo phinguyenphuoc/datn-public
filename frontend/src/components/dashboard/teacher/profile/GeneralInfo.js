@@ -106,33 +106,29 @@ const GeneralInfo = ({ data, handleSubmit }) => {
   const [form, setForm] = React.useState({
     phoneNumber: "",
     email: "",
-    // address1: "",
-    // address2: "",
-    // city: "",
-    // zip: ""
+    address1: "",
+    address2: "",
+    city: "",
+    zip: ""
   });
 
   React.useEffect(() => {
     setForm({
       ...form,
-      phoneNumber: formatPhoneNumber(storeTeacherProfile.data.phone),
+      phoneNumber: formatPhoneNumber(storeTeacherProfile.data.phone_number),
       email: storeTeacherProfile.data.email || "",
-      // address1:
-      //   storeTeacherProfile.data.address &&
-      //   storeTeacherProfile.data.address.length > 3 &&
-      //   storeTeacherProfile.data.address[0],
-      // address2:
-      //   storeTeacherProfile.data.address &&
-      //   storeTeacherProfile.data.address.length > 3 &&
-      //   storeTeacherProfile.data.address[1],
-      // city:
-      //   storeTeacherProfile.data.address &&
-      //   storeTeacherProfile.data.address.length > 3 &&
-      //   storeTeacherProfile.data.address[2],
-      // zip:
-      //   storeTeacherProfile.data.address &&
-      //   storeTeacherProfile.data.address.length > 3 &&
-      //   storeTeacherProfile.data.address[3]
+      address:
+        storeTeacherProfile.data.address &&
+        storeTeacherProfile.data.address.length > 2 &&
+        storeTeacherProfile.data.address[0],
+      city:
+        storeTeacherProfile.data.address &&
+        storeTeacherProfile.data.address.length > 2 &&
+        storeTeacherProfile.data.address[1],
+      zip:
+        storeTeacherProfile.data.address &&
+        storeTeacherProfile.data.address.length > 2 &&
+        storeTeacherProfile.data.address[2]
     });
     // eslint-disable-next-line
   }, [storeTeacherProfile]);
@@ -145,10 +141,8 @@ const GeneralInfo = ({ data, handleSubmit }) => {
     }
 
     const formData = {
-      profil: {
-        phone: getPhoneNumberOnlyDigits(form.phoneNumber),
-        // address: [form.address1, form.address2, form.city, form.zip]
-      },
+      phone: getPhoneNumberOnlyDigits(form.phoneNumber),
+      address: [form.address, form.city, form.zip]
     };
     handleSubmit(formData);
   };
@@ -160,24 +154,21 @@ const GeneralInfo = ({ data, handleSubmit }) => {
     if (isEmpty(form.phoneNumber)) {
       errorState.phoneNumber = "Phone number is required ";
     }
-    // if (isEmpty(form.city)) {
-    //   errorState.city = "City is required ";
-    // }
-    // if (isEmpty(form.address1)) {
-    //   errorState.address1 = "Address 1 is required ";
-    // }
-    // if (isEmpty(form.address2)) {
-    //   errorState.address2 = "Address 2 is required ";
-    // }
-    // if (isEmpty(form.zip)) {
-    //   errorState.zip = "Zip is required ";
-    // }
+    if (isEmpty(form.city)) {
+      errorState.city = "City is required ";
+    }
+    if (isEmpty(form.address)) {
+      errorState.address1 = "Address 1 is required ";
+    }
+    if (isEmpty(form.zip)) {
+      errorState.zip = "Zip is required ";
+    }
     return errorState;
   };
 
-  // const handleChange = event => {
-  //   setForm({ ...form, [event.target.name]: event.target.value });
-  // };
+  const handleChange = event => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
 
   const handleFocus = (event) => {
     setError({
@@ -218,81 +209,52 @@ const GeneralInfo = ({ data, handleSubmit }) => {
           </div>
           <div className="form__item">
             <div className="form__item__inner">
-              <Label>Email address</Label>
+              <Label>Street address</Label>
               <FormGroup
                 propsInput={{
-                  name: "email",
-                  placeholder: "Enter your email address here…",
-                  value: form.email,
-                  disabled: true,
+                  name: "address",
+                  placeholder: "Enter your street address here…",
+                  onChange: handleChange,
+                  onFocus: handleFocus,
+                  value: form.address,
+                  disabled: isSubmitting
                 }}
+                error={error.address1}
               />
             </div>
           </div>
-          {/* <div className="form__item">
-          <div className="form__item__inner">
-            <Label>Street address</Label>
-            <FormGroup
-              propsInput={{
-                name: "address1",
-                placeholder: "Enter your street address here…",
-                onChange: handleChange,
-                onFocus: handleFocus,
-                value: form.address1,
-                disabled: isSubmitting
-              }}
-              error={error.address1}
-            />
+          <div className="form__item">
+            <div className="form__item__inner">
+              <Label>ZIP Code</Label>
+              <FormGroup
+                propsInput={{
+                  name: "zip",
+                  placeholder: "Enter your ZIP Code here…",
+                  onChange: handleChange,
+                  onFocus: handleFocus,
+                  value: form.zip,
+                  disabled: isSubmitting
+                }}
+                error={error.zip}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form__item">
-          <div className="form__item__inner">
-            <Label>Apt / Suite / Other</Label>
-            <FormGroup
-              propsInput={{
-                name: "address2",
-                placeholder: "Enter details here…",
-                onChange: handleChange,
-                onFocus: handleFocus,
-                value: form.address2,
-                disabled: isSubmitting
-              }}
-              error={error.address2}
-            />
+          <div className="form__item">
+            <div className="form__item__inner">
+              <Label>City</Label>
+              <FormGroup
+                propsInput={{
+                  name: "city",
+                  placeholder: "Enter your city here…",
+                  onChange: handleChange,
+                  onFocus: handleFocus,
+                  value: form.city,
+                  disabled: isSubmitting
+                }}
+                error={error.city}
+              />
+            </div>
           </div>
-        </div>
-        <div className="form__item">
-          <div className="form__item__inner">
-            <Label>ZIP Code</Label>
-            <FormGroup
-              propsInput={{
-                name: "zip",
-                placeholder: "Enter your ZIP Code here…",
-                onChange: handleChange,
-                onFocus: handleFocus,
-                value: form.zip,
-                disabled: isSubmitting
-              }}
-              error={error.zip}
-            />
-          </div>
-        </div>
-        <div className="form__item">
-          <div className="form__item__inner">
-            <Label>City</Label>
-            <FormGroup
-              propsInput={{
-                name: "city",
-                placeholder: "Enter your city here…",
-                onChange: handleChange,
-                onFocus: handleFocus,
-                value: form.city,
-                disabled: isSubmitting
-              }}
-              error={error.city}
-            />
-          </div>
-        </div> */}
         </div>
         <button className="find" disabled={isSubmitting}>
           Save my changes
