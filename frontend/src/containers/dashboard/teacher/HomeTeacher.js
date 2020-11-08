@@ -14,12 +14,12 @@ import {
 } from "../../../components/common";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-// import {
-//   getStudents,
-//   cancelLesson,
-//   suspendLesson,
-//   getEarningCurrentDetails,
-// } from "../../../redux/actions/teacher";
+import {
+  getStudents,
+  cancelLesson,
+  suspendLesson,
+  //   getEarningCurrentDetails,
+} from "../../../redux/actions/teacher";
 import { reportProblem } from "../../../redux/actions/reportProblem";
 import { getAuth } from "../../../utils/helpers";
 import star from "../../../assets/images/modal-star.svg";
@@ -63,7 +63,7 @@ function HomeTeacher(props) {
   }, [storeEarningCurrentDetails]);
 
   React.useEffect(() => {
-    // getStudents();
+    getStudents();
   }, []);
 
   const handleModalInfoStudent = () => {
@@ -141,26 +141,26 @@ function HomeTeacher(props) {
   };
 
   const handleCancel = (formData) => {
-    // cancelLesson(selectedItem.lesson.id, selectedItem.id, formData, () => {
-    //   setOpenModalCancelLesson(false);
-    //   let message = "Your lesson has been canceled successfully.";
-    //   if (formData.cancel.recurrence === "many") {
-    //     message = "Your lessons have been canceled successfully.";
-    //   }
-    //   openModalMessage({
-    //     title: "Cancel lesson",
-    //     body: <p>{message}</p>,
-    //   });
-    // });
+    cancelLesson(selectedItem.lesson.id, selectedItem.id, formData, () => {
+      setOpenModalCancelLesson(false);
+      let message = "Your lesson has been canceled successfully.";
+      if (formData.cancel.recurrence === "many") {
+        message = "Your lessons have been canceled successfully.";
+      }
+      openModalMessage({
+        title: "Cancel lesson",
+        body: <p>{message}</p>,
+      });
+    });
   };
   const handleSuspend = (formData) => {
-    //  suspendLesson (selectedItem.lesson.id, formData, () => {
-    //     setOpenModalCancelLesson(false);
-    //     openModalMessage({
-    //       title: "Suspend lesson",
-    //       body: <p>Your lesson has been suspended successfully.</p>,
-    //     });
-    //   });
+    suspendLesson(selectedItem.lesson.id, formData, () => {
+      setOpenModalCancelLesson(false);
+      openModalMessage({
+        title: "Suspend lesson",
+        body: <p>Your lesson has been suspended successfully.</p>,
+      });
+    });
   };
   const handleSubmitReport = (formData) => {
     reportProblem(formData, () => {

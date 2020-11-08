@@ -1,5 +1,5 @@
 import * as types from "../constants";
-import { request } from "../../utils/request";
+import { getHeader, request } from "../../utils/request";
 import store from "../store";
 
 export function registerTeacher(data, resolve = () => { }) {
@@ -65,12 +65,13 @@ export function updateTeacherInfo(data, resolve = () => { }) {
     });
 }
 
-export function getStudents(resolve = () => { }) {
+export async function getStudents(resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_STUDENTS,
   });
   return request()
-    .get("/teacher/students/profiles")
+    .get("/teacher/students/profiles", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -86,12 +87,13 @@ export function getStudents(resolve = () => { }) {
     });
 }
 
-export function getSchedules(date, resolve = () => { }) {
+export async function getSchedules(date, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_SCHEDULES,
   });
   return request()
-    .get(`/schedules?date=${date}`)
+    .get(`/schedules?date=${date}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -183,12 +185,13 @@ export function getStripeLink(resolve = () => { }, reject = () => { }) {
     });
 }
 
-export function getInitBookings(resolve = () => { }) {
+export async function getInitBookings(resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.GET_INIT_BOOKINGS,
   });
   return request()
-    .get("/teacher/lessons/init_bookings")
+    .get("/teacher/pending_bookings", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -217,18 +220,16 @@ export function updateBooklesson(data) {
   });
 }
 
-export function getBookingStudent(booking_hash_id, resolve = () => { }) {
+export async function getBookingStudent(resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.GET_BOOKING_STUDENT,
   });
   return request()
-    .get(
-      `/teacher/lessons/bookings${booking_hash_id ? `/${booking_hash_id}` : ""}`
-    )
+    .get(`/teacher/bookings/pending`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
-        booking_hash_id,
         payload: response.data,
         type: types.GET_BOOKING_STUDENT_SUCCEED,
       });
@@ -241,12 +242,13 @@ export function getBookingStudent(booking_hash_id, resolve = () => { }) {
     });
 }
 
-export function createLesson(data, resolve = () => { }) {
+export async function createLesson(data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.CREATE_LESSON,
   });
   return request()
-    .post("/teacher/lessons", data)
+    .post("/teacher/lessons", data, header)
     .then((response) => {
       resolve();
       store.dispatch({
@@ -305,12 +307,13 @@ export function createMakeupSchedule(schedule_id, data, resolve = () => { }) {
       });
     });
 }
-export function cancelLesson(lesson_id, schedule_id, data, resolve = () => { }) {
+export async function cancelLesson(lesson_id, schedule_id, data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.CANCEL_LESSON_SCHEDULE,
   });
   return request()
-    .post(`teacher/lessons/cancel_schedule/${schedule_id}`, data)
+    .post(`teacher/lessons/cancel_schedule/${schedule_id}`, data, header)
     .then((response) => {
       resolve();
       store.dispatch({
@@ -328,12 +331,13 @@ export function cancelLesson(lesson_id, schedule_id, data, resolve = () => { }) 
       });
     });
 }
-export function suspendLesson(lesson_id, data, resolve = () => { }) {
+export async function suspendLesson(lesson_id, data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.CANCEL_LESSON_SCHEDULE,
   });
   return request()
-    .post(`teacher/lessons/${lesson_id}/suspend`, data)
+    .post(`teacher/lessons/${lesson_id}/suspend`, data, header)
     .then((response) => {
       resolve();
       store.dispatch({

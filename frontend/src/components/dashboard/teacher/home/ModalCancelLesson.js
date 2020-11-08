@@ -712,19 +712,19 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleCancel, handleSus
               >
                 <div className="collapse_item option2">
                   {Object.keys(CANCELLATION_RECURRENCY).map((item, index) => (
-                      <label className="cancel_checkbox" key={item}>
-                        <input
-                          name="cancel_recurrency"
-                          type="radio"
-                          className="input_checkbox"
-                          onChange={handleChange}
-                          onFocus={handleFocus}
-                          value={item}
-                        />
-                        <span className="checkmark"></span>
-                        <p>{CANCELLATION_RECURRENCY[item]}</p>
-                      </label>
-                    ))}
+                    <label className="cancel_checkbox" key={item}>
+                      <input
+                        name="cancel_recurrency"
+                        type="radio"
+                        className="input_checkbox"
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        value={item}
+                      />
+                      <span className="checkmark"></span>
+                      <p>{CANCELLATION_RECURRENCY[item]}</p>
+                    </label>
+                  ))}
                   <FormGroup
                     propsInput={{
                       type: "textarea",
@@ -738,10 +738,6 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleCancel, handleSus
                     }}
                     error={error.explain}
                   />
-                  <h4>
-                    An email notification will be sent to your student to
-                    confirm the canceled lesson.
-                  </h4>
                 </div>
               </Collapse>
             </div>
@@ -825,10 +821,6 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleCancel, handleSus
                     }}
                     error={error.comment}
                   />
-                  <h4>
-                    An email notification will be sent to your student to
-                    confirm the canceled lessons.
-                  </h4>
                 </div>
               </Collapse>
             </div>

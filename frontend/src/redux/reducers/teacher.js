@@ -525,7 +525,7 @@ export default function reducer(state = initialState, actions) {
     case types.CANCEL_LESSON_SCHEDULE_SUCCEED:
       const isScheduleCanceled = (item, actions) => {
         return item.id === actions.schedule_id &&
-        actions.data.cancel.recurrence === "one"
+          actions.data.cancel.recurrence === "one"
       };
       const isAllSchedulesCanceled = (item, actions) => {
         return item.lesson.id === actions.lesson_id &&
