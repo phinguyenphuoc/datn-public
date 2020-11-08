@@ -5,8 +5,8 @@ require('dotenv').config()
 const app = express();
 var multer = require('multer')
 var upload = multer({ dest: 'uploads/' })
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true, parameterLimit: 100000, limit: '50mb' }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
 const router = require("./routes/index");
 

@@ -1,8 +1,13 @@
 const { getTeacherPendingBooking, getBookingInformation, approveBooking, getListStudentFromBooking } = require("../access/booking");
 const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
-const { getProfileByUserId, updateGeneralInfo } = require('../access/common');
+const { getProfileByUserId, updateGeneralInfo, updateGeneralTeacherInfo, getAllInstruments } = require('../access/common');
 const { createLesson, getActiveTeacherLesson } = require('../access/lesson');
 const { createScheduleForLesson, cancelALessonSchedule, suspendLessonSchedule } = require('../access/schedule');
+const { insertOrUpdatePricing } = require('../access/pricing');
+// const { insertOrUpdateSkill } = require('../access/skill');
+const { handleUpdateProfileAvatar } = require('../access/media');
+
+const { uploadImageS3 } = require('../utils/s3image');
 
 const instruments = [
   "",
@@ -25,8 +30,6 @@ const instruments = [
   'composition',
   'french horn'
 ]
-
-
 
 const listTeacherAPI = async (req, res) => {
   const profiles = await listTeacher()
@@ -286,7 +289,7 @@ const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
         net_price: gross_price,
         duration: price.durations[index],
         id: price.ids[index],
-        visible: true
+        visible: price.enabled[index]
       })
     })
     profile.pricings = arrPricing
@@ -315,14 +318,23 @@ const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
 
 const updateTeacherGeneralInfoAPI = async (req, res) => {
   try {
-    const { sub, phone, address } = req.body
+    const { sub, phone, address, profile } = req.body
     const teacher_profile = await getProfileByUserId(sub)
     const teacher_profile_id = teacher_profile.id
-    await updateGeneralInfo(teacher_profile_id, phone, address)
+    if (phone && address) {
+      await updateGeneralInfo(teacher_profile_id, phone, address)
+    } else {
+      const { about, background, experience, pickup_line, medias, pricings, skills } = profile
+      const image = medias[0].data
+      await updateGeneralTeacherInfo({ about, background, experience, pickup_line, id: teacher_profile_id })
+      const imageUrl = await uploadImageS3(image)
+      await Promise.all([handleUpdateProfileAvatar(teacher_profile_id, imageUrl), insertOrUpdatePricing(pricings, teacher_profile_id)])
+    }
     res.status(200).json({
       status: "OK"
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({
       status: "FAIL",
       error: error.message

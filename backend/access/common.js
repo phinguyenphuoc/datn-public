@@ -85,4 +85,48 @@ const updateGeneralInfo = (id, phone, address) => {
     )
   })
 }
-module.exports = { getMedias, getPricing, getSkills, getProfileByUserId, updateGeneralInfo }
+
+const updateGeneralTeacherInfo = ({ about, background, experience, pickup_line, id }) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE  public.profile 
+      SET about = $1,
+      background = $2,
+      experience = $3,
+      pickup_line = $4
+      WHERE id = $5`,
+      [about, background, experience, pickup_line, id],
+      (err, results) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      }
+    )
+  })
+}
+
+const getAllInstruments = () => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT * FROM instrument`,
+      (err, results) => {
+        if (err) {
+          console.log(err)
+          reject(err)
+        } else {
+          const responseData = results.rows.map(item => {
+            return {
+              id: item.id,
+              name: item.name
+            }
+          })
+          resolve(responseData)
+        }
+      }
+    )
+  })
+}
+
+module.exports = { getMedias, getPricing, getSkills, getProfileByUserId, updateGeneralInfo, updateGeneralTeacherInfo, getAllInstruments }
