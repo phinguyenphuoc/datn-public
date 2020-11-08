@@ -424,8 +424,8 @@ function HomemuseProfile({
     image: storeTeacherProfile.data.avatar || avatar,
     nameImage:
       storeTeacherProfile.data.medias &&
-      storeTeacherProfile.data.medias.length &&
-      storeTeacherProfile.data.medias[0].name
+        storeTeacherProfile.data.medias.length &&
+        storeTeacherProfile.data.medias[0].name
         ? storeTeacherProfile.data.medias[0].name
         : "default_avatar.jpg",
   });
@@ -436,11 +436,11 @@ function HomemuseProfile({
 
   const optionInstruments = storeInstruments
     ? storeInstruments.map((item, index) => {
-        return {
-          value: item.name,
-          label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        };
-      })
+      return {
+        value: item.name,
+        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+      };
+    })
     : [];
 
   const isConferencingTools =
@@ -472,26 +472,26 @@ function HomemuseProfile({
 
     const background =
       storeTeacherProfile.data.background &&
-      storeTeacherProfile.data.background.length >= 3
+        storeTeacherProfile.data.background.length >= 3
         ? storeTeacherProfile.data.background
         : ["", "", ""];
     const experience =
       storeTeacherProfile.data.experience &&
-      storeTeacherProfile.data.experience.length >= 3
+        storeTeacherProfile.data.experience.length >= 3
         ? storeTeacherProfile.data.experience
         : ["", "", ""];
     const in_person =
       storeTeacherProfile.data.teaching_type &&
-      storeTeacherProfile.data.teaching_type.data &&
-      storeTeacherProfile.data.teaching_type.data.length &&
-      storeTeacherProfile.data.teaching_type.data.includes("in-person")
+        storeTeacherProfile.data.teaching_type.data &&
+        storeTeacherProfile.data.teaching_type.data.length &&
+        storeTeacherProfile.data.teaching_type.data.includes("in-person")
         ? true
         : false;
     const online =
       storeTeacherProfile.data.teaching_type &&
-      storeTeacherProfile.data.teaching_type.data &&
-      storeTeacherProfile.data.teaching_type.data.length &&
-      storeTeacherProfile.data.teaching_type.data.includes("online")
+        storeTeacherProfile.data.teaching_type.data &&
+        storeTeacherProfile.data.teaching_type.data.length &&
+        storeTeacherProfile.data.teaching_type.data.includes("online")
         ? true
         : false;
     setForm({
@@ -500,7 +500,7 @@ function HomemuseProfile({
       about: storeTeacherProfile.data.about || "",
       trialLesson:
         storeTeacherProfile.data.teaching_trial_discount &&
-        storeTeacherProfile.data.teaching_trial_discount.data === "50"
+          storeTeacherProfile.data.teaching_trial_discount.data === "50"
           ? true
           : false,
       instruments:
@@ -510,11 +510,11 @@ function HomemuseProfile({
         })) || [],
       languages:
         storeTeacherProfile.data.teaching_language &&
-        storeTeacherProfile.data.teaching_language.data
+          storeTeacherProfile.data.teaching_language.data
           ? storeTeacherProfile.data.teaching_language.data.map((item) => ({
-              label: item,
-              value: item,
-            }))
+            label: item,
+            value: item,
+          }))
           : [{ value: "English", label: "English" }],
       visible_30,
       pricePer30,
@@ -530,12 +530,12 @@ function HomemuseProfile({
       experience3: experience[2],
       distance:
         storeTeacherProfile.data.teaching_distance &&
-        storeTeacherProfile.data.teaching_distance.data
+          storeTeacherProfile.data.teaching_distance.data
           ? storeTeacherProfile.data.teaching_distance.data
           : "",
       teaching_experience:
         storeTeacherProfile.data.teaching_experience &&
-        storeTeacherProfile.data.teaching_experience.data
+          storeTeacherProfile.data.teaching_experience.data
           ? storeTeacherProfile.data.teaching_experience.data
           : "",
       in_person,
@@ -543,7 +543,7 @@ function HomemuseProfile({
       image: storeTeacherProfile.data.avatar || form.image,
       nameImage:
         storeTeacherProfile.data.medias.length &&
-        storeTeacherProfile.data.medias[0].name
+          storeTeacherProfile.data.medias[0].name
           ? storeTeacherProfile.data.medias[0].name
           : "default_avatar.jpg",
     });
@@ -614,7 +614,7 @@ function HomemuseProfile({
     ];
 
     const formData = {
-      profil: {
+      profile: {
         pickup_line: form.pickUpLine,
         about: form.about,
         background: [form.background1, form.background2, form.background3],
@@ -1107,20 +1107,6 @@ function HomemuseProfile({
             </div>
           </div>
         </div>
-        <div className="form__lessons trial__lesson">
-          <h3>Trial lesson</h3>
-          <label className="price checkbox">
-            <input
-              checked={form.trialLesson}
-              type="checkbox"
-              className="input_checkbox"
-              name="trialLesson"
-              onChange={handleCheckbox}
-            />
-            <span className="checkmark"></span>
-            <p>{`Offering trial lesson: ${form.trialLesson ? "yes" : "no"}`}</p>
-          </label>
-        </div>
         <h2 className="have-border">Medias</h2>
         <div className="form__medias">
           <div className="photo-and-video">
@@ -1176,31 +1162,31 @@ function HomemuseProfile({
         {(Object.keys(error).length > 0 ||
           errorProfilePicture !== "" ||
           errorlessonType !== "") && (
-          <StyledErrorPanel>
-            {Object.keys(error).map((errorName, index) => {
-              return error[errorName] !== "" ? (
-                <div key={index}>
+            <StyledErrorPanel>
+              {Object.keys(error).map((errorName, index) => {
+                return error[errorName] !== "" ? (
+                  <div key={index}>
+                    <ErrorOutlineIcon />
+                    <span>{error[errorName]}</span>
+                  </div>
+                ) : (
+                    " "
+                  );
+              })}
+              {errorProfilePicture && (
+                <div>
                   <ErrorOutlineIcon />
-                  <span>{error[errorName]}</span>
+                  <span>{errorProfilePicture}</span>
                 </div>
-              ) : (
-                " "
-              );
-            })}
-            {errorProfilePicture && (
-              <div>
-                <ErrorOutlineIcon />
-                <span>{errorProfilePicture}</span>
-              </div>
-            )}
-            {errorlessonType && (
-              <div>
-                <ErrorOutlineIcon />
-                <span>{errorlessonType}</span>
-              </div>
-            )}
-          </StyledErrorPanel>
-        )}
+              )}
+              {errorlessonType && (
+                <div>
+                  <ErrorOutlineIcon />
+                  <span>{errorlessonType}</span>
+                </div>
+              )}
+            </StyledErrorPanel>
+          )}
         <button className="find" disabled={isSubmitting}>
           Save my changes
           <span>

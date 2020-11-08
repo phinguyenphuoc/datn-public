@@ -23,12 +23,13 @@ export function registerTeacher(data, resolve = () => { }) {
     });
 }
 
-export function getTeacherProfile(resolve = () => { }) {
+export async function getTeacherProfile(resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_TEACHER_PROFILE,
   });
   return request()
-    .get("/teacher/profile")
+    .get("/teacher/profile", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -44,12 +45,13 @@ export function getTeacherProfile(resolve = () => { }) {
     });
 }
 
-export function updateTeacherInfo(data, resolve = () => { }) {
+export async function updateTeacherInfo(data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.UPDATE_TEACHER_PROFILE,
   });
   return request()
-    .put("/teacher/profile", data)
+    .put("/teacher/profile", data, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

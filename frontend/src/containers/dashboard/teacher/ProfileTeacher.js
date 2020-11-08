@@ -12,11 +12,11 @@ import {
   ModalStripeSuccess,
   ModalStripeWrong,
 } from "../../../components/dashboard/teacher/profile";
-// import {
-//   getTeacherProfile,
-//   updateTeacherInfo,
-//   getZoomAuthCode,
-// } from "../../../redux/actions/teacher";
+import {
+  getTeacherProfile,
+  updateTeacherInfo,
+  //   getZoomAuthCode,
+} from "../../../redux/actions/teacher";
 import { updatePassword } from "../../../redux/actions/updatePassword";
 import { useSelector } from "react-redux";
 import { openModalMessage } from "../../../redux/actions/modalMessage";
@@ -49,7 +49,7 @@ function ProfileTeacher(props) {
     storeTeacherProfile.conferencing_tools.includes("zoom");
 
   React.useEffect(() => {
-    // getTeacherProfile();
+    getTeacherProfile();
   }, []);
 
   React.useEffect(() => {
@@ -85,16 +85,16 @@ function ProfileTeacher(props) {
   }, [isOnline, isHasConferencingTools]);
 
   const handleUpdateProfile = (formData) => {
-    // updateTeacherInfo(formData, (data) => {
-    //   openModalMessage({
-    //     title: "Profile updated",
-    //     body: <p>Your profile has been updated successfully.</p>,
-    //   });
-    //   const auth = getAuth();
-    //   auth.user_avatar = data.profil.avatar;
-    //   auth.user_profil_published = data.profil.published;
-    //   setAuth(auth);
-    // });
+    updateTeacherInfo(formData, (data) => {
+      openModalMessage({
+        title: "Profile updated",
+        body: <p>Your profile has been updated successfully.</p>,
+      });
+      const auth = getAuth();
+      auth.user_avatar = data.profil.avatar;
+      auth.user_profil_published = data.profil.published;
+      setAuth(auth);
+    });
   };
 
   const handleUpdatePassword = (formData) => {
