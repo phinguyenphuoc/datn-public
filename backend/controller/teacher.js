@@ -1,6 +1,8 @@
-const { getTeacherPendingBooking } = require("../access/booking");
+const { getTeacherPendingBooking, getBookingInformation, approveBooking } = require("../access/booking");
 const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
 const { getProfileByUserId } = require('../access/common');
+const { createLesson, getActiveTeacherLesson } = require('../access/lesson');
+const { createScheduleForLesson } = require('../access/schedule');
 
 const instruments = [
   "",
@@ -107,6 +109,7 @@ const getTeacherProfileAPI = async (req, res) => {
 
 const getPendingBookingsAPI = async (req, res) => {
   try {
+    console.log("Get here")
     const { sub } = req.body;
     const teacherProfile = await getProfileByUserId(sub);
     const teacher_profile_id = teacherProfile.id;
@@ -116,12 +119,75 @@ const getPendingBookingsAPI = async (req, res) => {
       bookings: pendingBooking
     })
   } catch (error) {
+    console.log("error", error)
     res.status(500).json({
       status: "FAILED",
       message: error.message
     })
   }
-
 }
 
-module.exports = { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI }
+const getFrequency = (frequency) => {
+  switch (frequency) {
+    case "one_time":
+      return 1
+    default:
+      return 1
+  }
+}
+const createLessonAPI = async (req, res) => {
+  try {
+    const { sub, booking, lesson, schedule } = req.body;
+    const booking_id = booking.id
+    const { start_date, end_date, duration, frequency } = lesson
+    const freqNumber = getFrequency(frequency)
+    const { start_hour, end_hour } = schedule
+    const teacher_profile = await getProfileByUserId(sub)
+    const teacher_profile_id = teacher_profile.id
+    const bookingInfo = await getBookingInformation(booking_id, teacher_profile_id)
+    const lessonCreated = await createLesson({
+      booking_id: bookingInfo.id,
+      pricing_id: bookingInfo.price_id,
+      start_date: start_date,
+      end_date: end_date,
+      instrument_id: bookingInfo.instrument_id,
+      trial: false,
+      frequency: freqNumber,
+      language: "english",
+      status: "active"
+    })
+    await createScheduleForLesson({ lesson_id: lessonCreated.id, start_date, end_date, start_hour, end_hour })
+    await approveBooking(booking_id)
+    res.status(200).json({
+      status: "OK",
+      lesson: lessonCreated
+    })
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({
+      status: "FAILED",
+      message: error.message
+    })
+  }
+}
+
+const getActiveLessonAPI = async (req, res) => {
+  try {
+    const { sub } = req.body
+    const teacher_profile = await getProfileByUserId(sub)
+    const teacher_profile_id = teacher_profile.duration
+    const lessons = await getActiveTeacherLesson(teacher_profile_id)
+    res.status(200).json({
+      status: "OK",
+      lessons: lessons
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAILED",
+      message: error.message
+    })
+  }
+}
+
+module.exports = { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI, createLessonAPI, getActiveLessonAPI }
