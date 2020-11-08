@@ -21,9 +21,7 @@ const createLesson = ({ booking_id, pricing_id, start_date, end_date, instrument
 const getActiveTeacherLesson = (teacher_profile_id) => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT * FROM public.lesson AS l
-      INNER JOIN public.booking AS b ON l.booking_id = b.id
-      WHERE b.teacher_profile_id = $1`,
+      `SELECT * FROM public.lesson WHERE teacher_id = $1`,
       [teacher_profile_id],
       (error, results) => {
         if (error) {

@@ -1,4 +1,3 @@
-const { query } = require('../config')
 const getS3 = require('../aws-s3');
 const s3 = getS3();
 const fs = require('fs');

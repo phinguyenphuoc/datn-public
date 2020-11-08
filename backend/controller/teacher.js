@@ -1,4 +1,4 @@
-const { getTeacherPendingBooking, getBookingInformation, approveBooking } = require("../access/booking");
+const { getTeacherPendingBooking, getBookingInformation, approveBooking, getListStudentFromBooking } = require("../access/booking");
 const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
 const { getProfileByUserId } = require('../access/common');
 const { createLesson, getActiveTeacherLesson } = require('../access/lesson');
@@ -154,7 +154,8 @@ const createLessonAPI = async (req, res) => {
       trial: false,
       frequency: freqNumber,
       language: "english",
-      status: "active"
+      status: "active",
+      teacher_id: teacher_profile_id
     })
     await createScheduleForLesson({ lesson_id: lessonCreated.id, start_date, end_date, start_hour, end_hour })
     await approveBooking(booking_id)
@@ -176,7 +177,7 @@ const getActiveLessonAPI = async (req, res) => {
   try {
     const { sub } = req.body
     const teacher_profile = await getProfileByUserId(sub)
-    const teacher_profile_id = teacher_profile.duration
+    const teacher_profile_id = teacher_profile.id
     const lessons = await getActiveTeacherLesson(teacher_profile_id)
     res.status(200).json({
       status: "OK",
@@ -190,4 +191,26 @@ const getActiveLessonAPI = async (req, res) => {
   }
 }
 
-module.exports = { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI, createLessonAPI, getActiveLessonAPI }
+const getStudentsOfTeacherAPI = async (req, res) => {
+  try {
+    const { sub } = req.body;
+    const teacher_profile = await getProfileByUserId(sub)
+    const teacher_profile_id = teacher_profile.id
+    const lessonsActive = await getActiveTeacherLesson(teacher_profile_id)
+    const booking_ids = lessonsActive.map(item => item.booking_id)
+    console.log(booking_ids)
+    const students = await getListStudentFromBooking({ booking_ids })
+    res.status(200).json({
+      status: "OK",
+      students: students
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAILED",
+      message: error.message
+    })
+  }
+
+}
+
+module.exports = { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI, createLessonAPI, getActiveLessonAPI, getStudentsOfTeacherAPI }

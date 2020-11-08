@@ -87,4 +87,21 @@ const approveBooking = (id) => {
   })
 }
 
-module.exports = { bookingALesson, getTeacherPendingBooking, getBookingInformation, approveBooking }
+const getListStudentFromBooking = ({ booking_ids }) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT p.* FROM public.booking as b 
+      INNER JOIN profile as p ON b.student_profile_id = p.id
+      WHERE b.id = ANY ($1)`,
+      [booking_ids],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+module.exports = { bookingALesson, getTeacherPendingBooking, getBookingInformation, approveBooking, getListStudentFromBooking }

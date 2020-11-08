@@ -17,12 +17,15 @@ const {
   getTeacherProfileAPI,
   getPendingBookingsAPI,
   createLessonAPI,
-  getActiveLessonAPI
+  getActiveLessonAPI,
+  getStudentsOfTeacherAPI
 } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
 const { updateStudentProfileAPI, addStudentProfileAPI, getStudentProfileAPI, uploadStudentAvatarAPI } = require('./controller/student');
 const { registerPendingStudentAPI } = require('./controller/booking');
+const { getSchedulesAPI } = require('./controller/schedule');
+const { reportProblemAPI } = require('./controller/support');
 
 app.use('/', router)
 app.get('/', (req, res) => {
@@ -53,6 +56,11 @@ app.post('/teacher/lessons', createLessonAPI)
 
 app.get('/teacher/active-lessons', getActiveLessonAPI)
 
+app.get('/schedules?:date', getSchedulesAPI)
+
+app.get('/teacher/students/profiles', getStudentsOfTeacherAPI)
+
+app.post('/supports/report', reportProblemAPI)
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);
 });
