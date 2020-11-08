@@ -2,7 +2,7 @@ const { getTeacherPendingBooking, getBookingInformation, approveBooking, getList
 const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
 const { getProfileByUserId } = require('../access/common');
 const { createLesson, getActiveTeacherLesson } = require('../access/lesson');
-const { createScheduleForLesson } = require('../access/schedule');
+const { createScheduleForLesson, cancelALessonSchedule, suspendLessonSchedule } = require('../access/schedule');
 
 const instruments = [
   "",
@@ -213,4 +213,52 @@ const getStudentsOfTeacherAPI = async (req, res) => {
 
 }
 
-module.exports = { listTeacherAPI, getTeacherProfileAPI, getPendingBookingsAPI, createLessonAPI, getActiveLessonAPI, getStudentsOfTeacherAPI }
+const updateLessonAPI = async (req, res) => {
+
+  try {
+    const { cancel } = req.body
+    const { message, recurrence } = cancel
+    const { id } = req.params
+    if (recurrence === "one") {
+      await cancelALessonSchedule(id, message)
+      res.send({
+        status: "OK"
+      })
+    }
+
+  } catch (error) {
+    res.status(500).json({
+      status: "FAILED",
+      message: error.message
+    })
+  }
+}
+
+const suspendLessonAPI = async (req, res) => {
+  try {
+    const { cancel } = req.body
+    const { id } = req.params
+    const { start_date, end_date, message } = cancel
+    await suspendLessonSchedule(start_date, end_date, message, id)
+    res.status(200).json({
+      status: "OK"
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAILED",
+      message: error.message
+    })
+  }
+
+}
+
+module.exports = {
+  listTeacherAPI,
+  getTeacherProfileAPI,
+  getPendingBookingsAPI,
+  createLessonAPI,
+  getActiveLessonAPI,
+  getStudentsOfTeacherAPI,
+  updateLessonAPI,
+  suspendLessonAPI
+}

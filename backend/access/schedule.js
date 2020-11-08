@@ -103,4 +103,42 @@ const getScheduleDateInMonth = (date) => {
     )
   })
 }
-module.exports = { createScheduleForLesson, getScheduleDateInMonth }
+
+const cancelALessonSchedule = (id, reason) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.schedule
+      set status = $1,
+      reason = $3
+      WHERE id = $2 RETURNING *`,
+      ["cancelled", id, reason],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
+const suspendLessonSchedule = (start_date, end_date, reason, lesson_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.schedule
+      set status = $4,
+      reason = $3
+      WHERE lesson_id = $5 and lesson_date BETWEEN $1 and $2 `,
+      [start_date, end_date, reason, "cancelled", lesson_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(true)
+        }
+      }
+    )
+  })
+}
+module.exports = { createScheduleForLesson, getScheduleDateInMonth, cancelALessonSchedule, suspendLessonSchedule }
