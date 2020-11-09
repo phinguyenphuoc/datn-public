@@ -21,7 +21,7 @@ function LogIn() {
       if (userRole.includes(USER_ROLE_TEACHER)) {
         history.push("/dashboard/teacher");
       } else if (userRole.includes(USER_ROLE_STUDENT)) {
-        history.push("/dashboard/parent");
+        history.push("/dashboard/student");
       } else {
         history.push("/");
       }
@@ -34,6 +34,7 @@ function LogIn() {
     Auth.signIn(login, password)
       .then(async user => {
         const user_role = user.signInUserSession.accessToken.payload['cognito:groups'] ? user.signInUserSession.accessToken.payload['cognito:groups'][0] : ['student']
+        console.log("user_role", user_role)
         setUserRole(user_role)
         saveUser() // Get profile and save auth
       })

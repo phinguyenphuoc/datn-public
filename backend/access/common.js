@@ -86,6 +86,28 @@ const updateGeneralInfo = (id, phone, address) => {
   })
 }
 
+const updateGeneralStudentInfo = (student_profile_id, phone_number, address, city, first_name, last_name) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.profile 
+      SET phone_number = $2,
+      address = $3,
+      city = $4,
+      first_name = $5,
+      last_name = $6
+      WHERE id = $1`,
+      [student_profile_id, phone_number, address, city, first_name, last_name],
+      (err, results) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      }
+    )
+  })
+}
+
 const updateGeneralTeacherInfo = ({ about, background, experience, pickup_line, id }) => {
   return new Promise((resolve, reject) => {
     query(
@@ -129,4 +151,13 @@ const getAllInstruments = () => {
   })
 }
 
-module.exports = { getMedias, getPricing, getSkills, getProfileByUserId, updateGeneralInfo, updateGeneralTeacherInfo, getAllInstruments }
+module.exports = {
+  getMedias,
+  getPricing,
+  getSkills,
+  getProfileByUserId,
+  updateGeneralInfo,
+  updateGeneralTeacherInfo,
+  getAllInstruments,
+  updateGeneralStudentInfo
+}

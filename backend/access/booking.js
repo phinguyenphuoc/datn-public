@@ -1,5 +1,27 @@
 const { query } = require('../config')
 
+const instruments = [
+  "",
+  'piano',
+  'guitar',
+  'violin',
+  'cello',
+  'ukulele',
+  'flute',
+  'saxophone',
+  'bass guitar',
+  'viola',
+  'voice',
+  'trumpet',
+  'drums',
+  'bassoon',
+  'trombone',
+  'upright bass',
+  'music theory',
+  'composition',
+  'french horn'
+]
+
 const bookingALesson = ({ teacher_profile_id, lessonType, instrument, level, price, description, student_profile_id }) => {
   return new Promise((resolve, reject) => {
     query(
@@ -104,4 +126,90 @@ const getListStudentFromBooking = ({ booking_ids }) => {
     )
   })
 }
-module.exports = { bookingALesson, getTeacherPendingBooking, getBookingInformation, approveBooking, getListStudentFromBooking }
+
+const getListTeacherForStudentFromBooking = (student_profile_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT p.*, 
+      ARRAY_AGG(m.url) as urls, 
+      ARRAY_AGG(m.tag) as tags,
+      ARRAY_AGG(s.instrument_id) as instrument_ids,
+      ARRAY_AGG(s.level) as levels
+      FROM public.booking as b 
+      INNER JOIN profile as p ON b.teacher_profile_id = p.id
+      INNER JOIN media as m ON b.teacher_profile_id = m.id
+      INNER JOIN skill as s ON s.profile_id = b.teacher_profile_id
+      WHERE b.student_profile_id = $1 AND b.approve = $2 GROUP BY p.id`,
+      [student_profile_id, true],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          const responseData = results.rows.map(item => {
+            const skills = item.instrument_ids.map((id, index) => {
+              return {
+                level: item.levels[index],
+                instrument: instruments[id]
+              }
+            })
+            return {
+              avatar: item.urls[0],
+              city: item.city,
+              first_name: item.first_name,
+              id: item.id,
+              last_name: item.last_name,
+              phone: item.phone_number,
+              skills: skills
+            }
+          })
+          resolve(responseData)
+        }
+      }
+    )
+  })
+}
+
+const getListActiveBookingForTeacher = (teacher_profile_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT * FROM public.booking
+      WHERE teacher_profile_id = $1 and approve = $2`,
+      [teacher_profile_id, true],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+
+const getListActiveBookingForStudent = (student_profile_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT * FROM public.booking
+      WHERE student_profile_id = $1 and approve = $2`,
+      [student_profile_id, true],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+
+module.exports = {
+  bookingALesson,
+  getTeacherPendingBooking,
+  getBookingInformation,
+  approveBooking,
+  getListStudentFromBooking,
+  getListTeacherForStudentFromBooking,
+  getListActiveBookingForTeacher,
+  getListActiveBookingForStudent
+}

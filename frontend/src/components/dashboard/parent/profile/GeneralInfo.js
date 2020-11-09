@@ -125,9 +125,9 @@ function GeneralInfo({ handleSubmit }) {
     (store) => store.parent.updateProfile
   );
   const isSubmitting = storeParentUpdateProfile.loading;
-  const maxDate = moment().subtract(18, "year");
+  // const maxDate = moment().subtract(18, "year");
   const [error, setError] = React.useState({});
-  const [dayOfBirth, setDayOfBirth] = React.useState(maxDate);
+  // const [dayOfBirth, setDayOfBirth] = React.useState(maxDate);
   const [form, setForm] = React.useState({
     firstName: "",
     lastName: "",
@@ -141,24 +141,24 @@ function GeneralInfo({ handleSubmit }) {
   React.useEffect(() => {
     const address =
       storeParentProfile.data.address &&
-        storeParentProfile.data.address.length >= 4
+        storeParentProfile.data.address.length >= 3
         ? storeParentProfile.data.address
-        : ["", "", "", ""];
+        : ["", "", ""];
     setForm({
       ...form,
       firstName: storeParentProfile.data.first_name || "",
       lastName: storeParentProfile.data.last_name || "",
       phone_number: formatPhoneNumber(storeParentProfile.data.phone_number) || "",
       email: storeParentProfile.data.email || "",
-      address: address,
-      city: address,
-      addressZip: 10000,
+      address: address[0],
+      city: address[1],
+      addressZip: address[2],
     });
-    setDayOfBirth(
-      storeParentProfile.data.birth_date
-        ? moment(storeParentProfile.data.birth_date)
-        : maxDate
-    );
+    // setDayOfBirth(
+    //   storeParentProfile.data.birth_date
+    //     ? moment(storeParentProfile.data.birth_date)
+    //     : maxDate
+    // );
     // eslint-disable-next-line
   }, [storeParentProfile]);
   const handleSubmitForm = (event) => {
@@ -172,9 +172,9 @@ function GeneralInfo({ handleSubmit }) {
       first_name: form.firstName,
       last_name: form.lastName,
       phone_number: getPhoneNumberOnlyDigits(form.phone_number),
-      birth_date: moment(dayOfBirth).format("YYYY/MM/DD"),
-      // address: [form.address1, form.address2, form.city, form.addressZip]
-      address: form.city
+      // birth_date: moment(dayOfBirth).format("YYYY/MM/DD"),
+      address: [form.address, form.city, form.addressZip],
+      city: form.city
     };
     handleSubmit(formData);
   };
@@ -197,7 +197,7 @@ function GeneralInfo({ handleSubmit }) {
       isEmpty(form.address) &&
       isEmpty(form.addressZip)
     ) {
-      errorState.address = "Address, Zip and City fields are required";
+      errorState.address = "Address, Zip fields are required";
     }
     return errorState;
   };
@@ -230,6 +230,7 @@ function GeneralInfo({ handleSubmit }) {
   // const handleDateChange = date => {
   //   setDayOfBirth(date);
   // };
+
   return (
     <StyledGeneralInfo>
       <Form className="form-info" onSubmit={handleSubmitForm}>
@@ -316,7 +317,7 @@ function GeneralInfo({ handleSubmit }) {
             <Label>Address</Label>
             <FormGroup
               propsInput={{
-                name: "address1",
+                name: "address",
                 placeholder: "Enter your street address here…",
                 onChange: handleChange,
                 onFocus: handleFocus,

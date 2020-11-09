@@ -34,4 +34,24 @@ const getActiveTeacherLesson = (teacher_profile_id) => {
   })
 }
 
-module.exports = { createLesson, getActiveTeacherLesson }
+const getActiveStudentLesson = (student_profile_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT * FROM public.lesson WHERE student_id = $1`,
+      [student_profile_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+
+module.exports = {
+  createLesson,
+  getActiveTeacherLesson,
+  getActiveStudentLesson
+}

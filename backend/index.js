@@ -19,16 +19,24 @@ const {
   createLessonAPI,
   getActiveLessonAPI,
   getStudentsOfTeacherAPI,
-  updateLessonAPI,
-  suspendLessonAPI,
   getTeacherProfileDashboardTeacherAPI,
   updateTeacherGeneralInfoAPI
 } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
-const { updateStudentProfileAPI, addStudentProfileAPI, getStudentProfileAPI, uploadStudentAvatarAPI } = require('./controller/student');
+const {
+  getStudentProfileAPI,
+  getTeacherProfileForStudentAPI,
+  getParentProfileAPI,
+  updateStudentGeneralInfoAPI,
+  changeStudentProfileAvatar
+} = require('./controller/student');
 const { registerPendingStudentAPI } = require('./controller/booking');
-const { getSchedulesAPI } = require('./controller/schedule');
+const {
+  getSchedulesAPI,
+  suspendLessonAPI,
+  cancelLessonAPI
+} = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support');
 
 app.use('/', router)
@@ -41,20 +49,19 @@ app.get('/instruments', instrumentsApi)
 
 app.get('/profile', getUserProfileApi)
 
-app.get('/teachers/profile', getTeacherProfileAPI)
+app.get('/student/teachers/profile', getTeacherProfileForStudentAPI)  //getTeacherProfileAPI)
 
 app.get('/teacher/profile', getTeacherProfileDashboardTeacherAPI)
 
-app.put('/teacher/profile', updateTeacherGeneralInfoAPI)
+app.put('/teacher/profile', updateTeacherGeneralInfoAPI)// Update general info for teacher
 
-app.get('/students/profile', getStudentProfileAPI)
+app.put('/students/profile', updateStudentGeneralInfoAPI) // Update general info for student
 
+app.get('/students/profile', getStudentProfileAPI) // return array students: [students]
 
-app.put('/students/profile', updateStudentProfileAPI)
+app.get('/student/profile', getParentProfileAPI) // return profile: profile
 
-app.post('/students/profile', addStudentProfileAPI)
-
-app.post('/student/profile/avatar', upload.single('profileImage'), uploadStudentAvatarAPI)
+app.post('/student/profile/avatar', changeStudentProfileAvatar) // Update student avatar
 
 app.post('/register_pending_student', registerPendingStudentAPI)
 
@@ -70,9 +77,13 @@ app.get('/teacher/students/profiles', getStudentsOfTeacherAPI)
 
 app.post('/supports/report', reportProblemAPI)
 
-app.post('/teacher/lessons/cancel_schedule/:id', updateLessonAPI)
+app.post('/teacher/lessons/cancel_schedule/:id', cancelLessonAPI)
+
+app.post('/student/lessons/cancel_schedule/:id', cancelLessonAPI)
 
 app.post('/teacher/lessons/:id/suspend', suspendLessonAPI)
+
+app.post('/student/lessons/:id/suspend', suspendLessonAPI)
 
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);

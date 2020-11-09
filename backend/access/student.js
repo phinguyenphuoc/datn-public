@@ -45,9 +45,10 @@ const updateUserAvatar = (profile_id, url) => {
 }
 
 const getStudentProfile = ({ sub }) => {
+  console.log(sub)
   return new Promise((resolve, reject) => {
     query(
-      `SELECT * FROM profile WHERE user_id = $1 AND roles @> ARRAY['student']`,
+      `SELECT * FROM profile WHERE user_id = $1 `, //AND roles @> ARRAY['student']
       [sub],
       (err, results) => {
         if (err) {

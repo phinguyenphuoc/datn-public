@@ -205,7 +205,7 @@ const ModalReportAProblem = ({
     comment: "",
     issues: "",
   });
-  console.log(data)
+
   const lesson_info_Teacher =
     data && data.lesson && data.lesson.student
       ? `${data.lesson.instrument} class with ${data.lesson.student.first_name

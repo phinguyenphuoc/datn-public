@@ -8,8 +8,7 @@ const pem = jwkToPem(jwk.keys[1]);
 
 const byPass = [
   "/instruments",
-  "/teachers/profiles",
-  "/student/profile"
+  "/teachers/profiles"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {
@@ -30,6 +29,7 @@ router.use(async function (req, res, next) {
     // is authorized
     if (decoded) {
       req.body.sub = decoded.sub
+      req.body.role = decoded['cognito:groups'] ? decoded['cognito:groups'][0] : "student"
       next();
     } else {
       res.status(401).json("Invalid token");

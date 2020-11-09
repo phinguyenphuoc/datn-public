@@ -19,7 +19,7 @@ import {
   updateDateSchedule,
   updateDateScheduleSelected,
 } from "../../../../redux/actions/parent";
-// import { getSchedulesParent } from "../../../../redux/actions/parent";
+import { getSchedulesParent } from "../../../../redux/actions/parent";
 import camera from "../../../../assets/images/cameraZoom.svg";
 import camera_gray from "../../../../assets/images/cameraZoomGray.svg";
 
@@ -486,7 +486,7 @@ function Schedule({
   const dateCancelled = getDataDates("cancelled");
 
   React.useEffect(() => {
-    // getSchedulesParent(moment(storeDateSchedule).format("YYYY-MM"));
+    getSchedulesParent(moment(storeDateSchedule).format("YYYY-MM"));
   }, [storeDateSchedule]);
 
   const handleChangeDateOnPicker = (value) => {
@@ -541,6 +541,8 @@ function Schedule({
   });
 
   const currentMonth = moment(new Date()).format("MM");
+
+  console.log(dataStudents)
 
   const scheduleItem = (item, isZoomMeeting, isCurrentMonth) => (
     <div key={`${item.id}`}>

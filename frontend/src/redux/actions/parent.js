@@ -3,13 +3,12 @@ import { request, getHeader } from "../../utils/request";
 import store from "../store";
 
 export async function getParentProfile(resolve = () => { }) {
-  const headers = await getHeader()
-
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_PARENT_PROFILE,
   });
   return request()
-    .get("/students/profile", headers)
+    .get("/student/profile", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -27,7 +26,6 @@ export async function getParentProfile(resolve = () => { }) {
 
 export async function updateParentInfo(data, resolve = () => { }) {
   const headers = await getHeader()
-
   store.dispatch({
     type: types.UPDATE_PARENT_PROFILE,
   });
@@ -48,12 +46,13 @@ export async function updateParentInfo(data, resolve = () => { }) {
     });
 }
 
-export function updateParentAvatar(data, resolve = () => { }) {
+export async function updateParentAvatar(data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.UPDATE_PARENT_AVATAR,
   });
   return request()
-    .post("/student/profile/avatar", data)
+    .post("/student/profile/avatar", data, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -62,31 +61,10 @@ export function updateParentAvatar(data, resolve = () => { }) {
       });
     })
     .catch((error) => {
+      console.log("error", error)
       store.dispatch({
         payload: error.data,
         type: types.UPDATE_PARENT_AVATAR_FAIL,
-      });
-    });
-}
-
-export function updateParentAvatarSticker(data, resolve = () => { }) {
-  store.dispatch({
-    type: types.UPDATE_PARENT_AVATAR_STICKER,
-  });
-
-  return request()
-    .post("/student/profile/avatar", data)
-    .then((response) => {
-      resolve(response.data);
-      store.dispatch({
-        payload: response.data.media,
-        type: types.UPDATE_PARENT_AVATAR_STICKER_SUCCEED,
-      });
-    })
-    .catch((error) => {
-      store.dispatch({
-        payload: error.data,
-        type: types.UPDATE_PARENT_AVATAR_STICKER_FAIL,
       });
     });
 }
@@ -97,7 +75,7 @@ export async function getTeachers(resolve = () => { }) {
     type: types.GET_TEACHERS_PROFILE,
   });
   return request()
-    .get("/teachers/profile", headers)
+    .get("/student/teachers/profile", headers)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -113,12 +91,13 @@ export async function getTeachers(resolve = () => { }) {
     });
 }
 
-export function getSchedulesParent(date, resolve = () => { }) {
+export async function getSchedulesParent(date, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_SCHEDULES_PARENT,
   });
   return request()
-    .get(`/schedules?date=${date}`)
+    .get(`/schedules?date=${date}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -236,12 +215,14 @@ export function getCardInfo(resolve = () => { }) {
     });
 }
 
-export function cancelLesson(schedule_id, resolve = () => { }) {
+export async function cancelLesson(schedule_id, resolve = () => { }) {
+  const header = await getHeader()
+  console.log(header)
   store.dispatch({
     type: types.CANCEL_LESSON_SCHEDULE_FOR_PARENT,
   });
   return request()
-    .post(`parent/lessons/cancel_schedule/${schedule_id}`)
+    .post(`student/lessons/cancel_schedule/${schedule_id}`, {}, header)
     .then((response) => {
       resolve();
       store.dispatch({
@@ -258,12 +239,13 @@ export function cancelLesson(schedule_id, resolve = () => { }) {
     });
 }
 
-export function suspendLesson(lesson_id, data, resolve = () => { }) {
+export async function suspendLesson(lesson_id, data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.CANCEL_LESSON_SCHEDULE_FOR_PARENT,
   });
   return request()
-    .post(`parent/lessons/${lesson_id}/suspend`, data)
+    .post(`student/lessons/${lesson_id}/suspend`, data, header)
     .then((response) => {
       resolve();
       store.dispatch({

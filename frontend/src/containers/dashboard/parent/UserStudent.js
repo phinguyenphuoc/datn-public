@@ -6,8 +6,7 @@ import { openModalMessage } from "../../../redux/actions/modalMessage";
 import { ModalUpdatePicture } from "../../../components/common";
 import {
   updateStudentInfo,
-  updateStudenttAvatar,
-  updateParentAvatarSticker
+  updateStudenttAvatar
 } from "../../../redux/actions/student";
 
 function UserStudent(props) {
@@ -47,14 +46,6 @@ function UserStudent(props) {
   const handleUpdateAvatar = (formData, isUploadPicture) => {
     if (isUploadPicture) {
       updateStudenttAvatar(formData, userId, () => {
-        setOpenModalUpdatePicture(false);
-        openModalMessage({
-          title: "Avatar updated",
-          body: <p>Your avatar picture has been updated successfully.</p>,
-        });
-      });
-    } else {
-      updateParentAvatarSticker(formData, userId, (data) => {
         setOpenModalUpdatePicture(false);
         openModalMessage({
           title: "Avatar updated",

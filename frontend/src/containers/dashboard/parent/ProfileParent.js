@@ -42,6 +42,7 @@ function ProfileParent(props) {
   };
 
   const handleUpdateProfile = (formData) => {
+    console.log(formData)
     updateParentInfo(formData, (data) => {
       openModalMessage({
         title: "Profile updated",

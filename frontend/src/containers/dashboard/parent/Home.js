@@ -20,8 +20,8 @@ import {
   getTeachers,
   postCardSave,
   cancelLesson,
-  suspendLesson
-  // getProgressReport,
+  suspendLesson,
+  getProgressReport
 } from "../../../redux/actions/parent";
 import { getStudentProfile } from "../../../redux/actions/student";
 import { reportProblem } from "../../../redux/actions/reportProblem";
@@ -139,7 +139,8 @@ function Home(props) {
   };
 
   const handleSubmitCancelLesson = (formData, form) => {
-    if (form.reason === "Cancel this lesson ") {
+    console.log("form.reason", form.reason, formData)
+    if (form.reason === "Cancel this lesson") {
       cancelLesson(selectedItem.id, () => {
         setOpenModalCancelLesson(false);
         openModalMessage({

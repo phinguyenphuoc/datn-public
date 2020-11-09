@@ -2,6 +2,7 @@ const { query } = require('../config')
 const { deleteImageS3 } = require('../utils/s3image');
 
 const getProfileAvatar = (profile_id) => {
+  console.log(profile_id)
   return new Promise((resolve, reject) => {
     query(
       `SELECT *
@@ -56,7 +57,7 @@ const insertProfileAvatar = (profile_id, url) => {
 
 const handleUpdateProfileAvatar = async (profile_id, url) => {
   const hasAvatar = await getProfileAvatar(profile_id)
-  if (hasAvatar.id) {
+  if (hasAvatar && hasAvatar.id) {
     deleteImageS3(hasAvatar.url)
     return await updateProfileAvatar(profile_id, url)
   } else {
