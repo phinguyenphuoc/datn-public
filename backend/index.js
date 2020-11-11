@@ -35,7 +35,8 @@ const { registerPendingStudentAPI } = require('./controller/booking');
 const {
   getSchedulesAPI,
   suspendLessonAPI,
-  cancelLessonAPI
+  cancelLessonAPI,
+  getUpcomingLessonAPI
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support');
 
@@ -84,6 +85,8 @@ app.post('/student/lessons/cancel_schedule/:id', cancelLessonAPI)
 app.post('/teacher/lessons/:id/suspend', suspendLessonAPI)
 
 app.post('/student/lessons/:id/suspend', suspendLessonAPI)
+
+app.get('/schedules/upcoming?:profile_id', getUpcomingLessonAPI)
 
 app.get('/answer_url', async (req, res) => {
   console.log(req.query);

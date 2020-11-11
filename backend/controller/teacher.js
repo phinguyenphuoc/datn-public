@@ -1,7 +1,7 @@
 const { getTeacherPendingBooking, getBookingInformation, approveBooking, getListStudentFromBooking } = require("../access/booking");
 const { listTeacher, getTeacherProfile, getMedias, getPricing, getSkills } = require('../access/teacher');
 const { getProfileByUserId, updateGeneralInfo, updateGeneralTeacherInfo, getAllInstruments } = require('../access/common');
-const { createLesson, getActiveTeacherLesson } = require('../access/lesson');
+const { createLesson, getActiveTeacherLesson, getListStudentOfTeacher } = require('../access/lesson');
 const { createScheduleForLesson } = require('../access/schedule');
 const { insertOrUpdatePricing } = require('../access/pricing');
 // const { insertOrUpdateSkill } = require('../access/skill');
@@ -202,10 +202,25 @@ const getStudentsOfTeacherAPI = async (req, res) => {
     const lessonsActive = await getActiveTeacherLesson(teacher_profile_id)
     const booking_ids = lessonsActive.map(item => item.booking_id)
     console.log(booking_ids)
-    const students = await getListStudentFromBooking({ booking_ids })
+    const students1 = await getListStudentOfTeacher(teacher_profile_id)
+    const a = students1.map(student => {
+      return {
+        avatar: student.urls[0],
+        city: student.city,
+        first_name: student.first_name,
+        id: student.id,
+        last_name: student.last_name,
+        phone: student.phone_number,
+        instrument_learning: instruments[student.instrument_ids[0]],
+        address: student.address
+      }
+    })
+
+
+    // const students = await getListStudentFromBooking({ booking_ids })
     res.status(200).json({
       status: "OK",
-      students: students
+      students: a
     })
   } catch (error) {
     res.status(500).json({

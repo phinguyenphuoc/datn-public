@@ -60,7 +60,7 @@ const getScheduleDateInMonthForTeacher = (date, lesson_ids) => {
       INNER JOIN public.booking as b ON l.booking_id = b.id
       INNER JOIN public.profile as p ON b.student_profile_id = p.id
       INNER JOIN public.media as m ON m.profile_id = b.student_profile_id
-      WHERE s.lesson_date between $1 AND $2 AND m.type = $3 AND M.tag = $4 and s.lesson_id = ANY($5)`,
+      WHERE s.lesson_date between $1 AND $2 AND m.type = $3 AND M.tag = $4 and s.lesson_id = ANY($5) ORDER BY s.lesson_date ASC`,
       [startOfMonth, endOfMonth, "image", "avatar", lesson_ids],
       (error, results) => {
         if (error) {
@@ -186,10 +186,28 @@ const suspendLessonSchedule = (start_date, end_date, reason, lesson_id, role) =>
     )
   })
 }
+
+const getUpcomingLesson = (lesson_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT *, to_char(lesson_date, 'YYYY-MM-DD') as date FROM public.schedule
+      WHERE lesson_id = $1 and lesson_date > NOW() and status = 'booked' ORDER BY lesson_date ASC LIMIT 1`,
+      [lesson_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
 module.exports = {
   createScheduleForLesson,
   getScheduleDateInMonthForTeacher,
   cancelALessonSchedule,
   suspendLessonSchedule,
-  getScheduleDateInMonthForStudent
+  getScheduleDateInMonthForStudent,
+  getUpcomingLesson
 }

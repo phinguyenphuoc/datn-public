@@ -2,10 +2,15 @@ const {
   getScheduleDateInMonthForTeacher,
   getScheduleDateInMonthForStudent,
   cancelALessonSchedule,
-  suspendLessonSchedule
+  suspendLessonSchedule,
+  getUpcomingLesson
 } = require('../access/schedule')
 const { getProfileByUserId } = require('../access/common');
-const { getActiveStudentLesson, getActiveTeacherLesson } = require('../access/lesson')
+const {
+  getActiveStudentLesson,
+  getActiveTeacherLesson,
+  getLessonOfPairStudentAndTeacher
+} = require('../access/lesson')
 const getSchedulesAPI = async (req, res) => {
   try {
     const { sub, role } = req.body
@@ -82,8 +87,35 @@ const cancelLessonAPI = async (req, res) => {
     })
   }
 }
+
+const getUpcomingLessonAPI = async (req, res) => {
+  try {
+    const { profile_id } = req.query
+    const { sub, role } = req.body
+    const user_profile = await getProfileByUserId(sub)
+    let lesson
+    if (role === "student") {
+      lesson = await getLessonOfPairStudentAndTeacher(profile_id, user_profile.id) // profile_id gui len la cua teacher
+    } else {
+      lesson = await getLessonOfPairStudentAndTeacher(user_profile.id, profile_id) // profile_id gui len la cua student
+    }
+    const upcomingLesson = await getUpcomingLesson(lesson.id)
+    res.status(200).json({
+      status: "OK",
+      schedules: [{ ...upcomingLesson, zoom_meeting: "123" }]
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAIL",
+      error: error.message
+    })
+  }
+
+}
+
 module.exports = {
   getSchedulesAPI,
   suspendLessonAPI,
-  cancelLessonAPI
+  cancelLessonAPI,
+  getUpcomingLessonAPI
 }
