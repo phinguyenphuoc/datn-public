@@ -20,7 +20,7 @@ function TeachWithUsPage(props) {
   const handleToggleModal = () => {
     ReactGA.event({
       category: "Navigation",
-      action: "Navigation to Join Homemuse Modal at Teach with us Page Footer",
+      action: "Navigation to Join Modal at Teach with us Page Footer",
       label: "Click 'Join homemuse as teacher Button'",
     });
     setOpenModalJoinHomemuse(!storeOpenModal);

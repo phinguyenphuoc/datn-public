@@ -190,7 +190,7 @@ function DashboardProfileTeacherLayout({ userInfo, children }) {
                   to="/dashboard/teacher/profile/homemuse-profile"
                   exact
                 >
-                  <p>Homemuse profile</p>
+                  <p>Teacher profile</p>
                   <div className="menu__icon" id="UncontrolledTooltip3">
                     <Info />
                   </div>
@@ -198,7 +198,7 @@ function DashboardProfileTeacherLayout({ userInfo, children }) {
                     placement="top"
                     target="UncontrolledTooltip3"
                   >
-                    Homemuse profile
+                    Teacher profile
                   </UncontrolledTooltip>
                 </NavLink>
                 <NavLink

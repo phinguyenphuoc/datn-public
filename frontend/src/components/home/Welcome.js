@@ -13,7 +13,7 @@ function Welcome(props) {
             </h2>
           </div>
           <p className="text--xxlarge">
-            At Homemuse, you can now learn how to play your favorite instrument!
+            You can now learn how to play your favorite instrument!
             Enjoy your weekly music lesson in the comfort of your home with an
             upbeat, positive and encouraging teacher of your choice. Choose from
             dozens of certified music instructors with experience, passion and

@@ -11,7 +11,7 @@ function WhyHomemuse(props) {
           <span className="icon-note"></span>
           <span className="icon-note-double"></span>
           <h2 className="h2">
-            Why <span className="primary">Homemuse?</span>
+            Why <span className="primary">Us?</span>
           </h2>
         </div>
         <div className="items">
@@ -37,7 +37,7 @@ function WhyHomemuse(props) {
                   Pay per lesson
                 </h3>
                 <p className="text--xlarge">
-                  At Homemuse, you only pay per lesson and at the price that
+                  You only pay per lesson and at the price that
                   meets your budget
                 </p>
               </div>

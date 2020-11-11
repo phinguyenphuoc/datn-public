@@ -41,11 +41,6 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
         alt={data.first_name}
         className="teacher__card__avatar"
       />
-      <img
-        src={HomemuseCertified}
-        alt=""
-        className="teacher__card__certified"
-      />
       <div className="teacher__card__info">
         <p className="text--xlarge">{data.first_name}</p>
         <div className="list--instruments">

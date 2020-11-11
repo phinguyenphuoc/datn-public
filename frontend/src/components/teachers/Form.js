@@ -43,11 +43,11 @@ function Form({
 
   const optionInstruments = storeInstruments
     ? storeInstruments.map((item) => {
-        return {
-          value: item.name,
-          label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        };
-      })
+      return {
+        value: item.name,
+        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+      };
+    })
     : [];
 
   const storeTeachers = useSelector((store) => store.teachers);
@@ -138,7 +138,7 @@ function Form({
                   isDisabled={storeTeachers.loading}
                 />
               </div>
-              {isLocationDisplayed && (
+              {/* {isLocationDisplayed && (
                 <div>
                   <SingleSelect
                     name="location"
@@ -149,7 +149,7 @@ function Form({
                     isDisabled={storeTeachers.loading}
                   />
                 </div>
-              )}
+              )} */}
             </div>
           </form>
         </div>
@@ -173,7 +173,7 @@ function Form({
                     onChange={onChangeInstruments}
                     openInstruments={true}
                     onResetInstruments={onResetInstruments}
-                    toggleInstruments={() => {}}
+                    toggleInstruments={() => { }}
                     onMobile={true}
                   />
                 </div>

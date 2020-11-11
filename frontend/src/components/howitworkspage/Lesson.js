@@ -17,7 +17,7 @@ function Lesson(props) {
             </div>
 
             <p className="text--large">
-              At Homemuse, we think that choosing the right music teacher is a
+              We think that choosing the right music teacher is a
               big step in life: that’s why we help you to start on the right
               foot!
             </p>

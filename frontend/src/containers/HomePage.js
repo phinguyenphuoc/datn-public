@@ -44,7 +44,6 @@ function HomePage(props) {
   return (
     <>
       <Banner onChange={handleChangeInstruments} instruments={instruments} />
-      <Welcome />
       <Music
         dataAllTeacher={dataAllTeacher}
         handleClickInstrument={handlefilterInstrument}

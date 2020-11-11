@@ -45,7 +45,7 @@ function Feedback() {
               {/* <p>Piano teacher at Palo Alto</p> */}
               <img src={AuthorFeedback1} alt="author feedback" />
               <p>
-                I've finally tried the Homemuse platform.
+                I've finally tried the platform.
                 I had never tried it before because anything related to technology scares me :).
                 But it was so easy to use and so helpful that I changed my mind. My students loved it.
                 It really helps me focus on the teaching only.
@@ -59,7 +59,7 @@ function Feedback() {
               {/* <p>Piano teacher at Palo Alto</p> */}
               <img src={AuthorFeedback2} alt="author feedback" />
               <p>
-                I got four new students through Homemuse these past couple of weeks, I'm so happy.
+                I got four new students through these past couple of weeks, I'm so happy.
                 Thank you so much!
               </p>
             </div>
@@ -71,9 +71,9 @@ function Feedback() {
               <img src={AuthorFeedback3} alt="author feedback" />
               <p>
                 My main concern as a teacher was late payments from my students.
-                The Homemuse website handles that for me and it’s so convenient.
+                The website handles that for me and it’s so convenient.
                 I now have one less thing to worry about!! I also like their “48h cancelation policy”.
-                It is great to work with an organization like Homemuse. Thank you!!
+                It is great to work with an organization like. Thank you!!
               </p>
             </div>
           </article>

@@ -6,13 +6,13 @@ function MusicDashboard(props) {
   return (
     <section className="music-dashboard">
       <div className="music-dashboard__inner">
-        <div className="music-dashboard__inner__img">
+        {/* <div className="music-dashboard__inner__img">
           <img
             src={dashboard}
             alt=""
             srcSet={`${dashboard} 1x, ${dashboard2x} 2x`}
           />
-        </div>
+        </div> */}
         <div className="music-dashboard__inner__text">
           <div className="text__title">
             <span className="icon-note"></span>
@@ -26,7 +26,7 @@ function MusicDashboard(props) {
             An efficient partner in your musical learning journey.
           </p>
           <p className="text--large">
-            As a Homemuse student, you get access to a personalized musical
+            As a student, you get access to a personalized musical
             space.
           </p>
           <p className="text--large">

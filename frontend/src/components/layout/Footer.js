@@ -73,7 +73,7 @@ function Footer(props) {
                 <NavLink
                   onClick={() => handleGaTracking("FAQ")}
                   activeClassName="--active"
-                  to="/faq"
+                  to="/"
                 >
                   FAQ
                 </NavLink>
@@ -85,15 +85,6 @@ function Footer(props) {
                   to="/contact-us"
                 >
                   Contact us
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  onClick={() => handleGaTracking("Articles")}
-                  activeClassName="--active"
-                  to="/articles"
-                >
-                  Articles
                 </NavLink>
               </li>
             </ul>
@@ -109,7 +100,7 @@ function Footer(props) {
                   activeClassName="--active"
                   to="/teach-with-us"
                 >
-                  Teach on Homemuse
+                  Become our platform's teachers
                 </NavLink>
               </li>
               {/* <li>
@@ -119,50 +110,25 @@ function Footer(props) {
               </li> */}
             </ul>
           </div>
-          <div className="footer__inner__links__item">
-            <p className="text--xlarge underline underline--secondary margin-b">
-              legal
-            </p>
-            <ul>
-              <li>
-                <NavLink
-                  onClick={() => handleGaTracking("Terms")}
-                  activeClassName="--active"
-                  to="/terms"
-                >
-                  Terms
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  onClick={() => handleGaTracking("Privacy")}
-                  activeClassName="--active"
-                  to="/privacy"
-                >
-                  Privacy
-                </NavLink>
-              </li>
-            </ul>
-          </div>
           <div className="footer__inner__links__item follow-us">
             <p className="text--xlarge underline underline--primary margin-b">
               Follow us
             </p>
             <ul>
               <li onClick={() => handleGaTracking("Twitter")}>
-                <a href="https://twitter.com/homemuse1">
-                  <span className="icon-twitter"></span>
-                </a>
+                {/* <a href="https://twitter.com/homemuse1"> */}
+                <span className="icon-twitter"></span>
+                {/* </a> */}
               </li>
               <li onClick={() => handleGaTracking("FaceBook")}>
-                <a href="https://www.facebook.com/Homemuse-1026442390874079">
-                  <span className="icon-facebook"></span>
-                </a>
+                {/* <a href="https://www.facebook.com/Homemuse-1026442390874079"> */}
+                <span className="icon-facebook"></span>
+                {/* </a> */}
               </li>
               <li onClick={() => handleGaTracking("Instagram")}>
-                <a href="https://www.instagram.com/homemuse_musiclessons">
-                  <span className="icon-instagram"></span>
-                </a>
+                {/* <a href="https://www.instagram.com/homemuse_musiclessons"> */}
+                <span className="icon-instagram"></span>
+                {/* </a> */}
               </li>
             </ul>
           </div>

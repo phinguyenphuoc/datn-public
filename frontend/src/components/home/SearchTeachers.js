@@ -18,7 +18,7 @@ function SearchTeachers() {
           <div className="text__title">
             <span className="icon-note"></span>
             <span className="icon-note-double"></span>{" "}
-            <h2 className="h2 margin-b-l white">Try Homemuse</h2>
+            <h2 className="h2 margin-b-l white">Try Musical E Learning</h2>
           </div>
           <p className="text--xxlarge white margin-b-l">
             Start your musical journey today!

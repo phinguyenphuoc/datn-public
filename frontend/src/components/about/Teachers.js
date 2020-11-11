@@ -44,7 +44,7 @@ function Teachers() {
             <h2 className="h2">Meet our Teachers</h2>
           </div>
           <p className="text--large">
-            At Homemuse, we have selected highly qualified and dedicated music
+            We have selected highly qualified and dedicated music
             teachers who are both outstanding as teachers and performers on
             their instruments.
           </p>

@@ -267,12 +267,12 @@ function HomeTeacher(props) {
                 <img src={star} alt="star" />
                 <div>
                   <p>
-                    Set up your Homemuse profile now and get listed on our
+                    Set up your profile now and get listed on our
                     website right away!
                   </p>
                   <p>
                     <Link to="/dashboard/teacher/profile/homemuse-profile">
-                      Go to Profile &gt; Homemuse profile.
+                      Go to Profile &gt; profile.
                     </Link>
                   </p>
                 </div>
