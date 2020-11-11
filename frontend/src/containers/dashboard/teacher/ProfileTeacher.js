@@ -169,7 +169,7 @@ function ProfileTeacher(props) {
             setOpenModalZoom={setOpenModalZoom}
             isHasConferencingTools={isHasConferencingTools}
           />
-          <ModalZoom
+          {/* <ModalZoom
             isOpen={openModalZoom}
             handleToggle={handleToggleModalZoom}
           />
@@ -180,7 +180,7 @@ function ProfileTeacher(props) {
           <ModalZoomWrong
             isOpen={openModalZoomWrong}
             handleToggle={handleToggleModalZoomWrong}
-          />
+          /> */}
         </Route>
         <Route path="/dashboard/teacher/profile/payment-methods" exact>
           <PaymentMethods setOpenModalStripeWrong={setOpenModalStripeWrong} />

@@ -111,12 +111,13 @@ export async function getSchedules(date, resolve = () => { }) {
     });
 }
 
-export function getSchedulesUpcomming(studentId, resolve = () => { }) {
+export async function getSchedulesUpcomming(studentId, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_SCHEDULES_UPCOMMING,
   });
   return request()
-    .get(`/schedules?upcoming=true&profil_id=${studentId}`)
+    .get(`/schedules/upcoming?profile_id=${studentId}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

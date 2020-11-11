@@ -4,7 +4,7 @@ import { ModalHeader, ModalBody } from "reactstrap";
 import { Modal } from "../../../common";
 import moment from "moment";
 import avatarDefault from "../../../../assets/images/avatar-picture.svg";
-// import { getSchedulesUpcomming } from "../../../../redux/actions/teacher";
+import { getSchedulesUpcomming } from "../../../../redux/actions/teacher";
 import { useSelector } from "react-redux";
 import { formatPhoneNumber, formatTime2 } from "../../../../utils/helpers";
 import camera from "../../../../assets/images/cameraZoom.svg";
@@ -161,7 +161,7 @@ const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
   const studentId = data.id;
   React.useEffect(() => {
     if (studentId) {
-      // getSchedulesUpcomming(studentId);
+      getSchedulesUpcomming(studentId);
     }
   }, [studentId]);
   const schedule = useSelector((store) => store.teacher.schedulesUpcomming);
@@ -200,9 +200,9 @@ const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
             )}
           </div> */}
           <div>
-            <h4>Email address</h4>
+            <h4>City</h4>
             <p><a href={"mailto:" + data.email}>
-              {data.email}
+              {data.city}
             </a></p>
           </div>
           <div>
@@ -210,6 +210,22 @@ const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
             <p><a href={"tel:" + data.phone}>
               {formatPhoneNumber(data.phone)}
             </a></p>
+          </div>
+          <div>
+            <h4>Instrument learning</h4>
+            <p>
+              {data.instrument_learning}
+            </p>
+          </div>
+          <div>
+            <h4>START A CALL</h4>
+            <p style={{ color: "green" }}>(Available before 15' and during lesson time)</p>
+            <p>
+              <button className="btn btn-success btn-m" disabled={
+                !(moment.duration(moment().diff(moment(`${schedule.data[0]?.date} ${schedule.data[0]?.start_hour}`))).asMinutes() > -15
+                  && moment.duration(moment().diff(moment(`${schedule.data[0]?.date} ${schedule.data[0]?.start_hour}`))).asMinutes() < 0)
+              }>Call NOW</button>
+            </p>
           </div>
         </div>
         <div className="modal__schedule">
