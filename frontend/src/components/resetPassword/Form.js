@@ -15,11 +15,13 @@ const Form = (props) => {
     confirmNewPassword: "",
   });
 
-  const storeResetPassword = useSelector((store) => store.resetPassword);
+  // const storeResetPassword = useSelector((store) => store.resetPassword);
   // const storeCheckPasswordResetcode = useSelector(
   //   (store) => store.checkPasswordResetCode
   // );
-  const isSubmitting = storeResetPassword.loading;
+  // const isSubmitting = storeResetPassword.loading;
+
+  const isSubmitting = false
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
@@ -127,7 +129,9 @@ const Form = (props) => {
             }}
             error={error.confirmNewPassword}
           />
-          <button disabled={isSubmitting} className="button button--secondary">
+          <button
+            // disabled={isSubmitting} 
+            className="button button--secondary">
             Reset password
           </button>
         </ReForm>

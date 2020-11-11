@@ -6,10 +6,6 @@ import teachers from "./teachers";
 import teacher from "./teacher";
 import contactUs from "./contactUs";
 import login from "./login";
-import forgotPassword from "./forgotPassword";
-import resetPassword from "./resetPassword";
-import checkPasswordResetCode from "./checkPasswordResetCode";
-import updatePassword from "./updatePassword";
 import parent from "./parent";
 import stickers from "./stickers";
 import help from "./help";
@@ -25,10 +21,6 @@ export default combineReducers({
   teacher,
   contactUs,
   login,
-  forgotPassword,
-  resetPassword,
-  checkPasswordResetCode,
-  updatePassword,
   parent,
   stickers,
   help,

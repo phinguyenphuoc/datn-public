@@ -15,9 +15,6 @@ import ForgotPassword from "./containers/ForgotPassword";
 import SignUp from "./containers/SignUp";
 import ResetPassword from "./containers/ResetPassword";
 import ContactUs from "./containers/ContactUs";
-import Faq from "./containers/Faq";
-import Policies from "./containers/Policies";
-import Terms from "./containers/Terms";
 import { ModalMessage } from "./components/common";
 import Logout from "./containers/Logout";
 import {

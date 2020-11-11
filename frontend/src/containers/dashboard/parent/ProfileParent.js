@@ -8,7 +8,7 @@ import {
   Users,
 } from "../../../components/dashboard/parent/profile";
 import { ModalUpdatePicture } from "../../../components/common";
-import { updatePassword } from "../../../redux/actions/updatePassword";
+// import { updatePassword } from "../../../redux/actions/updatePassword";
 import { openModalMessage } from "../../../redux/actions/modalMessage";
 import {
   getParentProfile,
@@ -52,16 +52,16 @@ function ProfileParent(props) {
   };
 
   const handleUpdatePassword = (formData) => {
-    updatePassword(formData, (data) => {
-      openModalMessage({
-        title: "Password updated",
-        body: <p>Your password has been updated successfully.</p>,
-      });
-      localStorage.setItem("auth", JSON.stringify(data));
-    });
-    const auth = getAuth();
-    auth.user_password_updated = true;
-    setAuth(auth);
+    // updatePassword(formData, (data) => {
+    //   openModalMessage({
+    //     title: "Password updated",
+    //     body: <p>Your password has been updated successfully.</p>,
+    //   });
+    //   localStorage.setItem("auth", JSON.stringify(data));
+    // });
+    // const auth = getAuth();
+    // auth.user_password_updated = true;
+    // setAuth(auth);
   };
 
   const handleUpdateAvatar = (formData) => {

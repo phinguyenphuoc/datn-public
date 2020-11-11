@@ -4,8 +4,6 @@ import React from "react";
 import { Form } from "../components/resetPassword";
 import { openModalMessage, closeModalMessage } from "../redux/actions/modalMessage";
 import { Link } from "react-router-dom";
-// import { resetPassword } from "../redux/actions/resetPassword";
-// import { checkPasswordResetCode } from "../redux/actions/checkPasswordResetCode";
 import { Auth } from "aws-amplify";
 
 function ResetPassword() {
@@ -20,14 +18,6 @@ function ResetPassword() {
       title: "Password reset",
       body: <p>We've reset your password successfully, return <Link to="/login">Login</Link> page</p>,
     });
-    // resetPassword(formData, (data) => {
-    //   localStorage.setItem("auth", JSON.stringify(data));
-    //   history.push("/dashboard/teacher");
-    //   openModalMessage({
-    //     title: "Password reset",
-    //     body: <p>We've reset your password successfully.</p>,
-    //   });
-    // });
   };
   return (
     <Form handleSubmit={handleResetPassword} />

@@ -9,14 +9,16 @@ const Form = ({ handleSubmit }) => {
   const [form, setForm] = React.useState({ email: "" });
   const [errorForgotPassword, setErrorForgotPassword] = React.useState();
 
-  const storeForgotPassword = useSelector((store) => store.forgotPassword);
-  const isSubmitting = storeForgotPassword.loading;
+  // const storeForgotPassword = useSelector((store) => store.forgotPassword);
+  // const isSubmitting = storeForgotPassword.loading;
+  const isSubmitting = false;
 
-  React.useEffect(() => {
-    if (storeForgotPassword.error.status === "USER_NOT_FOUND") {
-      setErrorForgotPassword("Email is not existed, please try again");
-    }
-  }, [storeForgotPassword]);
+
+  // React.useEffect(() => {
+  //   if (storeForgotPassword.error.status === "USER_NOT_FOUND") {
+  //     setErrorForgotPassword("Email is not existed, please try again");
+  //   }
+  // }, [storeForgotPassword]);
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
