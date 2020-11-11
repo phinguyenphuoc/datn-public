@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/images/logo_footer.svg";
+import logo from "../../assets/images/logo.png";
 import ReactGA from "react-ga";
 
 function Footer(props) {
@@ -17,7 +17,6 @@ function Footer(props) {
       <div className="footer__inner">
         <div className="footer__inner__logo">
           <img src={logo} alt="" />
-          <p className="margin-t-s">© HOMEMUSE, Inc. 2020</p>
         </div>
         <div className="footer__inner__links">
           <div className="footer__inner__links__item">

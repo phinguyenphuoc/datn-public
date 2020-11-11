@@ -12,7 +12,8 @@ function Logout() {
       await Auth.signOut()
       localStorage.removeItem("auth");
       updateIsBadToken(false);
-      history.push("/login");
+      // history.push("/login");
+      window.location.replace("/")
     }
     logOut()
   }, [history]);

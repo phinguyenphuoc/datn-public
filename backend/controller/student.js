@@ -4,6 +4,9 @@ const { getMedias, getPricing, getSkills } = require('../access/common')
 const { getProfileByUserId, updateGeneralStudentInfo } = require('../access/common');
 const { uploadImageS3 } = require('../utils/s3image');
 const { handleUpdateProfileAvatar } = require('../access/media');
+const { getCustomerPayment, createCustomerObj, updateCustomerPaymentMethod } = require('../access/customer');
+
+const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcPS5q286GRxIfxr8E0qjLACyttQwMsN3CLDcLWK4BnMCG3IiBhSXv00dMMjH21w');
 
 const getStudentProfileAPI = async (req, res) => {
   const profile = await getStudentProfile(req.body)
@@ -100,10 +103,99 @@ const changeStudentProfileAvatar = async (req, res) => {
   })
 }
 
+const getStudentCardInfoAPI = async (req, res) => {
+  const { sub } = req.body
+  const customerPayment = getCustomerPayment(sub)
+  // if (customerPayment && customerPayment.id) {
+  res.status(200).json({
+    status: "OK",
+    card_info: {
+      last4: "1234",
+      name: "Phi Nguyen",
+      exp_month: "12",
+      exp_year: "2022",
+
+    }
+  })
+  // } else {
+  //   res.status(404).json({
+  //     status: "CARD_INFO_NOT_FOUND"
+  //   })
+  // }
+}
+
+const getOrSetUpCardForStudentAPI = async (req, res) => {
+  const { sub, email } = req.body
+  const profile = await getProfileByUserId(sub)
+  const customerPayment = await getCustomerPayment(sub)
+  console.log("customerPayment", customerPayment)
+  if (!customerPayment) {
+    // Create stripe customer
+    const customer = await stripe.customers.create({
+      email: email
+    })
+    await createCustomerObj(customer.id, profile.id)
+    const intent = await stripe.setupIntents.create({
+      customer: customer.id,
+    });
+    res.status(200).json({
+      status: "OK",
+      card_setup: {
+        client_secret: intent.client_secret
+      }
+    })
+  } else {
+    const intent = await stripe.setupIntents.create({
+      customer: customerPayment.customer_id,
+    });
+    res.status(200).json({
+      status: "OK",
+      card_setup: {
+        client_secret: intent.client_secret
+      }
+    })
+  }
+}
+
+const saveStudentCardApi = async (req, res) => {
+  try {
+    const { payment_method_id, sub } = req.body
+    const customerPayment = await getCustomerPayment(sub)
+    const customer_id = customerPayment.customer_id
+    await stripe.paymentMethods.attach(payment_method_id, {
+      customer: customer_id,
+    });
+    await stripe.customers.update(customer_id, {
+      invoice_settings: {
+        default_payment_method: payment_method_id
+      },
+    })
+    await updateCustomerPaymentMethod(customer_id, payment_method_id, "card")
+    const paymentMethod = await stripe.paymentMethods.retrieve(payment_method_id)
+    res.status(200).json({
+      status: "OK",
+      card_save: {
+        card_info: {
+          last4: paymentMethod.card.last4,
+          exp_month: paymentMethod.card.exp_month,
+          exp_year: paymentMethod.card.exp_year
+        }
+      }
+    })
+  } catch (error) {
+    res.status(500).json({
+      status: "FAIL",
+      error: error.message
+    })
+  }
+}
 module.exports = {
   getStudentProfileAPI,
   getTeacherProfileForStudentAPI,
   getParentProfileAPI,
   updateStudentGeneralInfoAPI,
-  changeStudentProfileAvatar
+  changeStudentProfileAvatar,
+  getStudentCardInfoAPI,
+  getOrSetUpCardForStudentAPI,
+  saveStudentCardApi
 }

@@ -113,12 +113,13 @@ export async function getSchedulesParent(date, resolve = () => { }) {
     });
 }
 
-export function getSchedulesParentUpcomming(teacherId, resolve = () => { }) {
+export async function getSchedulesParentUpcomming(teacherId, resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.GET_SCHEDULES_PARENT_UPCOMMING,
   });
   return request()
-    .get(`/schedules?upcoming=true&profil_id=${teacherId}`)
+    .get(`/schedules/upcoming?profile_id=${teacherId}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -146,12 +147,13 @@ export function updateDateScheduleSelected(date) {
   });
 }
 
-export function getCardSetup(resolve = () => { }) {
+export async function getCardSetup(resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_CARD_SETUP,
   });
   return request()
-    .get("/student/customer/card_setup")
+    .get("/student/customer/card_setup", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -167,12 +169,13 @@ export function getCardSetup(resolve = () => { }) {
     });
 }
 
-export function postCardSave(data, resolve = () => { }) {
+export async function postCardSave(data, resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.POST_CARD_SAVE,
   });
   return request()
-    .post("/student/customer/card_save", data)
+    .post("/student/customer/card_save", data, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -194,12 +197,13 @@ export function resetCardSaveSuccess() {
   });
 }
 
-export function getCardInfo(resolve = () => { }) {
+export async function getCardInfo(resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_CARD_INFO,
   });
   return request()
-    .get("/student/customer/card_info")
+    .get("/student/customer/card_info", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

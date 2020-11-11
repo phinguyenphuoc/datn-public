@@ -101,7 +101,7 @@ const getUpcomingLessonAPI = async (req, res) => {
     const upcomingLesson = await getUpcomingLesson(lesson.id)
     res.status(200).json({
       status: "OK",
-      schedules: [{ ...upcomingLesson, zoom_meeting: "123" }]
+      schedules: [{ ...upcomingLesson, zoom_meeting: "123", instrument: "piano" }]
     })
   } catch (error) {
     res.status(500).json({

@@ -2,7 +2,7 @@ import React from "react";
 import { Home, User, Earning } from "../common/icons";
 import classNames from "classnames";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "../../assets/images/logo.svg";
+import logo from "../../assets/images/logo.png";
 import DropdownUserMenu from "./DropdownUserMenu";
 import { getAuth, checkRolesAccepted } from "../../utils/helpers";
 import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "../../utils/constants";
@@ -209,7 +209,7 @@ function Header({ isDashboard, showHideHeader, page }) {
     >
       <div className="header__inner">
         <NavLink to="/" className="header__inner__logo">
-          <img src={logo} alt="Logo" />
+          <img src={logo} alt="Logo" style={{ height: "80px" }} />
         </NavLink>
         <nav className="header__inner__links">
           <div

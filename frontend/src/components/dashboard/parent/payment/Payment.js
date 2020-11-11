@@ -497,30 +497,6 @@ function Payment({ handleToggleModalCardUpdated, storeCardInfo }) {
                             }}
                           />
                         </div>
-                        <div className=" cvv-code">
-                          <p>CVV CODE</p>
-                          <FormGroup
-                            propsInput={{
-                              name: "CVVCode",
-                              placeholder: "CVV code",
-                              value: "***",
-                              disabled: true,
-                            }}
-                          />
-                        </div>
-                        <div className=" zip-code">
-                          <p>ZIP code</p>
-                          <FormGroup
-                            propsInput={{
-                              name: "zipCode",
-                              placeholder: "zip code",
-                              value:
-                                storeCardInfo.data.address &&
-                                storeCardInfo.data.address.postal_code,
-                              disabled: true,
-                            }}
-                          />
-                        </div>
                       </div>
                     </div>
                     <div
@@ -534,18 +510,18 @@ function Payment({ handleToggleModalCardUpdated, storeCardInfo }) {
                 </div>
               </div>
             ) : (
-              <div className="--nodata">
-                <div>No credit card linked to your account</div>
-                <button
-                  className="add find"
-                  onClick={handleToggleModalCardUpdated}
-                >
-                  {" "}
-                  <AddIcon />
+                  <div className="--nodata">
+                    <div>No credit card linked to your account</div>
+                    <button
+                      className="add find"
+                      onClick={handleToggleModalCardUpdated}
+                    >
+                      {" "}
+                      <AddIcon />
                   Add a new credit card
                 </button>
-              </div>
-            )}
+                  </div>
+                )}
           </div>
         </Form>
         <div className="invoices">
@@ -571,46 +547,46 @@ function Payment({ handleToggleModalCardUpdated, storeCardInfo }) {
               <Loading />
             ) : storePaymentsInvoices.data &&
               storePaymentsInvoices.data.length ? (
-              <Table borderless>
-                <thead>
-                  <tr>
-                    <th>title</th>
-                    <th>date</th>
-                    <th>description</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {storePaymentsInvoices.data.map((item, index) => (
-                    <tr key={index}>
-                      <td>
-                        <img src={file} alt="file" /> {item.name}
-                      </td>
-                      <td>{moment(item.date).format("MMMM DD, YYYY")}</td>
-                      <td>
-                        <p>{item.description}</p>
-                      </td>
-                      <td>
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <IconButton>
-                            <img src={dowload} alt="dowload" />
-                          </IconButton>
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            ) : (
-              <div className="-noData-incoice">
-                <div>No invoices found</div>
-                <img src={noData} alt="noData" />
-              </div>
-            )}
+                  <Table borderless>
+                    <thead>
+                      <tr>
+                        <th>title</th>
+                        <th>date</th>
+                        <th>description</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {storePaymentsInvoices.data.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <img src={file} alt="file" /> {item.name}
+                          </td>
+                          <td>{moment(item.date).format("MMMM DD, YYYY")}</td>
+                          <td>
+                            <p>{item.description}</p>
+                          </td>
+                          <td>
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <IconButton>
+                                <img src={dowload} alt="dowload" />
+                              </IconButton>
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                ) : (
+                  <div className="-noData-incoice">
+                    <div>No invoices found</div>
+                    <img src={noData} alt="noData" />
+                  </div>
+                )}
           </div>
         </div>
       </div>

@@ -190,14 +190,36 @@ const suspendLessonSchedule = (start_date, end_date, reason, lesson_id, role) =>
 const getUpcomingLesson = (lesson_id) => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT *, to_char(lesson_date, 'YYYY-MM-DD') as date FROM public.schedule
-      WHERE lesson_id = $1 and lesson_date > NOW() and status = 'booked' ORDER BY lesson_date ASC LIMIT 1`,
+      `
+      SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id
+      FROM public.schedule AS s
+      INNER JOIN public.lesson AS l ON s.lesson_id = l.id
+      WHERE s.lesson_id = $1 and s.lesson_date > NOW() and s.status = 'booked'
+      ORDER BY s.lesson_date ASC LIMIT 1`,
+      // SELECT s.*, to_char(lesson_date, 'YYYY-MM-DD') as date FROM public.schedule as s
+      // INNER JOIN public.lesson as l ON l.id = s.lesson_id
+      // WHERE lesson_id = $1 and lesson_date > NOW() and status = 'booked' ORDER BY lesson_date ASC LIMIT 1`,
       [lesson_id],
       (error, results) => {
         if (error) {
           reject(error)
         } else {
-          resolve(results.rows[0])
+          const item = results.rows[0]
+          const responseData = {
+            date: item.date,
+            end_hour: item.end_hour,
+            id: item.id,
+            lesson: {
+              end_date: item.end_date,
+              start_date: item.start_date,
+              id: item.lesson_id,
+              instrument: instruments[item.instrument_id],
+            },
+            start_hour: item.start_hour,
+            type: item.status,
+            zoom_meeting: "123"
+          }
+          resolve(responseData)
         }
       }
     )

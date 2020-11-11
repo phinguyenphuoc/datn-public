@@ -30,7 +30,10 @@ const {
   getTeacherProfileForStudentAPI,
   getParentProfileAPI,
   updateStudentGeneralInfoAPI,
-  changeStudentProfileAvatar
+  changeStudentProfileAvatar,
+  getStudentCardInfoAPI,
+  getOrSetUpCardForStudentAPI,
+  saveStudentCardApi
 } = require('./controller/student');
 const { registerPendingStudentAPI } = require('./controller/booking');
 const {
@@ -101,6 +104,11 @@ app.post('/student/lessons/cancel_schedule/:id', cancelLessonAPI)
 
 app.post('/student/lessons/:id/suspend', suspendLessonAPI)
 
+app.get('/student/customer/card_info', getStudentCardInfoAPI)
+
+app.get('/student/customer/card_setup', getOrSetUpCardForStudentAPI)
+
+app.post('/student/customer/card_save', saveStudentCardApi)
 
 /* --- SCHEDULE API --- */
 app.get('/schedules?:date', getSchedulesAPI)

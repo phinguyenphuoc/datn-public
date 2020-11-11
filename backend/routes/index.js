@@ -30,6 +30,7 @@ router.use(async function (req, res, next) {
     // is authorized
     if (decoded) {
       req.body.sub = decoded.sub
+      req.body.email = decoded.username
       req.body.role = decoded['cognito:groups'] ? decoded['cognito:groups'][0] : "student"
       next();
     } else {
