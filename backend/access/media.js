@@ -2,7 +2,6 @@ const { query } = require('../config')
 const { deleteImageS3 } = require('../utils/s3image');
 
 const getProfileAvatar = (profile_id) => {
-  console.log(profile_id)
   return new Promise((resolve, reject) => {
     query(
       `SELECT *

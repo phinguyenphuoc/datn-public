@@ -1,6 +1,6 @@
 import React from "react";
 import { Earnings } from "../../../components/dashboard/teacher/earnings";
-// import { getEarningCurrentDetails } from "../../../redux/actions/teacher";
+import { getEarningCurrentDetails } from "../../../redux/actions/teacher";
 import { useSelector } from "react-redux";
 
 function EarningPage(props) {
@@ -8,14 +8,14 @@ function EarningPage(props) {
     (store) => store.teacher.earningCurrentDetails
   );
 
-  // React.useEffect(() => {
-  //   if (
-  //     !Object.keys(storeEarningCurrentDetails.data).length &&
-  //     !storeEarningCurrentDetails.loading
-  //   ) {
-  //     getEarningCurrentDetails();
-  //   }
-  // }, [storeEarningCurrentDetails]);
+  React.useEffect(() => {
+    if (
+      !Object.keys(storeEarningCurrentDetails.data).length &&
+      !storeEarningCurrentDetails.loading
+    ) {
+      getEarningCurrentDetails();
+    }
+  }, [storeEarningCurrentDetails]);
 
   return (
     <>

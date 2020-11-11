@@ -18,7 +18,7 @@ import {
   getStudents,
   cancelLesson,
   suspendLesson,
-  //   getEarningCurrentDetails,
+  getEarningCurrentDetails
 } from "../../../redux/actions/teacher";
 import { reportProblem } from "../../../redux/actions/reportProblem";
 import { getAuth } from "../../../utils/helpers";
@@ -58,7 +58,7 @@ function HomeTeacher(props) {
       !Object.keys(storeEarningCurrentDetails.data).length &&
       !storeEarningCurrentDetails.loading
     ) {
-      // getEarningCurrentDetails();
+      getEarningCurrentDetails();
     }
   }, [storeEarningCurrentDetails]);
 

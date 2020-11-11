@@ -6,9 +6,9 @@ import {
   Password,
   HomemuseProfile,
   PaymentMethods,
-  ModalZoom,
-  ModalZoomSuccess,
-  ModalZoomWrong,
+  // ModalZoom,
+  // ModalZoomSuccess,
+  // ModalZoomWrong,
   ModalStripeSuccess,
   ModalStripeWrong,
 } from "../../../components/dashboard/teacher/profile";

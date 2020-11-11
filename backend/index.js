@@ -20,7 +20,8 @@ const {
   getActiveLessonAPI,
   getStudentsOfTeacherAPI,
   getTeacherProfileDashboardTeacherAPI,
-  updateTeacherGeneralInfoAPI
+  updateTeacherGeneralInfoAPI,
+  getStripeDashBoardLinkAPI
 } = require('./controller/teacher')
 const instrumentsApi = require('./controller/instrument')
 const getUserProfileApi = require('./controller/profile')
@@ -44,17 +45,49 @@ app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
 })
-app.get('/teachers/profiles', listTeacherAPI)
+app.get('/teachers/profiles', listTeacherAPI) // show all teacher
 
 app.get('/instruments', instrumentsApi)
 
 app.get('/profile', getUserProfileApi)
 
-app.get('/student/teachers/profile', getTeacherProfileForStudentAPI)  //getTeacherProfileAPI)
+/* --- BOOKING API --- */
 
+app.post('/register_pending_student', registerPendingStudentAPI) // Booking
+
+
+/* --- Teacher API ---*/
 app.get('/teacher/profile', getTeacherProfileDashboardTeacherAPI)
 
 app.put('/teacher/profile', updateTeacherGeneralInfoAPI)// Update general info for teacher
+
+app.post('/teacher/lessons/:id/suspend', suspendLessonAPI)
+
+app.post('/teacher/lessons/cancel_schedule/:id', cancelLessonAPI)
+
+app.get('/teacher/students/profiles', getStudentsOfTeacherAPI)
+
+app.get('/teacher/bookings/pending', getPendingBookingsAPI)
+
+app.post('/teacher/lessons', createLessonAPI)
+
+app.get('/teacher/active-lessons', getActiveLessonAPI)
+
+app.get('/teacher/earnings/current_details', (req, res) => {
+  res.status(200).json({
+    end_date: "2020-11-11",
+    lessons_given: 0,
+    payment_date: "2020-11-16",
+    start_date: "2020-11-01",
+    status: "OK",
+    turnover: 0
+  })
+})
+//  stripe 
+app.get('/teacher/connect_stripe', getStripeDashBoardLinkAPI)
+
+/* ---STUDENT API --- */
+app.get('/student/teachers/profile', getTeacherProfileForStudentAPI)  //getTeacherProfileAPI)
 
 app.put('/students/profile', updateStudentGeneralInfoAPI) // Update general info for student
 
@@ -64,30 +97,20 @@ app.get('/student/profile', getParentProfileAPI) // return profile: profile
 
 app.post('/student/profile/avatar', changeStudentProfileAvatar) // Update student avatar
 
-app.post('/register_pending_student', registerPendingStudentAPI)
-
-app.get('/teacher/bookings/pending', getPendingBookingsAPI)
-
-app.post('/teacher/lessons', createLessonAPI)
-
-app.get('/teacher/active-lessons', getActiveLessonAPI)
-
-app.get('/schedules?:date', getSchedulesAPI)
-
-app.get('/teacher/students/profiles', getStudentsOfTeacherAPI)
-
-app.post('/supports/report', reportProblemAPI)
-
-app.post('/teacher/lessons/cancel_schedule/:id', cancelLessonAPI)
-
 app.post('/student/lessons/cancel_schedule/:id', cancelLessonAPI)
-
-app.post('/teacher/lessons/:id/suspend', suspendLessonAPI)
 
 app.post('/student/lessons/:id/suspend', suspendLessonAPI)
 
+
+/* --- SCHEDULE API --- */
+app.get('/schedules?:date', getSchedulesAPI)
+
 app.get('/schedules/upcoming?:profile_id', getUpcomingLessonAPI)
 
+//  REPORT API
+app.post('/supports/report', reportProblemAPI)
+
+// CALL SCOCC
 app.get('/answer_url', async (req, res) => {
   console.log(req.query);
   const { from,

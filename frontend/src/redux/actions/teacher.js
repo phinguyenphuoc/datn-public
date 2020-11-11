@@ -167,12 +167,13 @@ export function connectStripe(data, resolve = () => { }, reject = () => { }) {
     });
 }
 
-export function getStripeLink(resolve = () => { }, reject = () => { }) {
+export async function getStripeLink(resolve = () => { }, reject = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_STRIPE_TEACHER_REQUEST,
   });
   return request()
-    .get("/teacher/connect_stripe")
+    .get("/teacher/connect_stripe", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -424,12 +425,13 @@ export function getProgressReportItem(progress_report_id, resolve = () => { }) {
     });
 }
 
-export function getEarningCurrentDetails(resolve = () => { }) {
+export async function getEarningCurrentDetails(resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_EARNING_CURRENT_DETAILS,
   });
   return request()
-    .get(`teacher/earnings/current_details`)
+    .get(`teacher/earnings/current_details`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

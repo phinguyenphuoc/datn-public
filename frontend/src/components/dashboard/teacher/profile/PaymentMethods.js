@@ -139,35 +139,36 @@ function PaymentMethods({ setOpenModalStripeWrong }) {
     }
   }
 
+  console.log(stripeLink)
   return (
     <StyledPaymentMethods>
       {storeTeacherStripe.loading ? (
         <Loading />
       ) : (
-        <Form className="form-info">
-          <div className="stripe">
-            {isUpdatedPayment ? (
-              <p>
-                We use Stripe to make sure you get paid on time and to keep your
+          <Form className="form-info">
+            <div className="stripe">
+              {isUpdatedPayment ? (
+                <p>
+                  We use Stripe to make sure you get paid on time and to keep your
                 personal bank and details secure. Click{" "}
-                <span className="fw-500">access my account</span> to manage your
+                  <span className="fw-500">access my account</span> to manage your
                 payment methods on Stripe.
-              </p>
-            ) : (
-              <p>
-                We use Stripe to make sure you get paid on time and to keep your
+                </p>
+              ) : (
+                  <p>
+                    We use Stripe to make sure you get paid on time and to keep your
                 personal bank and details secure. Click{" "}
-                <span className="fw-500">continue</span> to set up your payments
+                    <span className="fw-500">continue</span> to set up your payments
                 on Stripe.
-              </p>
-            )}
-            <img src={stripe} alt="stripe" />
-          </div>
-          <a className="find" href={stripeLink}>
-            {isUpdatedPayment ? "Access my account" : "Continue"}
-          </a>
-        </Form>
-      )}
+                  </p>
+                )}
+              <img src={stripe} alt="stripe" />
+            </div>
+            <a className="find" href={stripeLink} target="_blank">
+              {isUpdatedPayment ? "Access my account" : "Continue"}
+            </a>
+          </Form>
+        )}
     </StyledPaymentMethods>
   );
 }

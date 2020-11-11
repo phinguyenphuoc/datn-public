@@ -19,7 +19,6 @@ const getSchedulesAPI = async (req, res) => {
     let schedules = []
     const profile = await getProfileByUserId(sub)
     const profile_id = profile.id
-    console.log("profile_id", profile_id)
     if (role === "student") {
       lessons = await getActiveStudentLesson(profile_id)
       const lesson_ids = lessons.map(lesson => lesson.id)

@@ -6,8 +6,11 @@ const { createScheduleForLesson } = require('../access/schedule');
 const { insertOrUpdatePricing } = require('../access/pricing');
 // const { insertOrUpdateSkill } = require('../access/skill');
 const { handleUpdateProfileAvatar } = require('../access/media');
+const { getCustomerPayment } = require('../access/customer');
 
 const { uploadImageS3 } = require('../utils/s3image');
+
+const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcPS5q286GRxIfxr8E0qjLACyttQwMsN3CLDcLWK4BnMCG3IiBhSXv00dMMjH21w');
 
 const instruments = [
   "",
@@ -318,6 +321,17 @@ const updateTeacherGeneralInfoAPI = async (req, res) => {
   }
 }
 
+const getStripeDashBoardLinkAPI = async (req, res) => {
+  const { sub } = req.body
+  const customerPayment = await getCustomerPayment(sub)
+  console.log(customerPayment)
+  const link = await stripe.accounts.createLoginLink(customerPayment.customer_id);
+  res.status(200).json({
+    status: "OK",
+    link: link.url
+  })
+}
+
 module.exports = {
   listTeacherAPI,
   getTeacherProfileAPI,
@@ -326,5 +340,6 @@ module.exports = {
   getActiveLessonAPI,
   getStudentsOfTeacherAPI,
   getTeacherProfileDashboardTeacherAPI,
-  updateTeacherGeneralInfoAPI
+  updateTeacherGeneralInfoAPI,
+  getStripeDashBoardLinkAPI
 }
