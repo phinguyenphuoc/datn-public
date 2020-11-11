@@ -54,8 +54,6 @@ import Teacher from "./containers/Teacher";
 import ReactGA from "react-ga";
 import { hotjar } from "react-hotjar";
 import { GA_TRACKING_ID, HJID, HJSV, HJENABLED } from "./config.js";
-import Articles from "./containers/Articles";
-import ArticlePage from "./containers/ArticlePage";
 import ConfirmSignUp from "./containers/ConfirmSignUp";
 
 ReactGA.initialize(GA_TRACKING_ID);
@@ -122,16 +120,7 @@ function App() {
             component={withLayout(ResetPassword)}
           />
           <Route path="/logout" component={Logout} exact />
-          <Route path="/contact-us" exact component={withLayout(ContactUs)} />
-          <Route path="/faq" exact component={withLayout(Faq)} />
-          <Route path="/privacy" exact component={withLayout(Policies)} />
-          <Route path="/terms" exact component={withLayout(Terms)} />
-          <Route path="/articles" exact component={withLayout(Articles)} />
-          <Route
-            path="/articles/:articleYear/:articleDay/:articleTitle"
-            exact
-            component={withLayout(ArticlePage)}
-          />
+          <Route path="/contact-us" exact component={withLayout(ContactUs)} />Articles
           {/* Dashboard Pages for teacher */}
           <Route
             path="/dashboard/teacher"

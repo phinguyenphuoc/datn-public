@@ -17,7 +17,6 @@ import global from "./global";
 import reportProblem from "./reportProblem";
 import instruments from "./instruments";
 import reviews from "./reviews";
-import articles from "./articles";
 
 export default combineReducers({
   modalMessage,
@@ -36,6 +35,5 @@ export default combineReducers({
   global,
   reportProblem,
   instruments,
-  reviews,
-  articles,
+  reviews
 });

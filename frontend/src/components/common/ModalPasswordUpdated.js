@@ -131,11 +131,6 @@ const ModalPasswordUpdated = ({ isOpen, onSubmit, content }) => {
         <div className="modal-body__inner">
           <h5>Easily view and manage your music lessons</h5>
           <div>{content}</div>
-          <p>
-            By continuing, you are accepting the Homemuse{" "}
-            <Link to="/terms">Terms of Service</Link> and{" "}
-            <Link to="/privacy">Privacy Policy</Link>{" "}
-          </p>
           <button onClick={onSubmit}>Access my dashboard</button>
         </div>
       </ModalBody>

@@ -33,8 +33,6 @@ export default (
             <Route path="/logout" />
             <Route path="/contact-us" />
             {/* <Route path="/faq" /> */}
-            <Route path="/privacy" />
-            <Route path="/terms" />
             {/* Dashboard Pages for teacher */}
             <Route
                 path="/dashboard/teacher"

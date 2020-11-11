@@ -403,13 +403,6 @@ const ModalPaymentMethodUpdated = ({
             By continuing, I authorise Homemuse to send instructions to the
             financial institution that issued my card to take payments from my
             card account in accordance with Homemuse{" "}
-            <Link to="/terms" target="_blank">
-              Terms of Service
-            </Link>{" "}
-            and I accept Homemuse{" "}
-            <Link to="/privacy" target="_blank">
-              Privacy Policy
-            </Link>
           </p>
           {!isSubmitCard ? (
             <button disabled={isSubmitting}>Save my card</button>
