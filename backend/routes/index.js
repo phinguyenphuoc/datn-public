@@ -8,11 +8,12 @@ const pem = jwkToPem(jwk.keys[1]);
 
 const byPass = [
   "/instruments",
-  "/teachers/profiles"
+  "/teachers/profiles",
+  "/answer_url"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {
-  if (byPass.includes(req.originalUrl)) {
+  if (byPass.includes(req.originalUrl) || req.originalUrl.includes("/answer_url")) {
     return next();
   }
   let token = req.headers["authorization"]

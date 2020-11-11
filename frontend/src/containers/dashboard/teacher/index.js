@@ -6,6 +6,7 @@ import ProfileTeacher from "./ProfileTeacher";
 import MyStudentPage from "./MyStudentPage";
 import ProgressReportForm from "./ProgressReportForm";
 import ProgressReportTeacher from "./ProgressReportTeacher";
+import Meeting from "./Meeting"
 
 export {
   HomeTeacher,
@@ -16,4 +17,5 @@ export {
   MyStudentPage,
   ProgressReportForm,
   ProgressReportTeacher,
+  Meeting
 };

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { ModalHeader, ModalBody } from "reactstrap";
 import { Modal } from "../../../common";
 import logo from "../../../../assets/images/logoZoom.svg";
-import zoom from "../../../../assets/images/zoom.svg";
-import camera from "../../../../assets/images/cameraZoom.svg";
+import zoom from "../../../../assets/images/stringee.png";
+// import camera from "../../../../assets/images/cameraZoom.svg";
 import tick from "../../../../assets/images/tick-CC-welcome.svg";
 
 const StyledModal = styled(Modal)`
@@ -132,11 +132,9 @@ const ModalZoomSuccess = ({ isOpen, handleToggle }) => {
           <img src={zoom} alt="zoom" className="zoom" />
         </div>
         <img src={tick} alt="tick" className="tick" />
-        <h4>Account successfully linked!</h4>
+        <h4>Connect Stringee success fully</h4>
         <div className="modal__text">
-          You can now start your online lessons directly from your dashboard by
-          clicking on.
-          <img src={camera} alt="camera" className="camera" />
+          You can now start your online lessons directly by clicking call button now.
         </div>
       </ModalBody>
     </StyledModal>

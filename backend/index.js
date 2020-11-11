@@ -85,6 +85,39 @@ app.post('/teacher/lessons/:id/suspend', suspendLessonAPI)
 
 app.post('/student/lessons/:id/suspend', suspendLessonAPI)
 
+app.get('/answer_url', async (req, res) => {
+  console.log(req.query);
+  const { from,
+    to,
+    fromInternal,
+    userId,
+    projectId,
+    custom,
+    callId,
+    videocall
+  } = req.query
+  res.status(200).json([
+    {
+      "action": "connect",
+      "from": {
+        "type": "internal",
+        "number": from,
+        "alias": from
+      },
+
+      "to": {
+        "type": "internal",//internal: app-to-app call type
+        "number": to,//make a call to user_2
+        "alias": to,
+      },
+
+      "customData": "test-custom-data",
+      "continueOnFail": false,
+      "timeout": 45
+    }
+  ])
+})
+
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);
 });

@@ -39,6 +39,7 @@ import {
   MyStudentPage,
   ProgressReportForm,
   ProgressReportTeacher,
+  Meeting
 } from "./containers/dashboard/teacher";
 import {
   withAuth,
@@ -140,6 +141,13 @@ function App() {
             exact
           />
           <Route
+            path="/dashboard/teacher/meeting"
+            component={withAuth(withLayoutDashboard(Meeting), [
+              USER_ROLE_TEACHER,
+            ])}
+            exact
+          />
+          <Route
             path="/dashboard/teacher/my-students-page"
             exact
             component={withAuth(withLayoutDashboard(MyStudentPage), [
@@ -192,6 +200,13 @@ function App() {
           <Route
             path="/dashboard/student"
             component={withAuth(withLayoutDashboard(Home), [USER_ROLE_PARENT])}
+            exact
+          />
+          <Route
+            path="/dashboard/student/meeting"
+            component={withAuth(withLayoutDashboard(Meeting), [
+              USER_ROLE_PARENT,
+            ])}
             exact
           />
           <Route
