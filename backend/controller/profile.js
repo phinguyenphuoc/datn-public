@@ -1,4 +1,6 @@
 const { query } = require('../config')
+const { getCustomerPayment, createCustomerObj } = require('../access/customer')
+const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcPS5q286GRxIfxr8E0qjLACyttQwMsN3CLDcLWK4BnMCG3IiBhSXv00dMMjH21w');
 
 const getUserProfile = (sub) => {
   return new Promise((resolve, reject) => {
@@ -74,15 +76,38 @@ const getUserSkill = (profileId) => {
 
 
 const getUserProfileApi = async (req, res) => {
-  const Profile = await getUserProfile(req.body.sub)
+  const { sub, email, role } = req.body
+  const Profile = await getUserProfile(sub)
   const profileId = Profile.id
+  const media = await getUserMedia(profileId)
+  let payment = await getCustomerPayment(sub)
 
-  await Promise.all([getUserMedia(profileId), getUserPricing(profileId), getUserSkill(profileId)])
-    .then(results => {
-      Profile.medias = results[0]
-      Profile.pricing = results[1]
-      Profile.skills = results[2]
+  // First time login
+  if (!payment) {
+    const customer = await stripe.customers.create({
+      email: email
     })
-  res.status(200).json(Profile)
+    payment = await createCustomerObj(customer.id, profileId)
+  }
+
+  const responseData = {
+    status: "OK",
+    user_avatar: media[0].url,
+    user_first_name: Profile.first_name,
+    user_last_name: Profile.last_name,
+    user_login: email,
+    user_payment_updated: !!payment.payment_source,
+    user_roles: [role]
+  }
+
+  // console.log('role === "student" && !payment', !!(role === "student" && !payment))
+  if (role === "student" && !payment.payment_source) {
+    const intent = await stripe.setupIntents.create({
+      customer: payment.customer_id
+    });
+    responseData.client_secret = intent.client_secret
+  }
+
+  res.status(200).json(responseData)
 }
 module.exports = getUserProfileApi

@@ -16,6 +16,7 @@ import { isEmpty } from "validator";
 // import { getCardSetup } from "../../../../redux/actions/parent";
 import ErrorIcon from "@material-ui/icons/Error";
 import tick from "../../../../assets/images/tick-CC-welcome.svg";
+import { getAuth } from "../../../../utils/helpers";
 
 const StyledModal = styled(Modal)`
   && {
@@ -228,7 +229,6 @@ const StyledModal = styled(Modal)`
 const ModalPaymentMethodUpdated = ({
   isOpen,
   onComplete,
-  isPasswordUpdateSetToFalse,
   isSubmitCard,
   clickAccess,
 }) => {
@@ -246,9 +246,8 @@ const ModalPaymentMethodUpdated = ({
   const stripe = useStripe();
   const elements = useElements();
 
-  const client_secret = useSelector(
-    (store) => store.parent.cardSetup.data.client_secret
-  );
+  const auth = getAuth()
+  const client_secret = auth.client_secret
   const storeCardSave = useSelector((store) => store.parent.cardSave);
   const isSubmitting = storeCardSave.loading || isLoadingConfirm;
 
@@ -400,15 +399,13 @@ const ModalPaymentMethodUpdated = ({
               )}
           </div>
           <p>
-            By continuing, I authorise Homemuse to send instructions to the
-            financial institution that issued my card to take payments from my
-            card account in accordance with Homemuse{" "}
+            You accepted our terms and policy By continue{" "}
           </p>
           {!isSubmitCard ? (
             <button disabled={isSubmitting}>Save my card</button>
           ) : (
               <button onClick={clickAccess}>
-                {isPasswordUpdateSetToFalse ? "Continue" : "Access my dashboard"}
+                Access my dashboard
               </button>
             )}
         </Form>

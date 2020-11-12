@@ -22,13 +22,14 @@ export default function reducer(state = initialState, actions) {
     case types.LOGIN_API_SUCCEED:
       const { user, profile } = actions.payload
       const auth = {}
-      auth.user_avatar = profile.medias[0].url
+      auth.user_avatar = profile.user_avatar
       auth.user_first_name = profile.first_name
       auth.user_last_name = profile.last_name
       auth.user_login = user.username
       auth.user_roles = user['cognito:groups'] || ['student']
-      auth.user_payment_updated = true
+      auth.user_payment_updated = profile.user_payment_updated
       auth.user_password_updated = true
+      auth.client_secret = profile.client_secret
       auth.status = "OK"
       setAuth(auth)
       return {

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import bg from "../../assets/images/bg-modal.svg";
+import bg from "../../assets/images/logo.png";
 
 const StyledModalBanner = styled.div`
   && {
@@ -11,8 +11,8 @@ const StyledModalBanner = styled.div`
       position: relative;
       border-radius: 6px 6px 0 0;
       .modal_header__inner {
-        background: url(${bg}) #f2f4fd no-repeat center / 96%;
-        height: 100%;
+        background: url(${bg}) #f2f4fd no-repeat center;
+        height: 200px;
         p {
           position: absolute;
           bottom: 0;
@@ -61,7 +61,6 @@ function ModalBanner(props) {
     <StyledModalBanner>
       <div className="modal_header">
         <div className="modal_header__inner">
-          <p>Welcome to your Personal Dashboard</p>
         </div>
       </div>
     </StyledModalBanner>

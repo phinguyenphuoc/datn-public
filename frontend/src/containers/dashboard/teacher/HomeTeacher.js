@@ -39,10 +39,10 @@ function HomeTeacher(props) {
   const [openModalReportAProblem, setopenModalReportAProblem] = React.useState(
     false
   );
-  const [
-    openModalPasswordUpdated,
-    setOpenModalPasswordUpdated,
-  ] = React.useState(false);
+  // const [
+  //   openModalPasswordUpdated,
+  //   setOpenModalPasswordUpdated,
+  // ] = React.useState(false);
   const [selectedItem, setSelectedItem] = React.useState(false);
 
   const [dataStudents, setDataStudents] = React.useState({});
@@ -94,28 +94,29 @@ function HomeTeacher(props) {
     setopenModalReportAProblem(!openModalReportAProblem);
   };
 
-  const auth = getAuth();
-  React.useEffect(() => {
-    if (
-      auth.user_password_updated === false ||
-      auth.user_payment_updated === false ||
-      auth.user_profil_published === false
-    ) {
-      setOpenModalPasswordUpdated(true);
-    }
-  }, [auth]);
+  // const auth = getAuth();
 
-  const history = useHistory();
-  const handleSubmitPassWordUpdated = () => {
-    let path = "/dashboard/teacher/profile/homemuse-profile";
-    if (auth.user_payment_updated === false) {
-      path = "/dashboard/teacher/profile/payment-methods";
-    }
-    if (auth.user_password_updated === false) {
-      path = "/dashboard/teacher/profile/password";
-    }
-    history.push(path);
-  };
+  // React.useEffect(() => {
+  //   if (
+  //     auth.user_password_updated === false ||
+  //     auth.user_payment_updated === false ||
+  //     auth.user_profil_published === false
+  //   ) {
+  //     setOpenModalPasswordUpdated(true);
+  //   }
+  // }, [auth]);
+
+  // const history = useHistory();
+  // const handleSubmitPassWordUpdated = () => {
+  //   let path = "/dashboard/teacher/profile/homemuse-profile";
+  //   if (auth.user_payment_updated === false) {
+  //     path = "/dashboard/teacher/profile/payment-methods";
+  //   }
+  //   if (auth.user_password_updated === false) {
+  //     path = "/dashboard/teacher/profile/password";
+  //   }
+  //   history.push(path);
+  // };
 
   const problems = [
     "We agreed to reschedule",
@@ -224,7 +225,7 @@ function HomeTeacher(props) {
         data={selectedItem}
         handleSubmit={handleSubmitReport}
       />
-      <ModalPasswordUpdated
+      {/* <ModalPasswordUpdated
         isOpen={openModalPasswordUpdated}
         onSubmit={handleSubmitPassWordUpdated}
         content={
@@ -280,7 +281,7 @@ function HomeTeacher(props) {
             )}
           </div>
         }
-      />
+      /> */}
     </>
   );
 }

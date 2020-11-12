@@ -63,19 +63,11 @@ function Home(props) {
   }, []);
 
   const auth = getAuth();
-  const isCaseBothSetToFalse =
-    auth.user_payment_updated === false && auth.user_password_updated === false;
-  const isPasswordUpdateSetToFalse = auth.user_password_updated === false;
   React.useEffect(() => {
-    if (auth.user_payment_updated === false || isCaseBothSetToFalse) {
+    if (!auth.user_payment_updated) {
       setOpenModalPaymentMethodUpdated(true);
-    } else if (
-      auth.user_password_updated === false &&
-      openModalPaymentMethodUpdated === false
-    ) {
-      setOpenModalPasswordUpdated(true);
     }
-  }, [auth, isCaseBothSetToFalse, openModalPaymentMethodUpdated]);
+  }, [auth]);
 
   const handleModalInfoTeacher = () => {
     setOpenModalInfoTeacher(!openModalInfoTeacher);
@@ -234,7 +226,6 @@ function Home(props) {
       <ModalPaymentMethodUpdated
         isOpen={openModalPaymentMethodUpdated}
         onComplete={handleCompletePaymentMethod}
-        isPasswordUpdateSetToFalse={isPasswordUpdateSetToFalse}
         isSubmitCard={isSubmit}
         clickAccess={handleClickAccess}
       />

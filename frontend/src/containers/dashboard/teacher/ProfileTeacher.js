@@ -92,7 +92,7 @@ function ProfileTeacher(props) {
       });
       const auth = getAuth();
       auth.user_avatar = data.profil.avatar;
-      auth.user_profil_published = data.profil.published;
+      // auth.user_profil_published = data.profil.published;
       setAuth(auth);
     });
   };

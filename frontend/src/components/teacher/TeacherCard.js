@@ -2,9 +2,9 @@ import React from "react";
 import star from "../../assets/images/rate.png";
 import { RATE_DURATIONS } from "../../utils/constants";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
-import HomemuseCertified from "../../assets/images/HomemuseCertified.svg";
 import { useSelector } from "react-redux";
 import _ from "lodash";
+import { getAuth } from "../../utils/helpers";
 const TeacherCard = ({ data, dataReview, onClickButton }) => {
   const storeGlobal = useSelector((store) => store.global);
   const [rateDurations, setRateDurations] = React.useState({});
@@ -19,6 +19,8 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
       ? 0
       : Math.round((totalScore / dataReview.length) * 10) / 10;
 
+  const auth = getAuth()
+  const user_payment_updated = auth.user_payment_updated
   React.useEffect(() => {
     if (data.pricings && data.pricings.length) {
       const rateDurations = {};
@@ -87,7 +89,8 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
         <button
           className="button button--secondary"
           onClick={onClickButton}
-        >{`Contact ${data.first_name}`}</button>
+          disabled={!user_payment_updated}
+        >{user_payment_updated ? `Contact ${data.first_name}` : "Verify payment to contact"}</button>
       </div>
     </div>
   );
