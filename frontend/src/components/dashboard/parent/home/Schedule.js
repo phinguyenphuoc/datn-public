@@ -542,8 +542,6 @@ function Schedule({
 
   const currentMonth = moment(new Date()).format("MM");
 
-  console.log(dataStudents)
-
   const scheduleItem = (item, isZoomMeeting, isCurrentMonth) => (
     <div key={`${item.id}`}>
       <div className="class-schedule__item">

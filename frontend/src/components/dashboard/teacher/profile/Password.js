@@ -81,11 +81,11 @@ const StyledPassword = styled.section`
 `;
 
 function Password({ handleSubmit }) {
-  const storeTeacherUpdatePassword = useSelector(
-    (store) => store.updatePassword
-  );
-  const isSubmitting = storeTeacherUpdatePassword.loading;
-
+  // const storeTeacherUpdatePassword = useSelector(
+  //   (store) => store.updatePassword
+  // );
+  // const isSubmitting = storeTeacherUpdatePassword.loading;
+  const isSubmitting = false
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({
     currentPassword: "",
@@ -93,15 +93,15 @@ function Password({ handleSubmit }) {
     newPasswordConfirm: "",
   });
 
-  React.useEffect(() => {
-    if (Object.keys(storeTeacherUpdatePassword.error).length) {
-      if (storeTeacherUpdatePassword.error.status === "NOT_AUTHORIZED") {
-        setError({ currentPassword: "Current password is wrong" });
-      } else {
-        setError({ currentPassword: "Something went wrong" });
-      }
-    }
-  }, [storeTeacherUpdatePassword]);
+  // React.useEffect(() => {
+  //   if (Object.keys(storeTeacherUpdatePassword.error).length) {
+  //     if (storeTeacherUpdatePassword.error.status === "NOT_AUTHORIZED") {
+  //       setError({ currentPassword: "Current password is wrong" });
+  //     } else {
+  //       setError({ currentPassword: "Something went wrong" });
+  //     }
+  //   }
+  // }, [storeTeacherUpdatePassword]);
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
