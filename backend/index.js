@@ -43,7 +43,7 @@ const {
   getUpcomingLessonAPI
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support');
-
+const { jobChargeMoneyStudent } = require('./cronjob')
 app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
@@ -155,3 +155,5 @@ app.get('/answer_url', async (req, res) => {
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);
 });
+
+// jobChargeMoneyStudent()
