@@ -90,11 +90,14 @@ const getUserProfileApi = async (req, res) => {
     payment = await createCustomerObj(customer.id, profileId)
   }
 
+  const avatar = (media && media[0] && media[0].url) ? media[0].url : ""
+
   const responseData = {
     status: "OK",
-    user_avatar: media[0].url,
+    user_avatar: avatar,
     user_first_name: Profile.first_name,
     user_last_name: Profile.last_name,
+    user_profile_id: Profile.id,
     user_login: email,
     user_payment_updated: !!payment.payment_source,
     user_roles: [role]

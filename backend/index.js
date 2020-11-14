@@ -4,13 +4,18 @@ const cors = require("cors");
 require('dotenv').config()
 const app = express();
 var multer = require('multer')
-var upload = multer({ dest: 'uploads/' })
+// var upload = multer({ dest: 'uploads/' })
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
 const router = require("./routes/index");
-
-
+const AWS = require('aws-sdk')
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: 'us-east-2'
+})
+const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 // import { listTeacherAPI } from "./controller/teacher";
 const {
   listTeacherAPI,
@@ -44,6 +49,8 @@ const {
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support');
 const { jobChargeMoneyStudent } = require('./cronjob')
+const { createProfile, getUserIdByProfileId } = require('./access/profile')
+
 app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
@@ -120,8 +127,8 @@ app.post('/supports/report', reportProblemAPI)
 
 // CALL SCOCC
 app.get('/answer_url', async (req, res) => {
-  console.log(req.query);
-  const { from,
+  const {
+    from,
     to,
     fromInternal,
     userId,
@@ -130,6 +137,9 @@ app.get('/answer_url', async (req, res) => {
     callId,
     videocall
   } = req.query
+  const fromUserId = await getUserIdByProfileId(from)
+  const toUserId = await getUserIdByProfileId(to)
+  console.log({ fromUserId, toUserId })
   res.status(200).json([
     {
       "action": "connect",
@@ -150,6 +160,68 @@ app.get('/answer_url', async (req, res) => {
       "timeout": 45
     }
   ])
+})
+
+const cognitoSignUpUser = (email, password) => {
+  return new Promise((resolve, reject) => {
+    const params = {
+      ClientId: process.env.ClientId, /* required */
+      Password: password, /* required */
+      Username: email, /* required */
+      UserAttributes: [
+        {
+          Name: 'email', /* required */
+          Value: email
+        },
+      ],
+    };
+    cognitoidentityserviceprovider.signUp(params, (err, data) => {
+      if (err) {
+        console.log(err, err.stack)
+        reject(err)
+      } else {
+        console.log(data)
+        resolve(data.UserSub)
+      }
+    });
+  })
+}
+
+const addUserToGroupStudent = (email) => {
+  return new Promise((resolve, reject) => {
+    const params = {
+      GroupName: 'student',
+      UserPoolId: process.env.UserPoolId,
+      Username: email
+    };
+    cognitoidentityserviceprovider.adminAddUserToGroup(params, function (err, data) {
+      if (err) {
+        console.log(err, err.stack)
+        reject(err)
+      } else {
+        console.log(data)
+        resolve("Add user to student group: ", data)
+      }
+    });
+  })
+}
+
+app.post('/signup', async (req, res) => {
+  try {
+    const { email, password, address, first_name, last_name, phone_number, city, background, zip } = req.body
+    const userId = await cognitoSignUpUser(email, password)
+    await addUserToGroupStudent(email)
+    const profile = await createProfile(userId, [address, city, zip], first_name, last_name, phone_number, city, background)
+    res.status(200).json({
+      status: "SIGN_UP_SUCCEED",
+      email: email
+    })
+  } catch {
+    res.status(400).json({
+      status: "SIGN_UP_ERROR",
+      message: "User already exist"
+    })
+  }
 })
 
 app.listen(3002, () => {
