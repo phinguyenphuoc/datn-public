@@ -8,11 +8,12 @@ import ReactGA from "react-ga";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
-  const [form, setForm] = React.useState({ email: "", authCode: "" });
   const [errorLogin, setErrorLogin] = React.useState();
 
   const storeLogin = useSelector((store) => store.login);
+  const defaultEmail = storeLogin.emailSignUp;
   const isSubmitting = storeLogin.loading;
+  const [form, setForm] = React.useState({ email: defaultEmail, authCode: "" });
 
   React.useEffect(() => {
     if (storeLogin.error.status === "BAD_CREDENTIALS") {

@@ -6,7 +6,7 @@ import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
 import ReactGA from "react-ga";
 
-const Form = ({ handleSubmit }) => {
+const Form = ({ handleSubmit, errorMessage }) => {
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({ email: "", password: "" });
   const [errorLogin, setErrorLogin] = React.useState();
@@ -14,7 +14,7 @@ const Form = ({ handleSubmit }) => {
   const storeLogin = useSelector((store) => store.login);
   const isSubmitting = storeLogin.loading;
 
-  const handleSubmitForm = (event) => {
+  const handleSubmitForm = async (event) => {
     ReactGA.event({
       category: "Navigation",
       action: "Navigation to Dashboard at Login Page",
@@ -33,7 +33,7 @@ const Form = ({ handleSubmit }) => {
       password: form.password,
     };
 
-    handleSubmit(formData);
+    await handleSubmit(formData);
   };
 
   const validate = () => {
@@ -83,7 +83,7 @@ const Form = ({ handleSubmit }) => {
           <span className="icon-note note-large"></span>
           <div className="login__inner__form__text">
             <p>Log in to your account</p>
-            <div className="error">{errorLogin}</div>
+            <div className="error">{errorMessage}</div>
           </div>
 
           <FormBox
@@ -131,17 +131,6 @@ const Form = ({ handleSubmit }) => {
             </Link>
           </div>
         </ReForm>
-        <p className="--text">
-          Not a Homemuse student yet? Find your teacher{" "}
-          <Link
-            onClick={() => handleGaTracking("teachers")}
-            to="/teachers"
-            className="primary"
-          >
-            here
-          </Link>{" "}
-          and get started today!
-        </p>
       </div>
     </section>
   );

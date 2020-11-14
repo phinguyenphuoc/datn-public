@@ -8,7 +8,9 @@ const initialState = {
   rememberedPath: "",
   user: {},
   profile: {},
-  auth: false
+  auth: false,
+  loadingSignUp: false,
+  emailSignUp: ""
 };
 
 export default function reducer(state = initialState, actions) {
@@ -31,6 +33,7 @@ export default function reducer(state = initialState, actions) {
       auth.user_password_updated = true
       auth.client_secret = profile.client_secret
       auth.status = "OK"
+      auth.user_profile_id = profile.user_profile_id
       setAuth(auth)
       return {
         ...state,
@@ -52,6 +55,30 @@ export default function reducer(state = initialState, actions) {
         rememberedPath: actions.payload,
       };
 
+    case types.SIGN_UP:
+      return {
+        ...state,
+        loadingSignUp: true
+      }
+
+    case types.SIGN_UP_ERROR:
+      return {
+        ...state,
+        loadingSignUp: false
+      }
+
+    case types.SIGN_UP_SUCCESS:
+      return {
+        ...state,
+        loadingSignUp: false,
+        emailSignUp: actions.payload.email
+      }
+
+    case types.DISABLE_LOADING_LOGIN:
+      return {
+        ...state,
+        loading: false
+      }
     default:
       return state;
   }

@@ -231,6 +231,11 @@ button {
   }
 }
 
+.flex-justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .flag {
   width: 22px;
   height: 22px;
