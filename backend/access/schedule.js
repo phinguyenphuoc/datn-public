@@ -225,11 +225,32 @@ const getUpcomingLesson = (lesson_id) => {
     )
   })
 }
+
+const updateScheduleInvoiceUrl = (url, payment_intent) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `
+      UPDATE public.schedule
+      SET invoice_url = $1
+      WHERE payment_intent = $2 RETURNING *`,
+      [url, payment_intent],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
   createScheduleForLesson,
   getScheduleDateInMonthForTeacher,
   cancelALessonSchedule,
   suspendLessonSchedule,
   getScheduleDateInMonthForStudent,
-  getUpcomingLesson
+  getUpcomingLesson,
+  updateScheduleInvoiceUrl
 }

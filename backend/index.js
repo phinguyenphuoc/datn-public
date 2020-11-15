@@ -3,8 +3,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require('dotenv').config()
 const app = express();
-var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' })
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
@@ -49,6 +47,7 @@ const {
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support');
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
+const { updateScheduleInvoiceUrl } = require('./access/schedule')
 
 const { jobChargeMoneyStudent } = require('./cronjob')
 const { jobPayoutMoneyToTeacher } = require('./payTeacher')
@@ -225,9 +224,37 @@ app.post('/signup', async (req, res) => {
   }
 })
 
+app.post('/hooks', async (req, res) => {
+  // Handle the event
+  const event = req.body
+  switch (event.type) {
+    case 'charge.succeeded': {
+      console.log("vao day roi>>>>>>>>")
+      const data = event.data.object
+      const invoiceUrl = data.receipt_url
+      const payment_intent = data.payment_intent
+      const succeed = await updateScheduleInvoiceUrl(invoiceUrl, payment_intent)
+      if (!succeed) {
+        console.log("retry")
+        return res.status(400).json(false)
+      }
+      console.log("ok ok >>>>>>>>")
+
+      break;
+    }
+
+    case 'payment_intent.payment_failed': {
+      console.log("invoice payment failed: ", event);
+      // handle next payment period fail; 
+      break;
+    }
+  }
+  res.status(200).json(true)
+})
+
 app.listen(3002, () => {
   console.log(`Server listening on port 3002`);
 });
 
 // jobChargeMoneyStudent()
-jobPayoutMoneyToTeacher()
+// jobPayoutMoneyToTeacher()
