@@ -41,4 +41,25 @@ const deleteImageS3 = (imageUrl) => {
     });
   })
 }
-module.exports = { uploadImageS3, deleteImageS3 }
+
+const uploadPdfS3 = (doc, id) => {
+  return new Promise((resolve, reject) => {
+    const params = {
+      ACL: 'public-read',
+      Key: `invoices/${id}.pdf`,
+      Body: doc,
+      Bucket: 'musicalelearning.media',
+      ContentType: 'application/pdf'
+    }
+    s3.upload(params, function (err, response) {
+      if (err) {
+        console.log("Upload s3 error", err)
+        reject(err)
+      } else {
+        console.log("response", response)
+        resolve(response.Location)
+      }
+    })
+  })
+}
+module.exports = { uploadImageS3, deleteImageS3, uploadPdfS3 }

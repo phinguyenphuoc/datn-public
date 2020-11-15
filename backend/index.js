@@ -48,9 +48,10 @@ const {
   getUpcomingLessonAPI
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support');
-const { jobChargeMoneyStudent } = require('./cronjob')
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 
+const { jobChargeMoneyStudent } = require('./cronjob')
+const { jobPayoutMoneyToTeacher } = require('./payTeacher')
 app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
@@ -229,3 +230,4 @@ app.listen(3002, () => {
 });
 
 // jobChargeMoneyStudent()
+jobPayoutMoneyToTeacher()
