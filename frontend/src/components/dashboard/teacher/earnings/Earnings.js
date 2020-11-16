@@ -106,7 +106,6 @@ const StyledEarnings = styled.section`
           text-overflow: ellipsis;
           white-space: nowrap;
           margin-bottom: 0;
-          width: 400px;
           @media (max-width: 1130px) {
             width: 300px;
           }
@@ -365,45 +364,53 @@ function Earnings({ handleToggleModal, storeEarningCurrentDetails }) {
                 <Loading />
               ) : storeEarningsReceipts.data &&
                 storeEarningsReceipts.data.length ? (
-                <Table borderless>
-                  <thead>
-                    <tr>
-                      <th>title</th>
-                      <th>date</th>
-                      <th>description</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {storeEarningsReceipts.data.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <img src={file} alt="file" /> {item.name}
-                        </td>
-                        <td>{moment(item.date).format("MMMM DD, YYYY")}</td>
-                        <td>
-                          <p>{item.description}</p>
-                        </td>
-                        <td>
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <IconButton>
-                              <img src={dowload} alt="dowload" />
-                            </IconButton>
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              ) : (
-                <div className="earning__body__no-data">
-                  <p>No receipts found</p>
-                </div>
-              )}
+                    <Table borderless>
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Period</th>
+                          <th>Total Class</th>
+                          <th>Total Lesson</th>
+                          <th>Amount</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {storeEarningsReceipts.data.map((item, index) => (
+                          <tr key={index}>
+                            <td>
+                              <img src={file} alt="file" /> {`#MEL-${item.tag}`}
+                            </td>
+                            <td>{moment(item.start_date).format("MMMM DD, YYYY")} - {moment(item.end_date).format("MMMM DD, YYYY")}</td>
+                            <td>
+                              <p>{item.total_class}</p>
+                            </td>
+                            <td>
+                              <p>{item.total_lesson}</p>
+                            </td>
+                            <td>
+                              <p>{item.amount}$</p>
+                            </td>
+                            <td>
+                              <a
+                                href={item.invoice_pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <IconButton>
+                                  <img src={dowload} alt="dowload" />
+                                </IconButton>
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  ) : (
+                    <div className="earning__body__no-data">
+                      <p>No receipts found</p>
+                    </div>
+                  )}
             </div>
           </div>
           <div className="date-payment">
@@ -412,20 +419,20 @@ function Earnings({ handleToggleModal, storeEarningCurrentDetails }) {
                 <Loading />
               ) : storeEarningCurrentDetails.data &&
                 storeEarningCurrentDetails.data.payment_date ? (
-                <>
-                  <p>Next payment</p>
-                  <h1>
-                    {moment(
-                      storeEarningCurrentDetails.data.payment_date
-                    ).format("MMMM, Do YYYY")}
-                  </h1>
-                </>
-              ) : (
-                <div className="next-payment__no-data">
-                  <h2>NEXT PAYMENT</h2>
-                  <p>No data available</p>
-                </div>
-              )}
+                    <>
+                      <p>Next payment</p>
+                      <h1>
+                        {moment(
+                          storeEarningCurrentDetails.data.payment_date
+                        ).format("MMMM, Do YYYY")}
+                      </h1>
+                    </>
+                  ) : (
+                    <div className="next-payment__no-data">
+                      <h2>NEXT PAYMENT</h2>
+                      <p>No data available</p>
+                    </div>
+                  )}
             </div>
             <div className="date-earning">
               {isLoading ? (
@@ -469,8 +476,8 @@ function Earnings({ handleToggleModal, storeEarningCurrentDetails }) {
                   </div>
                 </>
               ) : (
-                ""
-              )}
+                    ""
+                  )}
             </div>
           </div>
         </div>

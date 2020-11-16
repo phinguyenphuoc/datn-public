@@ -1,5 +1,4 @@
 const { query } = require('../config')
-const teacher = require('./teacher')
 
 const createLesson = ({ booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status }) => {
   return new Promise((resolve, reject) => {

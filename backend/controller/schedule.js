@@ -3,7 +3,8 @@ const {
   getScheduleDateInMonthForStudent,
   cancelALessonSchedule,
   suspendLessonSchedule,
-  getUpcomingLesson
+  getUpcomingLesson,
+  getInvoiceForStudentByMonth
 } = require('../access/schedule')
 const { getProfileByUserId } = require('../access/common');
 const {
@@ -109,12 +110,24 @@ const getUpcomingLessonAPI = async (req, res) => {
       error: error.message
     })
   }
+}
 
+const getStudentInvoicesAPI = async (req, res) => {
+  const { sub } = req.body
+  const { date } = req.query
+  console.log({ sub, date })
+  const profile = await getProfileByUserId(sub)
+  const result = await getInvoiceForStudentByMonth(profile.id, date)
+  res.status(200).json({
+    status: "OK",
+    invoices: result
+  })
 }
 
 module.exports = {
   getSchedulesAPI,
   suspendLessonAPI,
   cancelLessonAPI,
-  getUpcomingLessonAPI
+  getUpcomingLessonAPI,
+  getStudentInvoicesAPI
 }

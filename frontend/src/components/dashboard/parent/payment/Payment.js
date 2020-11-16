@@ -299,7 +299,6 @@ const StyledPayment = styled.section`
           text-overflow: ellipsis;
           white-space: nowrap;
           margin-bottom: 0;
-          width: 400px;
           @media (max-width: 1130px) {
             width: 300px;
           }
@@ -550,26 +549,34 @@ function Payment({ handleToggleModalCardUpdated, storeCardInfo }) {
                   <Table borderless>
                     <thead>
                       <tr>
-                        <th>title</th>
-                        <th>date</th>
-                        <th>description</th>
+                        <th>Title</th>
+                        <th>Lesson Date</th>
+                        <th>Time</th>
+                        <th>Teacher</th>
+                        <th>Price</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       {storePaymentsInvoices.data.map((item, index) => (
+                        // {[{ name: "123", description: "123", date: "2020-11-11", link: "123" }].map((item, index) => (
                         <tr key={index}>
                           <td>
-                            <img src={file} alt="file" /> {item.name}
+                            <img src={file} alt="file" /> {`#MEL-${item.id}`}
                           </td>
-                          <td>{moment(item.date).format("MMMM DD, YYYY")}</td>
+                          <td>{moment(item.lesson_date).format("MMMM DD, YYYY")}</td>
+                          <td>{item.start_hour} - {item.end_hour}</td>
                           <td>
-                            <p>{item.description}</p>
+                            <p>{item.first_name} {item.last_name}</p>
+                          </td>
+                          <td>
+                            <p>{item.gross_price}</p>
                           </td>
                           <td>
                             <a
-                              href={item.link}
+                              href={item.invoice_url}
                               target="_blank"
+                              download
                               rel="noopener noreferrer"
                             >
                               <IconButton>

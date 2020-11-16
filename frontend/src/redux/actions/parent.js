@@ -342,12 +342,13 @@ export function updateDatePaymentsInvoices(date) {
   });
 }
 
-export function getPaymentsInvoices(date, resolve = () => { }) {
+export async function getPaymentsInvoices(date, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_PARENT_PAYMENTS_INVOICES,
   });
   return request()
-    .get(`parent/invoices?date=${date}`)
+    .get(`student/invoices?date=${date}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

@@ -479,12 +479,13 @@ export function updateDateEarningReceipts(date) {
   });
 }
 
-export function getEarningsReceipts(date, resolve = () => { }) {
+export async function getEarningsReceipts(date, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_TEACHER_EARNINGS_RECEIPTS,
   });
   return request()
-    .get(`teacher/earnings/receipts?date=${date}`)
+    .get(`teacher/earnings/receipts?date=${date}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

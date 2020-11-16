@@ -1,7 +1,5 @@
 const { query } = require('../config')
 const moment = require('moment')
-const teacher = require('./teacher')
-
 
 const instruments = [
   "",
@@ -245,6 +243,40 @@ const updateScheduleInvoiceUrl = (url, payment_intent) => {
   })
 }
 
+const getInvoiceForStudentByMonth = (student_id, date) => {
+  const startDate = date + '-01'
+  const endDate = moment(startDate).endOf('month').format('YYYY-MM-DD')
+  console.log({ startDate, endDate, student_id })
+  return new Promise((resolve, reject) => {
+    query(
+      `
+      SELECT
+      s.id,
+      s.start_hour,
+      s.end_hour,
+      to_char(s.lesson_date, 'YYYY-MM-DD') as lesson_date,
+      s.invoice_url,
+      p.first_name,
+      p.last_name,
+      pr.gross_price
+      FROM public.schedule AS s
+      INNER JOIN lesson AS l ON s.lesson_id = l.id
+      INNER JOIN profile AS p ON l.teacher_id = p.id
+      INNER JOIN pricing as pr ON l.pricing_id = pr.id
+      WHERE l.student_id = $1 AND s.lesson_date BETWEEN $2 AND $3 AND s.invoice_url IS NOT NULL`,
+      [student_id, startDate, endDate],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          console.log(results.rows)
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
   createScheduleForLesson,
   getScheduleDateInMonthForTeacher,
@@ -252,5 +284,6 @@ module.exports = {
   suspendLessonSchedule,
   getScheduleDateInMonthForStudent,
   getUpcomingLesson,
-  updateScheduleInvoiceUrl
+  updateScheduleInvoiceUrl,
+  getInvoiceForStudentByMonth
 }
