@@ -54,6 +54,8 @@ const { updateScheduleInvoiceUrl } = require('./access/schedule')
 
 const { jobChargeMoneyStudent } = require('./cronjob')
 const { jobPayoutMoneyToTeacher } = require('./payTeacher')
+const { jobGenerateClassRoom } = require('./generateClassRoom')
+
 app.use('/', router)
 app.get('/', (req, res) => {
   res.send('welcome')
@@ -134,6 +136,10 @@ app.get('/teacher/earnings/receipts?:date', getTeacherEarningAPI)
 //  REPORT API
 app.post('/supports/report', reportProblemAPI)
 
+app.get('test', async (req, res) => {
+  console.log(req.body)
+  res.send("pl")
+})
 // CALL SCOCC
 app.get('/answer_url', async (req, res) => {
   const {
@@ -267,3 +273,4 @@ app.listen(3002, () => {
 
 // jobChargeMoneyStudent()
 // jobPayoutMoneyToTeacher()
+// jobGenerateClassRoom()
