@@ -5,6 +5,7 @@ const { getProfileByUserId, updateGeneralStudentInfo } = require('../access/comm
 const { uploadImageS3 } = require('../utils/s3image');
 const { handleUpdateProfileAvatar } = require('../access/media');
 const { getCustomerPayment, createCustomerObj, updateCustomerPaymentMethod } = require('../access/customer');
+const { updateProfileAvatar } = require('../access/profile')
 
 const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcPS5q286GRxIfxr8E0qjLACyttQwMsN3CLDcLWK4BnMCG3IiBhSXv00dMMjH21w');
 
@@ -54,7 +55,6 @@ const getParentProfileAPI = async (req, res) => {
       profile.medias = results[0]
       profile.pricing = results[1]
       profile.skills = results[2]
-      profile.avatar = profile.medias[0].url
     })
     .catch(err => console.log(err))
   res.status(200).json({
@@ -74,7 +74,7 @@ const updateStudentGeneralInfoAPI = async (req, res) => {
         student_profile.medias = results[0]
         student_profile.pricing = results[1]
         student_profile.skills = results[2]
-        student_profile.avatar = student_profile.medias[0].url
+        // student_profile.avatar = student_profile.medias[0].url
       })
       .catch(err => console.log(err))
     res.status(200).json({
@@ -96,7 +96,7 @@ const changeStudentProfileAvatar = async (req, res) => {
   const profile = await getProfileByUserId(sub)
   const student_profile_id = profile.id
   const imageUrl = await uploadImageS3(data)
-  await handleUpdateProfileAvatar(student_profile_id, imageUrl)
+  await updateProfileAvatar(student_profile_id, imageUrl)
   res.status(200).json({
     status: "OK",
     media: {

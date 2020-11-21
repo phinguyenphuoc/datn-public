@@ -102,12 +102,11 @@ const getScheduleDateInMonthForStudent = (date, lesson_ids) => {
     query(
       `SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id , b.teacher_profile_id,
       b.teacher_profile_id,
-      p.first_name, p.last_name,m.url 
+      p.first_name, p.last_name, p.avatar
       FROM public.schedule AS s
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
       INNER JOIN public.booking as b ON l.booking_id = b.id
       INNER JOIN public.profile as p ON b.teacher_profile_id = p.id
-      INNER JOIN public.media as m ON m.profile_id = b.teacher_profile_id
       WHERE s.lesson_date between $1 AND $2 AND m.type = $3 AND M.tag = $4 and s.lesson_id = ANY($5)
       ORDER BY s.lesson_date ASC`,
       [startOfMonth, endOfMonth, "image", "avatar", lesson_ids],
@@ -128,7 +127,7 @@ const getScheduleDateInMonthForStudent = (date, lesson_ids) => {
                 student_info: `${item.first_name} ${item.last_name}`,
                 teacher: {
                   id: item.teacher_profile_id,
-                  avatar: item.url,
+                  avatar: item.avatar,
                   first_name: item.first_name,
                   last_name: item.last_name,
                   phone: "4004004004"
@@ -145,6 +144,8 @@ const getScheduleDateInMonthForStudent = (date, lesson_ids) => {
     )
   })
 }
+
+
 const cancelALessonSchedule = (id, reason, role) => {
   return new Promise((resolve, reject) => {
     query(
@@ -282,6 +283,54 @@ const getInvoiceForStudentByMonth = (student_id, date) => {
   })
 }
 
+const getScheduleDateForParticularDateOfTeacher = (date, lesson_ids) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id , b.teacher_profile_id,
+      b.teacher_profile_id,
+      p.first_name, p.last_name, p.avatar
+      FROM public.schedule AS s
+      INNER JOIN public.lesson AS l ON s.lesson_id = l.id
+      INNER JOIN public.booking as b ON l.booking_id = b.id
+      INNER JOIN public.profile as p ON b.teacher_profile_id = p.id
+      WHERE s.lesson_date =$1 and s.lesson_id = ANY($2)
+      ORDER BY s.lesson_date ASC`,
+      [date, lesson_ids],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          const responseData = results.rows.map(item => {
+            return {
+              date: item.date,
+              end_hour: item.end_hour,
+              id: item.id,
+              lesson: {
+                end_date: item.end_date,
+                start_date: item.start_date,
+                id: item.lesson_id,
+                instrument: instruments[item.instrument_id],
+                student_info: `${item.first_name} ${item.last_name}`,
+                teacher: {
+                  id: item.teacher_profile_id,
+                  avatar: item.avatar,
+                  first_name: item.first_name,
+                  last_name: item.last_name,
+                  phone: "4004004004"
+                }
+              },
+              start_hour: item.start_hour,
+              type: item.status,
+              zoom_meeting: null
+            }
+          })
+          resolve(responseData)
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
   createScheduleForLesson,
   getScheduleDateInMonthForTeacher,
@@ -290,5 +339,6 @@ module.exports = {
   getScheduleDateInMonthForStudent,
   getUpcomingLesson,
   updateScheduleInvoiceUrl,
-  getInvoiceForStudentByMonth
+  getInvoiceForStudentByMonth,
+  getScheduleDateForParticularDateOfTeacher
 }

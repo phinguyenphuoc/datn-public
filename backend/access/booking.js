@@ -42,11 +42,10 @@ const bookingALesson = ({ teacher_profile_id, lessonType, instrument, level, pri
 const getTeacherPendingBooking = ({ teacher_profile_id }) => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT b.*, p.first_name, p.last_name, p.phone_number, m.url FROM public.booking AS b
+      `SELECT b.*, p.first_name, p.last_name, p.phone_number, p.avatar FROM public.booking AS b
       INNER JOIN public.profile AS p ON b.student_profile_id = p.id 
-      INNER JOIN public.media AS m ON b.student_profile_id = m.profile_id
-      WHERE teacher_profile_id = $1 and approve = $2 and m.type = $3 and m.tag = $4`,
-      [teacher_profile_id, false, "image", "avatar"],
+      WHERE teacher_profile_id = $1 and approve = $2 `,
+      [teacher_profile_id, false],
       (error, results) => {
         if (error) {
           reject(error)
@@ -58,13 +57,14 @@ const getTeacherPendingBooking = ({ teacher_profile_id }) => {
               teacher_profile_id: booking.teacher_profile_id,
               student_profile_id: booking.student_profile_id,
               instrument_id: booking.instrument_id,
+              instrument: instruments[booking.instrument_id],
               level: booking.level,
               description: booking.description,
               approve: false,
               student: {
                 first_name: booking.first_name,
                 last_name: booking.last_name,
-                avatar: booking.url,
+                avatar: booking.avatar,
                 age: 18,
                 phone: booking.phone_number || "0905030698"
               }

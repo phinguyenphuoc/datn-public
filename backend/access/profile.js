@@ -37,4 +37,25 @@ const getUserIdByProfileId = (profileId) => {
   })
 }
 
-module.exports = { createProfile, getUserIdByProfileId }
+const updateProfileAvatar = (profile_id, avatar) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.profile 
+      SET avatar = $2
+      WHERE id = $1 RETURNING *`,
+      [profile_id, avatar],
+      (err, results) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+module.exports = {
+  createProfile,
+  getUserIdByProfileId,
+  updateProfileAvatar
+}
