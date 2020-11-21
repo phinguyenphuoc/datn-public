@@ -3,7 +3,7 @@ import classNames from "classnames";
 import star from "../../assets/images/rate.png";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 
-const Reviews = ({ data, dataReview }) => {
+const Reviews = ({ data }) => {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 3;
 
@@ -12,6 +12,24 @@ const Reviews = ({ data, dataReview }) => {
   };
 
   let totalScore = 0;
+
+  const dataReview = [
+    {
+      reviewer: {
+        name: "Phi Nguyen"
+      },
+      rating: 5,
+      comment: "Great teacher, very good"
+    },
+    {
+      reviewer: {
+        name: "Nguyen Phuoc Phi"
+      },
+      rating: 4,
+      comment: "Not too good"
+    },
+  ]
+
   dataReview.forEach((item) => {
     totalScore += parseFloat(item.rating);
   });
