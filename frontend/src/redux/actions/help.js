@@ -1,13 +1,14 @@
 import * as types from "../constants";
-import { request } from "../../utils/request";
+import { request, getHeader } from "../../utils/request";
 import store from "../store";
 
-export function postHelp(data, resolve = () => { }) {
+export async function postHelp(data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.HELP_REQUEST,
   });
   return request()
-    .post("/supports/assistance", data)
+    .post("/supports/assistance", data, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

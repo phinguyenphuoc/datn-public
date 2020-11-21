@@ -48,6 +48,7 @@ const {
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support')
 const { getTeacherEarningAPI } = require('./controller/invoice')
+const postAssistanceAPI = require('./controller/assistance')
 
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 const { updateScheduleInvoiceUrl } = require('./access/schedule')
@@ -136,10 +137,8 @@ app.get('/teacher/earnings/receipts?:date', getTeacherEarningAPI)
 //  REPORT API
 app.post('/supports/report', reportProblemAPI)
 
-app.get('test', async (req, res) => {
-  console.log(req.body)
-  res.send("pl")
-})
+app.post('/supports/assistance', postAssistanceAPI)
+
 // CALL SCOCC
 app.get('/answer_url', async (req, res) => {
   const {
