@@ -135,8 +135,10 @@ const StyledStep3 = styled.section`
 
 function Step3({
   storeBookLesson,
+  storeBookLesson2,
   studentSelected,
   timeLesson,
+  timeLesson2,
   handleClickEdit2,
   handleClickEdit1,
   handleConfirm,
@@ -179,6 +181,21 @@ function Step3({
               <h3>Time</h3>
               <p>{timeLesson}</p>
             </div>
+            {timeLesson2 && storeBookLesson2.date && (
+              <>
+                <div className="--item">
+                  <h3>Day</h3>
+                  <p>
+                    {storeBookLesson2.date &&
+                      moment(storeBookLesson2.date).format("dddd")}
+                  </p>
+                </div>
+                <div className="--item">
+                  <h3>Time</h3>
+                  <p>{timeLesson2}</p>
+                </div>
+              </>
+            )}
             <div className="--item">
               <h3>Frequency</h3>
               <p>

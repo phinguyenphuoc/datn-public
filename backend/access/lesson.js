@@ -1,11 +1,11 @@
 const { query } = require('../config')
 
-const createLesson = ({ booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status }) => {
+const createLesson = ({ booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status, teacher_id, student_id }) => {
   return new Promise((resolve, reject) => {
     query(
-      `INSERT INTO public.lesson(booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status)
-          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *`,
-      [booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status],
+      `INSERT INTO public.lesson(booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status, teacher_id, student_id)
+          VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,
+      [booking_id, pricing_id, start_date, end_date, instrument_id, trial, frequency, language, status, teacher_id, student_id],
       (error, results) => {
         if (error) {
           reject(error)

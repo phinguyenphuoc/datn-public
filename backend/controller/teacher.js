@@ -12,6 +12,8 @@ const { uploadImageS3 } = require('../utils/s3image');
 
 const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcPS5q286GRxIfxr8E0qjLACyttQwMsN3CLDcLWK4BnMCG3IiBhSXv00dMMjH21w');
 
+const moment = require('moment')
+
 const instruments = [
   "",
   'piano',
@@ -46,22 +48,22 @@ const listTeacherAPI = async (req, res) => {
     })
     .catch(err => console.log(err))
 
-  medias.forEach(media => {
-    const item = profiles.find(profile => profile.id === media.profile_id)
-    if (item) {
-      const arrMedias = []
-      media.types.forEach((type, index) => {
-        arrMedias.push({
-          details: null,
-          name: "abc.jpg",
-          tag: media.tags[index],
-          type,
-          url: media.urls[index]
-        })
-      })
-      item.medias = arrMedias
-    }
-  })
+  // medias.forEach(media => {
+  //   const item = profiles.find(profile => profile.id === media.profile_id)
+  //   if (item) {
+  //     const arrMedias = []
+  //     media.types.forEach((type, index) => {
+  //       arrMedias.push({
+  //         details: null,
+  //         name: "abc.jpg",
+  //         tag: media.tags[index],
+  //         type,
+  //         url: media.urls[index]
+  //       })
+  //     })
+  //     item.medias = arrMedias
+  //   }
+  // })
   pricing.forEach(price => {
     const item = profiles.find(profile => profile.id === price.profile_id)
     if (item) {
@@ -144,26 +146,38 @@ const getFrequency = (frequency) => {
 const createLessonAPI = async (req, res) => {
   try {
     const { sub, booking, lesson, schedule } = req.body;
+    console.log({ sub, booking, lesson, schedule })
     const booking_id = booking.id
-    const { start_date, end_date, duration, frequency } = lesson
+    const { start_date, end_date, month, frequency } = lesson
     const freqNumber = getFrequency(frequency)
     const { start_hour, end_hour } = schedule
     const teacher_profile = await getProfileByUserId(sub)
     const teacher_profile_id = teacher_profile.id
     const bookingInfo = await getBookingInformation(booking_id, teacher_profile_id)
+    const endDate = moment(start_date).add(month, 'month').format('YYYY-MM-DD')
     const lessonCreated = await createLesson({
       booking_id: bookingInfo.id,
       pricing_id: bookingInfo.price_id,
       start_date: start_date,
-      end_date: end_date,
+      end_date: endDate,
       instrument_id: bookingInfo.instrument_id,
       trial: false,
       frequency: freqNumber,
       language: "english",
       status: "active",
-      teacher_id: teacher_profile_id
+      teacher_id: teacher_profile_id,
+      student_id: bookingInfo.student_profile_id
     })
-    await createScheduleForLesson({ lesson_id: lessonCreated.id, start_date, end_date, start_hour, end_hour })
+    for (let i = 0; i < schedule.length; i++) {
+      const item = schedule[i];
+      await createScheduleForLesson({
+        lesson_id: lessonCreated.id,
+        start_date: item.lesson_date,
+        end_date: endDate,
+        start_hour: item.start_hour,
+        end_hour: item.end_hour
+      })
+    }
     await approveBooking(booking_id)
     res.status(200).json({
       status: "OK",
@@ -258,7 +272,7 @@ const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
       })
     })
     profile.medias = arrMedias
-    profile.avatar = arrMedias[0].url
+    // profile.avatar = arrMedias[0].url
   })
   pricing.forEach(price => {
     const arrPricing = []

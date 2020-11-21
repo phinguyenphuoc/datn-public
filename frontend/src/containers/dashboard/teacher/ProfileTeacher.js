@@ -15,7 +15,6 @@ import {
 import {
   getTeacherProfile,
   updateTeacherInfo,
-  //   getZoomAuthCode,
 } from "../../../redux/actions/teacher";
 // import { updatePassword } from "../../../redux/actions/updatePassword";
 import { useSelector } from "react-redux";
@@ -51,21 +50,6 @@ function ProfileTeacher(props) {
   React.useEffect(() => {
     getTeacherProfile();
   }, []);
-
-  React.useEffect(() => {
-    if (zoom_code && state === "zoom_auth") {
-      // getZoomAuthCode(
-      //   zoom_code,
-      //   (responseData) => {
-      //     setOpenModalZoomSuccess(true);
-      //     setOpenModalZoom(false);
-      //   },
-      //   (errorRespon) => {
-      //     setOpenModalZoomWrong(true);
-      //   }
-      // );
-    }
-  }, [zoom_code, state]);
 
   React.useEffect(() => {
     if (

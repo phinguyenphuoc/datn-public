@@ -48,6 +48,11 @@ const initialState = {
     loading: false,
     error: {},
   },
+  schedules2: {
+    data: [],
+    loading: false,
+    error: {},
+  },
   schedulesUpcomming: {
     data: [],
     loading: false,
@@ -68,6 +73,10 @@ const initialState = {
     called: false,
   },
   bookLesson: {
+    date: "",
+    time: roundCurrentTime(),
+  },
+  bookLesson2: {
     date: "",
     time: roundCurrentTime(),
   },
@@ -265,6 +274,17 @@ export default function reducer(state = initialState, actions) {
           loading: false,
         },
       };
+
+    case types.GET_SCHEDULES_SUCCEED2:
+      return {
+        ...state,
+        schedules2: {
+          ...state.schedules2,
+          data: actions.payload.schedules,
+          loading: false,
+        },
+      };
+
     case types.GET_SCHEDULES_FAIL:
       return {
         ...state,
@@ -274,6 +294,17 @@ export default function reducer(state = initialState, actions) {
           loading: false,
         },
       };
+
+    case types.GET_SCHEDULES_FAIL2:
+      return {
+        ...state,
+        schedules2: {
+          ...state.schedules2,
+          error: actions.payload,
+          loading: false,
+        },
+      };
+
     case types.GET_SCHEDULES_UPCOMMING:
       return {
         ...state,
@@ -397,6 +428,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         initBookings: initialState.initBookings,
       };
+
     case types.UPDATE_BOOK_LESSON:
       return {
         ...state,
@@ -405,6 +437,16 @@ export default function reducer(state = initialState, actions) {
           ...actions.payload,
         },
       };
+
+    case types.UPDATE_BOOK_LESSON2:
+      return {
+        ...state,
+        bookLesson2: {
+          ...state.bookLesson2,
+          ...actions.payload,
+        },
+      };
+
     case types.GET_BOOKING_STUDENT:
       return {
         ...state,

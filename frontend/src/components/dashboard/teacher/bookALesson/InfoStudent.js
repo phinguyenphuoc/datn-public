@@ -117,13 +117,20 @@ function InfoStudent({ handleNext, step, studentSelected, handleClickEdit }) {
             <h3>Home address</h3>
             <p>
               {student.address[0]} {student.address[1]} {student.address[2]}{" "}
-              {student.address[3]} {student.address[4]}
             </p>
           </div>
         )}
         <div className="student-info__item">
           <h3>Phone number</h3>
           <p>{formatPhoneNumber(student.phone)}</p>
+        </div>
+        <div className="student-info__item">
+          <h3>Instrument</h3>
+          <p>{studentSelected.instrument}</p>
+        </div>
+        <div className="student-info__item">
+          <h3>Level</h3>
+          <p>{studentSelected.level}</p>
         </div>
         {step === 3 ? (
           <div className="edit" onClick={handleClickEdit}>

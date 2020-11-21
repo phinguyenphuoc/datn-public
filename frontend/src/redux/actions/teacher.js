@@ -111,6 +111,28 @@ export async function getSchedules(date, resolve = () => { }) {
     });
 }
 
+export async function getSchedules2(date, resolve = () => { }) {
+  const header = await getHeader()
+  store.dispatch({
+    type: types.GET_SCHEDULES,
+  });
+  return request()
+    .get(`/schedules?date=${date}`, header)
+    .then((response) => {
+      resolve(response.data);
+      store.dispatch({
+        payload: response.data,
+        type: types.GET_SCHEDULES_SUCCEED2,
+      });
+    })
+    .catch((error) => {
+      store.dispatch({
+        payload: error.data,
+        type: types.GET_SCHEDULES_FAIL2,
+      });
+    });
+}
+
 export async function getSchedulesUpcomming(studentId, resolve = () => { }) {
   const header = await getHeader()
   store.dispatch({
@@ -224,6 +246,14 @@ export function updateBooklesson(data) {
   });
 }
 
+export function updateBooklesson2(data) {
+  store.dispatch({
+    type: types.UPDATE_BOOK_LESSON2,
+    payload: data,
+  });
+}
+
+
 export async function getBookingStudent(resolve = () => { }) {
   const header = await getHeader();
   store.dispatch({
@@ -264,28 +294,6 @@ export async function createLesson(data, resolve = () => { }) {
       store.dispatch({
         payload: error.data,
         type: types.CREATE_LESSON_FAIL,
-      });
-    });
-}
-
-export function getSetupBooking(lesson_id, resolve = () => { }) {
-  store.dispatch({
-    type: types.GET_SETUP_BOOKING,
-  });
-  return request()
-    .get(`teacher/lessons/${lesson_id ? `${lesson_id}` : ""}/setup_booking`)
-    .then((response) => {
-      resolve(response.data);
-      store.dispatch({
-        lesson_id,
-        payload: response.data,
-        type: types.GET_SETUP_BOOKING_SUCCEED,
-      });
-    })
-    .catch((error) => {
-      store.dispatch({
-        payload: error.data,
-        type: types.GET_SETUP_BOOKING_FAIL,
       });
     });
 }
@@ -497,28 +505,6 @@ export async function getEarningsReceipts(date, resolve = () => { }) {
       store.dispatch({
         payload: error.data,
         type: types.GET_TEACHER_EARNINGS_RECEIPTS_FAIL,
-      });
-    });
-}
-
-export function getZoomAuthCode(code, resolve = () => { }, reject = () => { }) {
-  store.dispatch({
-    type: types.GET_ZOOM_AUTH_CODE,
-  });
-  return request()
-    .get(`zoom_auth?code=${code}`)
-    .then((response) => {
-      resolve(response.data);
-      store.dispatch({
-        payload: response.data,
-        type: types.GET_ZOOM_AUTH_CODE_SUCCEED,
-      });
-    })
-    .catch((error) => {
-      reject(error);
-      store.dispatch({
-        payload: error.data,
-        type: types.GET_ZOOM_AUTH_CODE_FAIL,
       });
     });
 }

@@ -39,7 +39,7 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
       style={{ top: storeGlobal.heightHeader + 45 }}
     >
       <img
-        src={_.get(data, "medias[0].url", null) || defaultAvatar}
+        src={_.get(data, "avatar", null) || defaultAvatar}
         alt={data.first_name}
         className="teacher__card__avatar"
       />

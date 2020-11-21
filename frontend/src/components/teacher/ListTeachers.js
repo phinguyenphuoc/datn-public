@@ -67,7 +67,7 @@ const ListTeachers = ({ data, dataTeachers, handleClick }) => {
                   id={item.id}
                   onClick={handleClick(item)}
                   key={`teacher-${item.id}`}
-                  image={_.get(item, "medias[0].url", null) || defaultAvatar}
+                  image={_.get(item, "avatar", null) || defaultAvatar}
                   name={`${item.first_name} ${item.last_name}`}
                   position={item.city}
                   description={item.pickup_line}

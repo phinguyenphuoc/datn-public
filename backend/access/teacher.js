@@ -3,7 +3,7 @@ const { query } = require('../config')
 const listTeacher = () => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT * FROM profile`,
+      `SELECT * FROM profile WHERE roles @> '{teacher}'`,
       (err, results) => {
         if (err) {
           reject(err)

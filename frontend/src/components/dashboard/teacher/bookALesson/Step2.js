@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { TimePicker } from "@material-ui/pickers";
 import { createMuiTheme } from "@material-ui/core";
@@ -10,6 +10,7 @@ import { DatePicker } from "../../../common";
 import lock from "../../../../assets/images/lock.svg";
 import { formatTime1, formatTime2 } from "../../../../utils/helpers";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import _ from "lodash"
 
 const StyledStep2 = styled.section`
   margin-bottom: auto;
@@ -340,18 +341,27 @@ function Step2({
   handleNext,
   studentSelected,
   storeBookLesson,
+  storeBookLesson2,
   handleCheckbox,
-  handleCheckboxOnetime,
   handleClickDate,
   onTimeChange,
+  onTimeChange2,
   form,
   error,
   errorTime,
   errorDate,
   dataSchedulesFiltered,
+  dataSchedulesFiltered2,
   dataSetupBooking,
   errorTrial,
+  handleSelectTotalMonth,
+  handleClickDate2
 }) {
+  const [oneMore, setOneMore] = useState(false)
+
+  const minDate2 = moment(storeBookLesson.date).startOf("week").format('yyyy-MM-DD')
+  const maxDate2 = moment(storeBookLesson.date).endOf("week").format('yyyy-MM-DD')
+
   return (
     <StyledStep2>
       <div className="container">
@@ -361,7 +371,7 @@ function Step2({
               <div className="select-date">
                 <h4>Select a date</h4>
                 <DatePicker
-                  autoOk
+                  // autoOk
                   variant="static"
                   openTo="date"
                   orientation="portrait"
@@ -390,7 +400,8 @@ function Step2({
                             {" - "}
                             {formatTime2(item.end_hour)}{" "}
                             <span className="dot">.</span>{" "}
-                            <span className="--name">{`${item.lesson.student.first_name}`}</span>
+                            {/* <span className="--name">{`${item.lesson.student.first_name}`}</span> */}
+                            <span className="--name">{`${item.lesson.student_info}`}</span>
                           </div>
                         );
                       })}
@@ -465,75 +476,115 @@ function Step2({
                     <div className="error">{error}</div>
                   </div>
                 </div>
+                {/* Select total month */}
+                <div className="select-a-lesson">
+                  <h4>Select total month</h4>
+                  <div>
+                    <input
+                      type="number"
+                      name="month"
+                      defaultValue="12"
+                      style={{ width: "50%" }}
+                      onChange={handleSelectTotalMonth}
+                    />
+                    <div className="error">{error}</div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="button-next">
-              {storeBookLesson.date && storeBookLesson.time && form.duration ? (
-                <div className="one-time-lesson">
-                  {dataSetupBooking && Object.keys(dataSetupBooking).length ? (
-                    ""
-                  ) : (
-                      <p>
-                        <span>NOTE:</span> The lesson is set automatically to
-                      repeat every week at the same day and time. For a{" "}
-                        <span>one-time lesson,</span> please check the following
-                      box:
-                      </p>
-                    )}
-                  <label className="checkbox">
-                    <input
-                      type="checkbox"
-                      name="checkboxOnetime"
-                      className="input_checkbox"
-                      onChange={handleCheckboxOnetime}
-                      value={form.checkboxOnetime}
-                      checked={form.checkboxOnetime}
-                    />
-                    <span className="checkmark"></span>
-                    <p>One-time lesson</p>
-                  </label>
-                  {form.checkboxOnetime && studentSelected.trial_available && (
-                    <>
-                      <div className="trial-lesson">
-                        <h5>Is this a trial lesson? ( Apply 50% off) </h5>
-                        <div className="trial-lesson__inner">
-                          <label className="checkbox">
-                            <input
-                              type="checkbox"
-                              name="checkboxTrial"
-                              className="input_checkbox"
-                              onChange={handleCheckbox}
-                              value={true}
-                              checked={form.checkboxTrial === "true"}
-                            />
-                            <span className="checkmark"></span>
-                            <p>yes</p>
-                          </label>
-                          <label className="checkbox">
-                            <input
-                              type="checkbox"
-                              name="checkboxTrial"
-                              className="input_checkbox"
-                              onChange={handleCheckbox}
-                              value={false}
-                              checked={form.checkboxTrial === "false"}
-                            />
-                            <span className="checkmark"></span>
-                            <p>no</p>
-                          </label>
-                        </div>
-                      </div>
-                      {/* <div className="error">{errorTrial}</div> */}
-                    </>
-                  )}
+
+
+
+            {/* 2222222 */}
+            {oneMore && storeBookLesson.date && (
+              <div className="select-date-time" style={{ marginTop: 20 }}>
+                <div className="select-date">
+                  <h4>Select a date</h4>
+                  <DatePicker
+                    id="2"
+                    variant="static"
+                    openTo="date"
+                    orientation="portrait"
+                    onChange={handleClickDate2}
+                    isSetColorSelectedDate={false}
+                    dateClicked={storeBookLesson2.date}
+                    value={storeBookLesson2.date}
+                    onClickDate={handleClickDate2}
+                    minDate={minDate2 || moment().startOf("week").format('yyyy-MM-DD')}
+                    maxDate={maxDate2 || moment().endOf("week").format('yyyy-MM-DD')}
+                  />
+                  <div className="error">{errorDate}</div>
                 </div>
-              ) : (
-                  ""
-                )}
+                <div className="select-time">
+                  <h3>
+                    {storeBookLesson2.date &&
+                      moment(storeBookLesson2.date).format("MMM Do YYYY")}
+                  </h3>
+                  <p>{storeBookLesson2.date && "Classes confirmed on this day"}</p>
+                  <div className="pick-a-date">
+                    {dataSchedulesFiltered2 && dataSchedulesFiltered2.length ? (
+                      <div>
+                        {dataSchedulesFiltered2.map((item) => {
+                          return (
+                            <div key={`${item.id}`} className="time-and-student">
+                              {formatTime1(item.start_hour)}
+                              {" - "}
+                              {formatTime2(item.end_hour)}{" "}
+                              <span className="dot">.</span>{" "}
+                              {/* <span className="--name">{`${item.lesson.student.first_name}`}</span> */}
+                              <span className="--name">{`${_.get(item, "lesson.student_info", "")}`}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                        <div className="--content">
+                          {storeBookLesson.date ? (
+                            <div>
+                              No classes
+                              <br />
+                          scheduled yet
+                            </div>
+                          ) : (
+                              "Pick a date to check your availabilities"
+                            )}
+                        </div>
+                      )}
+                  </div>
+                  <div className="select-a-time">
+                    <h4>Select a time</h4>
+                    <div>
+                      <ThemeProvider theme={materialTheme}>
+                        <TimePicker
+                          autoOk
+                          onChange={onTimeChange2}
+                          value={storeBookLesson2.time}
+                          minutesStep={5}
+                        />
+                      </ThemeProvider>
+                      <div className="error">{errorTime}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {storeBookLesson.date && <button
+              className="find"
+              type="button"
+              style={{ width: "auto", marginTop: 10, maxWidth: 300, padding: "3px 8px", opacity: 1 }}
+              onClick={() => setOneMore(!oneMore)}
+            >
+              {oneMore ? 'Remove' : 'Add one more date (max: 2 date/week)'}
+            </button>
+            }
+            <div className="button-next">
+              <p>
+                <span>NOTE:</span> The lesson is set automatically to
+              repeat every week at the same day and time. For a{" "}
+              </p>
               {(error !== "" ||
                 errorTime !== "" ||
-                errorDate !== "" ||
-                errorTrial !== "") && (
+                errorDate !== "") && (
                   <StyledErrorPanel>
                     {[error, errorTime, errorDate, errorTrial].map(
                       (errorInfo, index) => {

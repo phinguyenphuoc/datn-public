@@ -4,7 +4,8 @@ const {
   cancelALessonSchedule,
   suspendLessonSchedule,
   getUpcomingLesson,
-  getInvoiceForStudentByMonth
+  getInvoiceForStudentByMonth,
+  getScheduleDateForParticularDateOfTeacher
 } = require('../access/schedule')
 const { getProfileByUserId } = require('../access/common');
 const {
@@ -23,11 +24,19 @@ const getSchedulesAPI = async (req, res) => {
     if (role === "student") {
       lessons = await getActiveStudentLesson(profile_id)
       const lesson_ids = lessons.map(lesson => lesson.id)
-      schedules = await getScheduleDateInMonthForStudent(date, lesson_ids)
+      if (date.length === 10) {
+
+      } else {
+        schedules = await getScheduleDateInMonthForStudent(date, lesson_ids)
+      }
     } else {
       lessons = await getActiveTeacherLesson(profile_id)
       const lesson_ids = lessons.map(lesson => lesson.id)
-      schedules = await getScheduleDateInMonthForTeacher(date, lesson_ids)
+      if (date.length === 10) {
+        schedules = await getScheduleDateForParticularDateOfTeacher(date, lesson_ids)
+      } else {
+        schedules = await getScheduleDateInMonthForTeacher(date, lesson_ids)
+      }
     }
     res.status(200).json({
       status: "OK",
