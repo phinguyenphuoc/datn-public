@@ -8,6 +8,7 @@ import avatarDefault from "../../../../assets/images/avatar-picture.svg";
 import { getSchedulesParentUpcomming } from "../../../../redux/actions/parent";
 import { useSelector } from "react-redux";
 import camera from "../../../../assets/images/cameraZoom.svg";
+import { useHistory } from "react-router-dom";
 
 const StyledModal = styled(Modal)`
   && {
@@ -166,6 +167,7 @@ const StyledModal = styled(Modal)`
 
 const ModalInfoTeacher = ({ isOpen, handleToggle, dataTeachers }) => {
   const teacherId = dataTeachers.id;
+  const history = useHistory();
 
   React.useEffect(() => {
     if (teacherId) {
@@ -173,6 +175,10 @@ const ModalInfoTeacher = ({ isOpen, handleToggle, dataTeachers }) => {
     }
   }, [teacherId]);
   const schedule = useSelector((store) => store.parent.schedulesUpcomming);
+
+  const joinMeeting = (roomId) => {
+    history.push(`/dashboard/student/meeting/${roomId}`)
+  }
 
   return (
     <StyledModal
@@ -230,16 +236,9 @@ const ModalInfoTeacher = ({ isOpen, handleToggle, dataTeachers }) => {
               <h3>{`${moment(schedule.data[0].date).format(
                 "MMMM, Do YYYY"
               )} at ${formatTime2(schedule.data[0].start_hour)}`}</h3>
-              {schedule.data[0].zoom_meeting &&
-                Object.keys(schedule.data[0].zoom_meeting).length > 0 && (
-                  <a
-                    href={schedule.data[0].zoom_meeting.join_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={camera} alt="camera" />
-                  </a>
-                )}
+              {schedule.data[0].room_id &&
+                <img src={camera} alt="camera" onClick={() => joinMeeting(schedule.data[0].room_id)} />
+              }
             </div>
           )}
         </div>

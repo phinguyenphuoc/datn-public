@@ -189,7 +189,11 @@ const getUpcomingLesson = (lesson_id) => {
   return new Promise((resolve, reject) => {
     query(
       `
-      SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id
+      SELECT 
+      s.*, 
+      to_char(s.lesson_date, 'YYYY-MM-DD') as date, 
+      l.end_date, l.start_date, 
+      l.id AS lesson_id, l.instrument_id
       FROM public.schedule AS s
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
       WHERE s.lesson_id = $1 and s.lesson_date > NOW() and s.status = 'booked'
@@ -215,7 +219,8 @@ const getUpcomingLesson = (lesson_id) => {
             },
             start_hour: item.start_hour,
             type: item.status,
-            zoom_meeting: "123"
+            // zoom_meeting: "123",
+            room_id: item.room_id
           }
           resolve(responseData)
         }

@@ -127,7 +127,7 @@ function App() {
             exact
           />
           <Route
-            path="/dashboard/teacher/meeting"
+            path="/dashboard/teacher/meeting/:room"
             component={withAuth(withLayoutDashboard(Meeting), [
               USER_ROLE_TEACHER,
             ])}
@@ -189,7 +189,7 @@ function App() {
             exact
           />
           <Route
-            path="/dashboard/student/meeting"
+            path="/dashboard/student/meeting/:room"
             component={withAuth(withLayoutDashboard(Meeting), [
               USER_ROLE_PARENT,
             ])}

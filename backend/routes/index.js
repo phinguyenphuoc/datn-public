@@ -11,7 +11,8 @@ const byPass = [
   "/teachers/profiles",
   "/answer_url",
   "/signup",
-  "/hooks"
+  "/hooks",
+  "/test"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {

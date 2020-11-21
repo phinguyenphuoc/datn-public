@@ -13,7 +13,8 @@ const getStudentProfileAPI = async (req, res) => {
   const id = profile.id
   await Promise.all([getMedias([id]), getPricing([id]), getSkills([id])])
     .then(results => {
-      const avatar = (medias && medias[0] && medias[0].url) ? medias[0].url : ""
+      const media = results[0]
+      const avatar = (media && media[0] && media[0].url) ? media[0].url : ""
       profile.medias = results[0]
       profile.pricing = results[1]
       profile.skills = results[2]

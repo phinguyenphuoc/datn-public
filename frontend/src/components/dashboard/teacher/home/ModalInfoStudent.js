@@ -8,6 +8,7 @@ import { getSchedulesUpcomming } from "../../../../redux/actions/teacher";
 import { useSelector } from "react-redux";
 import { formatPhoneNumber, formatTime2 } from "../../../../utils/helpers";
 import camera from "../../../../assets/images/cameraZoom.svg";
+import { useHistory } from "react-router-dom";
 
 const StyledModal = styled(Modal)`
   && {
@@ -159,12 +160,19 @@ const StyledModal = styled(Modal)`
 
 const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
   const studentId = data.id;
+  const history = useHistory();
   React.useEffect(() => {
     if (studentId) {
       getSchedulesUpcomming(studentId);
     }
   }, [studentId]);
   const schedule = useSelector((store) => store.teacher.schedulesUpcomming);
+
+
+  const joinMeeting = (roomId) => {
+    history.push(`/dashboard/teacher/meeting/${roomId}`)
+  }
+
   return (
     <StyledModal
       isOpen={isOpen}
@@ -218,7 +226,7 @@ const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
             </p>
           </div>
           <div>
-            <h4>START A CALL</h4>
+            <h4>Join meeting</h4>
             <p style={{ color: "green" }}>(Available before 15' and during lesson time)</p>
             <p>
               <button className="btn btn-success btn-m" disabled={
@@ -236,16 +244,9 @@ const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
               <h3>{`${moment(schedule.data[0].date).format(
                 "MMMM, Do YYYY"
               )} at ${formatTime2(schedule.data[0].start_hour)}`}</h3>
-              {schedule.data[0].zoom_meeting &&
-                Object.keys(schedule.data[0].zoom_meeting).length > 0 && (
-                  <a
-                    href={schedule.data[0].zoom_meeting.join_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={camera} alt="camera" />
-                  </a>
-                )}
+              {schedule.data[0].room_id &&
+                <img src={camera} alt="camera" onClick={() => joinMeeting(schedule.data[0].room_id)} />
+              }
             </div>
           )}
         </div>
