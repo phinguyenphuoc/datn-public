@@ -43,12 +43,10 @@
     "validator": "^12.1.0"
   },
   "scripts": {
-    "start-prod": "npm run sitemap && serve -s build -l 80",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "sitemap": "babel-node ./src/sitemap-generator.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

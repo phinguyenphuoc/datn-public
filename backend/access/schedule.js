@@ -107,9 +107,9 @@ const getScheduleDateInMonthForStudent = (date, lesson_ids) => {
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
       INNER JOIN public.booking as b ON l.booking_id = b.id
       INNER JOIN public.profile as p ON b.teacher_profile_id = p.id
-      WHERE s.lesson_date between $1 AND $2 AND m.type = $3 AND M.tag = $4 and s.lesson_id = ANY($5)
+      WHERE s.lesson_date between $1 AND $2 AND s.lesson_id = ANY($3)
       ORDER BY s.lesson_date ASC`,
-      [startOfMonth, endOfMonth, "image", "avatar", lesson_ids],
+      [startOfMonth, endOfMonth, lesson_ids],
       (error, results) => {
         if (error) {
           reject(error)
