@@ -7,6 +7,7 @@ const jwkToPem = require('jwk-to-pem');
 const pem = jwkToPem(jwk.keys[1]);
 
 const byPass = [
+  "/api/",
   "/api/instruments",
   "/api/teachers/profiles",
   "/api/answer_url",
