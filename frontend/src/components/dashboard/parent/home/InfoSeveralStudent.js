@@ -347,9 +347,26 @@ function InfoSeveralStudent({
             <div className="musical__body">
               {isLoadingProgressReports ? (
                 <Loading />
-              ) : dataProgressReports.data.length ? (
+              ) : dataProgressReports.data.length || true ? (
                 <Slider {...settingsSeveral}>
-                  {dataProgressReports.data.map((item, index) => (
+                  {/* {dataProgressReports.data.map((item, index) => ( */}
+                  {[
+                    {
+                      reported_date: '2020-11-01',
+                      rating: 5,
+                      student: {
+                        name: "Phi Nguyen"
+                      }
+                    },
+                    {
+                      reported_date: '2020-11-11',
+                      rating: 4,
+                      student: {
+                        name: "Phi Nguyen"
+                      }
+                    }
+                  ].map((item, index) => (
+
                     <article
                       className="slide "
                       onClick={handleclickProgressReport(item)}

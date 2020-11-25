@@ -8,7 +8,7 @@ import {
   setOpenModalJoinHomemuse,
 } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 function HeaderTeachWithUs({ isDashboard }) {
   const [open, setOpen] = React.useState(false);
@@ -80,20 +80,20 @@ function HeaderTeachWithUs({ isDashboard }) {
   // };
 
   const handleClickButton = () => {
-    ReactGA.event({
-      category: "Navigation",
-      action: "Navigation to Join Homemuse Modal at Teach with us Page Header",
-      label: "Click 'Join homemuse as teacher Button'",
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: "Navigation to Join Homemuse Modal at Teach with us Page Header",
+    //   label: "Click 'Join homemuse as teacher Button'",
+    // });
     setOpenModalJoinHomemuse(!storeOpenModal);
   };
 
   const handleGaTracking = (link) => {
-    ReactGA.event({
-      category: "Navigation",
-      action: `Navigation to ${link} Page at Footer`,
-      label: `Click '${link} Link'`,
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: `Navigation to ${link} Page at Footer`,
+    //   label: `Click '${link} Link'`,
+    // });
   };
   return (
     <header

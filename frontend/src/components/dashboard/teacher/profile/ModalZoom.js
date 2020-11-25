@@ -6,7 +6,7 @@ import logo from "../../../../assets/images/logoZoom.svg";
 import zoom from "../../../../assets/images/zoom.svg";
 import addZoom from "../../../../assets/images/addZoomBtn.svg";
 import zoomBtn from "../../../../assets/images/zoomBtn.svg";
-import { ZOOM_CLIENT_ID, DOMAIN } from "../../../../config";
+// import { ZOOM_CLIENT_ID, DOMAIN } from "../../../../config";
 
 const StyledModal = styled(Modal)`
   && {
@@ -144,15 +144,15 @@ const ModalZoom = ({ isOpen, handleToggle }) => {
           HOMEMUSE uses ZOOM meetings for online music lessons. Click on the
           link below and follow the instructions to link ZOOM to your account.{" "}
         </div>
-        <a
+        {/* <a
           href={`https://zoom.us/oauth/authorize?client_id=${ZOOM_CLIENT_ID}&response_type=code&redirect_uri=${DOMAIN}/dashboard/teacher/profile/homemuse-profile&state=zoom_auth`}
-        >
-          <button className="btn__zoom">
-            <img src={addZoom} alt="addZoom" className="addZoom" />
-            <span>Add</span>
-            <img src={zoomBtn} alt="zoom" className="zoom_text" />
-          </button>
-        </a>
+        > */}
+        <button className="btn__zoom">
+          <img src={addZoom} alt="addZoom" className="addZoom" />
+          <span>Add</span>
+          <img src={zoomBtn} alt="zoom" className="zoom_text" />
+        </button>
+        {/* </a> */}
       </ModalBody>
     </StyledModal>
   );

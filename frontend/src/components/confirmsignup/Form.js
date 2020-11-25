@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 const Form = ({ handleSubmit }) => {
   const [error, setError] = React.useState({});
@@ -22,11 +22,11 @@ const Form = ({ handleSubmit }) => {
   }, [storeLogin]);
 
   const handleSubmitForm = (event) => {
-    ReactGA.event({
-      category: "Navigation",
-      action: "Navigation to Dashboard at Login Page",
-      label: "Click 'Login Button'",
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: "Navigation to Dashboard at Login Page",
+    //   label: "Click 'Login Button'",
+    // });
 
     event.preventDefault();
     const errorState = validate();

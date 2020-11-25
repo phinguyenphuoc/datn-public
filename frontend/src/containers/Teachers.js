@@ -9,7 +9,7 @@ import {
 } from "../redux/actions/teachers";
 import { openModalMessage } from "../redux/actions/modalMessage";
 import { registerStudent } from "../redux/actions/student";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 function Teachers(props) {
   const [limit, setLimit] = React.useState(0);
@@ -59,11 +59,11 @@ function Teachers(props) {
 
   const history = useHistory();
   const handleClickOnCard = (data) => () => {
-    ReactGA.event({
-      category: "Teacher Click",
-      action: "User clicked Teacher Card at Teachers Page",
-      label: data.first_name + " " + data.last_name + " Clicked",
-    });
+    // ReactGA.event({
+    //   category: "Teacher Click",
+    //   action: "User clicked Teacher Card at Teachers Page",
+    //   label: data.first_name + " " + data.last_name + " Clicked",
+    // });
     history.push(`/teachers/${data.tag}`);
   };
 
@@ -121,25 +121,25 @@ function Teachers(props) {
   };
 
   const handleSubmit = (e) => {
-    if (filter.instruments.length !== 0) {
-      filter.instruments.forEach((item) => {
-        ReactGA.event({
-          category: "Instruments Filter",
-          action: item.label,
-        });
-      });
-    }
+    // if (filter.instruments.length !== 0) {
+    //   filter.instruments.forEach((item) => {
+    //     ReactGA.event({
+    //       category: "Instruments Filter",
+    //       action: item.label,
+    //     });
+    //   });
+    // }
     e.preventDefault();
     setOpenInstruments(false);
     handleGetTeachers();
   };
 
   const handleSeeMore = () => {
-    ReactGA.event({
-      category: "Search",
-      action: "Load More at Teachers Page",
-      label: "Click 'Load More Button'",
-    });
+    // ReactGA.event({
+    //   category: "Search",
+    //   action: "Load More at Teachers Page",
+    //   label: "Click 'Load More Button'",
+    // });
     getTeachers(
       {
         filter,
@@ -151,12 +151,12 @@ function Teachers(props) {
   };
 
   const handleChangeLocation = (value, e) => {
-    if (value) {
-      ReactGA.event({
-        category: "Location Filter",
-        action: value.label,
-      });
-    }
+    // if (value) {
+    //   ReactGA.event({
+    //     category: "Location Filter",
+    //     action: value.label,
+    //   });
+    // }
     const newFilter = { ...filter, location: value };
     updateFilter(newFilter);
     if (e.name !== "location-small-screen") {
@@ -165,12 +165,12 @@ function Teachers(props) {
   };
 
   const handleChangeLessonType = (value) => {
-    if (value) {
-      ReactGA.event({
-        category: "LessonType Filter",
-        action: value.label,
-      });
-    }
+    // if (value) {
+    //   ReactGA.event({
+    //     category: "LessonType Filter",
+    //     action: value.label,
+    //   });
+    // }
     let newFilter = { ...filter, lessonType: value };
     // Toggle location filter
     if (value.value === "online") {

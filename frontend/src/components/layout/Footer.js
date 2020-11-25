@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 function Footer(props) {
   const handleGaTracking = (link) => {
-    ReactGA.event({
-      category: "Navigation",
-      action: `Navigation to ${link} Page at Footer`,
-      label: `Click '${link} Link'`,
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: `Navigation to ${link} Page at Footer`,
+    //   label: `Click '${link} Link'`,
+    // });
   };
 
   return (

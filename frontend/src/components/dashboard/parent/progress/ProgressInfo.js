@@ -120,6 +120,7 @@ const StyledProgressInfo = styled.section`
 
 function ProgressInfo({ dataProgressReport }) {
   const dataInfoStudent = dataProgressReport.student;
+  console.log({ dataInfoStudent })
   return (
     <StyledProgressInfo>
       <div className="container">
@@ -141,7 +142,7 @@ function ProgressInfo({ dataProgressReport }) {
                   Instrument: <span>{dataInfoStudent.instrument}</span>
                 </p>
                 <p>
-                  Joined Homemuse in:{" "}
+                  Joined in:{" "}
                   <span>
                     {moment(dataInfoStudent.start_date).format("MMMM, YYYY")}
                   </span>
@@ -159,7 +160,7 @@ function ProgressInfo({ dataProgressReport }) {
                 <img
                   src={
                     dataProgressReport.teacher &&
-                    dataProgressReport.teacher.avatar
+                      dataProgressReport.teacher.avatar
                       ? dataProgressReport.teacher.avatar
                       : avatarDefault
                   }

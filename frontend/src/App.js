@@ -48,20 +48,20 @@ import {
 } from "./HOCs";
 import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "./utils/constants";
 import Teacher from "./containers/Teacher";
-import ReactGA from "react-ga";
-import { hotjar } from "react-hotjar";
-import { GA_TRACKING_ID, HJID, HJSV, HJENABLED } from "./config.js";
+// import ReactGA from "react-ga";
+// import { hotjar } from "react-hotjar";
+// import { GA_TRACKING_ID, HJID, HJSV, HJENABLED } from "./config.js";
 import ConfirmSignUp from "./containers/ConfirmSignUp";
 
-ReactGA.initialize(GA_TRACKING_ID);
-if (HJENABLED === "true") {
-  hotjar.initialize(HJID, HJSV);
-}
+// ReactGA.initialize(GA_TRACKING_ID);
+// if (HJENABLED === "true") {
+//   hotjar.initialize(HJID, HJSV);
+// }
 
 function ScrollToTop(props) {
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    // ReactGA.pageview(window.location.pathname + window.location.search);
   }, [props.location]);
 
   return props.children;

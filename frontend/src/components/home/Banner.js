@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { MutiSelect } from "../common";
 import Search from "../../assets/images/fasearch.svg";
 import { getInstruments } from "../../redux/actions/instruments";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 import { useSelector } from "react-redux";
 
@@ -28,18 +28,18 @@ function Banner({ onChange, instruments }) {
   }, [storeInstruments]);
 
   const handleGaTracking = () => {
-    ReactGA.event({
-      category: "Search & Navigation",
-      action: "Search Music Teachers & Navigation to Teachers Page at Homepage",
-    });
-    if (instruments) {
-      instruments.forEach((item) => {
-        ReactGA.event({
-          category: "Instruments Filter",
-          action: item.label,
-        });
-      });
-    }
+    // ReactGA.event({
+    //   category: "Search & Navigation",
+    //   action: "Search Music Teachers & Navigation to Teachers Page at Homepage",
+    // });
+    // if (instruments) {
+    //   instruments.forEach((item) => {
+    //     ReactGA.event({
+    //       category: "Instruments Filter",
+    //       action: item.label,
+    //     });
+    //   });
+    // }
   };
 
   return (

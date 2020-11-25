@@ -5,7 +5,7 @@ import classNames from "classnames";
 import { Loading, CardTeacher } from "../common";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 import { getInstruments } from "../../redux/actions/instruments";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 const ListTeachers = ({
   handleToggleModalJoin,
@@ -69,11 +69,11 @@ const ListTeachers = ({
   ]);
 
   const handleGaTracking = () => {
-    ReactGA.event({
-      category: "Navigation",
-      action: "Navigation to Teach with us Page at Teachers Page",
-      label: "Click 'Are you a music teacher link'",
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: "Navigation to Teach with us Page at Teachers Page",
+    //   label: "Click 'Are you a music teacher link'",
+    // });
   };
 
   React.useEffect(() => {

@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 function SearchTeachers() {
   const handleGaTracking = () => {
-    ReactGA.event({
-      category: "Navigation",
-      action: "Navigation to Teachers Page at Homepage",
-      label: "Click 'Search for a music teacher Button'",
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: "Navigation to Teachers Page at Homepage",
+    //   label: "Click 'Search for a music teacher Button'",
+    // });
   };
 
   return (

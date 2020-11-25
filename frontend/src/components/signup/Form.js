@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 import {
   formatPhoneNumber,
   getPhoneNumberOnlyDigits,
@@ -35,11 +35,11 @@ const Form = ({ handleSubmit }) => {
   }, [storeLogin]);
 
   const handleSubmitForm = (event) => {
-    ReactGA.event({
-      category: "Navigation",
-      action: "Navigation to Dashboard at Login Page",
-      label: "Click 'Login Button'",
-    });
+    // ReactGA.event({
+    //   category: "Navigation",
+    //   action: "Navigation to Dashboard at Login Page",
+    //   label: "Click 'Login Button'",
+    // });
 
     event.preventDefault();
     const errorState = validate();
@@ -104,18 +104,18 @@ const Form = ({ handleSubmit }) => {
     setErrorLogin("");
   };
   const handleGaTracking = (type) => {
-    if (type === "forgot")
-      ReactGA.event({
-        category: "Navigation",
-        action: "Navigation to Forgot Password Page at Login Page",
-        label: "Click 'Forgot Password Link'",
-      });
-    else if (type === "teachers")
-      ReactGA.event({
-        category: "Navigation",
-        action: "Navigation to Teachers Page at Login Page",
-        label: "Click 'Find your teachere Link'",
-      });
+    // if (type === "forgot")
+    //   ReactGA.event({
+    //     category: "Navigation",
+    //     action: "Navigation to Forgot Password Page at Login Page",
+    //     label: "Click 'Forgot Password Link'",
+    //   });
+    // else if (type === "teachers")
+    //   ReactGA.event({
+    //     category: "Navigation",
+    //     action: "Navigation to Teachers Page at Login Page",
+    //     label: "Click 'Find your teachere Link'",
+    //   });
   };
 
   const handleStringTrim = (event) => {
