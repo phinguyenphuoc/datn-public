@@ -57,37 +57,37 @@ const { jobChargeMoneyStudent } = require('./cronjob')
 const { jobPayoutMoneyToTeacher } = require('./payTeacher')
 const { jobGenerateClassRoom } = require('./generateClassRoom')
 
-app.use('/', router)
-app.get('/', (req, res) => {
+app.use('/api', router)
+app.get('/api/', (req, res) => {
   res.send('welcome')
 })
-app.get('/teachers/profiles', listTeacherAPI) // show all teacher
+app.get('/api/teachers/profiles', listTeacherAPI) // show all teacher
 
-app.get('/instruments', instrumentsApi)
+app.get('/api/instruments', instrumentsApi)
 
-app.get('/profile', getUserProfileApi)
+app.get('/api/profile', getUserProfileApi)
 
 /* --- BOOKING API --- */
 
-app.post('/register_pending_student', registerPendingStudentAPI) // Booking
+app.post('/api/register_pending_student', registerPendingStudentAPI) // Booking
 
 
 /* --- Teacher API ---*/
-app.get('/teacher/profile', getTeacherProfileDashboardTeacherAPI)
+app.get('/api/teacher/profile', getTeacherProfileDashboardTeacherAPI)
 
-app.put('/teacher/profile', updateTeacherGeneralInfoAPI)// Update general info for teacher
+app.put('/api/teacher/profile', updateTeacherGeneralInfoAPI)// Update general info for teacher
 
-app.post('/teacher/lessons/:id/suspend', suspendLessonAPI)
+app.post('/api/teacher/lessons/:id/suspend', suspendLessonAPI)
 
-app.post('/teacher/lessons/cancel_schedule/:id', cancelLessonAPI)
+app.post('/api/teacher/lessons/cancel_schedule/:id', cancelLessonAPI)
 
-app.get('/teacher/students/profiles', getStudentsOfTeacherAPI)
+app.get('/api/teacher/students/profiles', getStudentsOfTeacherAPI)
 
-app.get('/teacher/bookings/pending', getPendingBookingsAPI)
+app.get('/api/teacher/bookings/pending', getPendingBookingsAPI)
 
-app.post('/teacher/lessons', createLessonAPI)
+app.post('/api/teacher/lessons', createLessonAPI)
 
-app.get('/teacher/active-lessons', getActiveLessonAPI)
+app.get('/api/teacher/active-lessons', getActiveLessonAPI)
 
 app.get('/teacher/earnings/current_details', (req, res) => {
   res.status(200).json({
@@ -100,47 +100,47 @@ app.get('/teacher/earnings/current_details', (req, res) => {
   })
 })
 //  stripe 
-app.get('/teacher/connect_stripe', getStripeDashBoardLinkAPI)
+app.get('/api/teacher/connect_stripe', getStripeDashBoardLinkAPI)
 
 /* ---STUDENT API --- */
-app.get('/student/teachers/profile', getTeacherProfileForStudentAPI)  //getTeacherProfileAPI)
+app.get('/api/student/teachers/profile', getTeacherProfileForStudentAPI)  //getTeacherProfileAPI)
 
-app.put('/students/profile', updateStudentGeneralInfoAPI) // Update general info for student
+app.put('/api/students/profile', updateStudentGeneralInfoAPI) // Update general info for student
 
-app.get('/students/profile', getStudentProfileAPI) // return array students: [students]
+app.get('/api/students/profile', getStudentProfileAPI) // return array students: [students]
 
-app.get('/student/profile', getParentProfileAPI) // return profile: profile
+app.get('/api/student/profile', getParentProfileAPI) // return profile: profile
 
-app.post('/student/profile/avatar', changeStudentProfileAvatar) // Update student avatar
+app.post('/api/student/profile/avatar', changeStudentProfileAvatar) // Update student avatar
 
-app.post('/student/lessons/cancel_schedule/:id', cancelLessonAPI)
+app.post('/api/student/lessons/cancel_schedule/:id', cancelLessonAPI)
 
-app.post('/student/lessons/:id/suspend', suspendLessonAPI)
+app.post('/api/student/lessons/:id/suspend', suspendLessonAPI)
 
-app.get('/student/customer/card_info', getStudentCardInfoAPI)
+app.get('/api/student/customer/card_info', getStudentCardInfoAPI)
 
-app.get('/student/customer/card_setup', getOrSetUpCardForStudentAPI)
+app.get('/api/student/customer/card_setup', getOrSetUpCardForStudentAPI)
 
-app.post('/student/customer/card_save', saveStudentCardApi)
+app.post('/api/student/customer/card_save', saveStudentCardApi)
 
 /* --- SCHEDULE API --- */
-app.get('/schedules?:date', getSchedulesAPI)
+app.get('/api/schedules?:date', getSchedulesAPI)
 
-app.get('/schedules/upcoming?:profile_id', getUpcomingLessonAPI)
+app.get('/api/schedules/upcoming?:profile_id', getUpcomingLessonAPI)
 
 /* ---- Invoices ---*/
 
-app.get('/student/invoices?:date', getStudentInvoicesAPI)
+app.get('/api/student/invoices?:date', getStudentInvoicesAPI)
 
-app.get('/teacher/earnings/receipts?:date', getTeacherEarningAPI)
+app.get('/api/teacher/earnings/receipts?:date', getTeacherEarningAPI)
 
 //  REPORT API
-app.post('/supports/report', reportProblemAPI)
+app.post('/api/supports/report', reportProblemAPI)
 
-app.post('/supports/assistance', postAssistanceAPI)
+app.post('/api/supports/assistance', postAssistanceAPI)
 
 // CALL SCOCC
-app.get('/answer_url', async (req, res) => {
+app.get('/api/answer_url', async (req, res) => {
   const {
     from,
     to,
@@ -220,7 +220,7 @@ const addUserToGroupStudent = (email) => {
   })
 }
 
-app.post('/signup', async (req, res) => {
+app.post('/api/signup', async (req, res) => {
   try {
     const { email, password, address, first_name, last_name, phone_number, city, background, zip } = req.body
     const userId = await cognitoSignUpUser(email, password)
@@ -238,7 +238,7 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-app.post('/hooks', async (req, res) => {
+app.post('/api/hooks', async (req, res) => {
   // Handle the event
   const event = req.body
   switch (event.type) {

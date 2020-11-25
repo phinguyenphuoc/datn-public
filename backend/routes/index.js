@@ -7,12 +7,12 @@ const jwkToPem = require('jwk-to-pem');
 const pem = jwkToPem(jwk.keys[1]);
 
 const byPass = [
-  "/instruments",
-  "/teachers/profiles",
-  "/answer_url",
-  "/signup",
-  "/hooks",
-  "/test"
+  "/api/instruments",
+  "/api/teachers/profiles",
+  "/api/answer_url",
+  "/api/signup",
+  "/api/hooks",
+  "/api/test"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {
