@@ -340,7 +340,6 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
     ],
   });
   const [errorLevel, setErrorLevel] = React.useState("");
-  const [errorRating, setErrorRating] = React.useState("");
   function valuetext(value) {
     return `${value} %`;
   }
@@ -363,19 +362,12 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
       isValid = false;
       setErrorLevel("Please choose at least 1 option");
     }
-    if (!form.rating) {
-      isValid = false;
-      setErrorRating("Please choose at least 1 option");
-    }
-    const pieces = [];
-    form.listPieces.map((item) => {
-      return pieces.push({
-        title: item.title,
-        rate_percentage: item.rate_percentage,
-        good_comment: item.good_comment,
-        bad_comment: item.bad_comment,
-      });
-    });
+    const pieces = {
+      title: form.listPieces[0].title,
+      rate_percentage: form.listPieces[0].rate_percentage,
+      good_comment: form.listPieces[0].good_comment,
+      bad_comment: form.listPieces[0].bad_comment,
+    };
     const formData = {
       progress_report: {
         skill_id:
@@ -383,10 +375,11 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
           dataStudentSelect.skills &&
           dataStudentSelect.skills[0].id,
         reported_date: moment().format("YYYY-MM-DD"),
+
         level: form.level,
         rating: parseInt(form.rating),
         comment: form.comment,
-        pieces,
+        ...pieces,
       },
     };
     if (isValid) {
@@ -427,13 +420,6 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
     setErrorLevel("");
   };
 
-  const handleCheckboxRating = (event) => {
-    setForm({
-      ...form,
-      rating: event.target.value,
-    });
-    setErrorRating("");
-  };
 
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -541,63 +527,6 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
           </div>
           <div>
             <h4>
-              How many stars does the student deserves for this music learning
-              period?
-            </h4>
-            <p>
-              This refers to student’s practice, behavior during the lessons…
-            </p>
-            <div className="checkbox-ratio">
-              <label className="checkbox">
-                <input
-                  name="rating"
-                  type="radio"
-                  className="input_checkbox"
-                  onChange={handleCheckboxRating}
-                  checked={form.rating === "1"}
-                  value={1}
-                />
-                <span className="checkmark"></span>
-                <p>
-                  <img src={star} alt="star" />
-                </p>
-              </label>
-              <label className="checkbox">
-                <input
-                  name="rating"
-                  type="radio"
-                  className="input_checkbox"
-                  onChange={handleCheckboxRating}
-                  checked={form.rating === "2"}
-                  value={2}
-                />
-                <span className="checkmark"></span>
-                <p>
-                  <img src={star} alt="star" />
-                  <img src={star} alt="star" />
-                </p>
-              </label>
-              <label className="checkbox">
-                <input
-                  name="rating"
-                  type="radio"
-                  className="input_checkbox"
-                  onChange={handleCheckboxRating}
-                  checked={form.rating === "3"}
-                  value={3}
-                />
-                <span className="checkmark"></span>
-                <p>
-                  <img src={star} alt="star" />
-                  <img src={star} alt="star" />
-                  <img src={star} alt="star" />
-                </p>
-              </label>
-            </div>
-            <div className="error">{errorRating}</div>
-          </div>
-          <div>
-            <h4>
               Comments and tips you would share with your student for his
               improvement (500 characters max):
             </h4>
@@ -630,7 +559,7 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
                       : "";
                   const errorMessageGoodComment =
                     error.listPieces &&
-                    error.listPieces[`good_comment-${index}`]
+                      error.listPieces[`good_comment-${index}`]
                       ? error.listPieces[`good_comment-${index}`]
                       : "";
                   const errorMessagebadComment =
@@ -683,8 +612,8 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
                                   item.rate_percentage > 98
                                     ? "--nomark"
                                     : item.rate_percentage < 3
-                                    ? "--nomarkmax"
-                                    : "",
+                                      ? "--nomarkmax"
+                                      : "",
                               }}
                             />
                           </div>
@@ -727,8 +656,7 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
                 })}
               </div>
             )}
-
-            <button
+            {/* <button
               className="find button-piece"
               onClick={handleAddChildren}
               disabled={isSubmitting}
@@ -737,7 +665,7 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
               <span>
                 <img src={addfile} alt="addfile" />
               </span>
-            </button>
+            </button> */}
           </div>
           <button className="find" disabled={isSubmitting}>
             Send the progress report{" "}

@@ -368,12 +368,13 @@ export async function suspendLesson(lesson_id, data, resolve = () => { }) {
     });
 }
 
-export function progressReport(profil_id, data, resolve = () => { }) {
+export async function progressReport(profil_id, data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.PROGRESS_REPORT_TEACHER,
   });
   return request()
-    .post(`teacher/students/progress_reports?profile_id=${profil_id}`, data)
+    .post(`teacher/students/progress_reports?profile_id=${profil_id}`, data, header)
     .then((response) => {
       resolve();
       store.dispatch({

@@ -4,21 +4,21 @@ import {
   Banner,
   Form,
 } from "../../../components/dashboard/teacher/progressReportForm";
-// import { useHistory } from "react-router-dom";
-// import { progressReport } from "../../../redux/actions/teacher";
-// import { openModalMessage } from "../../../redux/actions/modalMessage";
+import { useHistory } from "react-router-dom";
+import { progressReport } from "../../../redux/actions/teacher";
+import { openModalMessage } from "../../../redux/actions/modalMessage";
 
 function ProgressReportForm(props) {
   const location = useLocation();
 
-  // const history = useHistory();
+  const history = useHistory();
 
   if (!location.state || !location.state.dataStudent) {
     return <Redirect to="/dashboard/teacher/my-students-page" />;
   }
   const studentSelect = location.state.dataStudent;
-  // const profil_id =
-  //   location.state && location.state.dataStudent && studentSelect.id;
+  const profile_id =
+    location.state && location.state.dataStudent && studentSelect.id;
 
   const handleSubmitProgressReportForm = (formData) => {
     if (
@@ -26,13 +26,13 @@ function ProgressReportForm(props) {
       location.state.dataStudent &&
       location.state.dataStudent.id
     ) {
-      // progressReport(profil_id, formData, () => {
-      //   openModalMessage({
-      //     title: "Progress report",
-      //     body: <p>Your progress report has been added successfully.</p>,
-      //   });
-      //   history.push("/dashboard/teacher/my-students-page");
-      // });
+      progressReport(profile_id, formData, () => {
+        openModalMessage({
+          title: "Progress report",
+          body: <p>Your progress report has been added successfully.</p>,
+        });
+        history.push("/dashboard/teacher/my-students-page");
+      });
     }
   };
   return (
