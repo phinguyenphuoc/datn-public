@@ -27,6 +27,7 @@ const getSchedulesAPI = async (req, res) => {
       if (date.length === 10) {
 
       } else {
+        console.log("get hereeeeeee")
         schedules = await getScheduleDateInMonthForStudent(date, lesson_ids)
       }
     } else {
@@ -51,6 +52,7 @@ const getSchedulesAPI = async (req, res) => {
 }
 
 const suspendLessonAPI = async (req, res) => {
+  // Send email
   try {
     const { cancel, role } = req.body
     const { id } = req.params
@@ -72,6 +74,7 @@ const suspendLessonAPI = async (req, res) => {
 }
 
 const cancelLessonAPI = async (req, res) => {
+  // Send email
   try {
     const { cancel, role } = req.body
     const { id } = req.params

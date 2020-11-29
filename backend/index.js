@@ -7,13 +7,6 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
 const router = require("./routes/index");
-const AWS = require('aws-sdk')
-AWS.config.update({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: 'us-east-2'
-})
-const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
 // import { listTeacherAPI } from "./controller/teacher";
 const {
   listTeacherAPI,
@@ -49,7 +42,7 @@ const {
 const { reportProblemAPI } = require('./controller/support')
 const { getTeacherEarningAPI } = require('./controller/invoice')
 const postAssistanceAPI = require('./controller/assistance')
-
+const signUpApi = require('./controller/signup')
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 const { updateScheduleInvoiceUrl } = require('./access/schedule')
 
@@ -58,7 +51,7 @@ const { jobPayoutMoneyToTeacher } = require('./payTeacher')
 const { jobGenerateClassRoom } = require('./generateClassRoom')
 
 app.use('/api', router)
-app.get('/api/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('welcome')
 })
 app.get('/api/teachers/profiles', listTeacherAPI) // show all teacher
@@ -176,67 +169,9 @@ app.get('/api/answer_url', async (req, res) => {
   ])
 })
 
-const cognitoSignUpUser = (email, password) => {
-  return new Promise((resolve, reject) => {
-    const params = {
-      ClientId: process.env.ClientId, /* required */
-      Password: password, /* required */
-      Username: email, /* required */
-      UserAttributes: [
-        {
-          Name: 'email', /* required */
-          Value: email
-        },
-      ],
-    };
-    cognitoidentityserviceprovider.signUp(params, (err, data) => {
-      if (err) {
-        console.log(err, err.stack)
-        reject(err)
-      } else {
-        console.log(data)
-        resolve(data.UserSub)
-      }
-    });
-  })
-}
 
-const addUserToGroupStudent = (email) => {
-  return new Promise((resolve, reject) => {
-    const params = {
-      GroupName: 'student',
-      UserPoolId: process.env.UserPoolId,
-      Username: email
-    };
-    cognitoidentityserviceprovider.adminAddUserToGroup(params, function (err, data) {
-      if (err) {
-        console.log(err, err.stack)
-        reject(err)
-      } else {
-        console.log(data)
-        resolve("Add user to student group: ", data)
-      }
-    });
-  })
-}
 
-app.post('/api/signup', async (req, res) => {
-  try {
-    const { email, password, address, first_name, last_name, phone_number, city, background, zip } = req.body
-    const userId = await cognitoSignUpUser(email, password)
-    await addUserToGroupStudent(email)
-    const profile = await createProfile(userId, [address, city, zip], first_name, last_name, phone_number, city, background)
-    res.status(200).json({
-      status: "SIGN_UP_SUCCEED",
-      email: email
-    })
-  } catch {
-    res.status(400).json({
-      status: "SIGN_UP_ERROR",
-      message: "User already exist"
-    })
-  }
-})
+app.post('/api/signup', signUpApi)
 
 app.post('/api/hooks', async (req, res) => {
   // Handle the event
