@@ -298,12 +298,13 @@ export async function createLesson(data, resolve = () => { }) {
     });
 }
 
-export function createMakeupSchedule(schedule_id, data, resolve = () => { }) {
+export async function createMakeupSchedule(schedule_id, data, resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.CREATE_MAKEUP_SCHEDULE,
   });
   return request()
-    .post(`teacher/lessons/makeup_schedule/${schedule_id}`, data)
+    .post(`teacher/lessons/makeup_schedule/${schedule_id}`, data, header)
     .then((response) => {
       resolve();
       store.dispatch({
@@ -508,3 +509,27 @@ export async function getEarningsReceipts(date, resolve = () => { }) {
       });
     });
 }
+
+export async function getSetupBooking(lesson_id, resolve = () => { }) {
+  const header = await getHeader();
+  store.dispatch({
+    type: types.GET_SETUP_BOOKING,
+  });
+  return request()
+    .get(`teacher/lessons/${lesson_id}/setup_booking`, header)
+    .then((response) => {
+      resolve(response.data);
+      store.dispatch({
+        lesson_id,
+        payload: response.data,
+        type: types.GET_SETUP_BOOKING_SUCCEED,
+      });
+    })
+    .catch((error) => {
+      store.dispatch({
+        payload: error.data,
+        type: types.GET_SETUP_BOOKING_FAIL,
+      });
+    });
+}
+

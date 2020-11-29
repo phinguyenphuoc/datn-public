@@ -203,6 +203,27 @@ const getListActiveBookingForStudent = (student_profile_id) => {
   })
 }
 
+const getSetupBooking = (lesson_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT b.*, p.first_name, p.last_name,
+      p.avatar, p.phone_number, p.id 
+      FROM public.lesson as l
+      INNER JOIN public.booking as b ON l.booking_id = b.id
+      INNER JOIN public.profile as p ON b.student_profile_id = p.id
+      WHERE l.id = $1`,
+      [lesson_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
   bookingALesson,
   getTeacherPendingBooking,
@@ -211,5 +232,6 @@ module.exports = {
   getListStudentFromBooking,
   getListTeacherForStudentFromBooking,
   getListActiveBookingForTeacher,
-  getListActiveBookingForStudent
+  getListActiveBookingForStudent,
+  getSetupBooking
 }

@@ -5,7 +5,8 @@ const {
   suspendLessonSchedule,
   getUpcomingLesson,
   getInvoiceForStudentByMonth,
-  getScheduleDateForParticularDateOfTeacher
+  getScheduleDateForParticularDateOfTeacher,
+  rescheduleLessonSchedule
 } = require('../access/schedule')
 const { getProfileByUserId } = require('../access/common');
 const {
@@ -13,6 +14,10 @@ const {
   getActiveTeacherLesson,
   getLessonOfPairStudentAndTeacher
 } = require('../access/lesson')
+
+const sendMail = require('../utils/email');
+const moment = require('moment')
+
 const getSchedulesAPI = async (req, res) => {
   try {
     const { sub, role } = req.body
@@ -27,7 +32,6 @@ const getSchedulesAPI = async (req, res) => {
       if (date.length === 10) {
 
       } else {
-        console.log("get hereeeeeee")
         schedules = await getScheduleDateInMonthForStudent(date, lesson_ids)
       }
     } else {
@@ -76,21 +80,37 @@ const suspendLessonAPI = async (req, res) => {
 const cancelLessonAPI = async (req, res) => {
   // Send email
   try {
-    const { cancel, role } = req.body
+    const { cancel, role, sub } = req.body
     const { id } = req.params
+    const profile = await getProfileByUserId(sub)
     if (role === "student") {
-      await cancelALessonSchedule(id, "student cancel this lesson", role)
+      const schedule = await cancelALessonSchedule(id, "student cancel this lesson", role)
+      sendMail(
+        'phinguyen@yopmail.com',
+        'Cancel Lesson',
+        `Lesson with Student ${profile.first_name} ${profile.last_name} at ${moment(schedule.lesson_date).format('YYYY-MM-DD')} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
+      )
       res.send({
         status: "OK"
       })
     } else {
       const { message, recurrence } = cancel
       if (recurrence === "one") {
-        await cancelALessonSchedule(id, message, role)
+        const schedule = await cancelALessonSchedule(id, message, role)
+        sendMail(
+          'phinguyen@yopmail.com',
+          'Cancel Lesson',
+          `Lesson with Student ${profile.first_name} ${profile.last_name} at ${moment(schedule.lesson_date).format('YYYY-MM-DD')} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
+        )
         res.send({
           status: "OK"
         })
       }
+      // sendMail(
+      //   'phinguyen@yopmail.com',
+      //   'Cancel Lesson',
+      //   `Lesson with Teacher ${profile.first_name} ${profile.last_name} at ${schedule.lesson_date} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
+      // )
     }
   } catch (error) {
     res.status(500).json({
@@ -136,10 +156,36 @@ const getStudentInvoicesAPI = async (req, res) => {
   })
 }
 
+const rescheduleScheduleAPI = async (req, res) => {
+  try {
+    const { schedule_id } = req.params
+    const { sub, schedule } = req.body
+    const profile = await getProfileByUserId(sub);
+
+    const { lesson_date, start_hour, end_hour } = schedule;
+    await rescheduleLessonSchedule(schedule_id, lesson_date, start_hour, end_hour)
+    sendMail(
+      'phinguyen@yopmail.com',
+      'Reschedule Lesson',
+      `Lesson with teacher ${profile.first_name} ${profile.last_name} has been rescheduled to ${lesson_date} ${start_hour}-${end_hour}`
+    )
+    res.status(200).json({
+      status: "OK"
+    })
+  } catch (err) {
+    res.status(500).json({
+      status: "FAILED",
+      error: err.message
+    })
+  }
+
+
+}
 module.exports = {
   getSchedulesAPI,
   suspendLessonAPI,
   cancelLessonAPI,
   getUpcomingLessonAPI,
-  getStudentInvoicesAPI
+  getStudentInvoicesAPI,
+  rescheduleScheduleAPI
 }

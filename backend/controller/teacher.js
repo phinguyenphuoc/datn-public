@@ -117,7 +117,6 @@ const getTeacherProfileAPI = async (req, res) => {
 
 const getPendingBookingsAPI = async (req, res) => {
   try {
-    console.log("Get here")
     const { sub } = req.body;
     const teacherProfile = await getProfileByUserId(sub);
     const teacher_profile_id = teacherProfile.id;

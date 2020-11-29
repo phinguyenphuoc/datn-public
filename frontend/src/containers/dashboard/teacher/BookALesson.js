@@ -15,7 +15,9 @@ import {
   createLesson,
   getSchedules,
   getSchedules2,
-  updateBooklesson2
+  updateBooklesson2,
+  getSetupBooking,
+  createMakeupSchedule
 } from "../../../redux/actions/teacher";
 import {
   getParam,
@@ -57,6 +59,12 @@ function BookALesson(props) {
   const isLoading = storeBookingStudents.loading || storeSetupBooking.loading;
   const isLoadingConfirmBooklesson =
     storeCreateLesson.loading || storeCreateMakeupSchedule.loading;
+
+  React.useEffect(() => {
+    if (lesson_id) {
+      getSetupBooking(lesson_id);
+    }
+  }, [lesson_id]);
 
   React.useEffect(() => {
     getBookingStudent();
@@ -359,14 +367,17 @@ function BookALesson(props) {
       formData = {
         lesson: {
           instrument: storeSetupBooking.data.instrument,
-          date: moment(storeBookLesson.date).format("YYYY-MM-DD"),
           duration: form.duration,
         },
         booking: {
           id: storeSetupBooking.data.id,
         },
         schedule: {
+          lesson_date: moment(storeBookLesson.date).format("YYYY-MM-DD"),
           start_hour: moment(storeBookLesson.time).format("HH:mm"),
+          end_hour: moment(storeBookLesson.time)
+            .add(minute, "minutes")
+            .format("HH:mm")
         },
       };
     } else {
@@ -429,15 +440,15 @@ function BookALesson(props) {
       setErrorDate("");
     };
 
-    // if (isCancelingLesson) {
-    //   createMakeupSchedule(schedule_id, formData, () => {
-    //     handleAfterCallingAPISuccess();
-    //   });
-    // } else {
-    createLesson(formData, () => {
-      handleAfterCallingAPISuccess();
-    });
-    // }
+    if (isCancelingLesson) {
+      createMakeupSchedule(schedule_id, formData, () => {
+        handleAfterCallingAPISuccess();
+      });
+    } else {
+      createLesson(formData, () => {
+        handleAfterCallingAPISuccess();
+      });
+    }
   };
 
   return (

@@ -568,7 +568,7 @@ function Step2({
                 </div>
               </div>
             )}
-            {storeBookLesson.date && <button
+            {(storeBookLesson.date && !dataSetupBooking) && <button
               className="find"
               type="button"
               style={{ width: "auto", marginTop: 10, maxWidth: 300, padding: "3px 8px", opacity: 1 }}

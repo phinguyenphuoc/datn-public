@@ -1,5 +1,27 @@
-const { bookingALesson } = require('../access/booking');
+const { bookingALesson, getSetupBooking } = require('../access/booking');
 const { getProfileByUserId } = require('../access/common');
+
+const instruments = [
+  "",
+  'piano',
+  'guitar',
+  'violin',
+  'cello',
+  'ukulele',
+  'flute',
+  'saxophone',
+  'bass guitar',
+  'viola',
+  'voice',
+  'trumpet',
+  'drums',
+  'bassoon',
+  'trombone',
+  'upright bass',
+  'music theory',
+  'composition',
+  'french horn'
+]
 
 const registerPendingStudentAPI = async (req, res) => {
   try {
@@ -17,7 +39,37 @@ const registerPendingStudentAPI = async (req, res) => {
       message: error.message
     })
   }
-
-
 }
-module.exports = { registerPendingStudentAPI }
+
+const getSetupBookingAPI = async (req, res) => {
+  const { lesson_id } = req.params
+  console.log({ lesson_id })
+  const booking = await getSetupBooking(lesson_id)
+  const response = {
+    approve: booking.approve,
+    description: booking.description,
+    id: booking.id,
+    instrument_id: booking.instrument_id,
+    level: booking.level,
+    instrument: instruments[booking.instrument_id],
+    student_profile_id: booking.student_profile_id,
+    teacher_profile_id: booking.teacher_profile_id,
+    student: {
+      first_name: booking.first_name,
+      last_name: booking.last_name,
+      avatar: booking.avatar,
+      age: 18,
+      phone: booking.phone_number,
+      id: booking.id
+    }
+  }
+  res.status(200).json({
+    status: "OK",
+    booking: response
+  })
+}
+
+module.exports = {
+  registerPendingStudentAPI,
+  getSetupBookingAPI
+}

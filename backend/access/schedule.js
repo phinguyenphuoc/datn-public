@@ -331,6 +331,29 @@ const getScheduleDateForParticularDateOfTeacher = (date, lesson_ids) => {
   })
 }
 
+const rescheduleLessonSchedule = (schedule_id, lesson_date, start_hour, end_hour) => {
+  console.log({ schedule_id, lesson_date, start_hour, end_hour })
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.schedule
+      SET lesson_date = $1,
+      start_hour = $2,
+      end_hour = $3,
+      status = $4
+      WHERE id = $5
+      RETURNING *`,
+      [lesson_date, start_hour, end_hour, "rescheduled", schedule_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
   createScheduleForLesson,
   getScheduleDateInMonthForTeacher,
@@ -340,5 +363,6 @@ module.exports = {
   getUpcomingLesson,
   updateScheduleInvoiceUrl,
   getInvoiceForStudentByMonth,
-  getScheduleDateForParticularDateOfTeacher
+  getScheduleDateForParticularDateOfTeacher,
+  rescheduleLessonSchedule
 }

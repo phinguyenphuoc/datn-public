@@ -31,13 +31,14 @@ const {
   getOrSetUpCardForStudentAPI,
   saveStudentCardApi
 } = require('./controller/student');
-const { registerPendingStudentAPI } = require('./controller/booking')
+const { registerPendingStudentAPI, getSetupBookingAPI } = require('./controller/booking')
 const {
   getSchedulesAPI,
   suspendLessonAPI,
   cancelLessonAPI,
   getUpcomingLessonAPI,
-  getStudentInvoicesAPI
+  getStudentInvoicesAPI,
+  rescheduleScheduleAPI
 } = require('./controller/schedule');
 const { reportProblemAPI } = require('./controller/support')
 const { getTeacherEarningAPI } = require('./controller/invoice')
@@ -82,7 +83,11 @@ app.post('/api/teacher/lessons', createLessonAPI)
 
 app.get('/api/teacher/active-lessons', getActiveLessonAPI)
 
-app.get('/teacher/earnings/current_details', (req, res) => {
+app.get('/api/teacher/lessons/:lesson_id/setup_booking', getSetupBookingAPI)
+
+app.post('/api/teacher/lessons/makeup_schedule/:schedule_id', rescheduleScheduleAPI)
+
+app.get('/api/teacher/earnings/current_details', (req, res) => {
   res.status(200).json({
     end_date: "2020-11-11",
     lessons_given: 0,
