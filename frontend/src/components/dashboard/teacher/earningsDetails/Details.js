@@ -197,7 +197,7 @@ function Details({ handleToggleModal }) {
             </div>
             {isLoadingEarning ? (
               <Loading />
-            ) : storeEarnings.data && storeEarnings.data.length ? (
+            ) : storeEarnings.data && storeEarnings.data.length || true ? (
               <Table borderless>
                 <thead>
                   <tr>
@@ -212,13 +212,13 @@ function Details({ handleToggleModal }) {
                   {storeEarnings.data.map((item, index) => (
                     <tr key={index}>
                       <td>{moment(item.date).format("MMMM DD, YYYY")}</td>
-                      <td>{`${item.student.first_name} ${item.student.last_name}`}</td>
+                      <td>{`${item.first_name} ${item.last_name}`}</td>
                       <td>
                         {item.duration === "60_min"
                           ? "60 minutes"
                           : item.duration === "45_min"
-                          ? "45 minutes"
-                          : "30 minutes"}
+                            ? "45 minutes"
+                            : "30 minutes"}
                       </td>
                       <td
                         className={classNames({
@@ -229,8 +229,8 @@ function Details({ handleToggleModal }) {
                         {item.status === "booked"
                           ? "confirmed"
                           : item.status === "cancelled"
-                          ? "canceled"
-                          : ""}
+                            ? "canceled"
+                            : "rescheduled"}
                       </td>
                       <td
                         className={classNames({
@@ -247,10 +247,10 @@ function Details({ handleToggleModal }) {
                 </tbody>
               </Table>
             ) : (
-              <div className="earning__body__no-data">
-                <p>No data available</p>
-              </div>
-            )}
+                  <div className="earning__body__no-data">
+                    <p>No data available</p>
+                  </div>
+                )}
           </div>
         </div>
       </div>

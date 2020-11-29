@@ -460,12 +460,13 @@ export function updateDateEarning(date) {
   store.dispatch({ type: types.UPDATE_TEACHER_DATE_EARNING, payload: date });
 }
 
-export function getEarnings(date, resolve = () => { }) {
+export async function getEarnings(date, resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.GET_TEACHER_EARNINGS,
   });
   return request()
-    .get(`teacher/earnings?date=${date}`)
+    .get(`teacher/earnings?date=${date}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
