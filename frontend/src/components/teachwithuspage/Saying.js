@@ -45,11 +45,7 @@ function Feedback() {
               {/* <p>Piano teacher at Palo Alto</p> */}
               <img src={AuthorFeedback1} alt="author feedback" />
               <p>
-                I've finally tried the platform.
-                I had never tried it before because anything related to technology scares me :).
-                But it was so easy to use and so helpful that I changed my mind. My students loved it.
-                It really helps me focus on the teaching only.
-                Great tool. Thank you!
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim convallis aenean et tortor at. Egestas purus viverra accumsan in nisl. Id aliquet lectus proin nibh nisl condimentum id venenatis. Sodales ut etiam sit amet nisl purus in mollis. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis. Natoque penatibus et magnis dis parturient. Congue nisi vitae suscipit tellus mauris a diam maecenas. Erat nam at lectus urna. Urna nec tincidunt praesent semper feugiat. Interdum varius sit amet mattis vulputate enim nulla. Aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Turpis nunc eget lorem dolor sed.
               </p>
             </div>
           </article>
@@ -59,8 +55,7 @@ function Feedback() {
               {/* <p>Piano teacher at Palo Alto</p> */}
               <img src={AuthorFeedback2} alt="author feedback" />
               <p>
-                I got four new students through these past couple of weeks, I'm so happy.
-                Thank you so much!
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim convallis aenean et tortor at. Egestas purus viverra accumsan in nisl. Id aliquet lectus proin nibh nisl condimentum id venenatis. Sodales ut etiam sit amet nisl purus in mollis. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis. Natoque penatibus et magnis dis parturient. Congue nisi vitae suscipit tellus mauris a diam maecenas. Erat nam at lectus urna. Urna nec tincidunt praesent semper feugiat. Interdum varius sit amet mattis vulputate enim nulla. Aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Turpis nunc eget lorem dolor sed.
               </p>
             </div>
           </article>
@@ -70,10 +65,7 @@ function Feedback() {
               {/* <p>Piano teacher at Palo Alto</p> */}
               <img src={AuthorFeedback3} alt="author feedback" />
               <p>
-                My main concern as a teacher was late payments from my students.
-                The website handles that for me and it’s so convenient.
-                I now have one less thing to worry about!! I also like their “48h cancelation policy”.
-                It is great to work with an organization like. Thank you!!
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim convallis aenean et tortor at. Egestas purus viverra accumsan in nisl. Id aliquet lectus proin nibh nisl condimentum id venenatis. Sodales ut etiam sit amet nisl purus in mollis. Eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis. Natoque penatibus et magnis dis parturient. Congue nisi vitae suscipit tellus mauris a diam maecenas. Erat nam at lectus urna. Urna nec tincidunt praesent semper feugiat. Interdum varius sit amet mattis vulputate enim nulla. Aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Turpis nunc eget lorem dolor sed.
               </p>
             </div>
           </article>

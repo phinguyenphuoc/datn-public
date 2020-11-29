@@ -1,5 +1,6 @@
 .teachers {
-  background: $secondary-light-color;
+  // background: $secondary-light-color;
+  background: radial-gradient(black, transparent);
   overflow: hidden;
   &__loading {
     height: 80vh;

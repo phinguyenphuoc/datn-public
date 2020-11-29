@@ -1,5 +1,5 @@
 .banner {
-  background: url("../../assets/images/banner-home.svg") $secondary-light-color
+  background: url("../../assets/images/banner.png") $white
     no-repeat 100% 100% / 55%;
   padding: 60px 0 130px;
   @media only screen and (min-width: 1400px) {
@@ -313,6 +313,10 @@
       top: -16px;
       left: -72px;
     }
+    img {
+      width: 260px;
+      border-radius: 20px;
+    }
   }
 
   @media only screen and (max-width: 1000px) {
@@ -614,7 +618,7 @@
 }
 
 .try-homemuse {
-  background: url("../../assets/images/banner-tryhomemuse.svg") $primary-color
+  background: url("../../assets/images/schedule.png") $primary-color
     no-repeat 100% 100% / 55%;
   padding: 70px 0;
   @media only screen and (min-width: 1400px) {

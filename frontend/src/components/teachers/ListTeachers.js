@@ -140,7 +140,7 @@ const ListTeachers = ({
               <div className="button__go">
                 <div className="button__go__text">
                   <h4 className="h4">
-                    Haven’t found a teacher? <br /> Let Homemuse find you the best
+                    Haven’t found a teacher? <br /> Let Us find you the best
                   music teacher{" "}
                   </h4>
                 </div>

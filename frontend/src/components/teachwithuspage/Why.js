@@ -13,7 +13,7 @@ function Why(props) {
           <span className="icon-note-double"></span>
           <h2 className="h2">
             Why teach through <br />
-            <span className="primary">Homemuse?</span>
+            <span className="primary">Musical E Learning?</span>
           </h2>
         </div>
         <div className="reason">
@@ -33,7 +33,7 @@ function Why(props) {
             <div className="reason__item__inner">
               <img src={earn} alt="" />
               <p className="text--xxlarge">
-                Teach whenever you like and earn up to $6000 a month
+                Earning money from your classes
               </p>
             </div>
           </div>

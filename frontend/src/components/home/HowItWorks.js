@@ -1,7 +1,7 @@
 import React from "react";
-import connect from "../../assets/images/connect.svg";
-import search from "../../assets/images/search.svg";
-import start from "../../assets/images/start.svg";
+import connect from "../../assets/images/connect2.jpg";
+import search from "../../assets/images/search.jpg";
+import start from "../../assets/images/start.jpg";
 
 function HowItWorks(props) {
   return (

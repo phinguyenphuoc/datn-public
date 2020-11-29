@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/images/logo-teach-with-us.svg";
+import logo from "../../assets/images/logo.png";
 import { getAuth } from "../../utils/helpers";
 import {
   setHeightHeader,

@@ -220,7 +220,7 @@ function Teachers(props) {
 
   return (
     <>
-      <div className="teachers__title">
+      <div className="teachers__title" style={{ backgroundColor: "#fff" }}>
         <h1 className="h1">
           Music <span className="primary">teachers</span>
         </h1>

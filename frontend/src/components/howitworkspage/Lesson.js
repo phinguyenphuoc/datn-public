@@ -1,5 +1,5 @@
 import React from "react";
-import picture from "../../assets/images/picture-howitwork.PNG";
+import picture from "../../assets/images/start.jpg";
 
 function Lesson(props) {
   return (
@@ -13,7 +13,7 @@ function Lesson(props) {
             <div className="text-title">
               <span className="icon-note"></span>
               <span className="icon-note-double"></span>
-              <h2 className="h2">Trial lesson</h2>
+              <h2 className="h2">Online Lesson</h2>
             </div>
 
             <p className="text--large">

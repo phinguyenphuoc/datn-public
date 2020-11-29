@@ -1,8 +1,8 @@
 import React from "react";
-import group12 from "../../assets/images/Group12.png";
-import group13 from "../../assets/images/Group13.png";
-import group14 from "../../assets/images/Group14.png";
-import group15 from "../../assets/images/Group15.png";
+// import group12 from "../../assets/images/Group12.png";
+// import group13 from "../../assets/images/Group13.png";
+// import group14 from "../../assets/images/Group14.png";
+// import group15 from "../../assets/images/Group15.png";
 
 function HowItWorks(props) {
   return (
@@ -24,10 +24,10 @@ function HowItWorks(props) {
               </h3>
               <p className="text--xlarge">
                 Show off your musical skills and experience by building a very
-                nice profile. Get listed as a Homemuse Teacher right away.
+                nice profile. Get listed as Teacher right away.
               </p>
             </div>
-            <img src={group12} alt="" />
+            {/* <img src={group12} alt="" /> */}
           </div>
         </div>
         <div className="how-it-works__step step-2">
@@ -42,7 +42,7 @@ function HowItWorks(props) {
                 developped customized tools for you and your students.
               </p>
             </div>
-            <img src={group13} alt="" />
+            {/* <img src={group13} alt="" /> */}
           </div>
         </div>
         <div className="how-it-works__step step-3">
@@ -50,11 +50,11 @@ function HowItWorks(props) {
             <div className="how-it-works__step__inner__text">
               <h3 className="h3 secondary">Choose your teaching options</h3>
               <p className="text--xlarge">
-                Online or at-home music classes: it’s up to you! As a Homemuse
+                Online or at-home music classes: it’s up to you! As a
                 Teacher, get all the flexibility you want
               </p>
             </div>
-            <img src={group14} alt="" />
+            {/* <img src={group14} alt="" /> */}
           </div>
         </div>
         <div className="how-it-works__step step-4">
@@ -62,11 +62,11 @@ function HowItWorks(props) {
             <div className="how-it-works__step__inner__text">
               <h3 className="h3 primary">Teach what you love and earn</h3>
               <p className="text--xlarge">
-                As your active partner, Homemuse will handle for you all the
+                As your active partner, We will handle for you all the
                 marketing and billing so you can focus on teaching
               </p>
             </div>
-            <img src={group15} alt="" />
+            {/* <img src={group15} alt="" /> */}
           </div>
         </div>
       </div>

@@ -109,28 +109,6 @@ function Footer(props) {
               </li> */}
             </ul>
           </div>
-          <div className="footer__inner__links__item follow-us">
-            <p className="text--xlarge underline underline--primary margin-b">
-              Follow us
-            </p>
-            <ul>
-              <li onClick={() => handleGaTracking("Twitter")}>
-                {/* <a href="https://twitter.com/homemuse1"> */}
-                <span className="icon-twitter"></span>
-                {/* </a> */}
-              </li>
-              <li onClick={() => handleGaTracking("FaceBook")}>
-                {/* <a href="https://www.facebook.com/Homemuse-1026442390874079"> */}
-                <span className="icon-facebook"></span>
-                {/* </a> */}
-              </li>
-              <li onClick={() => handleGaTracking("Instagram")}>
-                {/* <a href="https://www.instagram.com/homemuse_musiclessons"> */}
-                <span className="icon-instagram"></span>
-                {/* </a> */}
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </footer>

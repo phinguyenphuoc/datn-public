@@ -18,7 +18,7 @@ function Join({ handleClickButton }) {
           className="button button--secondary"
           onClick={handleClickButton}
         >
-          Join Homemuse as teacher
+          Join Musical E Learning as teacher
         </button>
       </div>
     </section>

@@ -47,7 +47,7 @@ function Banner({ onChange, instruments }) {
       <div className="banner__inner clearfix ds-primary">
         <div className="banner__text">
           <h1 className="h1">
-            At-Home & Online <br /> <span>Music Lessons,</span>
+            Online <br /> <span>Music Lessons,</span>
           </h1>
           <p className="text--xxlarge margin-b-xl">
             by the Best Music Teachers

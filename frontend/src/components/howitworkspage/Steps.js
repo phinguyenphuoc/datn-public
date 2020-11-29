@@ -1,13 +1,17 @@
 import React from "react";
-import connect from "../../assets/images/connect.svg";
-import search from "../../assets/images/search.svg";
-import start from "../../assets/images/start.svg";
-import get_ready from "../../assets/images/get_ready.svg";
+import connect from "../../assets/images/contact.jpg";
+import search from "../../assets/images/signup.jpg";
+import start from "../../assets/images/progress.jpg";
+import get_ready from "../../assets/images/dashboard.jpg";
 
 function Steps(props) {
+  const style = {
+    width: "265px",
+    borderRadius: "30px"
+  }
   return (
     <section className="how-it-work__steps">
-      <div className="how-it-work__steps__inner">
+      <div className="how-it-work__steps__inner" >
         <div className="text__title">
           <span className="icon-note"></span>
           <span className="icon-note-double"></span>
@@ -19,12 +23,12 @@ function Steps(props) {
         <div className="steps">
           <div className="step step1">
             <div className="step__wrap">
-              <img src={search} alt="" />
+              <img src={search} alt="" style={style} />
               <div className="step__wrap__text">
                 <p className="text--xxxlarge underline underline--secondary">
                   01
                 </p>
-                <p className="h4">Fill out the contact form</p>
+                <p className="h4">Sign up and become a student</p>
                 <p className="text--large">
                   You’ve got the choice between a dozen music teachers! Check their
                   profile and pick your teacher.{" "}
@@ -38,7 +42,7 @@ function Steps(props) {
           </div>
           <div className="step step2">
             <div className="step__wrap">
-              <img src={connect} alt="" />
+              <img src={connect} alt="" style={style} />
               <div className="step__wrap__text">
                 <p className="text--xxxlarge underline underline--primary">
                   02
@@ -56,7 +60,7 @@ function Steps(props) {
           </div>
           <div className="step step3">
             <div className="step__wrap">
-              <img src={get_ready} alt="" />
+              <img src={get_ready} alt="" style={style} />
               <div className="step__wrap__text">
                 <p className="text--xxxlarge underline underline--blue">03</p>
                 <p className="h4">Connect to your dashboard</p>
@@ -68,7 +72,7 @@ function Steps(props) {
           </div>
           <div className="step step4">
             <div className="step__wrap">
-              <img src={start} alt="" />
+              <img src={start} alt="" style={style} />
               <div className="step__wrap__text">
                 <p className="text--xxxlarge underline underline--secondary">
                   04

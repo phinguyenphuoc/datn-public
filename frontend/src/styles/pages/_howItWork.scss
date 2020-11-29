@@ -1,6 +1,5 @@
 .how-it-word__banner {
-  background: url("../../assets/images/banner-howitworks.svg")
-    $secondary-light-color no-repeat 100% 100% / 40%;
+  background: $secondary-light-color;
   overflow: hidden;
   padding-bottom: 60px;
   @media only screen and (min-width: 1400px) {
@@ -36,8 +35,7 @@
 }
 
 .trial-lesson {
-  background: url("../../assets/images/bg-line.svg") $primary-color no-repeat 0%
-    100% / contain;
+  background: $primary-color;
   &__inner {
     @include flex_parent_centered();
     &__img {
@@ -102,8 +100,7 @@
 }
 
 .how-it-work__steps {
-  background: url("../../assets/images/bg-line1.svg") $white no-repeat 20% 100% /
-    contain;
+  background: $white;
   text-align: center;
   padding: 7% 0 40px;
   @media (max-width: 800px) {
@@ -133,18 +130,6 @@
         color: #ffd1c4;
         position: absolute;
       }
-    }
-    .step.step1 {
-      background: url("../../assets/images/Rectangle-howitwork1.png") no-repeat
-        100% 100% / contain;
-    }
-    .step.step3 {
-      background: url("../../assets/images/Rectangle-howitwork2.png") no-repeat
-        100% 100% / contain;
-    }
-    .step.step4 {
-      background: url("../../assets/images/Rectangle-howitwork3.png") no-repeat
-        0% 100% / contain;
     }
     .step {
       margin: 30px 0;
@@ -191,7 +176,7 @@
 }
 
 .start {
-  background: url("../../assets/images/banner-tryhomemuse.svg") $primary-color
+  background: url("../../assets/images/schedule.png") $primary-color
     no-repeat 100% 100% / 55%;
   padding: 70px 0;
   @media only screen and (min-width: 1400px) {

@@ -7,6 +7,29 @@
     padding: 30px 15px;
   }
 }
+
+.ds-primary-2 {
+  padding: 30px;
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  .how-it-work__custom__img {
+    width: 500px;
+    border-radius: 30px;
+  }
+  @media (max-width: 650px) {
+    flex-direction: column;
+    padding: 30px 15px;
+    align-items: center;
+    .how-it-work__custom__img {
+      margin-top: 20px;
+      width: 300px;
+      border-radius: 30px;
+    }
+  }
+}
+
 .ds-main {
   padding: 30px;
   max-width: 830px;
