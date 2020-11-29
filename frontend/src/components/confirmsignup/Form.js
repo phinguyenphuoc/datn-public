@@ -6,20 +6,11 @@ import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
 // import ReactGA from "react-ga";
 
-const Form = ({ handleSubmit }) => {
-  const [error, setError] = React.useState({});
-  const [errorLogin, setErrorLogin] = React.useState();
-
+const Form = ({ handleSubmit, handleFocus, loading, error }) => {
   const storeLogin = useSelector((store) => store.login);
   const defaultEmail = storeLogin.emailSignUp;
-  const isSubmitting = storeLogin.loading;
+  const isSubmitting = loading;
   const [form, setForm] = React.useState({ email: defaultEmail, authCode: "" });
-
-  React.useEffect(() => {
-    if (storeLogin.error.status === "BAD_CREDENTIALS") {
-      setErrorLogin("Wrong email or password, please try again");
-    }
-  }, [storeLogin]);
 
   const handleSubmitForm = (event) => {
     // ReactGA.event({
@@ -30,10 +21,6 @@ const Form = ({ handleSubmit }) => {
 
     event.preventDefault();
     const errorState = validate();
-
-    if (Object.keys(errorState).length > 0) {
-      return setError(errorState);
-    }
 
     const formData = {
       email: form.email,
@@ -59,14 +46,6 @@ const Form = ({ handleSubmit }) => {
     setForm({ ...form, [event.target.name]: event.target.value.trim() });
   };
 
-  const handleFocus = (event) => {
-    setError({
-      ...error,
-      [event.target.name]: "",
-    });
-    setErrorLogin("");
-  };
-
   return (
     <section onSubmit={handleSubmitForm} className="login">
       <div className="login__inner">
@@ -76,7 +55,7 @@ const Form = ({ handleSubmit }) => {
           <span className="icon-note note-large"></span>
           <div className="login__inner__form__text">
             <p>Sign up and become our member</p>
-            <div className="error">{errorLogin}</div>
+            <div className="error">{error}</div>
           </div>
 
           <FormBox

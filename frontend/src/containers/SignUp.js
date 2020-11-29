@@ -1,25 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Form } from "../components/signup";
 // import { openModalMessage } from "../redux/actions/modalMessage";
 import { signup } from "../redux/actions/login";
 // import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "../utils/constants";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { setAuth } from "../utils/helpers";
-import { Auth } from "aws-amplify"
-import { sign } from "jsonwebtoken";
 
 function SignUp() {
   const history = useHistory();
-  // const storeLogin = useSelector((store) => store.login);
+  const storeLogin = useSelector((store) => store.login);
+  const { emailSignUp, error } = storeLogin;
+  const [password, setPassword] = useState("");
+  useEffect(() => {
+    if (emailSignUp && !error.message) {
+      history.push("/confirm-signup", { email: emailSignUp, password })
+    }
+  }, [emailSignUp, error])
 
   const handleSignUp = async (formData) => {
     const { email } = formData
-    console.log(formData)
+    setPassword(formData.password)
     try {
       // await Auth.signUp(login, password, login)
       await signup(formData)
-      history.push("/confirm-signup", { email: email })
     } catch (err) {
       console.log(err)
     }

@@ -29,8 +29,8 @@ const Form = ({ handleSubmit }) => {
   const isSubmitting = storeLogin.loadingSignUp;
 
   React.useEffect(() => {
-    if (storeLogin.error.status === "BAD_CREDENTIALS") {
-      setErrorLogin("Wrong email or password, please try again");
+    if (storeLogin.error) {
+      setErrorLogin(storeLogin.error.message);
     }
   }, [storeLogin]);
 
@@ -154,9 +154,10 @@ const Form = ({ handleSubmit }) => {
                   value: form.email,
                   disabled: isSubmitting,
                 }}
+                variant="InputLabel"
                 error={error.email}
+                label="Email"
               />
-
               <FormBox
                 propsInput={{
                   type: "password",
@@ -167,7 +168,9 @@ const Form = ({ handleSubmit }) => {
                   value: form.password,
                   disabled: isSubmitting,
                 }}
+                variant="InputLabel"
                 error={error.password}
+                label="Password"
               />
             </div>
             <div className="modal__input__item flex-justify-between">
@@ -257,17 +260,6 @@ const Form = ({ handleSubmit }) => {
             Sign Up
           </button>
         </ReForm>
-        <p className="--text">
-          Not a Homemuse student yet? Find your teacher{" "}
-          <Link
-            onClick={() => handleGaTracking("teachers")}
-            to="/teachers"
-            className="primary"
-          >
-            here
-          </Link>{" "}
-          and get started today!
-        </p>
       </div>
     </section>
   );

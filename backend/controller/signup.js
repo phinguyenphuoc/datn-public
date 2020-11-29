@@ -5,6 +5,8 @@ AWS.config.update({
   region: 'us-east-2'
 })
 const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+const { createProfile } = require('../access/profile')
+
 
 const cognitoSignUpUser = (email, password) => {
   return new Promise((resolve, reject) => {
@@ -59,7 +61,8 @@ const signUpApi = async (req, res) => {
       status: "SIGN_UP_SUCCEED",
       email: email
     })
-  } catch {
+  } catch (err) {
+    console.log(err)
     res.status(400).json({
       status: "SIGN_UP_ERROR",
       message: "User already exist"

@@ -64,14 +64,16 @@ export default function reducer(state = initialState, actions) {
     case types.SIGN_UP_ERROR:
       return {
         ...state,
-        loadingSignUp: false
+        loadingSignUp: false,
+        error: actions.payload
       }
 
     case types.SIGN_UP_SUCCESS:
       return {
         ...state,
         loadingSignUp: false,
-        emailSignUp: actions.payload.email
+        emailSignUp: actions.payload.email,
+        error: {}
       }
 
     case types.DISABLE_LOADING_LOGIN:
