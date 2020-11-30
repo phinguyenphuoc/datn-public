@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ChevronRight } from "../../../common/icons";
-import dashboard from "../../../../assets/images/banner-progress.svg";
+// import dashboard from "../../../../assets/images/banner-progress.svg";
 import moderato from "../../../../assets/images/moderato.svg";
-import star from "../../../../assets/images/star.svg";
-import human from "../../../../assets/images/human.svg";
+// import star from "../../../../assets/images/star.svg";
+// import human from "../../../../assets/images/human.svg";
 import { useHistory } from "react-router-dom";
 // import print from "../../../../assets/images/print.svg";
 import moment from "moment";
+import { getAuth } from "../../../../utils/helpers";
 
 const StyledBanner = styled.section`
   background: #fff5f0;
@@ -89,7 +90,7 @@ const StyledBanner = styled.section`
     }
   }
   .Banner__progress {
-    background: url(${dashboard}) #08135a no-repeat 0% 99% / 100%;
+    background: #08135a;
     padding: 15px 20px;
     box-shadow: 0px 5px 25px rgba(98, 84, 232, 0.203944);
     border-radius: 4px;
@@ -276,7 +277,8 @@ const StyledBanner = styled.section`
 
 function Banner({ dataProgressReport }) {
   const history = useHistory();
-
+  const auth = getAuth();
+  const studentName = auth.user_first_name
   return (
     <StyledBanner>
       <div className="container">
@@ -292,8 +294,7 @@ function Banner({ dataProgressReport }) {
                 pathname: "/dashboard/student/progress-report/",
               }}
             >
-              {dataProgressReport.student &&
-                `My progress: ${dataProgressReport.student.name}`}
+              {`My progress: ${studentName}`}
             </Link>
             <p className="arrow">
               <ChevronRight />
@@ -330,37 +331,11 @@ function Banner({ dataProgressReport }) {
             <div className="Banner__progress__text">
               <h3>Musical progress report</h3>
               <h4>
-                {moment(dataProgressReport.reported_date).format("MMMM, YYYY")}
+                {moment(dataProgressReport.reported_date).format("MMMM DD, YYYY")}
               </h4>
               <p className="text-border1"></p>
-              <div className="report">
-                <div className="star">
-                  {dataProgressReport.rating === 1 ? (
-                    <img src={star} alt="start" />
-                  ) : dataProgressReport.rating === 2 ? (
-                    <>
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                    </>
-                  ) : dataProgressReport.rating === 3 ? (
-                    <>
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                    </>
-                  ) : (
-                          <>
-                            <img src={star} alt="start" />
-                            <img src={star} alt="start" />
-                            <img src={star} alt="start" />
-                            <img src={star} alt="start" />
-                          </>
-                        )}
-                </div>
-              </div>
             </div>
           </div>
-          <img className="human" src={human} alt="human" />
         </div>
       </div>
     </StyledBanner>

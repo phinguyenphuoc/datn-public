@@ -289,12 +289,13 @@ export async function getProgressReport(resolve = () => { }) {
     });
 }
 
-export function getStudentProgressReport(profil_id, resolve = () => { }) {
+export async function getStudentProgressReport(profil_id, resolve = () => { }) {
+  const header = await getHeader();
   store.dispatch({
     type: types.GET_STUDENT_PROGRESS_REPORT_FOR_PARENT,
   });
   return request()
-    .get(`parent/students/progress_reports?profile_id=${profil_id}`)
+    .get(`students/progress_reports`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({
@@ -311,15 +312,16 @@ export function getStudentProgressReport(profil_id, resolve = () => { }) {
     });
 }
 
-export function getStudentProgressReportItem(
+export async function getStudentProgressReportItem(
   progress_report_id,
   resolve = () => { }
 ) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_PROGRESS_REPORT_ITEM_FOR_PARENT,
   });
   return request()
-    .get(`parent/students/progress_reports/${progress_report_id}`)
+    .get(`students/progress_reports?progress_report_id=${progress_report_id}`, header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

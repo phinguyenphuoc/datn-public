@@ -8,9 +8,10 @@ import { SingleSelectFormat, Loading, NoData } from "../../../common";
 import imgNoDataProgress from "../../../../assets/images/no-data-progress.svg";
 import { ChevronRight } from "../../../common/icons";
 import { OPTIONS_MONTHS, OPTIONS_YEARS } from "../../../../utils/constants";
-import file from "../../../../assets/images/file-pdf.svg";
+// import file from "../../../../assets/images/file-pdf.svg";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import star from "../../../../assets/images/star.svg";
+// import star from "../../../../assets/images/star.svg";
+import { getAuth } from "../../../../utils/helpers";
 
 const StyledHistory = styled.section`
   margin: 30px 15px auto;
@@ -99,10 +100,8 @@ const StyledHistory = styled.section`
         }
       }
       td:nth-child(4) {
-        width: 45%;
         p {
           font-size: 12px;
-          width: 566px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -117,25 +116,7 @@ const StyledHistory = styled.section`
       }
     }
   }
-  @media only screen and (max-width: 1055px) {
-    table tr {
-      td:nth-child(4) {
-        width: 35%;
-        p {
-          width: 420px;
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: 908px) {
-    table tr {
-      td:nth-child(4) {
-        p {
-          width: 252px;
-        }
-      }
-    }
-  }
+  
   @media only screen and (max-width: 755px) {
     .history .history__header {
       display: block;
@@ -214,7 +195,7 @@ const StyledHistory = styled.section`
   }
 `;
 
-function History({ studentProgressReport, dataStudent }) {
+function History({ studentProgressReport }) {
   const [month, setMonth] = React.useState(moment().format("MMMM"));
   const [year, setYear] = React.useState(moment().format("YYYY"));
   const [windowWidth, setWindowWidth] = React.useState(0);
@@ -223,11 +204,11 @@ function History({ studentProgressReport, dataStudent }) {
   const isLoadingProgressReports = studentProgressReport.loading;
   const oldHistoryState = history.location.state ? history.location.state : {};
 
+  const auth = getAuth();
+  const studentName = auth.user_first_name;
   const handleClickViewProgressReport = (item = {}) => () => {
     history.push(
-      `/dashboard/student/progress-report/history/${moment(
-        item.reported_date
-      ).format("MMMM-YYYY")}`,
+      `/dashboard/student/progress-report/history/${item.reported_date}`,
       {
         ...oldHistoryState,
         studentProgress: item,
@@ -247,11 +228,11 @@ function History({ studentProgressReport, dataStudent }) {
   if (month || year) {
     dataStudentProgressReport = dataStudentProgressReport.filter((item) =>
       month && year
-        ? moment(item.date).format("YYYY-MMMM") === `${year}-${month}`
+        ? moment(item.reported_date).format("YYYY-MMMM") === `${year}-${month}`
         : month
-          ? moment(item.date).format("MMMM") === month
+          ? moment(item.reported_date).format("MMMM") === month
           : year
-            ? moment(item.date).format("YYYY") === year
+            ? moment(item.reported_date).format("YYYY") === year
             : ""
     );
   }
@@ -270,7 +251,7 @@ function History({ studentProgressReport, dataStudent }) {
     <StyledHistory>
       <div className="container">
         <div className="history__text">
-          <Link to="/dashboard/parent">Home</Link>
+          <Link to="/dashboard/student">Home</Link>
           <p className="arrow">
             <ChevronRight />
           </p>
@@ -280,7 +261,7 @@ function History({ studentProgressReport, dataStudent }) {
               pathname: "/dashboard/student/progress-report",
             }}
           >
-            {dataStudent && `My progress: ${dataStudent.name}`}
+            {studentName && `My progress: ${studentName}`}
           </Link>
           <p className="arrow">
             <ChevronRight />
@@ -320,8 +301,9 @@ function History({ studentProgressReport, dataStudent }) {
                       <tr>
                         <th>Date</th>
                         <th>Level</th>
-                        <th>Rate</th>
                         <th>Teacher Comments</th>
+                        <th>Piece</th>
+                        <th>Progress</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -330,42 +312,17 @@ function History({ studentProgressReport, dataStudent }) {
                         <tr key={index}>
                           <td>
                             {" "}
-                            <img src={file} alt="file" />{" "}
                             {moment(item.reported_date).format("MMMM, YYYY")}
                           </td>
                           <td>{item.level}</td>
                           <td>
-                            {windowWidth > 450 ? (
-                              item.rating === 1 ? (
-                                <img src={star} alt="start" />
-                              ) : item.rating === 2 ? (
-                                <>
-                                  <img src={star} alt="start" />
-                                  <img src={star} alt="start" />
-                                </>
-                              ) : (
-                                    <>
-                                      <img src={star} alt="start" />
-                                      <img src={star} alt="start" />
-                                      <img src={star} alt="start" />
-                                    </>
-                                  )
-                            ) : item.rating === 1 ? (
-                              <span>
-                                1<img src={star} alt="start" />
-                              </span>
-                            ) : item.rating === 2 ? (
-                              <span>
-                                2<img src={star} alt="start" />
-                              </span>
-                            ) : (
-                                    <span>
-                                      3<img src={star} alt="start" />
-                                    </span>
-                                  )}
+                            <p>{item.comment}</p>
                           </td>
                           <td>
-                            <p>{item.comment}</p>
+                            <p>{item.pieces[0].title}</p>
+                          </td>
+                          <td>
+                            <p>{item.pieces[0].rate_percentage}</p>
                           </td>
                           <td>
                             <IconButton

@@ -118,39 +118,10 @@ const StyledProgressInfo = styled.section`
 `;
 
 function ProgressInfo({ dataProgressReport }) {
-  const dataInfoStudent = dataProgressReport.student || {};
   return (
     <StyledProgressInfo>
       <div className="container">
         <div className="progress-nfo__inner">
-          <div className="student-info">
-            <h4>Student information</h4>
-            <div className="student-info__items --contain">
-              <div className="--avatar">
-                <img
-                  src={dataInfoStudent.avatar || avatarDefault}
-                  alt="student"
-                />
-              </div>
-              <div className="text">
-                <p>
-                  Student’s name: <span>{dataInfoStudent.name}</span>
-                </p>
-                <p>
-                  Instrument: <span>{dataInfoStudent.instrument}</span>
-                </p>
-                <p>
-                  Join Homemuse in:{" "}
-                  <span>
-                    {moment(dataInfoStudent.start_date).format("MMMM, YYYY")}
-                  </span>
-                </p>
-                <p>
-                  Music Instructor: <span>{dataInfoStudent.instructor}</span>
-                </p>
-              </div>
-            </div>
-          </div>
           <div className="comment-teacher">
             <h4>Comments and advices from my teacher</h4>
             <div className="comment-teacher__items --contain">
@@ -158,7 +129,7 @@ function ProgressInfo({ dataProgressReport }) {
                 <img
                   src={
                     dataProgressReport.teacher &&
-                    dataProgressReport.teacher.avatar
+                      dataProgressReport.teacher.avatar
                       ? dataProgressReport.teacher.avatar
                       : avatarDefault
                   }

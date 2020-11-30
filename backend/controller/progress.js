@@ -1,4 +1,4 @@
-const { addReport, getProgress } = require('../access/progress')
+const { addReport, getProgress, getProgressById } = require('../access/progress')
 const { getProfileByUserId } = require('../access/common');
 const { getLessonOfPairStudentAndTeacher, getActiveStudentLesson } = require('../access/lesson');
 
@@ -19,15 +19,57 @@ const addProgressReportAPI = async (req, res) => {
 const getStudentProgressReportAPI = async (req, res) => {
   try {
     const { sub } = req.body
-    const { last } = req.query
+    const { last, progress_report_id } = req.query
     console.log({ last })
-    const student_profile = await getProfileByUserId(sub)
-    const lessons = await getActiveStudentLesson(student_profile.id)
-    const lesson_ids = lessons.map(item => item.id)
-    console.log({ lesson_ids })
-    const progresses = await getProgress(lesson_ids)
-    const responseData = progresses.map(item => {
-      return {
+    if (!progress_report_id) {
+      const student_profile = await getProfileByUserId(sub)
+      const lessons = await getActiveStudentLesson(student_profile.id)
+      const lesson_ids = lessons.map(item => item.id)
+      console.log({ lesson_ids })
+      const progresses = await getProgress(lesson_ids)
+      const responseData = progresses.map(item => {
+        return {
+          comment: item.comment,
+          teacher: {
+            first_name: item.first_name,
+            last_name: item.last_name,
+            avatar: item.avatar
+          },
+          pieces: [{
+            title: item.title,
+            rate: 3,
+            bad_comment: item.bad_comment,
+            good_comment: item.good_comment,
+            rate_percentage: item.rate_percentage,
+          }],
+          id: item.id,
+          lesson_id: item.lesson_id,
+          level: item.level,
+          reported_date: item.reported_date,
+        }
+      })
+      if (last === 'true') {
+        const lastData = [];
+        responseData.forEach(item => {
+          const temp = lastData.find(_item => _item.reported_date === item.reported_date)
+          if (!temp) {
+            lastData.push(item)
+          }
+        })
+        res.status(200).json({
+          status: "OK",
+          progress_reports: lastData
+        })
+      } else {
+        res.status(200).json({
+          status: "OK",
+          progress_reports: responseData
+        })
+      }
+    } else {
+      const item = await getProgressById(progress_report_id)
+
+      const responseData = item ? {
         comment: item.comment,
         teacher: {
           first_name: item.first_name,
@@ -45,13 +87,13 @@ const getStudentProgressReportAPI = async (req, res) => {
         lesson_id: item.lesson_id,
         level: item.level,
         reported_date: item.reported_date,
-
-      }
-    })
-    res.status(200).json({
-      status: "OK",
-      progress_reports: responseData
-    })
+      } : {}
+      console.log("get hear")
+      res.status(200).json({
+        status: "OK",
+        progress_report: responseData
+      })
+    }
   } catch (err) {
     res.status(500).json({
       status: "FAILED",

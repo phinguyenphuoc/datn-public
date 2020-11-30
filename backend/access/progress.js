@@ -26,7 +26,8 @@ const getProgress = (lesson_ids) => {
       FROM public.progress_report rp
       INNER JOIN public.lesson as l ON l.id = rp.lesson_id
       INNER JOIN public.profile as p ON p.id = l.teacher_id
-      WHERE rp.lesson_id = ANY($1)`,
+      WHERE rp.lesson_id = ANY($1)
+      ORDER BY to_char(reported_date, 'YYYY-MM-DD') DESC`,
       [lesson_ids],
       (err, results) => {
         if (err) {
@@ -40,4 +41,25 @@ const getProgress = (lesson_ids) => {
   })
 }
 
-module.exports = { addReport, getProgress }
+const getProgressById = (id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT rp.*, to_char(reported_date, 'YYYY-MM-DD') as reported_date, 
+      p.first_name, p.last_name, p.avatar
+      FROM public.progress_report rp
+      INNER JOIN public.lesson as l ON l.id = rp.lesson_id
+      INNER JOIN public.profile as p ON p.id = l.teacher_id
+      WHERE rp.id = $1`,
+      [id],
+      (err, results) => {
+        if (err) {
+          console.log(err)
+          reject(err)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+module.exports = { addReport, getProgress, getProgressById }
