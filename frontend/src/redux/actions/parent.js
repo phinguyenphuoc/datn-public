@@ -267,12 +267,13 @@ export async function suspendLesson(lesson_id, data, resolve = () => { }) {
     });
 }
 
-export function getProgressReport(resolve = () => { }) {
+export async function getProgressReport(resolve = () => { }) {
+  const header = await getHeader()
   store.dispatch({
     type: types.GET_PROGRESS_REPORT_PARENT,
   });
   return request()
-    .get("parent/students/progress_reports?last=true")
+    .get("students/progress_reports?last=true", header)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

@@ -349,24 +349,7 @@ function InfoSeveralStudent({
                 <Loading />
               ) : dataProgressReports.data.length || true ? (
                 <Slider {...settingsSeveral}>
-                  {/* {dataProgressReports.data.map((item, index) => ( */}
-                  {[
-                    {
-                      reported_date: '2020-11-01',
-                      rating: 5,
-                      student: {
-                        name: "Phi Nguyen"
-                      }
-                    },
-                    {
-                      reported_date: '2020-11-11',
-                      rating: 4,
-                      student: {
-                        name: "Phi Nguyen"
-                      }
-                    }
-                  ].map((item, index) => (
-
+                  {dataProgressReports.data.map((item, index) => (
                     <article
                       className="slide "
                       onClick={handleclickProgressReport(item)}
@@ -378,33 +361,10 @@ function InfoSeveralStudent({
                           <h4>
                             {moment(item.reported_date).format("MMMM, YYYY")}
                           </h4>
-                          <div className="star">
-                            {item.rating === 1 ? (
-                              <img src={star} alt="start" />
-                            ) : item.rating === 2 ? (
-                              <>
-                                <img src={star} alt="start" />
-                                <img src={star} alt="start" />
-                              </>
-                            ) : item.rating === 3 ? (
-                              <>
-                                <img src={star} alt="start" />
-                                <img src={star} alt="start" />
-                                <img src={star} alt="start" />
-                              </>
-                            ) : (
-                                    <>
-                                      <img src={star} alt="start" />
-                                      <img src={star} alt="start" />
-                                      <img src={star} alt="start" />
-                                      <img src={star} alt="start" />
-                                    </>
-                                  )}
-                          </div>
                           <p className="text-border1"></p>
                           <h3>
-                            Student:{" "}
-                            <span>{item.student && item.student.name}</span>
+                            Teacher:{" "}
+                            <span>{`${item.teacher.first_name} ${item.teacher.last_name}`}</span>
                           </h3>
                         </div>
                       </div>

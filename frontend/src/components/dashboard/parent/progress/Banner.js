@@ -90,7 +90,7 @@ const StyledBanner = styled.section`
     }
   }
   .Banner__progress {
-    background: url(${dashboard}) #08135a no-repeat 0% 99% / 100%;
+    background: #08135a;
     padding: 15px 20px;
     box-shadow: 0px 5px 25px rgba(98, 84, 232, 0.203944);
     border-radius: 4px;
@@ -331,34 +331,8 @@ function Banner({ dataProgressReport }) {
                 {moment(dataProgressReport.reported_date).format("MMMM, YYYY")}
               </h4>
               <p className="text-border1"></p>
-              <div className="report">
-                <div className="star">
-                  {dataProgressReport.rating === 1 ? (
-                    <img src={star} alt="start" />
-                  ) : dataProgressReport.rating === 2 ? (
-                    <>
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                    </>
-                  ) : dataProgressReport.rating === 3 ? (
-                    <>
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                      <img src={star} alt="start" />
-                    </>
-                  ) : (
-                          <>
-                            <img src={star} alt="start" />
-                            <img src={star} alt="start" />
-                            <img src={star} alt="start" />
-                            <img src={star} alt="start" />
-                          </>
-                        )}
-                </div>
-              </div>
             </div>
           </div>
-          <img className="human" src={human} alt="human" />
         </div>
       </div>
     </StyledBanner>

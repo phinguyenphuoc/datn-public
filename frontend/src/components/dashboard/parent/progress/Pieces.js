@@ -219,7 +219,7 @@ function Pieces({ dataProgressReport }) {
                       <p>{item.title}</p>
                     </div>
                   </div>
-                  <Gauge percent={item.rate && item.rate.value} />
+                  <Gauge percent={item.rate_percentage} />
                 </div>
                 <div className="pieces__item__body">
                   <div className="good">

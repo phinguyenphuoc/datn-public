@@ -22,7 +22,7 @@ function ProgressHistory(props) {
   }, [location]);
 
   if (!location.state || !location.state.progress.student) {
-    return <Redirect to="/dashboard/parent" />;
+    return <Redirect to="/dashboard/student" />;
   }
 
   return (

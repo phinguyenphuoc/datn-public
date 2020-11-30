@@ -59,7 +59,7 @@ function Home(props) {
   React.useEffect(() => {
     getTeachers();
     getStudentProfile();
-    // getProgressReport();
+    getProgressReport();
   }, []);
 
   const auth = getAuth();
