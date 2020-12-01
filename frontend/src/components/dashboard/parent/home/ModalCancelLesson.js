@@ -504,17 +504,6 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleSubmit }) => {
                       refunds on unused or canceled lessons.
                     </p>
                   </div>
-                  <div className="--info-cancel">
-                    <h6>Schedule a make-up lesson </h6>
-                    <p>
-                      If you are unable to attend a lesson at your specific
-                      appointed time slot, you can contact your teacher and
-                      decide of a good time for a make-up lesson. Once you’ve
-                      agreed on a time slot, it will be added automatically to
-                      your Homemuse calendar and you will be notified by email
-                      or text.
-                    </p>
-                  </div>
                 </div>
               </Collapse>
             </div>
@@ -586,14 +575,6 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleSubmit }) => {
                   <div className="suspension">
                     <h5>Suspension period</h5>
                     <div>{showFromToTime()}</div>
-                  </div>
-                  <div className="--info-cancel">
-                    <h6>Cancel permanentely </h6>
-                    <p className="--text-op2">
-                      If you would like to stop taking lessons with this
-                      teacher, please send us an email at support@homemuse.io.
-                      We will proceed and notify you within a 48hours delay.
-                    </p>
                   </div>
                 </div>
               </Collapse>

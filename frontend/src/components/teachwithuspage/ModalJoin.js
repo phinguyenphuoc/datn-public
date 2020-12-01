@@ -34,11 +34,11 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
 
   const optionInstruments = storeInstruments
     ? storeInstruments.map((item, index) => {
-        return {
-          value: item.name,
-          label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        };
-      })
+      return {
+        value: item.name,
+        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+      };
+    })
     : [];
 
   React.useEffect(() => {
@@ -168,7 +168,7 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
       wrapClassName="wrap-modalJoin"
       id="modal-join-our-team"
     >
-      <ModalHeader toggle={handleToggle}>Join Homemuse today</ModalHeader>
+      <ModalHeader toggle={handleToggle}>Join Platform today</ModalHeader>
       <ModalBody>
         <div className="modal__text">
           <p className="text--large">
@@ -329,8 +329,8 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
                     <span>{error[errorName]}</span>
                   </div>
                 ) : (
-                  " "
-                );
+                    " "
+                  );
               })}
             </div>
           )}

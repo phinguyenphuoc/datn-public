@@ -228,12 +228,6 @@ const ModalInfoStudent = ({ isOpen, handleToggle, data }) => {
           <div>
             <h4>Join meeting</h4>
             <p style={{ color: "green" }}>(Available before 15' and during lesson time)</p>
-            <p>
-              <button className="btn btn-success btn-m" disabled={
-                !(moment.duration(moment().diff(moment(`${schedule.data[0]?.date} ${schedule.data[0]?.start_hour}`))).asMinutes() > -15
-                  && moment.duration(moment().diff(moment(`${schedule.data[0]?.date} ${schedule.data[0]?.start_hour}`))).asMinutes() < 0)
-              }>Call NOW</button>
-            </p>
           </div>
         </div>
         <div className="modal__schedule">

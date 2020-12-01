@@ -1,8 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
-import Author1Feedback from "../../assets/images/jeanne.png";
-import Author2Feedback from "../../assets/images/brandon.png";
-import Author3Feedback from "../../assets/images/asuka.png";
+import Author1Feedback from "../../assets/images/author1.jpg";
+import Author3Feedback from "../../assets/images/author2.jpg";
 
 function Feedback() {
   const [settings, setSettings] = React.useState({
@@ -44,16 +43,6 @@ function Feedback() {
               <h4 className="h4">About Jeanne</h4>
               <p>Piano teacher, San Francisco</p>
               <img src={Author1Feedback} alt="author feedback" />
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            </div>
-          </article>
-          <article className="slide">
-            <div className="slide__content">
-              <h4 className="h4">About Brandon</h4>
-              <p>Guitar teacher, Nashville</p>
-              <img src={Author2Feedback} alt="author feedback" />
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>

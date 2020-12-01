@@ -802,23 +802,6 @@ function HomemuseProfile({
               error={error.pickUpLine}
             />
           </div>
-          <div className="form__item years-of-experience">
-            <h3>Years of experience</h3>
-            <FormGroup
-              propsInput={{
-                className: "teaching_experience",
-                name: "teaching_experience",
-                type: "number",
-                placeholder: "Ex: 10",
-                onChange: handleChange,
-                onFocus: handleFocus,
-                value: form.teaching_experience,
-                disabled: isSubmitting,
-                min: 0,
-              }}
-              error={error.teaching_experience}
-            />
-          </div>
         </div>
         <div className="form__intro">
           <h3>Intro (300 characters max)</h3>
@@ -1088,22 +1071,6 @@ function HomemuseProfile({
                 <img src={zoom} alt="zoom" className="zoom_img" />
               </p>)}
               <div className="error">{errorlessonType}</div>
-            </div>
-            <div className="form__item__inner">
-              <h3>How far from you location? (miles)</h3>
-              <FormGroup
-                propsInput={{
-                  name: "distance",
-                  type: "number",
-                  placeholder: "Ex: 5",
-                  onChange: handleChange,
-                  onFocus: handleFocus,
-                  value: form.distance,
-                  disabled: isSubmitting,
-                  min: 0,
-                }}
-                error={error.distance}
-              />
             </div>
           </div>
         </div>

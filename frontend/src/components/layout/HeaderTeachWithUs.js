@@ -142,7 +142,7 @@ function HeaderTeachWithUs({ isDashboard }) {
                 className="button button--primary"
                 onClick={handleClickButton}
               >
-                <span>Join homemuse as teacher</span>
+                <span>Join platform as teacher</span>
               </button>
               {!auth.user_login && (
                 <NavLink to="/login" className="button button--secondary">

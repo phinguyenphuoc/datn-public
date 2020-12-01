@@ -1,8 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
-import AuthorFeedback1 from "../../assets/images/robert.png";
-import AuthorFeedback2 from "../../assets/images/emily.png";
-import AuthorFeedback3 from "../../assets/images/michael.png";
+import AuthorFeedback1 from "../../assets/images/author1.jpg";
+import AuthorFeedback2 from "../../assets/images/author2.jpg";
+import AuthorFeedback3 from "../../assets/images/author1.jpg";
 
 function Feedback() {
   const [settings, setSettings] = React.useState({

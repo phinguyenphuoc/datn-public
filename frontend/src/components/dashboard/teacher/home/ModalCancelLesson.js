@@ -672,7 +672,7 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleCancel, handleSus
                     </p>
                     <h4>
                       Please call or text your student to set a time for a
-                      make-up lesson
+                      reschedule lesson
                     </h4>
                     <p>
                       Once you’ve both agreed on a new time slot, click on the
@@ -683,7 +683,7 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleCancel, handleSus
                     className="--bt bt_make-up-lesson"
                     onClick={goToBookLesson}
                   >
-                    Book a make-up lesson
+                    Reschedule
                   </button>
                 </div>
               </Collapse>
