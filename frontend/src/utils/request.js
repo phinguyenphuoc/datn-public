@@ -33,8 +33,7 @@ export const request = (opts = {}, optsHeader = {}) => {
 
   const axiosApi = axios.create({
     baseURL: API_URL,
-    ...defaultOptions,
-    withCredentials: true,
+    ...defaultOptions
   });
 
   // if (process.env.NODE_ENV === "development") {
