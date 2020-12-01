@@ -53,13 +53,9 @@ const getListStudentOfTeacher = (teacher_profile_id) => {
   return new Promise((resolve, reject) => {
     query(
       `SELECT p.*,
-      ARRAY_AGG(l.instrument_id) as instrument_ids,
-      ARRAY_AGG(m.type) as types,
-      ARRAY_AGG(m.tag) as tags,
-      ARRAY_AGG(m.url) as urls
+      ARRAY_AGG(l.instrument_id) as instrument_ids
       FROM public.lesson as l
       INNER JOIN public.profile as p ON l.student_id = p.id
-      INNER JOIN public.media as m ON m.profile_id = l.student_id
       WHERE teacher_id = $1 GROUP BY p.id`,
       [teacher_profile_id],
       (error, results) => {

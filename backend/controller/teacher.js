@@ -220,7 +220,7 @@ const getStudentsOfTeacherAPI = async (req, res) => {
     const students1 = await getListStudentOfTeacher(teacher_profile_id)
     const a = students1.map(student => {
       return {
-        avatar: student.urls[0],
+        avatar: student.avatar,
         city: student.city,
         first_name: student.first_name,
         id: student.id,

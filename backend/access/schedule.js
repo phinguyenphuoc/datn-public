@@ -52,14 +52,13 @@ const getScheduleDateInMonthForTeacher = (date, lesson_ids) => {
     query(
       `SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id , b.teacher_profile_id,
       b.student_profile_id,
-      p.first_name, p.last_name,m.url 
+      p.first_name, p.last_name 
       FROM public.schedule AS s
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
       INNER JOIN public.booking as b ON l.booking_id = b.id
       INNER JOIN public.profile as p ON b.student_profile_id = p.id
-      INNER JOIN public.media as m ON m.profile_id = b.student_profile_id
-      WHERE s.lesson_date between $1 AND $2 AND m.type = $3 AND M.tag = $4 and s.lesson_id = ANY($5) ORDER BY s.lesson_date ASC`,
-      [startOfMonth, endOfMonth, "image", "avatar", lesson_ids],
+      WHERE s.lesson_date between $1 AND $2 and s.lesson_id = ANY($3) ORDER BY s.lesson_date ASC`,
+      [startOfMonth, endOfMonth, lesson_ids],
       (error, results) => {
         if (error) {
           reject(error)
@@ -77,7 +76,7 @@ const getScheduleDateInMonthForTeacher = (date, lesson_ids) => {
                 student_info: `${item.first_name} ${item.last_name}`,
                 student: {
                   id: item.student_profile_id,
-                  avatar: item.url,
+                  avatar: item.avatar,
                   first_name: item.first_name,
                   last_name: item.last_name,
                   phone: "4004004004"

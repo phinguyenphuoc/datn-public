@@ -131,13 +131,10 @@ const getListTeacherForStudentFromBooking = (student_profile_id) => {
   return new Promise((resolve, reject) => {
     query(
       `SELECT p.*, 
-      ARRAY_AGG(m.url) as urls, 
-      ARRAY_AGG(m.tag) as tags,
       ARRAY_AGG(s.instrument_id) as instrument_ids,
       ARRAY_AGG(s.level) as levels
       FROM public.booking as b 
       INNER JOIN profile as p ON b.teacher_profile_id = p.id
-      INNER JOIN media as m ON b.teacher_profile_id = m.id
       INNER JOIN skill as s ON s.profile_id = b.teacher_profile_id
       WHERE b.student_profile_id = $1 AND b.approve = $2 GROUP BY p.id`,
       [student_profile_id, true],
@@ -153,7 +150,7 @@ const getListTeacherForStudentFromBooking = (student_profile_id) => {
               }
             })
             return {
-              avatar: item.urls[0],
+              avatar: item.avatar,
               city: item.city,
               first_name: item.first_name,
               id: item.id,

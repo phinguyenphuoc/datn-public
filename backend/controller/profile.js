@@ -79,7 +79,6 @@ const getUserProfileApi = async (req, res) => {
   const { sub, email, role } = req.body
   const Profile = await getUserProfile(sub)
   const profileId = Profile.id
-  const media = await getUserMedia(profileId)
   let payment = await getCustomerPayment(sub)
 
   // First time login
@@ -90,11 +89,9 @@ const getUserProfileApi = async (req, res) => {
     payment = await createCustomerObj(customer.id, profileId)
   }
 
-  const avatar = (media && media[0] && media[0].url) ? media[0].url : ""
-
   const responseData = {
     status: "OK",
-    user_avatar: avatar,
+    user_avatar: Profile.avatar,
     user_first_name: Profile.first_name,
     user_last_name: Profile.last_name,
     user_profile_id: Profile.id,
