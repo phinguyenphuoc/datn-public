@@ -5,7 +5,7 @@ require('dotenv').config()
 const app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
-app.use(cors(({ credentials: true, origin: 'http://localhost:3000' })));
+app.use(cors());
 const router = require("./routes/index");
 // import { listTeacherAPI } from "./controller/teacher";
 const {
@@ -44,12 +44,15 @@ const { reportProblemAPI } = require('./controller/support')
 const { getTeacherEarningAPI } = require('./controller/invoice')
 const postAssistanceAPI = require('./controller/assistance')
 const signUpApi = require('./controller/signup')
+const { getRecentEarningAPI, getPeriodEarningAPI } = require('./controller/earning')
+const { addProgressReportAPI, getStudentProgressReportAPI } = require('./controller/progress')
+
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 const { updateScheduleInvoiceUrl } = require('./access/schedule')
 
 const { jobChargeMoneyStudent } = require('./cronjob')
 const { jobPayoutMoneyToTeacher } = require('./payTeacher')
-const { jobGenerateClassRoom } = require('./generateClassRoom')
+const { jobGenerateClassRoom } = require('./generateClassRoom');
 
 app.use('/api', router)
 app.get('/api', (req, res) => {
@@ -87,16 +90,9 @@ app.get('/api/teacher/lessons/:lesson_id/setup_booking', getSetupBookingAPI)
 
 app.post('/api/teacher/lessons/makeup_schedule/:schedule_id', rescheduleScheduleAPI)
 
-app.get('/api/teacher/earnings/current_details', (req, res) => {
-  res.status(200).json({
-    end_date: "2020-11-11",
-    lessons_given: 0,
-    payment_date: "2020-11-16",
-    start_date: "2020-11-01",
-    status: "OK",
-    turnover: 0
-  })
-})
+app.get('/api/teacher/earnings/current_details', getRecentEarningAPI)
+
+app.post('/api/teacher/students/progress_reports', addProgressReportAPI)
 //  stripe 
 app.get('/api/teacher/connect_stripe', getStripeDashBoardLinkAPI)
 
@@ -121,6 +117,8 @@ app.get('/api/student/customer/card_setup', getOrSetUpCardForStudentAPI)
 
 app.post('/api/student/customer/card_save', saveStudentCardApi)
 
+app.get('/api/students/progress_reports', getStudentProgressReportAPI)
+
 /* --- SCHEDULE API --- */
 app.get('/api/schedules?:date', getSchedulesAPI)
 
@@ -131,6 +129,8 @@ app.get('/api/schedules/upcoming?:profile_id', getUpcomingLessonAPI)
 app.get('/api/student/invoices?:date', getStudentInvoicesAPI)
 
 app.get('/api/teacher/earnings/receipts?:date', getTeacherEarningAPI)
+
+app.get('/api/teacher/earnings', getPeriodEarningAPI)
 
 //  REPORT API
 app.post('/api/supports/report', reportProblemAPI)
