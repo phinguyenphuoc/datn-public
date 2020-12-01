@@ -39,12 +39,11 @@ const instruments = [
 const listTeacherAPI = async (req, res) => {
   const profiles = await listTeacher()
   const listProfileId = profiles.map(profile => profile.id)
-  let medias, pricing, skills
-  await Promise.all([getMedias(listProfileId), getPricing(listProfileId), getSkills(listProfileId)])
+  let pricing, skills
+  await Promise.all([getPricing(listProfileId), getSkills(listProfileId)])
     .then(results => {
-      medias = results[0]
-      pricing = results[1]
-      skills = results[2]
+      pricing = results[0]
+      skills = results[1]
     })
     .catch(err => console.log(err))
 

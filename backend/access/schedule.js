@@ -197,7 +197,7 @@ const getUpcomingLesson = (lesson_id) => {
       l.id AS lesson_id, l.instrument_id
       FROM public.schedule AS s
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
-      WHERE s.lesson_id = $1 and s.lesson_date > NOW() and s.status = 'booked'
+      WHERE s.lesson_id = $1 and s.lesson_date >= NOW() and s.status != 'cancelled'
       ORDER BY s.lesson_date ASC LIMIT 1`,
       // SELECT s.*, to_char(lesson_date, 'YYYY-MM-DD') as date FROM public.schedule as s
       // INNER JOIN public.lesson as l ON l.id = s.lesson_id
