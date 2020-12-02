@@ -52,7 +52,7 @@ const getScheduleDateInMonthForTeacher = (date, lesson_ids) => {
     query(
       `SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id , b.teacher_profile_id,
       b.student_profile_id,
-      p.first_name, p.last_name 
+      p.first_name, p.last_name, p.avatar, p.phone_number
       FROM public.schedule AS s
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
       INNER JOIN public.booking as b ON l.booking_id = b.id
@@ -79,7 +79,7 @@ const getScheduleDateInMonthForTeacher = (date, lesson_ids) => {
                   avatar: item.avatar,
                   first_name: item.first_name,
                   last_name: item.last_name,
-                  phone: "4004004004"
+                  phone: item.phone_number
                 }
               },
               start_hour: item.start_hour,
@@ -101,7 +101,7 @@ const getScheduleDateInMonthForStudent = (date, lesson_ids) => {
     query(
       `SELECT s.*, to_char(s.lesson_date, 'YYYY-MM-DD') as date, l.end_date, l.start_date, l.id AS lesson_id, l.instrument_id , b.teacher_profile_id,
       b.teacher_profile_id,
-      p.first_name, p.last_name, p.avatar
+      p.first_name, p.last_name, p.avatar, p.phone_number
       FROM public.schedule AS s
       INNER JOIN public.lesson AS l ON s.lesson_id = l.id
       INNER JOIN public.booking as b ON l.booking_id = b.id
@@ -129,7 +129,7 @@ const getScheduleDateInMonthForStudent = (date, lesson_ids) => {
                   avatar: item.avatar,
                   first_name: item.first_name,
                   last_name: item.last_name,
-                  phone: "4004004004"
+                  phone: item.phone_number
                 }
               },
               start_hour: item.start_hour,

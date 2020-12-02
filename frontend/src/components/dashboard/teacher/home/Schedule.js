@@ -693,18 +693,6 @@ function Schedule({
         >
           Report a problem
         </PopoverBody>
-        {(moment.duration(moment().diff(moment(`${item.date} ${item.start_hour}`))).asMinutes() > -15
-          && moment.duration(moment().diff(moment(`${item.date} ${item.start_hour}`))).asMinutes() < 0) &&
-          item.type === "booked" && (
-            <PopoverBody
-              onClick={() => {
-                setOpenId("");
-                handleToggleModalCancelLesson(item);
-              }}
-            >
-              Make A Call Now
-            </PopoverBody>
-          )}
       </UncontrolledPopover>
     </div>
   );
