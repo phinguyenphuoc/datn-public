@@ -249,29 +249,14 @@ const getStudentsOfTeacherAPI = async (req, res) => {
 const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
   const profile = await getTeacherProfile(req.body)
   const id = profile.id
-  let medias, pricing, skills
-  await Promise.all([getMedias([id]), getPricing([id]), getSkills([id])])
+  let pricing, skills
+  await Promise.all([getPricing([id]), getSkills([id])])
     .then(results => {
-      medias = results[0]
-      pricing = results[1]
-      skills = results[2]
+      pricing = results[0]
+      skills = results[1]
     })
     .catch(err => console.log(err))
 
-  medias.forEach(media => {
-    const arrMedias = []
-    media.types.forEach((type, index) => {
-      arrMedias.push({
-        details: null,
-        name: "abc.jpg",
-        tag: media.tags[index],
-        type,
-        url: media.urls[index]
-      })
-    })
-    profile.medias = arrMedias
-    // profile.avatar = arrMedias[0].url
-  })
   pricing.forEach(price => {
     const arrPricing = []
     price.gross_prices.forEach((gross_price, index) => {

@@ -421,13 +421,7 @@ function HomemuseProfile({
     teachingTrialDiscount: 0,
     in_person: false,
     online: false,
-    image: storeTeacherProfile.data.avatar || avatar,
-    nameImage:
-      storeTeacherProfile.data.medias &&
-        storeTeacherProfile.data.medias.length &&
-        storeTeacherProfile.data.medias[0].name
-        ? storeTeacherProfile.data.medias[0].name
-        : "default_avatar.jpg",
+    image: storeTeacherProfile.data.avatar || avatar
   });
 
   const storeInstruments = useSelector(
@@ -540,12 +534,7 @@ function HomemuseProfile({
           : "",
       in_person,
       online,
-      image: storeTeacherProfile.data.avatar || form.image,
-      nameImage:
-        storeTeacherProfile.data.medias.length &&
-          storeTeacherProfile.data.medias[0].name
-          ? storeTeacherProfile.data.medias[0].name
-          : "default_avatar.jpg",
+      image: storeTeacherProfile.data.avatar || form.image
     });
     setScale(1);
     // eslint-disable-next-line
@@ -636,7 +625,6 @@ function HomemuseProfile({
         pricings: pricings.filter((pricing) => pricing.net_price !== ""),
         medias: [
           {
-            name: form.nameImage,
             tag: "avatar",
             data: imageRef.current.getImageScaledToCanvas().toDataURL(),
           },
@@ -772,8 +760,7 @@ function HomemuseProfile({
   const handleDrop = (dropped) => {
     setForm({
       ...form,
-      image: dropped[0],
-      nameImage: dropped[0].name,
+      image: dropped[0]
     });
     setErrorProfilePicture("");
   };

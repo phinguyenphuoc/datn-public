@@ -50,11 +50,10 @@ const getParentProfileAPI = async (req, res) => {
   console.log("req.body", req.body)
   const profile = await getStudentProfile(req.body)
   const id = profile.id
-  await Promise.all([getMedias([id]), getPricing([id]), getSkills([id])])
+  await Promise.all([getPricing([id]), getSkills([id])])
     .then(results => {
-      profile.medias = results[0]
-      profile.pricing = results[1]
-      profile.skills = results[2]
+      profile.pricing = results[0]
+      profile.skills = results[1]
     })
     .catch(err => console.log(err))
   res.status(200).json({
