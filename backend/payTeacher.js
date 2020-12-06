@@ -118,9 +118,9 @@ const payoutMoneyToTeacher = async (amount, customer_id) => {
 const jobPayoutMoneyToTeacher = () => {
   shouldStart = false;
   const crawl = new CronJob(
-    '*/10 * * * * *',
+    '0 0 0 1 * *',
     async function () {
-      console.log('You will see this message every start of the month', new Date());
+      console.log('Pay teacher', new Date());
       // if (0) {
       //   crawl.stop();
       // }

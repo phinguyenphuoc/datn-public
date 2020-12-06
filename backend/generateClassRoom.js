@@ -106,7 +106,7 @@ const updateLessonRoomId = (schedule_id, roomId) => {
 const jobGenerateClassRoom = () => {
   shouldStart = false;
   const crawl = new CronJob(
-    '*/10 * * * * *',
+    '0 0 */1 * * *',
     async function () {
       console.log('You will see this message every hour - generate class room', new Date());
       // if (0) {

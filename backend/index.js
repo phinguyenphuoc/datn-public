@@ -181,6 +181,6 @@ app.listen(3002, () => {
   console.log(`Server listening on port 3002`);
 });
 
-// jobChargeMoneyStudent()
-// jobPayoutMoneyToTeacher()
-// jobGenerateClassRoom()
+jobChargeMoneyStudent()
+jobPayoutMoneyToTeacher()
+jobGenerateClassRoom()

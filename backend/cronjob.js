@@ -89,12 +89,9 @@ const chargeStudent = async (amount, customer_id, payment_method) => {
 const jobChargeMoneyStudent = () => {
   shouldStart = false;
   const crawl = new CronJob(
-    '*/10 * * * * *',
+    '0 0 */12 * * *',
     async function () {
-      console.log('You will see this message every 10 second - UPDATE MISSING PRICE', new Date());
-      // if (0) {
-      //   crawl.stop();
-      // }
+      console.log('Charge money student', new Date());
       const studentChargeObj = await getNext48HoursLessonUpcoming()
       console.log("studentChargeObj", studentChargeObj)
       for (let i = 0; i < studentChargeObj.length; i++) {
