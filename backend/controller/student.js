@@ -12,14 +12,10 @@ const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcP
 const getStudentProfileAPI = async (req, res) => {
   const profile = await getStudentProfile(req.body)
   const id = profile.id
-  await Promise.all([getMedias([id]), getPricing([id]), getSkills([id])])
+  await Promise.all([getPricing([id]), getSkills([id])])
     .then(results => {
-      const media = results[0]
-      const avatar = (media && media[0] && media[0].url) ? media[0].url : ""
-      profile.medias = results[0]
-      profile.pricing = results[1]
-      profile.skills = results[2]
-      profile.avatar = avatar
+      profile.pricing = results[0]
+      profile.skills = results[1]
     })
     .catch(err => console.log(err))
   res.status(200).json({

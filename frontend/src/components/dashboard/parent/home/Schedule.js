@@ -457,6 +457,7 @@ function Schedule({
   handleToggleModalCancelLesson,
   handleToggleModalRescheduleLesson,
   handleToggleModalReportAProblem,
+  handleToggleModalComment,
   dataStudents,
 }) {
   const dataSchedules = useSelector((store) => store.parent.schedules);
@@ -678,6 +679,9 @@ function Schedule({
           <div className="class-schedule schedule-item">
             <div className="class-schedule__header">
               <p className="fw-600">Class schedule</p>
+              <button onClick={handleToggleModalComment}>
+                <p>Leave a comment</p>
+              </button>
               <button onClick={handleToggleModalAssistance}>
                 <p>Need assistance?</p>
               </button>

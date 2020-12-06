@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import logo from "../../assets/images/logo_message.svg";
 import fly from "../../assets/images/fly.svg";
 import { closeModalMessage } from "../../redux/actions/modalMessage";
 
@@ -99,7 +98,6 @@ const ModalMessage = () => {
           </div>
         </ModalBody>
         <ModalFooter>
-          <img src={logo} alt="logo" />
         </ModalFooter>
       </div>
     </StyledModal>

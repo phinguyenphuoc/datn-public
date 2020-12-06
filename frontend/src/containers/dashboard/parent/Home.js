@@ -15,6 +15,7 @@ import {
   ModalRescheduleLesson,
   ModalReportAProblem,
   ModalPasswordUpdated,
+  ModalComment
 } from "../../../components/common";
 import {
   getTeachers,
@@ -25,6 +26,7 @@ import {
 } from "../../../redux/actions/parent";
 import { getStudentProfile } from "../../../redux/actions/student";
 import { reportProblem } from "../../../redux/actions/reportProblem";
+import { postReview } from "../../../redux/actions/reviews";
 import { getAuth, setAuth } from "../../../utils/helpers";
 import star from "../../../assets/images/modal-star.svg";
 import { postHelp } from "../../../redux/actions/help";
@@ -50,11 +52,13 @@ function Home(props) {
   const [openModalPasswordUpdated, setOpenModalPasswordUpdated] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [openModalComment, setOpenModalComment] = useState(false)
 
   const storeStudentProfile = useSelector((store) => store.student.students);
   const storeTeacherProfile = useSelector((store) => store.parent.teachers);
   const storeHelp = useSelector((store) => store.help);
   const storeProgressReports = useSelector((store) => store.parent.progressReports);
+  const storeReview = useSelector((store) => store.reviews)
 
   React.useEffect(() => {
     getTeachers();
@@ -165,8 +169,21 @@ function Home(props) {
         timeout: 5000,
       });
     });
+    setOpenModalComment(false)
   };
 
+  const handleReview = (formData) => {
+    postReview(formData, () => {
+      openModalMessage({
+        title: "Thank you for your review",
+        body: (
+          <div>
+            <p>Your review has been upload to your teacher profile</p>
+          </div>
+        ),
+      });
+    })
+  }
   return (
     <>
       {storeStudentProfile.data && storeStudentProfile.data.length >= 1 ? (
@@ -191,6 +208,7 @@ function Home(props) {
         handleToggleModalReportAProblem={
           handleToggleAndSetItemModalReportAProblem
         }
+        handleToggleModalComment={() => setOpenModalComment(!openModalComment)}
         dataStudents={storeStudentProfile.data}
       />
       <ModalInfoTeacher
@@ -204,6 +222,13 @@ function Home(props) {
         onSubmit={handleHelp}
         loading={storeHelp.loading}
       />
+      <ModalComment
+        isOpen={openModalComment}
+        handleToggle={() => setOpenModalComment(!openModalComment)}
+        onSubmit={handleReview}
+        loading={storeReview.loading}
+      >
+      </ModalComment>
       <ModalCancelLesson
         isOpen={openModalCancelLesson}
         handleToggle={handleToggleAndSetItemModalCancelLesson}

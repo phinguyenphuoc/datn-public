@@ -31,6 +31,17 @@ export default function reducer(state = initialState, actions) {
         error: actions.payload,
         loading: false,
       };
+
+    case types.POST_REVIEW:
+      return {
+        ...state,
+        loading: true
+      }
+    case types.POST_REVIEW_SUCCEED:
+      return {
+        ...state,
+        loading: false
+      }
     default:
       return state;
   }

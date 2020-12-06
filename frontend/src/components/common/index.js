@@ -21,6 +21,7 @@ import ModalPasswordUpdated from "./ModalPasswordUpdated";
 import FormBox from "./FormBox";
 import CardTeacher from "./CardTeacher";
 import SelectInstruments from "./SelectInstruments";
+import ModalComment from "./ModalComment";
 
 export {
   MutiSelect,
@@ -46,4 +47,5 @@ export {
   FormBox,
   CardTeacher,
   SelectInstruments,
+  ModalComment
 };

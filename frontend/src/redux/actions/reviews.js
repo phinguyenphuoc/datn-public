@@ -1,5 +1,5 @@
 import * as types from "../constants";
-import { request } from "../../utils/request";
+import { getHeader, request } from "../../utils/request";
 import store from "../store";
 
 export function getReview(profileId, resolve = () => { }) {
@@ -21,4 +21,20 @@ export function getReview(profileId, resolve = () => { }) {
         type: types.GET_REVIEW_FAIL,
       });
     });
+}
+
+export async function postReview(data, resolve = () => { }) {
+  const header = await getHeader();
+  store.dispatch({
+    type: types.POST_REVIEW,
+  });
+  return request()
+    .post("/reviews", data, header)
+    .then((response) => {
+      resolve(response.data);
+      store.dispatch({
+        payload: response.data,
+        type: types.POST_REVIEW_SUCCEED,
+      });
+    })
 }

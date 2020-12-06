@@ -40,12 +40,14 @@ const {
   getStudentInvoicesAPI,
   rescheduleScheduleAPI
 } = require('./controller/schedule');
-const { reportProblemAPI } = require('./controller/support')
-const { getTeacherEarningAPI } = require('./controller/invoice')
+const { reportProblemAPI } = require('./controller/support');
+const { getTeacherEarningAPI } = require('./controller/invoice');
+const { getMeetingRoomInformationAPI } = require('./controller/meeting');
 const postAssistanceAPI = require('./controller/assistance')
-const signUpApi = require('./controller/signup')
+const signUpApi = require('./controller/signup');
 const { getRecentEarningAPI, getPeriodEarningAPI } = require('./controller/earning')
 const { addProgressReportAPI, getStudentProgressReportAPI } = require('./controller/progress')
+const { postReviewAPI } = require('./controller/review')
 
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 const { updateScheduleInvoiceUrl } = require('./access/schedule')
@@ -137,44 +139,13 @@ app.post('/api/supports/report', reportProblemAPI)
 
 app.post('/api/supports/assistance', postAssistanceAPI)
 
-// CALL SCOCC
-app.get('/api/answer_url', async (req, res) => {
-  const {
-    from,
-    to,
-    fromInternal,
-    userId,
-    projectId,
-    custom,
-    callId,
-    videocall
-  } = req.query
-  const fromUserId = await getUserIdByProfileId(from)
-  const toUserId = await getUserIdByProfileId(to)
-  console.log({ fromUserId, toUserId })
-  res.status(200).json([
-    {
-      "action": "connect",
-      "from": {
-        "type": "internal",
-        "number": from,
-        "alias": from
-      },
+// REVIEW API
 
-      "to": {
-        "type": "internal",//internal: app-to-app call type
-        "number": to,//make a call to user_2
-        "alias": to,
-      },
+app.post('/api/reviews', postReviewAPI)
 
-      "customData": "test-custom-data",
-      "continueOnFail": false,
-      "timeout": 45
-    }
-  ])
-})
+// Meeting
 
-
+app.get('/api/meeting', getMeetingRoomInformationAPI)
 
 app.post('/api/signup', signUpApi)
 
