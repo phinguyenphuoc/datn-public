@@ -331,7 +331,6 @@ const getScheduleDateForParticularDateOfTeacher = (date, lesson_ids) => {
 }
 
 const rescheduleLessonSchedule = (schedule_id, lesson_date, start_hour, end_hour) => {
-  console.log({ schedule_id, lesson_date, start_hour, end_hour })
   return new Promise((resolve, reject) => {
     query(
       `UPDATE public.schedule
@@ -353,6 +352,53 @@ const rescheduleLessonSchedule = (schedule_id, lesson_date, start_hour, end_hour
   })
 }
 
+const getMeetingRoomStudentInfo = (room_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT
+      p.first_name,
+      p.last_name,
+      p.avatar
+      FROM public.schedule as s
+      INNER JOIN public.lesson as l ON l.id = s.lesson_id
+      INNER JOIN public.profile as p ON p.id = l.student_id
+      WHERE room_id = $1`,
+      [room_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
+const getMeetingRoomTeacherInfo = (room_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT
+      p.first_name,
+      p.last_name,
+      p.avatar
+      FROM public.schedule as s
+      INNER JOIN public.lesson as l ON l.id = s.lesson_id
+      INNER JOIN public.profile as p ON p.id = l.teacher_id
+      WHERE room_id = $1`,
+      [room_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
+
 module.exports = {
   createScheduleForLesson,
   getScheduleDateInMonthForTeacher,
@@ -363,5 +409,7 @@ module.exports = {
   updateScheduleInvoiceUrl,
   getInvoiceForStudentByMonth,
   getScheduleDateForParticularDateOfTeacher,
-  rescheduleLessonSchedule
+  rescheduleLessonSchedule,
+  getMeetingRoomStudentInfo,
+  getMeetingRoomTeacherInfo
 }

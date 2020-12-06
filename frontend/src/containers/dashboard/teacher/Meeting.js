@@ -1,11 +1,70 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Auth } from "aws-amplify";
 import {
   ModalZoomSuccess,
 } from "../../../components/dashboard/teacher/profile";
 import { getAuth } from "../../../utils/helpers";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getMeetingRoom } from "../../../redux/actions/meeting";
+import _ from "lodash";
+import ScreenShareIcon from '@material-ui/icons/ScreenShare';
+import StopScreenShareIcon from '@material-ui/icons/StopScreenShare';
+import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
+import VideocamIcon from '@material-ui/icons/Videocam';
+import VideocamOffIcon from '@material-ui/icons/VideocamOff';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import styled from "styled-components";
+const StyledInfo = styled.section`
+  .thumbnail-waiting {
+    height: 80vh;
+  }
+  #remote-video {
+    width: auto;
+    background: #424141;
+    padding: 20px;
+    margin: 100px auto;
+  }
+  #local-video {
+    width: 300px;
+    background: black;
+    padding: 5px;
+    height: 200px;
+    margin: 5px;
+    position: absolute; 
+    right: 5%; 
+    top: 100px;
+  }
+  @media only screen and (max-width: 700px) {
+    #remote-video {
+      width: 500px;
+      background: #424141;
+      padding: 20px;
+      margin: 100px auto;
+    }
+    #local-video {
+      width: 200px;
+      background: black;
+      padding: 5px;
+      height: 150px;
+      margin: 5px;
+      position: relative; 
+    }
+    .thumbnail-waiting {
+      height: 60vh;
+    }
+  }
+  @media only screen and (max-width: 500px) { 
+    #remote-video {
+      width: 450px;
+      background: #424141;
+      margin: 100px auto;
+    }
+    .thumbnail-waiting {
+      height: 40vh;
+    }
+  }
+`
 const apiKeySid = 'SKPw1DOyTfOeb2lzyjUSE9s1sFSAc2zkV';
 const apiKeySecret = 'dUZ4OUswZ3dDRWpHMnc4SUUzVkt6aXg3NFVxMjIwMg==';
 var jwt = require('jsonwebtoken');
@@ -56,13 +115,10 @@ const client = new window.StringeeClient();
 function Meeting(props) {
   const roomId = props.match.params.room;
   const schedule = useSelector((store) => store.parent.schedulesUpcomming);
-  // const { room_id } = schedule;
-  // console.log(room_id);
-  const { student_profile_id } = props
+  const student = useSelector((store) => store.meeting.student);
+  const teacher = useSelector((store) => store.meeting.teacher);
   const auth = getAuth()
-  // const profile_id = auth.user_profile_id
-
-  // var roomId = "room-vn-1-LKEODPU1PN-1605739904544";
+  const roles = _.get(auth, "user_roles[0]", "student")
 
   const [showJoinRoom, setShowJoinRoom] = useState(true);
   const [showShareScreen, setShowShareScreen] = useState(true);
@@ -76,18 +132,14 @@ function Meeting(props) {
     setShowJoinRoom(true)
     setShowShareScreen(true)
     setMute(false)
-    setDisableLocal(false)
     setLeave(false)
     setShowBackground(true)
   }
 
   const joinRoomBtn = () => {
     setShowJoinRoom(false)
-    setShowShareScreen(true)
-    setDisableLocal(true)
     setLeave(true)
   }
-
 
   const connect = async () => {
     const access_token = await getAccessToken();
@@ -105,27 +157,26 @@ function Meeting(props) {
     });
 
     client.on('disconnect', function () {
-      console.log('++++++++++++++ disconnected');
+      console.log('disconnected');
     });
 
     client.on('requestnewtoken', function () {
-      console.log('++++++++++++++ requestnewtoken+++++++++');
       // getAccessTokenAndConnectToStringee(client)
     });
   }
 
   useEffect(() => {
+    getMeetingRoom(props.match.params.room)
     client.on('authen', function (res) {
       console.log('on authen: ', res);
       setConnectStatus(true)
     });
 
     client.on('disconnect', function () {
-      console.log('++++++++++++++ disconnected');
+      console.log('disconnected');
     });
 
     client.on('requestnewtoken', function () {
-      console.log('++++++++++++++ requestnewtoken+++++++++');
       // getAccessTokenAndConnectToStringee(client)
     });
     connect();
@@ -155,9 +206,9 @@ function Meeting(props) {
         console.log('track on ready');
 
         var videoElement = track.attach();
-        videoElement.setAttribute("style", "width: 100%;background: #424141;padding: 5px 100px 30px;margin: 5px auto");
+        // videoElement.setAttribute("style", "width: auto;background: #424141;padding: 20px;margin: 100px auto");
+        videoElement.setAttribute("id", "remote-video");
         videoElement.setAttribute("controls", "true");
-        videoElement.setAttribute("class", "local-video");
         videoElement.setAttribute("playsinline", true);
         setShowBackground(false)
         document.getElementById('video-call').appendChild(videoElement)
@@ -168,7 +219,7 @@ function Meeting(props) {
   }
 
   const testPublish = (screenSharing = false) => {
-    let videoDimensions = '360p'
+    let videoDimensions = '480'
     console.log('videoDimensions: ' + videoDimensions);
     if (videoDimensions == '720p') {
       videoDimensions = {
@@ -241,7 +292,7 @@ function Meeting(props) {
       //play local video
       var videoElement = localTrack1.attach();
 
-      videoElement.setAttribute("style", "width: 300px;background: black;padding: 5px;height: 200px;margin: 5px;position: absolute; right: 0; top: 0");
+      videoElement.setAttribute("id", "local-video");
       videoElement.setAttribute("controls", "true");
       videoElement.setAttribute("playsinline", true);
       document.getElementById('video-call').appendChild(videoElement)
@@ -250,14 +301,6 @@ function Meeting(props) {
       // document.body.appendChild(videoElement);
       window.StringeeVideo.joinRoom(client, getRoomToken(roomId)).then(function (data) {
         console.log('join room success data: ', data);
-        // $('#shareScreenBtn').removeAttr('disabled');
-        // $('#leaveBtn').removeAttr('disabled');
-
-        // $('#muteBtn').removeAttr('disabled');
-        // $('#disableVideoBtn').removeAttr('disabled');
-
-        // $('#joinBtn').attr('disabled', 'disabled');
-
         room = data.room;
 
         //room events
@@ -290,6 +333,7 @@ function Meeting(props) {
           });
           if (!local) {
             subscribe(event.info.track);
+            showBackground(false)
           }
         });
 
@@ -302,10 +346,13 @@ function Meeting(props) {
           }
 
           var mediaElements = track.detach();
+          console.log({ mediaElements })
           mediaElements.forEach(function (videoElement) {
             videoElement.remove();
           });
-          setShowBackground(true)
+          if (event.track && !event.track.screen) {
+            setShowBackground(true)
+          }
         });
 
         //publish Track cua chinh minh vao room
@@ -324,7 +371,6 @@ function Meeting(props) {
       });
     }).catch(function (res) {
       console.log('create Local Video Track ERROR: ', res);
-      console.log(res.name + ": " + res.message)
     });
   }
 
@@ -334,7 +380,6 @@ function Meeting(props) {
     localTracks.forEach(function (localTrack, index) {
       if (index === 1) {
         room.unpublish(localTrack);
-
         localTrack.detachAndRemove();
       }
     });
@@ -343,12 +388,17 @@ function Meeting(props) {
   const testDisableVideo = () => {
     console.log("localTracks", localTracks)
     localTracks.forEach(function (track) {
+      console.log({ track })
       if (track.localVideoEnabled) {
         //disable
         track.enableLocalVideo(false);
+        document.getElementById("local-video").style.display = "none";
+        setDisableLocal(!disableLocal);
       } else {
         //enable
         track.enableLocalVideo(true);
+        document.getElementById("local-video").style.display = "block";
+        setDisableLocal(!disableLocal);
       }
     });
   }
@@ -385,29 +435,57 @@ function Meeting(props) {
     resetButton();
   }
 
+  const handleStartOrStopShare = () => {
+    if (showShareScreen) {
+      testPublish(true);
+      setShowShareScreen(false);
+    } else {
+      testUnpublish();
+      setShowShareScreen(true);
+    }
+  }
+  const mainName = roles === "student" ? `${!showJoinRoom ? "Watting for " : ""} ${teacher.first_name} ${teacher.last_name}` : `${!showJoinRoom ? "Watting for" : ""} ${student.first_name} ${student.last_name}`
+  const mainAvatar = roles === "student" ? `${teacher.avatar}` : `${student.avatar}`
   return (
-    <div>
-      <ModalZoomSuccess
-        isOpen={connectStatus}
-        handleToggle={() => setConnectStatus(false)}
-      />
-      {/* <button id="endCallButton" className="btn btn-danger hidden-first btn-m" onClick={createRoom}>Create room</button> */}
-      <div style={{ display: "flex", justifyContent: "center", margin: 20 }}>
-        {showJoinRoom && <button id="joinBtn" onClick={testJoin} disabled={false} className="btn btn-success btn-m">Join room</button>}
-        {!showJoinRoom && <button id="shareScreenBtn" onClick={() => testUnpublish()} disabled={false} className="btn btn-info hidden-first btn-m">Stop share</button>}
-        {!showJoinRoom && <button id="shareScreenBtn" onClick={() => testPublish(true)} disabled={false} className="btn btn-info hidden-first btn-m">Share Screen</button>}
-        {(mute && !showJoinRoom) && <button id="muteBtn" onClick={testMute} disabled={false} className="btn btn-warning hidden-first btn-m">Unmute</button>}
-        {(!mute && !showJoinRoom) && <button id="muteBtn" onClick={testMute} disabled={false} className="btn btn-warning hidden-first btn-m">Mute</button>}
-        {disableLocal && <button id="disableVideoBtn" onClick={testDisableVideo} disabled={false} className="btn btn-danger hidden-first btn-m">Disable/Enable local video</button>}
-        {leave && <button id="leaveBtn" onClick={testLeave} disabled={false} className="btn btn-danger hidden-first btn-m">Leave room</button>}
+    <StyledInfo>
+      <div>
+        <ModalZoomSuccess
+          isOpen={connectStatus}
+          handleToggle={() => setConnectStatus(false)}
+        />
+        {/* <button id="endCallButton" className="btn btn-danger hidden-first btn-m" onClick={createRoom}>Create room</button> */}
+        <div id="video-call" style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: "black" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: 20,
+              position: "absolute",
+              bottom: "100px",
+              zIndex: 12000
+            }}
+          >
+            {showJoinRoom && <button id="joinBtn" onClick={testJoin} className="btn btn-success btn-m">Join room</button>}
+            {/* {!showJoinRoom && <button id="shareScreenBtn" onClick={() => testUnpublish()} disabled={false} className="btn btn-info hidden-first btn-m">Stop share</button>} */}
+            {!showJoinRoom && <button id="shareScreenBtn" onClick={handleStartOrStopShare} className="btn btn-info hidden-first btn-m">
+              {showShareScreen ? <ScreenShareIcon /> : <StopScreenShareIcon />}
+            </button>}
+            {(mute && !showJoinRoom) && <button id="muteBtn" onClick={testMute} className="btn btn-warning hidden-first btn-m"><MicOffIcon /></button>}
+            {(!mute && !showJoinRoom) && <button id="muteBtn" onClick={testMute} className="btn btn-warning hidden-first btn-m"><MicIcon /></button>}
+            {!showJoinRoom && <button id="disableVideoBtn" onClick={testDisableVideo} className="btn btn-danger hidden-first btn-m">
+              {disableLocal ? <VideocamOffIcon /> : <VideocamIcon />}
+            </button>}
+            {leave && <button id="leaveBtn" onClick={testLeave} className="btn btn-danger hidden-first btn-m"><ExitToAppIcon /></button>}
+          </div>
+          {showBackground && <div className="thumbnail-waiting" style={{ width: "90%", padding: "20px", background: "#424141", display: "flex", justifyContent: "center", alignItems: "center", margin: "100px 0px" }}>
+            {teacher.avatar && <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <img src={mainAvatar} style={{ width: "200px", borderRadius: "100%" }}></img>
+              <p>{mainName}</p>
+            </div>}
+          </div>}
+        </div>
       </div>
-
-      <div id="video-call" style={{ position: "relative", display: "flex", justifyContent: "center" }}>
-        {showBackground && <div style={{ width: "100%", padding: "20px", height: "60vh", background: "#424141" }}>
-          Met teo
-        </div>}
-      </div>
-    </div>
+    </StyledInfo>
   )
 }
 
