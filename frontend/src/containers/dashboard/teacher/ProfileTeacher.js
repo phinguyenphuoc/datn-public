@@ -20,6 +20,7 @@ import {
 import { useSelector } from "react-redux";
 import { openModalMessage } from "../../../redux/actions/modalMessage";
 import { getAuth, setAuth, getParam } from "../../../utils/helpers";
+import { Auth } from "aws-amplify";
 
 function ProfileTeacher(props) {
   const [openModalZoom, setOpenModalZoom] = React.useState(false);
@@ -29,6 +30,7 @@ function ProfileTeacher(props) {
     false
   );
   const [openModalStripeWrong, setOpenModalStripeWrong] = React.useState(false);
+  const [updatePassErr, setUpdatePassErr] = React.useState("")
 
   const storeTeacherProfile = useSelector(
     (store) => store.teacher.profile.data
@@ -81,17 +83,22 @@ function ProfileTeacher(props) {
     });
   };
 
-  const handleUpdatePassword = (formData) => {
-    // updatePassword(formData, (data) => {
-    //   openModalMessage({
-    //     title: "Password updated",
-    //     body: <p>Your password has been updated successfully.</p>,
-    //   });
-    //   localStorage.setItem("auth", JSON.stringify(data));
-    // });
-    // const auth = getAuth();
-    // auth.user_password_updated = true;
-    // setAuth(auth);
+  const handleUpdatePassword = async (formData) => {
+    try {
+      const { current_password, new_password } = formData;
+      const currentUser = await Auth.currentAuthenticatedUser();
+      await Auth.changePassword(
+        currentUser,
+        current_password,
+        new_password
+      );
+      openModalMessage({
+        title: "Password updated",
+        body: <p>Your password has been updated successfully.</p>,
+      });
+    } catch (err) {
+      setUpdatePassErr(err.message)
+    }
   };
 
   const handleToggleModalZoom = () => {
@@ -145,7 +152,7 @@ function ProfileTeacher(props) {
           <GeneralInfo handleSubmit={handleUpdateProfile} />
         </Route>
         <Route path="/dashboard/teacher/profile/password" exact>
-          <Password handleSubmit={handleUpdatePassword} />
+          <Password handleSubmit={handleUpdatePassword} err={updatePassErr} />
         </Route>
         <Route path="/dashboard/teacher/profile/homemuse-profile" exact>
           <HomemuseProfile

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DashboardProfileParentLayout from "../../../components/layout/DashboardProfileParentLayout";
@@ -17,6 +17,7 @@ import {
   // updateParentAvatarSticker,
 } from "../../../redux/actions/parent";
 import { getAuth, setAuth } from "../../../utils/helpers";
+import { Auth } from "aws-amplify";
 
 function ProfileParent(props) {
   const storeParentProfile = useSelector((store) => store.parent.profile.data);
@@ -35,6 +36,7 @@ function ProfileParent(props) {
   const [openModalUpdatePicture, setOpenModalUpdatePicture] = React.useState(
     false
   );
+  const [updatePassErr, setUpdatePassErr] = React.useState("")
 
   const handleModalUpdatePicture = (e) => {
     e.preventDefault();
@@ -51,17 +53,22 @@ function ProfileParent(props) {
     });
   };
 
-  const handleUpdatePassword = (formData) => {
-    // updatePassword(formData, (data) => {
-    //   openModalMessage({
-    //     title: "Password updated",
-    //     body: <p>Your password has been updated successfully.</p>,
-    //   });
-    //   localStorage.setItem("auth", JSON.stringify(data));
-    // });
-    // const auth = getAuth();
-    // auth.user_password_updated = true;
-    // setAuth(auth);
+  const handleUpdatePassword = async (formData) => {
+    try {
+      const { current_password, new_password } = formData;
+      const currentUser = await Auth.currentAuthenticatedUser();
+      await Auth.changePassword(
+        currentUser,
+        current_password,
+        new_password
+      );
+      openModalMessage({
+        title: "Password updated",
+        body: <p>Your password has been updated successfully.</p>,
+      });
+    } catch (err) {
+      setUpdatePassErr(err.message)
+    }
   };
 
   const handleUpdateAvatar = (formData) => {
@@ -88,7 +95,7 @@ function ProfileParent(props) {
             <GeneralInfo handleSubmit={handleUpdateProfile} />
           </Route>
           <Route path="/dashboard/student/profile/password" exact>
-            <Password handleSubmit={handleUpdatePassword} />
+            <Password handleSubmit={handleUpdatePassword} err={updatePassErr} />
           </Route>
           <Route path="/dashboard/student/profile/users" exact>
             <Users userInfo={storeStudentProfile} />

@@ -80,29 +80,17 @@ const StyledPassword = styled.section`
   }
 `;
 
-function Password({ handleSubmit }) {
-  // const storeParentUpdatePassword = useSelector(
-  //   (store) => store.updatePassword
-  // );
-  // const isSubmitting = storeParentUpdatePassword.loading;
+function Password({ handleSubmit, err }) {
   const isSubmitting = false;
 
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({
     currentPassword: "",
     newPassword: "",
-    newPasswordConfirm: "",
+    newPasswordConfirm: ""
   });
 
-  // React.useEffect(() => {
-  //   if (Object.keys(storeParentUpdatePassword.error).length) {
-  //     if (storeParentUpdatePassword.error.status === "NOT_AUTHORIZED") {
-  //       setError({ currentPassword: "Current password is wrong" });
-  //     } else {
-  //       setError({ currentPassword: "Something went wrong" });
-  //     }
-  //   }
-  // }, [storeParentUpdatePassword]);
+  const submitErr = err !== "" ? err : undefined;
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
@@ -128,16 +116,9 @@ function Password({ handleSubmit }) {
     if (isEmpty(form.currentPassword)) {
       errorState.currentPassword = "Current password is required";
     }
-
     if (isEmpty(form.newPassword)) {
       errorState.newPassword = "New password is required";
-    } else if (!(form.newPassword.length > 6 && form.newPassword.length < 32)) {
-      errorState.newPassword = "Password length is min 6 max 32";
-    } else if (!validatePassword(form.newPassword)) {
-      errorState.newPassword =
-        "Password must contain at least 1 lowercase character, at least 1 uppercase character and at least 1 digit";
     }
-
     if (isEmpty(form.newPasswordConfirm)) {
       errorState.newPasswordConfirm = "Confirm password is required";
     } else if (form.newPasswordConfirm !== form.newPassword) {
@@ -173,7 +154,7 @@ function Password({ handleSubmit }) {
                 value: form.currentPassword,
                 disabled: isSubmitting,
               }}
-              error={error.currentPassword}
+              error={error.currentPassword || submitErr}
             />
           </div>
         </div>

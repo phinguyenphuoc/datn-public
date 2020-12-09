@@ -1,11 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Form, Label } from "reactstrap";
 import { isEmpty } from "validator";
 import { FormGroup } from "../../../common";
 import save from "../../../../assets/images/save.svg";
-import { validatePassword } from "../../../../utils/helpers";
+// import { validatePassword } from "../../../../utils/helpers";
 
 const StyledPassword = styled.section`
   .form-info {
@@ -80,11 +80,7 @@ const StyledPassword = styled.section`
   }
 `;
 
-function Password({ handleSubmit }) {
-  // const storeTeacherUpdatePassword = useSelector(
-  //   (store) => store.updatePassword
-  // );
-  // const isSubmitting = storeTeacherUpdatePassword.loading;
+function Password({ handleSubmit, err }) {
   const isSubmitting = false
   const [error, setError] = React.useState({});
   const [form, setForm] = React.useState({
@@ -93,15 +89,7 @@ function Password({ handleSubmit }) {
     newPasswordConfirm: "",
   });
 
-  // React.useEffect(() => {
-  //   if (Object.keys(storeTeacherUpdatePassword.error).length) {
-  //     if (storeTeacherUpdatePassword.error.status === "NOT_AUTHORIZED") {
-  //       setError({ currentPassword: "Current password is wrong" });
-  //     } else {
-  //       setError({ currentPassword: "Something went wrong" });
-  //     }
-  //   }
-  // }, [storeTeacherUpdatePassword]);
+  const submitErr = err !== "" ? err : undefined;
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
@@ -130,13 +118,7 @@ function Password({ handleSubmit }) {
 
     if (isEmpty(form.newPassword)) {
       errorState.newPassword = "New password is required";
-    } else if (!(form.newPassword.length > 6 && form.newPassword.length < 32)) {
-      errorState.newPassword = "Password length is min 6 max 32";
-    } else if (!validatePassword(form.newPassword)) {
-      errorState.newPassword =
-        "Password must contain at least 1 lowercase character, at least 1 uppercase character and at least 1 digit";
     }
-
     if (isEmpty(form.newPasswordConfirm)) {
       errorState.newPasswordConfirm = "Confirm password is required";
     } else if (form.newPasswordConfirm !== form.newPassword) {
@@ -172,7 +154,7 @@ function Password({ handleSubmit }) {
                 value: form.currentPassword,
                 disabled: isSubmitting,
               }}
-              error={error.currentPassword}
+              error={error.currentPassword || submitErr}
             />
           </div>
         </div>

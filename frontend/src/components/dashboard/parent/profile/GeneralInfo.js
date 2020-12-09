@@ -301,19 +301,6 @@ function GeneralInfo({ handleSubmit }) {
         </div>
         <div className="form__item">
           <div className="form__item__inner">
-            <Label>Email address</Label>
-            <FormGroup
-              propsInput={{
-                name: "email",
-                placeholder: "Enter your email address here…",
-                value: form.email,
-                disabled: true,
-              }}
-            />
-          </div>
-        </div>
-        <div className="form__item">
-          <div className="form__item__inner">
             <Label>Address</Label>
             <FormGroup
               propsInput={{
