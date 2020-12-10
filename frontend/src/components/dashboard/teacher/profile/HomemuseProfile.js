@@ -546,10 +546,6 @@ function HomemuseProfile({
     event.preventDefault();
     let isValid = true;
     const errorState = validate();
-    if (!form.in_person && !form.online) {
-      isValid = false;
-      setErrorlessonType("Please choose at least 1 lesson type");
-    }
     if (form.image === avatar) {
       isValid = false;
       setErrorProfilePicture("Please add a profile picture");

@@ -68,11 +68,6 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
         <p className="primary pickup-line">{data.pickup_line}</p>
       </div>
       <div className="teacher__card__pricing">
-        {data.teaching_trial_discount &&
-          !!data.teaching_trial_discount.data &&
-          data.teaching_trial_discount.data !== "0" && (
-            <p className="discount">{`${data.teaching_trial_discount.data}% off on your first lesson !`}</p>
-          )}
         <div className="pricing">
           {Object.keys(rateDurations).length &&
             Object.keys(rateDurations).map((key) => (

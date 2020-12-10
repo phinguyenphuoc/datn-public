@@ -35,7 +35,7 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
   const optionInstruments = storeInstruments
     ? storeInstruments.map((item, index) => {
       return {
-        value: item.name,
+        value: item.id,
         label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
       };
     })
@@ -70,23 +70,17 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
     // submit
     const formData = {
       user: {
-        login: form.email,
+        email: form.email,
       },
-      profil: {
+      profile: {
         first_name: form.firstName,
         last_name: form.lastName,
         phone: getPhoneNumberOnlyDigits(form.phoneNumber),
-        address: [form.address1, form.address2, form.city, form.zip],
+        address: [form.address1, form.city, form.zip],
       },
-      skillset: {
-        skills: form.instruments.map((item) => ({
-          level: "Beginner",
-          instrument: item.value,
-        })),
-      },
-      extra: {
-        info: form.info,
-      },
+      skillset: form.instruments.map((item) => ({
+        instrument: item.value,
+      })),
     };
     handleSubmit(formData);
   };
@@ -247,23 +241,8 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
                 }}
                 error={error.address1}
                 variant="InputLabel"
-                label="Address 1"
+                label="Address"
               />
-              <FormBox
-                propsInput={{
-                  name: "address2",
-                  onChange: handleChange,
-                  onFocus: handleFocus,
-                  onBlur: handleStringTrim,
-                  value: form.address2,
-                  disabled: isSubmitting,
-                }}
-                error={error.address2}
-                variant="InputLabel"
-                label="Address 2"
-              />
-            </div>
-            <div className="modal__input__item">
               <FormBox
                 propsInput={{
                   name: "city",
@@ -277,21 +256,21 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
                 variant="InputLabel"
                 label="City"
               />
-              <FormBox
-                propsInput={{
-                  name: "zip",
-                  onChange: handleChange,
-                  onFocus: handleFocus,
-                  onBlur: handleStringTrim,
-                  value: form.zip,
-                  disabled: isSubmitting,
-                }}
-                error={error.zip}
-                variant="InputLabel"
-                label="ZIP"
-              />
             </div>
           </div>
+          <FormBox
+            propsInput={{
+              name: "zip",
+              onChange: handleChange,
+              onFocus: handleFocus,
+              onBlur: handleStringTrim,
+              value: form.zip,
+              disabled: isSubmitting,
+            }}
+            error={error.zip}
+            variant="InputLabel"
+            label="ZIP"
+          />
           <FormBox
             propsInput={{
               name: "instruments",

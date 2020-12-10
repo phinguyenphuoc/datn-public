@@ -284,8 +284,7 @@ const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
   res.status(200).json({
     status: "OK",
     profile: {
-      ...profile,
-      teaching_experience: { data: "5", formatted_data: "5 years" }
+      ...profile
     }
   })
 }
@@ -304,8 +303,47 @@ const updateTeacherGeneralInfoAPI = async (req, res) => {
       const imageUrl = await uploadImageS3(image)
       await Promise.all([handleUpdateProfileAvatar(teacher_profile_id, imageUrl), insertOrUpdatePricing(pricings, teacher_profile_id)])
     }
+    // get new profile
+    const newProfile = await getTeacherProfile(req.body)
+    const id = newProfile.id
+    let pricing, skills
+    await Promise.all([getPricing([id]), getSkills([id])])
+      .then(results => {
+        pricing = results[0]
+        skills = results[1]
+      })
+      .catch(err => console.log(err))
+
+    pricing.forEach(price => {
+      const arrPricing = []
+      price.gross_prices.forEach((gross_price, index) => {
+        arrPricing.push({
+          gross_price,
+          net_price: gross_price,
+          duration: price.durations[index],
+          id: price.ids[index],
+          visible: price.enabled[index]
+        })
+      })
+      newProfile.pricings = arrPricing
+    })
+
+    skills.forEach(skill => {
+      const arrSkill = []
+      skill.instruments.forEach((id, index) => {
+        arrSkill.push({
+          instrument: instruments[id],
+          level: skill.levels[index],
+          instrument_id: skill.instruments[index]
+        })
+      })
+      newProfile.skills = arrSkill
+    })
     res.status(200).json({
-      status: "OK"
+      status: "OK",
+      profile: {
+        ...newProfile
+      }
     })
   } catch (error) {
     console.log(error)

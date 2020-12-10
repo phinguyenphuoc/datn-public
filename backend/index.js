@@ -51,10 +51,13 @@ const { postReviewAPI, getReviewAPI } = require('./controller/review')
 
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 const { updateScheduleInvoiceUrl } = require('./access/schedule')
+const createRegister = require('./access/register')
+
 
 const { jobChargeMoneyStudent } = require('./cronjob')
 const { jobPayoutMoneyToTeacher } = require('./payTeacher')
 const { jobGenerateClassRoom } = require('./generateClassRoom');
+const skill = require('./access/skill');
 
 app.use('/api', router)
 app.get('/api', (req, res) => {
@@ -66,6 +69,25 @@ app.get('/api/instruments', instrumentsApi)
 
 app.get('/api/profile', getUserProfileApi)
 
+
+// register teacher
+app.post('/api/register_pending_teacher', async (req, res) => {
+  try {
+    const { profile, user, skillset } = req.body;
+    const { email } = user;
+    const { first_name, last_name, phone, address } = profile;
+    const instrument_ids = skillset.map(item => item.instrument);
+    await createRegister(email, first_name, last_name, phone, address, instrument_ids)
+    res.status(200).json({
+      status: "OK"
+    })
+  } catch (err) {
+    res.status(200).json({
+      status: "OK"
+    })
+  }
+
+});
 /* --- BOOKING API --- */
 
 app.post('/api/register_pending_student', registerPendingStudentAPI) // Booking

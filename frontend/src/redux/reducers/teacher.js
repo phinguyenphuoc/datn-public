@@ -213,7 +213,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         profile: {
           ...state.profile,
-          data: actions.payload.profil,
+          data: actions.payload.profile,
         },
         updateProfile: {
           ...state.updateProfile,

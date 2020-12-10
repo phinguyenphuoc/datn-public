@@ -13,7 +13,8 @@ const byPass = [
   "/api/answer_url",
   "/api/signup",
   "/api/hooks",
-  "/api/test"
+  "/api/test",
+  "/api/register_pending_teacher"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {

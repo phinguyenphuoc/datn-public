@@ -59,12 +59,13 @@ export async function updateTeacherInfo(data, resolve = () => { }) {
         type: types.UPDATE_TEACHER_PROFILE_SUCCEED,
       });
     })
-    .catch((error) => {
-      store.dispatch({
-        payload: error.data,
-        type: types.UPDATE_TEACHER_PROFILE_FAIL,
-      });
-    });
+  // .catch((error) => {
+  //   console.log({ error })
+  //   store.dispatch({
+  //     payload: error.data,
+  //     type: types.UPDATE_TEACHER_PROFILE_FAIL,
+  //   });
+  // });
 }
 
 export async function getStudents(resolve = () => { }) {

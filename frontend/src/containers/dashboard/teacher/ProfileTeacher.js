@@ -77,7 +77,7 @@ function ProfileTeacher(props) {
         body: <p>Your profile has been updated successfully.</p>,
       });
       const auth = getAuth();
-      auth.user_avatar = data.profil.avatar;
+      auth.user_avatar = data.profile.avatar;
       // auth.user_profil_published = data.profil.published;
       setAuth(auth);
     });
