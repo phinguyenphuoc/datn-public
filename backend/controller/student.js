@@ -9,6 +9,8 @@ const { updateProfileAvatar } = require('../access/profile')
 
 const stripe = require('stripe')('sk_test_51HmJteHcZqoAfgJmAngCsK8vkon8zGmfqvCcPS5q286GRxIfxr8E0qjLACyttQwMsN3CLDcLWK4BnMCG3IiBhSXv00dMMjH21w');
 
+const _ = require("lodash")
+
 const getStudentProfileAPI = async (req, res) => {
   const profile = await getStudentProfile(req.body)
   const id = profile.id
@@ -64,12 +66,10 @@ const updateStudentGeneralInfoAPI = async (req, res) => {
     const student_profile = await getProfileByUserId(sub)
     const student_profile_id = student_profile.id
     await updateGeneralStudentInfo(student_profile_id, phone_number, address, city, first_name, last_name)
-    await Promise.all([getMedias([student_profile_id]), getPricing([student_profile_id]), getSkills([student_profile_id])])
+    await Promise.all([getPricing([student_profile_id]), getSkills([student_profile_id])])
       .then(results => {
-        student_profile.medias = results[0]
-        student_profile.pricing = results[1]
-        student_profile.skills = results[2]
-        // student_profile.avatar = student_profile.medias[0].url
+        student_profile.pricing = results[0]
+        student_profile.skills = results[1]
       })
       .catch(err => console.log(err))
     res.status(200).json({
@@ -102,23 +102,21 @@ const changeStudentProfileAvatar = async (req, res) => {
 
 const getStudentCardInfoAPI = async (req, res) => {
   const { sub } = req.body
-  const customerPayment = getCustomerPayment(sub)
+  const customerPayment = await getCustomerPayment(sub)
   // if (customerPayment && customerPayment.id) {
+  const paymentMethod = await stripe.paymentMethods.retrieve(
+    customerPayment.payment_source
+  );
+  const { card, billing_details } = paymentMethod;
   res.status(200).json({
     status: "OK",
     card_info: {
-      last4: "1234",
-      name: "Phi Nguyen",
-      exp_month: "12",
-      exp_year: "2022",
-
+      last4: _.get(card, "last4", 4242),
+      name: _.get(billing_details, "name", "Phi Nguyen"),
+      exp_month: _.get(card, "exp_month", 11),
+      exp_year: _.get(card, "exp_year", 2022)
     }
   })
-  // } else {
-  //   res.status(404).json({
-  //     status: "CARD_INFO_NOT_FOUND"
-  //   })
-  // }
 }
 
 const getOrSetUpCardForStudentAPI = async (req, res) => {

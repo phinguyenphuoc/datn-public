@@ -450,7 +450,6 @@ const ModalCardUpdated = ({ isOpen, handleToggle }) => {
               <h4>Card succesfully added </h4>
               <p>This credit card is now linked to your account. </p>
             </div>
-            <img src={logo} alt="logo" className="img-logo" />
           </div>
         )}
       </ModalBody>

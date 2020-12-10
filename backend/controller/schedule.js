@@ -163,7 +163,6 @@ const getUpcomingLessonAPI = async (req, res) => {
 const getStudentInvoicesAPI = async (req, res) => {
   const { sub } = req.body
   const { date } = req.query
-  console.log({ sub, date })
   const profile = await getProfileByUserId(sub)
   const result = await getInvoiceForStudentByMonth(profile.id, date)
   res.status(200).json({

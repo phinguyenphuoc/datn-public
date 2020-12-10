@@ -252,7 +252,6 @@ const updateScheduleInvoiceUrl = (url, payment_intent) => {
 const getInvoiceForStudentByMonth = (student_id, date) => {
   const startDate = date + '-01'
   const endDate = moment(startDate).endOf('month').format('YYYY-MM-DD')
-  console.log({ startDate, endDate, student_id })
   return new Promise((resolve, reject) => {
     query(
       `
@@ -275,7 +274,6 @@ const getInvoiceForStudentByMonth = (student_id, date) => {
         if (error) {
           reject(error)
         } else {
-          console.log(results.rows)
           resolve(results.rows)
         }
       }
