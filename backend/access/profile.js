@@ -1,11 +1,11 @@
 const { query } = require('../config')
 
-const createProfile = (user_id, address, first_name, last_name, phone_number, city, background) => {
+const createProfile = (user_id, address, first_name, last_name, phone_number, city, background, email) => {
   return new Promise((resolve, reject) => {
     query(
-      `INSERT INTO public.profile(user_id, address, first_name, last_name, phone_number, city, background) 
-      VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
-      [user_id, address, first_name, last_name, phone_number, city, background],
+      `INSERT INTO public.profile(user_id, address, first_name, last_name, phone_number, city, background, email) 
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
+      [user_id, address, first_name, last_name, phone_number, city, background, email],
       (error, results) => {
         if (error) {
           reject(error)
@@ -54,6 +54,7 @@ const updateProfileAvatar = (profile_id, avatar) => {
     )
   })
 }
+
 module.exports = {
   createProfile,
   getUserIdByProfileId,

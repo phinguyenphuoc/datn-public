@@ -294,7 +294,7 @@ function Info({ dataTeachers, handleClick, dataProgressReports }) {
                   alt="student"
                 />
                 <h4>{`${dataTeachers.data[0].first_name} ${dataTeachers.data[0].last_name}`}</h4>
-                <div className="--instrument">
+                <div>
                   {dataTeachers.data[0].skills &&
                     dataTeachers.data[0].skills.length &&
                     dataTeachers.data[0].skills.map((item, index) => {
@@ -302,9 +302,9 @@ function Info({ dataTeachers, handleClick, dataProgressReports }) {
                         return <p key={`skills-${index}`}>{item.instrument}</p>;
                       } else {
                         return (
-                          <p
+                          <span
                             key={`skills-${index}`}
-                          >{`, ${item.instrument}`}</p>
+                          >{`, ${item.instrument}`}</span>
                         );
                       }
                     })}

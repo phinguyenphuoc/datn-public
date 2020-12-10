@@ -6,7 +6,9 @@ const {
   getUpcomingLesson,
   getInvoiceForStudentByMonth,
   getScheduleDateForParticularDateOfTeacher,
-  rescheduleLessonSchedule
+  rescheduleLessonSchedule,
+  getStudentEmailByScheduleId,
+  getTeacherEmailByScheduleId
 } = require('../access/schedule')
 const { getProfileByUserId } = require('../access/common');
 const {
@@ -58,13 +60,28 @@ const getSchedulesAPI = async (req, res) => {
 const suspendLessonAPI = async (req, res) => {
   // Send email
   try {
-    const { cancel, role } = req.body
+    const { cancel, role, sub } = req.body
     const { id } = req.params
     const { start_date, end_date, message } = cancel
+    const profile = await getProfileByUserId(sub)
     if (role === "student") {
-      await suspendLessonSchedule(start_date, end_date, "student cancel this lesson", id, role)
+      const schedule = await suspendLessonSchedule(start_date, end_date, "student cancel this lesson", id, role)
+      const teacherEmail = await getTeacherEmailByScheduleId(schedule.id)
+      console.log("teacherEmail", teacherEmail);
+      sendMail(
+        teacherEmail,
+        'Cancel Lesson',
+        `Lesson with Student ${profile.first_name} ${profile.last_name} from ${start_date} to ${end_date} has been cancelled`
+      )
     } else {
-      await suspendLessonSchedule(start_date, end_date, message, id, role)
+      const schedule = await suspendLessonSchedule(start_date, end_date, message, id, role)
+      const studentEmail = await getStudentEmailByScheduleId(schedule.id)
+      console.log("studentEmail", studentEmail);
+      sendMail(
+        studentEmail,
+        'Cancel Lesson',
+        `Lesson with Teacher ${profile.first_name} ${profile.last_name} from ${start_date} to ${end_date} has been cancelled`
+      )
     }
     res.status(200).json({
       status: "OK"
@@ -85,8 +102,10 @@ const cancelLessonAPI = async (req, res) => {
     const profile = await getProfileByUserId(sub)
     if (role === "student") {
       const schedule = await cancelALessonSchedule(id, "student cancel this lesson", role)
+      const teacherEmail = await getTeacherEmailByScheduleId(schedule.id)
+      console.log("teacherEmail", teacherEmail);
       sendMail(
-        'phinguyen@yopmail.com',
+        teacherEmail,
         'Cancel Lesson',
         `Lesson with Student ${profile.first_name} ${profile.last_name} at ${moment(schedule.lesson_date).format('YYYY-MM-DD')} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
       )
@@ -97,8 +116,10 @@ const cancelLessonAPI = async (req, res) => {
       const { message, recurrence } = cancel
       if (recurrence === "one") {
         const schedule = await cancelALessonSchedule(id, message, role)
+        const studentEmail = await getStudentEmailByScheduleId(schedule.id)
+        console.log("studentEmail", studentEmail);
         sendMail(
-          'phinguyen@yopmail.com',
+          studentEmail,
           'Cancel Lesson',
           `Lesson with Student ${profile.first_name} ${profile.last_name} at ${moment(schedule.lesson_date).format('YYYY-MM-DD')} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
         )
@@ -106,11 +127,6 @@ const cancelLessonAPI = async (req, res) => {
           status: "OK"
         })
       }
-      // sendMail(
-      //   'phinguyen@yopmail.com',
-      //   'Cancel Lesson',
-      //   `Lesson with Teacher ${profile.first_name} ${profile.last_name} at ${schedule.lesson_date} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
-      // )
     }
   } catch (error) {
     res.status(500).json({
@@ -163,9 +179,10 @@ const rescheduleScheduleAPI = async (req, res) => {
     const profile = await getProfileByUserId(sub);
 
     const { lesson_date, start_hour, end_hour } = schedule;
-    await rescheduleLessonSchedule(schedule_id, lesson_date, start_hour, end_hour)
+    const scheduleUpdated = await rescheduleLessonSchedule(schedule_id, lesson_date, start_hour, end_hour)
+    const studentEmail = await getStudentEmailByScheduleId(scheduleUpdated.id)
     sendMail(
-      'phinguyen@yopmail.com',
+      studentEmail,
       'Reschedule Lesson',
       `Lesson with teacher ${profile.first_name} ${profile.last_name} has been rescheduled to ${lesson_date} ${start_hour}-${end_hour}`
     )

@@ -172,13 +172,14 @@ const suspendLessonSchedule = (start_date, end_date, reason, lesson_id, role) =>
       set status = $4,
       reason = $3,
       cancelled_by = $6
-      WHERE lesson_id = $5 and lesson_date BETWEEN $1 and $2 `,
+      WHERE lesson_id = $5 and lesson_date BETWEEN $1 and $2 
+      RETURNING *`,
       [start_date, end_date, reason, "cancelled", lesson_id, role],
       (error, results) => {
         if (error) {
           reject(error)
         } else {
-          resolve(true)
+          resolve(results.rows[0])
         }
       }
     )
@@ -398,6 +399,48 @@ const getMeetingRoomTeacherInfo = (room_id) => {
   })
 }
 
+const getTeacherEmailByScheduleId = (schedule_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT
+      p.email
+      FROM public.schedule as s
+      INNER JOIN public.lesson as l ON l.id = s.lesson_id
+      INNER JOIN public.profile as p ON p.id = l.teacher_id
+      WHERE s.id = $1`,
+      [schedule_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0].email)
+        }
+      }
+    )
+  })
+}
+
+const getStudentEmailByScheduleId = (schedule_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT
+      p.email
+      FROM public.schedule as s
+      INNER JOIN public.lesson as l ON l.id = s.lesson_id
+      INNER JOIN public.profile as p ON p.id = l.student_id
+      WHERE s.id = $1`,
+      [schedule_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0].email)
+        }
+      }
+    )
+  })
+}
+
 
 module.exports = {
   createScheduleForLesson,
@@ -411,5 +454,7 @@ module.exports = {
   getScheduleDateForParticularDateOfTeacher,
   rescheduleLessonSchedule,
   getMeetingRoomStudentInfo,
-  getMeetingRoomTeacherInfo
+  getMeetingRoomTeacherInfo,
+  getTeacherEmailByScheduleId,
+  getStudentEmailByScheduleId
 }

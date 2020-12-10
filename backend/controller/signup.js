@@ -45,7 +45,6 @@ const addUserToGroupStudent = (email) => {
         console.log(err, err.stack)
         reject(err)
       } else {
-        console.log(data)
         resolve("Add user to student group: ", data)
       }
     });
@@ -56,7 +55,7 @@ const signUpApi = async (req, res) => {
     const { email, password, address, first_name, last_name, phone_number, city, background, zip } = req.body
     const userId = await cognitoSignUpUser(email, password)
     await addUserToGroupStudent(email)
-    const profile = await createProfile(userId, [address, city, zip], first_name, last_name, phone_number, city, background)
+    const profile = await createProfile(userId, [address, city, zip], first_name, last_name, phone_number, city, background, email)
     res.status(200).json({
       status: "SIGN_UP_SUCCEED",
       email: email

@@ -312,19 +312,19 @@ function InfoSeveralStudent({
                     >
                       <img src={item.avatar || avatarDefault} alt="avatar" />
                       <h4>{`${item.first_name} ${item.last_name}`}</h4>
-                      <div className="--instrument">
+                      <div>
                         {item.skills &&
                           item.skills.length &&
                           item.skills.map((item, index) => {
                             if (index === 0) {
                               return (
-                                <p key={`skills-${index}`}>{item.instrument}</p>
+                                <span key={`skills-${index}`}>{item.instrument}</span>
                               );
                             } else {
                               return (
-                                <p
+                                <span
                                   key={`skills-${index}`}
-                                >{`, ${item.instrument}`}</p>
+                                >{`, ${item.instrument}`}</span>
                               );
                             }
                           })}

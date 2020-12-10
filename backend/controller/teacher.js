@@ -159,7 +159,6 @@ const createLessonAPI = async (req, res) => {
       start_date: start_date,
       end_date: endDate,
       instrument_id: bookingInfo.instrument_id,
-      trial: false,
       frequency: freqNumber,
       language: "english",
       status: "active",

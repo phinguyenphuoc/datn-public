@@ -128,28 +128,6 @@ function Form({
                   />
                 </div>
               </div>
-              <div>
-                <SingleSelect
-                  name="lessontype"
-                  placeholder="Lesson type"
-                  onChange={onChangeLessonType}
-                  value={storeTeachers.filter.lessonType}
-                  options={LESSONTYPES}
-                  isDisabled={storeTeachers.loading}
-                />
-              </div>
-              {/* {isLocationDisplayed && (
-                <div>
-                  <SingleSelect
-                    name="location"
-                    placeholder="Location"
-                    onChange={onChangeLocation}
-                    value={storeTeachers.filter.location}
-                    options={CITIES}
-                    isDisabled={storeTeachers.loading}
-                  />
-                </div>
-              )} */}
             </div>
           </form>
         </div>

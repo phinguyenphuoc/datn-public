@@ -1,5 +1,6 @@
 const { bookingALesson, getSetupBooking } = require('../access/booking');
-const { getProfileByUserId } = require('../access/common');
+const { getProfileByUserId, getEmailOfProfile } = require('../access/common');
+const sendMail = require('../utils/email');
 
 const instruments = [
   "",
@@ -29,11 +30,15 @@ const registerPendingStudentAPI = async (req, res) => {
     const studentProfile = await getProfileByUserId(sub);
     const student_profile_id = studentProfile.id;
     await bookingALesson({ teacher_profile_id, lessonType, instrument, level, duration, price, description, student_profile_id })
+    const teacherEmail = await getEmailOfProfile(teacher_profile_id)
+    console.log("teacherEmail", teacherEmail)
+    sendMail(teacherEmail, "New Student Booking", "A new student has just booked your class, please go to your dashboard for more details");
     res.status(200).json({
       status: "OK",
       message: "Booking a lesson successfully"
     })
   } catch (error) {
+    console.log(error)
     res.status(400).json({
       status: "FAILED",
       message: error.message

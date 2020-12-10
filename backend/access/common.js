@@ -151,6 +151,26 @@ const getAllInstruments = () => {
   })
 }
 
+const getEmailOfProfile = (profile_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT email FROM profile WHERE id = $1`,
+      [profile_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          if (results.rows[0] && results.rows[0].email) {
+            resolve(results.rows[0].email)
+          } else {
+            resolve(null)
+          }
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
   getMedias,
   getPricing,
@@ -159,5 +179,6 @@ module.exports = {
   updateGeneralInfo,
   updateGeneralTeacherInfo,
   getAllInstruments,
-  updateGeneralStudentInfo
+  updateGeneralStudentInfo,
+  getEmailOfProfile
 }
