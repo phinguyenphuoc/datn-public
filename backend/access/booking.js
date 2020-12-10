@@ -42,15 +42,15 @@ const bookingALesson = ({ teacher_profile_id, lessonType, instrument, level, pri
 const getTeacherPendingBooking = ({ teacher_profile_id }) => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT b.*, p.first_name, p.last_name, p.phone_number, p.avatar FROM public.booking AS b
+      `SELECT b.*, p.first_name, p.last_name, p.phone_number, p.avatar, pr.duration FROM public.booking AS b
       INNER JOIN public.profile AS p ON b.student_profile_id = p.id 
+      INNER JOIN public.pricing AS pr ON pr.id = b.price_id
       WHERE teacher_profile_id = $1 and approve = $2 `,
       [teacher_profile_id, false],
       (error, results) => {
         if (error) {
           reject(error)
         } else {
-          console.log(results.rows)
           const responseData = results.rows.map(booking => {
             return {
               id: booking.id,
@@ -59,8 +59,8 @@ const getTeacherPendingBooking = ({ teacher_profile_id }) => {
               instrument_id: booking.instrument_id,
               instrument: instruments[booking.instrument_id],
               level: booking.level,
-              description: booking.description,
               approve: false,
+              duration: booking.duration,
               student: {
                 first_name: booking.first_name,
                 last_name: booking.last_name,

@@ -20,12 +20,10 @@ const getStudentProgressReportAPI = async (req, res) => {
   try {
     const { sub } = req.body
     const { last, progress_report_id } = req.query
-    console.log({ last })
     if (!progress_report_id) {
       const student_profile = await getProfileByUserId(sub)
       const lessons = await getActiveStudentLesson(student_profile.id)
       const lesson_ids = lessons.map(item => item.id)
-      console.log({ lesson_ids })
       const progresses = await getProgress(lesson_ids)
       const responseData = progresses.map(item => {
         return {
@@ -37,7 +35,6 @@ const getStudentProgressReportAPI = async (req, res) => {
           },
           pieces: [{
             title: item.title,
-            rate: 3,
             bad_comment: item.bad_comment,
             good_comment: item.good_comment,
             rate_percentage: item.rate_percentage,
@@ -51,7 +48,7 @@ const getStudentProgressReportAPI = async (req, res) => {
       if (last === 'true') {
         const lastData = [];
         responseData.forEach(item => {
-          const temp = lastData.find(_item => _item.reported_date === item.reported_date)
+          const temp = lastData.find(_item => _item.lesson_id === item.lesson_id)
           if (!temp) {
             lastData.push(item)
           }

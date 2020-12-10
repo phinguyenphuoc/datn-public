@@ -285,7 +285,6 @@ const getTeacherProfileDashboardTeacherAPI = async (req, res) => {
     status: "OK",
     profile: {
       ...profile,
-      teaching_type: { data: ["online"] },
       teaching_experience: { data: "5", formatted_data: "5 years" }
     }
   })

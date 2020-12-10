@@ -15,7 +15,7 @@ const listTeacher = () => {
               rating: 5,
               city: item.city,
               member_since: "2020-02-29",
-              teaching_type: { data: ["online"] }
+              // teaching_type: { data: ["online"] }
             }
           })
           resolve(responseData)
