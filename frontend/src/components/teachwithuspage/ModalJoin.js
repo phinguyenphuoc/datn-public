@@ -306,20 +306,6 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
             error={error.instruments}
             label="Instruments"
           />
-          <FormBox
-            propsInput={{
-              type: "textarea",
-              name: "info",
-              onChange: handleChange,
-              onBlur: handleStringTrim,
-              value: form.info,
-              invalid: false,
-              placeholder:
-                "Tell us more about you (background, experience, hobbies...)",
-              disabled: isSubmitting,
-            }}
-            label="Your message"
-          />
           {error !== "" && (
             <div className="error__panel">
               {Object.keys(error).map((errorName, index) => {

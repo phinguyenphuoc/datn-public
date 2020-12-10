@@ -23,7 +23,7 @@ const StyledInfo = styled.section`
   }
   .info__student {
     width: 27%;
-    background: url(${student_bg})  #f6732f no-repeat center / 695px;
+    background: #f6732f;
     padding: 20px 15px;
     display: flex;
     flex-direction: column;
@@ -71,7 +71,7 @@ const StyledInfo = styled.section`
    }
   .musical {
     width: calc(73% - 25px);
-    background: url(${musical}) #08135a no-repeat 101% 100% / 50%;
+    background: #08135a;
     padding: 15px;
     display: flex;
     text-align: center;

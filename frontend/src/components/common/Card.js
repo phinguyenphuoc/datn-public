@@ -167,18 +167,18 @@ function Card({
 
   const optionInstruments = storeInstruments
     ? storeInstruments.map((item, index) => {
-        return {
-          value: item.name,
-          label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        };
-      })
+      return {
+        value: item.name,
+        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+      };
+    })
     : [];
 
   const convertedInstruments = optionInstruments
     ? optionInstruments.reduce(
-        (options, item) => ({ ...options, [item.value]: item.label }),
-        {}
-      )
+      (options, item) => ({ ...options, [item.value]: item.label }),
+      {}
+    )
     : [];
 
   return (
@@ -186,19 +186,6 @@ function Card({
       <div className="teachers__card__inner">
         <div className="teachers__card__avatar">
           <img className="teachers__card__avatar__img" src={image} alt={name} />
-          <div className="teachers__card__avatar__lessons">
-            {teachingType.data &&
-              teachingType.data.includes("online") && (
-              <OnlineLesson type="card"></OnlineLesson>
-            )}
-            {teachingType.data &&
-              teachingType.data.includes("in-person") && (
-              <TravelLesson
-                type="card"
-                distance={teachingDistance}
-              ></TravelLesson>
-            )}
-          </div>
         </div>
         <div className="teachers__card__text">
           <h1>{name}</h1>

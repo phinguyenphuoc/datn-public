@@ -67,7 +67,9 @@ function BookALesson(props) {
   }, [lesson_id]);
 
   React.useEffect(() => {
-    getBookingStudent();
+    if (!storeBookingStudents.data.length) {
+      getBookingStudent();
+    }
   }, []);
 
   React.useEffect(() => {

@@ -169,11 +169,11 @@ export const OPTIONS_LEVEL = [
 
 export const OPTIONS_LANGUAGES = [
   { value: "English", label: "English" },
-  { value: "Spanish", label: "Spanish" },
-  { value: "French", label: "French" },
-  { value: "Mandarin", label: "Mandarin" },
-  { value: "Hindi", label: "Hindi" },
-  { value: "Russian", label: "Russian" },
-  { value: "Italian", label: "Italian" },
-  { value: "Portuguese", label: "Portuguese" },
+  { value: "Vietnam", label: "Vietnam" },
+  // { value: "French", label: "French" },
+  // { value: "Mandarin", label: "Mandarin" },
+  // { value: "Hindi", label: "Hindi" },
+  // { value: "Russian", label: "Russian" },
+  // { value: "Italian", label: "Italian" },
+  // { value: "Portuguese", label: "Portuguese" },
 ];

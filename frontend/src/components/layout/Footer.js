@@ -70,15 +70,6 @@ function Footer(props) {
             <ul>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("FAQ")}
-                  activeClassName="--active"
-                  to="/"
-                >
-                  FAQ
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
                   onClick={() => handleGaTracking("Contact Us")}
                   activeClassName="--active"
                   to="/contact-us"

@@ -210,7 +210,7 @@ function App() {
             exact
           />
           <Route
-            path="/dashboard/student/progress-report/history/:dateReport"
+            path="/dashboard/student/progress-report/history/:id"
             component={withAuth(withLayoutDashboard(OldProgressReport), [
               USER_ROLE_PARENT,
             ])}

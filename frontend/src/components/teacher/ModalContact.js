@@ -255,20 +255,6 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit, data }) => {
               error={error.duration}
             />
           </div>
-          <FormBox
-            propsInput={{
-              type: "textarea",
-              name: "description",
-              onChange: handleChange,
-              onBlur: handleStringTrim,
-              value: form.info,
-              invalid: false,
-              placeholder:
-                "Tell us more about you (background, experience, hobbies...)",
-              disabled: isSubmitting,
-            }}
-            label="Your message"
-          />
           <div className="modal__button">
             <button
               className="fw-500"

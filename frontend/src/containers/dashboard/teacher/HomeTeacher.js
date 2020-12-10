@@ -18,7 +18,8 @@ import {
   getStudents,
   cancelLesson,
   suspendLesson,
-  getEarningCurrentDetails
+  getEarningCurrentDetails,
+  getBookingStudent
 } from "../../../redux/actions/teacher";
 import { reportProblem } from "../../../redux/actions/reportProblem";
 import { getAuth } from "../../../utils/helpers";
@@ -53,6 +54,9 @@ function HomeTeacher(props) {
     (store) => store.teacher.earningCurrentDetails
   );
 
+  const storeBookingStudents = useSelector((store) => store.teacher.bookingStudents);
+  console.log({ storeBookingStudents })
+
   React.useEffect(() => {
     if (
       !Object.keys(storeEarningCurrentDetails.data).length &&
@@ -64,7 +68,24 @@ function HomeTeacher(props) {
 
   React.useEffect(() => {
     getStudents();
+    getBookingStudent();
   }, []);
+
+  React.useEffect(() => {
+    if (storeBookingStudents.data.length) {
+      openModalMessage({
+        title: "New booking from students",
+        body: (
+          <div>
+            <p>Welcome back, you are having {storeBookingStudents.data.length} booking pending</p>
+            <p>Click button "new lesson" for more details</p>
+          </div>
+        ),
+        timeout: 10000
+      });
+    }
+  }, [storeBookingStudents])
+
 
   const handleModalInfoStudent = () => {
     setOpenModalInfoStudent(!openModalInfoStudent);

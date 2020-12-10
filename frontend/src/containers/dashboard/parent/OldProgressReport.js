@@ -13,16 +13,17 @@ function ProgressReport(props) {
   const storeProgressReportItem = useSelector(
     (store) => store.parent.dataProgressReportItem
   );
-  // console.log(location.state.progress, props.match.params.dateReport)
+
   React.useEffect(() => {
     if (
-      location.state &&
-      location.state.progress &&
-      location.state.progress.id
+      props.match &&
+      props.match.params &&
+      props.match.params.id
     ) {
-      getStudentProgressReportItem(location.state.progress.id);
+      getStudentProgressReportItem(props.match.params.id);
     }
   }, [location]);
+
   if (!location.state || !location.state.progress) {
     return <Redirect to="/dashboard/student" />;
   }

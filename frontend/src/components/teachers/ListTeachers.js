@@ -137,20 +137,7 @@ const ListTeachers = ({
             </div>
 
             {storeTeachers.isOutOfTeachers ? (
-              <div className="button__go">
-                <div className="button__go__text">
-                  <h4 className="h4">
-                    Haven’t found a teacher? <br /> Let Us find you the best
-                  music teacher{" "}
-                  </h4>
-                </div>
-                <button
-                  className="button button--secondary"
-                  onClick={handleToggleModalJoin}
-                >
-                  Contact us
-              </button>
-              </div>
+              <></>
             ) : (
                 <div className="button__see-more">
                   {isLoadingMorePage ? (

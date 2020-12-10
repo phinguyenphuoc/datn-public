@@ -347,7 +347,7 @@ function InfoSeveralStudent({
             <div className="musical__body">
               {isLoadingProgressReports ? (
                 <Loading />
-              ) : dataProgressReports.data.length || true ? (
+              ) : dataProgressReports.data.length ? (
                 <Slider {...settingsSeveral}>
                   {dataProgressReports.data.map((item, index) => (
                     <article

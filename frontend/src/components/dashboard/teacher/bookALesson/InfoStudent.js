@@ -106,12 +106,6 @@ function InfoStudent({ handleNext, step, studentSelected, handleClickEdit }) {
           <h3>Age</h3>
           {student.age && <p>{student.age}</p>}
         </div>
-        {student.is_parent && (
-          <div className="student-info__item">
-            <h3>Email address</h3>
-            <p>{student.email}</p>
-          </div>
-        )}
         {student.address && (
           <div className="student-info__item">
             <h3>Home address</h3>
@@ -131,6 +125,10 @@ function InfoStudent({ handleNext, step, studentSelected, handleClickEdit }) {
         <div className="student-info__item">
           <h3>Level</h3>
           <p>{studentSelected.level}</p>
+        </div>
+        <div className="student-info__item">
+          <h3>Duration</h3>
+          <p>{studentSelected.duration}</p>
         </div>
         {step === 3 ? (
           <div className="edit" onClick={handleClickEdit}>

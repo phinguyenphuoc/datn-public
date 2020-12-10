@@ -37,7 +37,7 @@ const StyledBanner = styled.section`
     }
   }
   .banner__progress {
-    background: url(${dashboard}) #08135a no-repeat 0% 110% / 100%;
+    background: #08135a;
     padding: 3% 15px;
     box-shadow: 0px 5px 25px rgba(98, 84, 232, 0.203944);
     border-radius: 4px;
@@ -213,7 +213,6 @@ function Banner({ dataStudentSelect }) {
               </h4>
             </div>
           </div>
-          <img className="human" src={human} alt="human" />
         </div>
       </div>
     </StyledBanner>

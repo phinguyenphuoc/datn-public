@@ -492,11 +492,11 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
                   type="radio"
                   className="input_checkbox"
                   onChange={handleCheckboxLevel}
-                  checked={form.level === "moderato"}
-                  value={"moderato"}
+                  checked={form.level === "beginner"}
+                  value={"beginner"}
                 />
                 <span className="checkmark"></span>
-                <p>Moderato</p>
+                <p>Beginner</p>
               </label>
               <label className="checkbox">
                 <input
@@ -504,11 +504,11 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
                   type="radio"
                   className="input_checkbox"
                   onChange={handleCheckboxLevel}
-                  checked={form.level === "allegro"}
-                  value={"allegro"}
+                  checked={form.level === "advanced"}
+                  value={"advanced"}
                 />
                 <span className="checkmark"></span>
-                <p>Allegro</p>
+                <p>Advanced</p>
               </label>
               <label className="checkbox">
                 <input
@@ -516,11 +516,11 @@ const Form = ({ handleSubmit, dataStudentSelect }) => {
                   type="radio"
                   className="input_checkbox"
                   onChange={handleCheckboxLevel}
-                  checked={form.level === "presto"}
-                  value={"presto"}
+                  checked={form.level === "expert"}
+                  value={"expert"}
                 />
                 <span className="checkmark"></span>
-                <p>Presto</p>
+                <p>Expert</p>
               </label>
             </div>
             <div className="error">{errorLevel}</div>

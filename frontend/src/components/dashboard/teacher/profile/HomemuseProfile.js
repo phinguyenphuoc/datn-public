@@ -1020,46 +1020,6 @@ function HomemuseProfile({
               </label>
             </div>
           </div>
-          <div className="form__item lesson-type">
-            <div className="form__item__inner">
-              <h3>Lesson type</h3>
-              <label className="price checkbox">
-                <input
-                  checked={form.in_person}
-                  type="checkbox"
-                  className="input_checkbox"
-                  name="in_person"
-                  onChange={handleCheckboxLessonType}
-                />
-                <span className="checkmark"></span>
-                <p>In-person</p>
-              </label>
-              <label className="price checkbox">
-                <input
-                  checked={form.online}
-                  type="checkbox"
-                  className="input_checkbox"
-                  name="online"
-                  onChange={handleCheckboxLessonType}
-                />
-                <span className="checkmark"></span>
-                {/* {isConferencingTools ? (
-                  <p className="link_zoom">
-                    Online <span>Account linked with</span>{" "}
-                    <img src={zoom} alt="zoom" className="zoom_img" />
-                  </p>
-                ) : (
-                  <p>Online</p>
-                )} */}
-                <p>Online</p>
-              </label>
-              {isConferencingTools && (<p className="link_zoom">
-                <span>Account linked with</span>{" "}
-                <img src={zoom} alt="zoom" className="zoom_img" />
-              </p>)}
-              <div className="error">{errorlessonType}</div>
-            </div>
-          </div>
         </div>
         <h2 className="have-border">Medias</h2>
         <div className="form__medias">

@@ -208,7 +208,7 @@ function History({ studentProgressReport }) {
   const studentName = auth.user_first_name;
   const handleClickViewProgressReport = (item = {}) => () => {
     history.push(
-      `/dashboard/student/progress-report/history/${item.reported_date}`,
+      `/dashboard/student/progress-report/history/${item.id}`,
       {
         ...oldHistoryState,
         studentProgress: item,
