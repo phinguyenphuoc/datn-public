@@ -477,19 +477,21 @@ function Step2({
                   </div>
                 </div>
                 {/* Select total month */}
-                <div className="select-a-lesson">
-                  <h4>Select total month</h4>
-                  <div>
-                    <input
-                      type="number"
-                      name="month"
-                      defaultValue="12"
-                      style={{ width: "50%" }}
-                      onChange={handleSelectTotalMonth}
-                    />
-                    <div className="error">{error}</div>
+                {!_.get(dataSetupBooking, "id", null) && (
+                  <div className="select-a-lesson">
+                    <h4>Select total month</h4>
+                    <div>
+                      <input
+                        type="number"
+                        name="month"
+                        defaultValue="12"
+                        style={{ width: "50%" }}
+                        onChange={handleSelectTotalMonth}
+                      />
+                      <div className="error">{error}</div>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -568,7 +570,7 @@ function Step2({
                 </div>
               </div>
             )}
-            {(storeBookLesson.date && !_.get(dataSetupBooking, "[0]", null)) && <button
+            {(storeBookLesson.date && !_.get(dataSetupBooking, "id", null)) && <button
               className="find"
               type="button"
               style={{ width: "auto", marginTop: 10, maxWidth: 300, padding: "3px 8px", opacity: 1 }}

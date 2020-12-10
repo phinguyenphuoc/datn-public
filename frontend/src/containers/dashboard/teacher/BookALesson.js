@@ -281,6 +281,7 @@ function BookALesson(props) {
       isValid = false;
       setErrorTime("Time in the past not allowed");
     }
+
     dataSchedulesFiltered.forEach((item) => {
       if (item.start_hour && item.end_hour) {
         const startHourNumber = convertTimeToNumber(item.start_hour);
@@ -297,7 +298,8 @@ function BookALesson(props) {
           // (startHourNumber <= currentTimeNumber && currentTimeNumber < endHourNumber) ||
           // (startHourNumber < durationNumber && durationNumber <= endHourNumber)
           (currentTimeNumber <= (endHourNumber + 100) && currentTimeNumber >= endHourNumber) ||
-          ((durationNumber + 100) >= startHourNumber && currentTimeNumber < startHourNumber)
+          ((durationNumber + 100) >= startHourNumber && currentTimeNumber < startHourNumber) ||
+          (currentTimeNumber > startHourNumber && currentTimeNumber < endHourNumber)
         ) {
           setErrorTime("Time slot not available, each lesson should separate at least one hour");
           isValid = false;
@@ -321,7 +323,8 @@ function BookALesson(props) {
           // (startHourNumber <= currentTimeNumber && currentTimeNumber < endHourNumber) ||
           // (startHourNumber < durationNumber && durationNumber <= endHourNumber)
           (currentTimeNumber <= (endHourNumber + 100) && currentTimeNumber >= endHourNumber) ||
-          ((durationNumber + 100) >= startHourNumber && currentTimeNumber < startHourNumber)
+          ((durationNumber + 100) >= startHourNumber && currentTimeNumber < startHourNumber) ||
+          (currentTimeNumber > startHourNumber && currentTimeNumber < endHourNumber)
         ) {
           setErrorTime("Time slot not available, each lesson should separate at least one hour");
           isValid = false;
