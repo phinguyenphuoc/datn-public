@@ -47,7 +47,7 @@ const postAssistanceAPI = require('./controller/assistance')
 const signUpApi = require('./controller/signup');
 const { getRecentEarningAPI, getPeriodEarningAPI } = require('./controller/earning')
 const { addProgressReportAPI, getStudentProgressReportAPI } = require('./controller/progress')
-const { postReviewAPI } = require('./controller/review')
+const { postReviewAPI, getReviewAPI } = require('./controller/review')
 
 const { createProfile, getUserIdByProfileId } = require('./access/profile')
 const { updateScheduleInvoiceUrl } = require('./access/schedule')
@@ -142,6 +142,8 @@ app.post('/api/supports/assistance', postAssistanceAPI)
 // REVIEW API
 
 app.post('/api/reviews', postReviewAPI)
+
+app.get('/api/reviews', getReviewAPI)
 
 // Meeting
 

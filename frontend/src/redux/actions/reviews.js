@@ -7,7 +7,7 @@ export function getReview(profileId, resolve = () => { }) {
     type: types.GET_REVIEW,
   });
   return request()
-    .get(`/reviews?profil_id=${profileId}`)
+    .get(`/reviews?profile_id=${profileId}`)
     .then((response) => {
       resolve(response.data);
       store.dispatch({

@@ -19,6 +19,30 @@ const postReview = (teacher_id, student_id, rating, comment) => {
   })
 }
 
+const getReview = (profile_id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `SELECT r.comment, r.rating, 
+      p.first_name,
+      p.last_name,
+      p.avatar
+      FROM public.review as r
+      INNER JOIN public.profile as p ON r.reviewer_id = p.id
+      WHERE r.teacher_profile_id = $1`,
+      [profile_id],
+      (err, results) => {
+        if (err) {
+          console.log(err)
+          reject(err)
+        } else {
+          resolve(results.rows)
+        }
+      }
+    )
+  })
+}
+
 module.exports = {
-  postReview
+  postReview,
+  getReview
 }

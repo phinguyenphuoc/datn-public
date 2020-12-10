@@ -13,11 +13,12 @@ const byPass = [
   "/api/answer_url",
   "/api/signup",
   "/api/hooks",
-  "/api/test"
+  "/api/test",
+  "/api/reviews"
 ]
 /* GET home page. */
 router.use(async function (req, res, next) {
-  if (byPass.includes(req.originalUrl) || req.originalUrl.includes("/answer_url")) {
+  if (byPass.includes(req.originalUrl) || req.originalUrl.includes("/answer_url") || req.originalUrl.includes("/api/reviews")) {
     return next();
   }
   let token = req.headers["authorization"]
