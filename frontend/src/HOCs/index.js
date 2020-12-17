@@ -3,7 +3,6 @@ import withLayoutDashboard from "./withLayoutDashboard";
 import withAuth from "./withAuth";
 import withLayoutTeachWithUs from "./withLayoutTeachWithUs";
 import withLayoutNoFooter from "./withLayoutNoFooter";
-import withLayoutDashboardVer2 from "./withLayoutDashboardVer2";
 
 export {
   withLayout,
@@ -11,5 +10,4 @@ export {
   withAuth,
   withLayoutTeachWithUs,
   withLayoutNoFooter,
-  withLayoutDashboardVer2,
 };

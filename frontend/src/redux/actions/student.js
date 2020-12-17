@@ -91,25 +91,3 @@ export function updateStudenttAvatar(data, studentId, resolve = () => { }) {
       });
     });
 }
-export function updateParentAvatarSticker(data, studentId, resolve = () => { }) {
-  store.dispatch({
-    type: types.UPDATE_STUDENT_AVATAR_STICKER,
-  });
-
-  return request()
-    .post(`/student/students/profiles/${studentId}/avatar`, data)
-    .then((response) => {
-      resolve(response.data);
-      store.dispatch({
-        studentId,
-        payload: response.data.media,
-        type: types.UPDATE_STUDENT_AVATAR_STICKER_SUCCEED,
-      });
-    })
-    .catch((error) => {
-      store.dispatch({
-        payload: error.data,
-        type: types.UPDATE_STUDENT_AVATAR_STICKER_FAIL,
-      });
-    });
-}

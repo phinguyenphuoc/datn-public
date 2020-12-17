@@ -5,7 +5,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import DropdownUserMenu from "./DropdownUserMenu";
 import { getAuth, checkRolesAccepted } from "../../utils/helpers";
-import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "../../utils/constants";
+import { USER_ROLE_TEACHER, USER_ROLE_STUDENT } from "../../utils/constants";
 import { setHeightHeader, setTopHeader } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
 // import ReactGA from "react-ga";
@@ -17,7 +17,7 @@ function Header({ isDashboard, showHideHeader, page }) {
   const [showHeader, setShowHeader] = React.useState(true);
   const auth = getAuth();
   const isTeacher = checkRolesAccepted(auth, [USER_ROLE_TEACHER]);
-  const isParent = checkRolesAccepted(auth, [USER_ROLE_PARENT]);
+  const isParent = checkRolesAccepted(auth, [USER_ROLE_STUDENT]);
   const storeGlobal = useSelector((store) => store.global);
   const location = useLocation();
   const headerRef = React.useRef(null);
@@ -241,7 +241,6 @@ function Header({ isDashboard, showHideHeader, page }) {
                 <DropdownUserMenu
                   isHasDashboardTeacherLink={!isDashboard && isTeacher}
                   isHasDashboardParentLink={!isDashboard && isParent}
-                  isParentAndTeacher={isParent && isTeacher}
                 />
               )}
             </div>

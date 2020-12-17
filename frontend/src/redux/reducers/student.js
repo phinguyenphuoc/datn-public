@@ -19,10 +19,6 @@ const initialState = {
   updateAvatar: {
     loading: false,
     error: {}
-  },
-  updateAvatarSticker: {
-    loading: false,
-    error: {}
   }
 };
 export default function reducer(state = initialState, actions) {
@@ -149,41 +145,6 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         updateAvatar: {
-          error: actions.payload,
-          loading: false
-        }
-      };
-    case types.UPDATE_STUDENT_AVATAR_STICKER:
-      return {
-        ...state,
-        updateAvatarSticker: {
-          loading: true,
-          error: {}
-        }
-      };
-    case types.UPDATE_STUDENT_AVATAR_STICKER_SUCCEED:
-      const newDataAvatarSticker = state.students.data.map(item => {
-        if (item.id.toString() === actions.studentId.toString()) {
-          return { ...item, avatar: actions.payload.url };
-        }
-        return item;
-      });
-      return {
-        ...state,
-        students: {
-          ...state.students,
-          data: newDataAvatarSticker
-        },
-        updateAvatarSticker: {
-          ...state.updateAvatarSticker,
-          loading: false
-        }
-      };
-
-    case types.UPDATE_STUDENT_AVATAR_STICKER_FAIL:
-      return {
-        ...state,
-        updateAvatarSticker: {
           error: actions.payload,
           loading: false
         }

@@ -8,7 +8,6 @@ import {
   setOpenModalJoinHomemuse,
 } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
-// import ReactGA from "react-ga";
 
 function HeaderTeachWithUs({ isDashboard }) {
   const [open, setOpen] = React.useState(false);
@@ -41,12 +40,6 @@ function HeaderTeachWithUs({ isDashboard }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     checkHeightHeader();
-  //   }, 250);
-  // }, [isSticky]);
-
   function checkHeightHeader() {
     if (headerRef.current)
       setHeightHeader(headerRef.current.offsetHeight);
@@ -66,35 +59,10 @@ function HeaderTeachWithUs({ isDashboard }) {
 
   const handleClick = () => setOpen(!open);
 
-  // const handleCloseNotification = () => {
-  //   setHeightHeader(
-  //     storeGlobal.heightHeader - headerNotiRef.current.offsetHeight
-  //   );
-  //   const notification = document.querySelector(".header__notification");
-  //   notification.style.height = "0px";
-  //   notification.style.minHeight = "0px";
-  //   notification.style.opacity = "0";
-  //   setTimeout(() => {
-  //     localStorage.setItem("notification", "close");
-  //   }, 100); // 100 is time transition
-  // };
-
   const handleClickButton = () => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: "Navigation to Join Homemuse Modal at Teach with us Page Header",
-    //   label: "Click 'Join homemuse as teacher Button'",
-    // });
     setOpenModalJoinHomemuse(!storeOpenModal);
   };
 
-  const handleGaTracking = (link) => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: `Navigation to ${link} Page at Footer`,
-    //   label: `Click '${link} Link'`,
-    // });
-  };
   return (
     <header
       open={open}
@@ -103,19 +71,6 @@ function HeaderTeachWithUs({ isDashboard }) {
       })}
       ref={headerRef}
     >
-      {/* {storageNoti !== "close" && (
-        <div ref={headerNotiRef} className="header__notification">
-          <p>
-            Due to COVID-19, at-home music lessons are not available at the
-            moment. Go for{" "}
-            <b>
-              <NavLink to="/teachers"> online lessons</NavLink>
-            </b>
-            !
-          </p>
-          <span onClick={handleCloseNotification}>&#x2716;</span>
-        </div>
-      )} */}
       <div className="header__teach-with-us__inner">
         <NavLink to="/" className="header__teach-with-us__inner__logo">
           <img src={logo} alt="Logo" />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ButtonDropdown, DropdownToggle, DropdownMenu } from "reactstrap";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { SignInAlt, ChevronDown, User } from "../common/icons";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 import { getAuth } from "../../utils/helpers";
@@ -79,9 +79,7 @@ const StyledDropdownUserMenu = styled(ButtonDropdown)`
 const DropdownUserMenu = ({
   isHasDashboardTeacherLink,
   isHasDashboardParentLink,
-  isParentAndTeacher,
 }) => {
-  const location = useLocation();
   const [dropdownOpen, setOpen] = useState(false);
   const [avatar, setAvatar] = useState(defaultAvatar);
 
@@ -89,9 +87,6 @@ const DropdownUserMenu = ({
     (store) => store.teacher.profile.data
   );
   const storeParentProfile = useSelector((store) => store.parent.profile.data);
-
-  const isInDashboardTeacher = location.pathname.includes("/dashboard/teacher");
-  const isInDashboardParent = location.pathname.includes("/dashboard/parent");
 
   const toggle = () => setOpen(!dropdownOpen);
 
@@ -102,24 +97,7 @@ const DropdownUserMenu = ({
   }, [storeTeacherProfile, storeParentProfile]);
 
   const renderNavLinks = () => {
-    if (isParentAndTeacher) {
-      return (
-        <>
-          {!isInDashboardParent && (
-            <NavLink to="/dashboard/student" activeClassName="--active">
-              <User />
-              <p>Dashboard Student</p>
-            </NavLink>
-          )}
-          {!isInDashboardTeacher && (
-            <NavLink to="/dashboard/teacher" activeClassName="--active">
-              <User />
-              <p>Dashboard Teacher</p>
-            </NavLink>
-          )}
-        </>
-      );
-    } else if (isHasDashboardTeacherLink) {
+    if (isHasDashboardTeacherLink) {
       return (
         <>
           <NavLink to="/dashboard/teacher" activeClassName="--active">

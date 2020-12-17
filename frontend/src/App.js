@@ -14,13 +14,11 @@ import LogIn from "./containers/LogIn";
 import ForgotPassword from "./containers/ForgotPassword";
 import SignUp from "./containers/SignUp";
 import ResetPassword from "./containers/ResetPassword";
-import ContactUs from "./containers/ContactUs";
 import { ModalMessage } from "./components/common";
 import Logout from "./containers/Logout";
 import {
   Home,
   ProfileParent,
-  UserStudent,
   PaymentPage,
   ProgressReport,
   ProgressHistory,
@@ -44,24 +42,14 @@ import {
   withLayoutDashboard,
   withLayoutTeachWithUs,
   withLayoutNoFooter,
-  withLayoutDashboardVer2,
 } from "./HOCs";
-import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "./utils/constants";
+import { USER_ROLE_TEACHER, USER_ROLE_STUDENT } from "./utils/constants";
 import Teacher from "./containers/Teacher";
-// import ReactGA from "react-ga";
-// import { hotjar } from "react-hotjar";
-// import { GA_TRACKING_ID, HJID, HJSV, HJENABLED } from "./config.js";
 import ConfirmSignUp from "./containers/ConfirmSignUp";
-
-// ReactGA.initialize(GA_TRACKING_ID);
-// if (HJENABLED === "true") {
-//   hotjar.initialize(HJID, HJSV);
-// }
 
 function ScrollToTop(props) {
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    // ReactGA.pageview(window.location.pathname + window.location.search);
   }, [props.location]);
 
   return props.children;
@@ -117,7 +105,6 @@ function App() {
             component={withLayout(ResetPassword)}
           />
           <Route path="/logout" component={Logout} exact />
-          <Route path="/contact-us" exact component={withLayout(ContactUs)} />Articles
           {/* Dashboard Pages for teacher */}
           <Route
             path="/dashboard/teacher"
@@ -185,64 +172,49 @@ function App() {
           {/* Dashboard Pages for parent */}
           <Route
             path="/dashboard/student"
-            component={withAuth(withLayoutDashboard(Home), [USER_ROLE_PARENT])}
+            component={withAuth(withLayoutDashboard(Home), [USER_ROLE_STUDENT])}
             exact
           />
           <Route
             path="/dashboard/student/meeting/:room"
             component={withAuth(withLayoutDashboard(Meeting), [
-              USER_ROLE_PARENT,
+              USER_ROLE_STUDENT,
             ])}
             exact
           />
           <Route
             path="/dashboard/student/progress-report"
             component={withAuth(withLayoutDashboard(ProgressReport), [
-              USER_ROLE_PARENT,
+              USER_ROLE_STUDENT,
             ])}
             exact
           />
           <Route
             path="/dashboard/student/progress-report/history"
             component={withAuth(withLayoutDashboard(ProgressHistory), [
-              USER_ROLE_PARENT,
+              USER_ROLE_STUDENT,
             ])}
             exact
           />
           <Route
             path="/dashboard/student/progress-report/history/:id"
             component={withAuth(withLayoutDashboard(OldProgressReport), [
-              USER_ROLE_PARENT,
-            ])}
-            exact
-          />
-          <Route
-            path="/dashboard/student/profile/users/:userId"
-            component={withAuth(withLayoutDashboard(UserStudent), [
-              USER_ROLE_PARENT,
+              USER_ROLE_STUDENT,
             ])}
             exact
           />
           <Route
             path="/dashboard/student/payment"
             component={withAuth(withLayoutDashboard(PaymentPage), [
-              USER_ROLE_PARENT,
+              USER_ROLE_STUDENT,
             ])}
             exact
           />
           <Route
             path="/dashboard/student/profile"
             component={withAuth(withLayoutDashboard(ProfileParent), [
-              USER_ROLE_PARENT,
+              USER_ROLE_STUDENT,
             ])}
-          />
-          {/* Dashboardver2 parent profiles */}
-          <Route
-            path="/dashboardver2/student/profiles"
-            component={withAuth(
-              withLayoutDashboardVer2(Profiles, true, "profiles"),
-              [USER_ROLE_PARENT]
-            )}
           />
           {/* Homepage */}
           <Route path="/" component={withLayout(HomePage)} />

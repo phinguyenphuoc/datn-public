@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Form } from "../components/signup";
 // import { openModalMessage } from "../redux/actions/modalMessage";
 import { signup } from "../redux/actions/login";
-// import { USER_ROLE_TEACHER, USER_ROLE_PARENT } from "../utils/constants";
+// import { USER_ROLE_TEACHER, USER_ROLE_STUDENT } from "../utils/constants";
 import { useSelector } from "react-redux";
 // import { setAuth } from "../utils/helpers";
 
@@ -34,7 +34,7 @@ function SignUp() {
     //     updateRememberedPath("");
     //   } else if (data.user_roles.includes(USER_ROLE_TEACHER)) {
     //     history.push("/dashboard/teacher");
-    //   } else if (data.user_roles.includes(USER_ROLE_PARENT)) {
+    //   } else if (data.user_roles.includes(USER_ROLE_STUDENT)) {
     //     history.push("/dashboard/parent");
     //   } else {
     //     history.push("/");

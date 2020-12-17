@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react"
 import { Auth } from "aws-amplify";
-import {
-  ModalZoomSuccess,
-} from "../../../components/dashboard/teacher/profile";
 import { getAuth } from "../../../utils/helpers";
 import { useSelector, useDispatch } from "react-redux";
 import { getMeetingRoom } from "../../../redux/actions/meeting";
@@ -449,10 +446,6 @@ function Meeting(props) {
   return (
     <StyledInfo>
       <div>
-        <ModalZoomSuccess
-          isOpen={connectStatus}
-          handleToggle={() => setConnectStatus(false)}
-        />
         {/* <button id="endCallButton" className="btn btn-danger hidden-first btn-m" onClick={createRoom}>Create room</button> */}
         <div id="video-call" style={{ position: "relative", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", background: "black" }}>
           <div

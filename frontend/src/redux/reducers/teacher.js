@@ -63,8 +63,7 @@ const initialState = {
   stripe: {
     loading: false,
     error: {},
-    link: "",
-    isCalled: false,
+    link: ""
   },
   initBookings: {
     data: "",
@@ -136,12 +135,7 @@ const initialState = {
     data: [],
     loading: false,
     error: {},
-  },
-  zoomAuthCode: {
-    data: {},
-    loading: false,
-    error: {},
-  },
+  }
 };
 
 export default function reducer(state = initialState, actions) {
@@ -336,37 +330,6 @@ export default function reducer(state = initialState, actions) {
       return { ...state, dateSchedule: actions.payload };
     case types.UPDATE_TEACHER_DATE_SCHEDULE_SELECTED:
       return { ...state, dateScheduleSelected: actions.payload };
-    case types.CONNECT_STRIPE_TEACHER_REQUEST:
-      return {
-        ...state,
-        stripe: {
-          ...state.stripe,
-          loading: true,
-          error: {},
-          link: "",
-          isCalled: false,
-        },
-      };
-    case types.CONNECT_STRIPE_TEACHER_SUCCEED:
-      return {
-        ...state,
-        stripe: {
-          ...state.stripe,
-          loading: false,
-          link: actions.payload.link,
-          isCalled: true,
-        },
-      };
-    case types.CONNECT_STRIPE_TEACHER_FAIL:
-      return {
-        ...state,
-        stripe: {
-          ...state.stripe,
-          loading: false,
-          error: actions.payload,
-          isCalled: true,
-        },
-      };
     case types.GET_STRIPE_TEACHER_REQUEST:
       return {
         ...state,
@@ -790,41 +753,6 @@ export default function reducer(state = initialState, actions) {
         ...state,
         earningsReceipts: {
           ...state.earningsReceipts,
-          error: actions.payload,
-          loading: false,
-        },
-      };
-    case types.GET_ZOOM_AUTH_CODE:
-      return {
-        ...state,
-        zoomAuthCode: {
-          ...state.zoomAuthCode,
-          loading: true,
-          error: {},
-        },
-      };
-    case types.GET_ZOOM_AUTH_CODE_SUCCEED:
-      return {
-        ...state,
-        zoomAuthCode: {
-          ...state.zoomAuthCode,
-          data: actions.payload,
-          loading: false,
-        },
-        profile: {
-          ...state.profile,
-          data: {
-            ...state.profile.data,
-            conferencing_tools: ["zoom"],
-          },
-          loading: false,
-        },
-      };
-    case types.GET_ZOOM_AUTH_CODE_FAIL:
-      return {
-        ...state,
-        zoomAuthCode: {
-          ...state.zoomAuthCode,
           error: actions.payload,
           loading: false,
         },

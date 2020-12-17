@@ -168,28 +168,6 @@ export function updateDateScheduleSelected(date) {
   });
 }
 
-export function connectStripe(data, resolve = () => { }, reject = () => { }) {
-  store.dispatch({
-    type: types.CONNECT_STRIPE_TEACHER_REQUEST,
-  });
-  return request()
-    .post("/teacher/connect_stripe", data)
-    .then((response) => {
-      resolve(response.data);
-      store.dispatch({
-        payload: response.data,
-        type: types.CONNECT_STRIPE_TEACHER_SUCCEED,
-      });
-    })
-    .catch((error) => {
-      reject(error);
-      store.dispatch({
-        payload: error.data,
-        type: types.CONNECT_STRIPE_TEACHER_FAIL,
-      });
-    });
-}
-
 export async function getStripeLink(resolve = () => { }, reject = () => { }) {
   const header = await getHeader()
   store.dispatch({

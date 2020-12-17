@@ -385,9 +385,7 @@ const StyledErrorPanel = styled.div`
 `;
 
 function HomemuseProfile({
-  handleSubmit,
-  setOpenModalZoom,
-  isHasConferencingTools,
+  handleSubmit
 }) {
   const storeTeacherProfile = useSelector((store) => store.teacher.profile);
   const storeTeacherUpdateProfile = useSelector(
@@ -738,19 +736,6 @@ function HomemuseProfile({
       ...form,
       [event.target.name]: event.target.checked,
     });
-  };
-
-  const handleCheckboxLessonType = (event) => {
-    const { name, checked } = event.target;
-    if (name === "online" && checked && !isHasConferencingTools) {
-      // open popup
-      return setOpenModalZoom(true);
-    }
-    setForm({
-      ...form,
-      [event.target.name]: event.target.checked,
-    });
-    setErrorlessonType("");
   };
 
   const handleDrop = (dropped) => {

@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Form } from "reactstrap";
 import stripe from "../../../../assets/images/stripe.svg";
-import { getAuth, getParam, setAuth } from "../../../../utils/helpers";
+import { getAuth } from "../../../../utils/helpers";
 import { useSelector } from "react-redux";
 import {
-  connectStripe,
   getStripeLink,
 } from "../../../../redux/actions/teacher";
 import { Loading } from "../../../common";
@@ -85,42 +84,16 @@ const StyledPaymentMethods = styled.section`
   }
 `;
 
-function PaymentMethods({ setOpenModalStripeWrong }) {
+function PaymentMethods() {
   const auth = getAuth();
   const isUpdatedPayment = auth.user_payment_updated;
   const storeTeacher = useSelector((store) => store.teacher.profile.data);
   const storeTeacherStripe = useSelector((store) => store.teacher.stripe);
 
-  const code = getParam("code");
-  const state = getParam("state");
-
   React.useEffect(() => {
-    if (code) {
-      connectStripe(
-        {
-          code,
-          state,
-        },
-        () => {
-          setAuth({
-            ...auth,
-            user_payment_updated: true,
-          });
-          window.history.pushState(
-            {},
-            null,
-            "/dashboard/teacher/profile/payment-methods"
-          );
-        },
-        () => {
-          setOpenModalStripeWrong(true);
-        }
-      );
-    } else {
-      getStripeLink();
-    }
+    getStripeLink();
     // eslint-disable-next-line
-  }, [code]);
+  }, []);
 
   let stripeLink = storeTeacherStripe.link;
 

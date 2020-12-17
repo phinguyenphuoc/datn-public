@@ -14,7 +14,6 @@ import {
   getParentProfile,
   updateParentInfo,
   updateParentAvatar,
-  // updateParentAvatarSticker,
 } from "../../../redux/actions/parent";
 import { getAuth, setAuth } from "../../../utils/helpers";
 import { Auth } from "aws-amplify";
@@ -32,7 +31,6 @@ function ProfileParent(props) {
     getParentProfile();
   }, []);
 
-  const storeStickers = useSelector((store) => store.stickers);
   const [openModalUpdatePicture, setOpenModalUpdatePicture] = React.useState(
     false
   );
@@ -109,7 +107,6 @@ function ProfileParent(props) {
           handleSubmit={handleUpdateAvatar}
           isSubmitting={storeParentUpdateAvatar.loading}
           avatarImage={storeParentProfile.avatar}
-          dataSticker={storeStickers.data}
         />
       )}
     </>

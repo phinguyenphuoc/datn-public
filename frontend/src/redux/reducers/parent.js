@@ -41,10 +41,6 @@ const initialState = {
     loading: false,
     error: {},
   },
-  updateAvatarSticker: {
-    loading: false,
-    error: {},
-  },
   teachers: {
     data: [],
     loading: false,
@@ -189,37 +185,6 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         updateAvatar: {
-          error: actions.payload,
-          loading: false,
-        },
-      };
-    case types.UPDATE_PARENT_AVATAR_STICKER:
-      return {
-        ...state,
-        updateAvatarSticker: {
-          loading: true,
-          error: {},
-        },
-      };
-    case types.UPDATE_PARENT_AVATAR_STICKER_SUCCEED:
-      return {
-        ...state,
-        profile: {
-          ...state.profile,
-          data: {
-            ...state.profile.data,
-            avatar: actions.payload.url,
-          },
-        },
-        updateAvatarSticker: {
-          ...state.updateAvatarSticker,
-          loading: false,
-        },
-      };
-    case types.UPDATE_PARENT_AVATAR_STICKER_FAIL:
-      return {
-        ...state,
-        updateAvatarSticker: {
           error: actions.payload,
           loading: false,
         },
