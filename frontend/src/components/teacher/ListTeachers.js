@@ -73,15 +73,8 @@ const ListTeachers = ({ data, dataTeachers, handleClick }) => {
                   description={item.pickup_line}
                   skills={item.skills}
                   pricings={item.pricings}
-                  teachingDistance={item.teaching_distance}
                   // For Rating && Lesson Types
                   rating={item.rating}
-                  teachingType={item.teaching_type || {}}
-                  teachingDiscount={
-                    item.teaching_trial_discount
-                      ? item.teaching_trial_discount.data
-                      : null
-                  }
                 />
               </article>
             ))}

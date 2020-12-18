@@ -12,9 +12,6 @@ function CardTeacher({
   skills,
   pricings,
   onClick,
-  teachingDistance,
-  teachingType,
-  teachingDiscount,
   rating,
 }) {
   const storeInstruments = useSelector(
@@ -23,25 +20,23 @@ function CardTeacher({
 
   const optionInstruments = storeInstruments
     ? storeInstruments.map((item, index) => {
-        return {
-          value: item.name,
-          label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-        };
-      })
+      return {
+        value: item.name,
+        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
+      };
+    })
     : [];
 
   const convertedInstruments = optionInstruments
     ? optionInstruments.reduce(
-        (options, item) => ({ ...options, [item.value]: item.label }),
-        {}
-      )
+      (options, item) => ({ ...options, [item.value]: item.label }),
+      {}
+    )
     : [];
 
   const [tooltipOnLineOpen, setTooltipOnLineOpen] = useState(false);
-  const [tooltipInPersonOpen, setTooltipInPersonOpen] = useState(false);
 
   const toggleOnLIne = () => setTooltipOnLineOpen(!tooltipOnLineOpen);
-  const toggleInPerson = () => setTooltipInPersonOpen(!tooltipInPersonOpen);
 
   return (
     <div onClick={onClick} className="card__teacher">
@@ -92,48 +87,23 @@ function CardTeacher({
             <div className="card__teacher__inner__footer__lessons">
               <p className="text--small">Available for</p>
               <div className="tooltip__group">
-                {teachingType.data && teachingType.data.includes("online") && (
-                  <div className="tooltip__item" id={`TooltipOnline-${id}`}>
-                    <span href="#" className="icon-camera primary"></span>
-                    <Tooltip
-                      placement="top"
-                      isOpen={tooltipOnLineOpen}
-                      target={`TooltipOnline-${id}`}
-                      toggle={toggleOnLIne}
-                      className="tooltip__text"
-                    >
-                      This teacher is offering online lessons
+                <div className="tooltip__item" id={`TooltipOnline-${id}`}>
+                  <span href="#" className="icon-camera primary"></span>
+                  <Tooltip
+                    placement="top"
+                    isOpen={tooltipOnLineOpen}
+                    target={`TooltipOnline-${id}`}
+                    toggle={toggleOnLIne}
+                    className="tooltip__text"
+                  >
+                    This teacher is offering online lessons
                     </Tooltip>
-                  </div>
-                )}
-                {teachingType.data && teachingType.data.includes("in-person") && (
-                  <div className="tooltip__item" id={`TooltipInPerson-${id}`}>
-                    <span href="#" className="icon-car primary"></span>
-                    <Tooltip
-                      placement="top"
-                      isOpen={tooltipInPersonOpen}
-                      target={`TooltipInPerson-${id}`}
-                      toggle={toggleInPerson}
-                      className="tooltip__text"
-                    >
-                      The teacher is traveling to your home (
-                      <b>
-                        {teachingDistance === null
-                          ? "Up to 5miles"
-                          : `${teachingDistance.formatted_data}`}
-                      </b>{" "}
-                      around this location)
-                    </Tooltip>
-                  </div>
-                )}
+                </div>
               </div>
             </div>
             <div className="card__teacher__inner__footer__money">
               <p className="text--small">Starting at</p>
               <h4 className="h4 primary">{formatRate(pricings)}</h4>
-              {!!teachingDiscount && teachingDiscount !== "0" && (
-                <p className="text--xsmall green">Discount available</p>
-              )}
             </div>
           </div>
         </div>

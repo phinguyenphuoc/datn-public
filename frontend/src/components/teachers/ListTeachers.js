@@ -5,7 +5,6 @@ import classNames from "classnames";
 import { Loading, CardTeacher } from "../common";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 import { getInstruments } from "../../redux/actions/instruments";
-// import ReactGA from "react-ga";
 
 const ListTeachers = ({
   handleToggleModalJoin,
@@ -123,15 +122,8 @@ const ListTeachers = ({
                   description={item.pickup_line} d
                   skills={item.skills}
                   pricings={item.pricings}
-                  teachingDistance={item.teaching_distance}
                   // For Rating && Lesson Types
                   rating={item.rating}
-                  teachingType={item.teaching_type || {}}
-                  teachingDiscount={
-                    item.teaching_trial_discount
-                      ? item.teaching_trial_discount.data
-                      : null
-                  }
                 />
               ))}
             </div>
