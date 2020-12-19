@@ -65,8 +65,10 @@ const getNext48HoursLessonUpcoming = (dateString) => {
       FROM public.schedule as s
       INNER JOIN public.lesson as l ON l.id = s.lesson_id
       INNER JOIN public.profile as p ON p.id = l.teacher_id
-      WHERE s.lesson_date >= $1 ORDER BY s.lesson_date ASC LIMIT 10`,
-      [dateString],
+      WHERE 
+      s.lesson_date >= (SELECT NOW()) AND
+      s.lesson_date <= (SELECT NOW() + '1 hour'::interval)
+      ORDER BY s.lesson_date ASC LIMIT 10`,
       (err, result) => {
         if (err) {
           reject(err)
@@ -78,12 +80,12 @@ const getNext48HoursLessonUpcoming = (dateString) => {
   })
 }
 
-const getValidDuration = (start_hour, date) => {
-  console.log(moment(`${date} ${start_hour}`, 'YYYY-MM-DD HH:mm'), start_hour, date)
-  const diffTime = moment.duration(moment(`${date} ${start_hour}`, 'YYYY-MM-DD HH:mm').diff(moment())).asMinutes()
-  console.log("diffTime", diffTime)
-  return diffTime < 30
-}
+// const getValidDuration = (start_hour, date) => {
+//   console.log(moment(`${date} ${start_hour}`, 'YYYY-MM-DD HH:mm'), start_hour, date)
+//   const diffTime = moment.duration(moment(`${date} ${start_hour}`, 'YYYY-MM-DD HH:mm').diff(moment())).asMinutes()
+//   console.log("diffTime", diffTime)
+//   return diffTime < 300000
+// }
 
 const updateLessonRoomId = (schedule_id, roomId) => {
   return new Promise((resolve, reject) => {
@@ -106,7 +108,7 @@ const updateLessonRoomId = (schedule_id, roomId) => {
 const jobGenerateClassRoom = () => {
   shouldStart = false;
   const crawl = new CronJob(
-    '0 0 */1 * * *',
+    '*/10 * * * * *',
     async function () {
       console.log('You will see this message every hour - generate class room', new Date());
       // if (0) {
@@ -119,13 +121,13 @@ const jobGenerateClassRoom = () => {
       const dateString = `${year}-${month}-${date}`;
       const classRoom = await getNext48HoursLessonUpcoming(dateString)
 
-      const validRooms = classRoom.filter(item => {
-        return getValidDuration(item.start_hour, item.lesson_date)
-      })
-      console.log("validRooms", validRooms)
+      // const validRooms = classRoom.filter(item => {
+      //   return getValidDuration(item.start_hour, item.lesson_date)
+      // })
+      // console.log("validRooms", classRoom)
 
-      for (let i = 0; i < validRooms.length; i++) {
-        const item = validRooms[i]
+      for (let i = 0; i < classRoom.length; i++) {
+        const item = classRoom[i]
         const uniqueName = `${item.first_name}_${item.last_name}_${new Date().getTime()}`
         const accessToken = getAccessToken(item.user_id);
         const roomObj = await generateRoomId(accessToken, uniqueName)

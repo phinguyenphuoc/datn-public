@@ -1,5 +1,6 @@
 const CronJob = require("cron").CronJob;
 const { query } = require("./config");
+const sendMail = require('./utils/email');
 const getS3 = require('./aws-s3')
 const s3 = getS3()
 const STEP = 100;
@@ -19,15 +20,20 @@ const getNext48HoursLessonUpcoming = () => {
       `SELECT
       s.id, 
       s.lesson_id,
+      s.lesson_date,
+      s.start_hour,
+      s.end_hour,
       (c.customer_id) as customer,
       (c.payment_source) as payment_source,
+      pro.email,
       ARRAY_AGG(p.gross_price) as prices
       FROM schedule as s
       INNER JOIN public.lesson l ON l.id = s.lesson_id 
       INNER JOIN public.customer as c ON c.profile_id = l.student_id
       INNER JOIN public.pricing as p ON p.id = l.pricing_id
+      INNER JOIN public.profile as pro ON pro.id = l.student_id
       WHERE s.lesson_date BETWEEN $1 AND $2 AND s.status = $3 
-      GROUP BY s.id, l.student_id, c.customer_id`,
+      GROUP BY s.id, l.student_id, c.customer_id, pro.email`,
       [startDateFormat, endDateFormat, "booked"],
       (err, result) => {
         if (err) {
@@ -38,6 +44,7 @@ const getNext48HoursLessonUpcoming = () => {
               schedule_id: item.id,
               lesson_id: item.lesson_id,
               customer_id: item.customer,
+              email: item.email,
               price_per_lesson: item.prices[0],
               payment_method: item.payment_source
             }
@@ -100,6 +107,11 @@ const jobChargeMoneyStudent = () => {
         const amount = item.price_per_lesson * 100;
         const payment_intent = await chargeStudent(amount, item.customer_id, item.payment_method)
         await updateSchedulePaymentIntent(scheduleId, payment_intent)
+        await sendMail(
+          item.email,
+          "Lesson tuition fee",
+          `Your upcoming lessons(at ${item.lesson_date} ${item.start_hour}-${item.end_hour}) fee has been collected, please check your dashboard for more details`
+        )
       }
     },
     null,
