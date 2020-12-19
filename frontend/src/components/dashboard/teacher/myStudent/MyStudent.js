@@ -409,8 +409,8 @@ function MyStudent({ dataStudent, dataStudentsProgressReport }) {
                         {open[`student${item.id}`] ? (
                           <ExpandLess />
                         ) : (
-                          <ExpandMore />
-                        )}
+                            <ExpandMore />
+                          )}
                       </IconButton>
                     </div>
                   </div>
@@ -454,74 +454,74 @@ function MyStudent({ dataStudent, dataStudentsProgressReport }) {
                       </div>
                       <div className="collapse__body">
                         {dataStudentsProgressReport &&
-                        dataStudentsProgressReport[item.id] &&
-                        dataStudentsProgressReport[item.id].length ? (
-                          <Table borderless>
-                            <tbody>
-                              {dataStudentsProgressReport[item.id].map(
-                                (progressReportItem, indexItem) => (
-                                  <tr key={indexItem}>
-                                    <td>
-                                      {" "}
-                                      <img src={file} alt="file" />{" "}
-                                      {moment(
-                                        progressReportItem.reported_date
-                                      ).format("MMMM, YYYY")}
-                                    </td>
-                                    <td>
-                                      {windowWidth > 450 ? (
-                                        progressReportItem.rating === 1 ? (
-                                          <img src={star} alt="star" />
+                          dataStudentsProgressReport[item.id] &&
+                          dataStudentsProgressReport[item.id].length ? (
+                            <Table borderless>
+                              <tbody>
+                                {dataStudentsProgressReport[item.id].map(
+                                  (progressReportItem, indexItem) => (
+                                    <tr key={indexItem}>
+                                      <td>
+                                        {" "}
+                                        <img src={file} alt="file" />{" "}
+                                        {moment(
+                                          progressReportItem.reported_date
+                                        ).format("MMMM, YYYY")}
+                                      </td>
+                                      <td>
+                                        {windowWidth > 450 ? (
+                                          progressReportItem.rating === 1 ? (
+                                            <img src={star} alt="star" />
+                                          ) : progressReportItem.rating === 2 ? (
+                                            <>
+                                              <img src={star} alt="star" />{" "}
+                                              <img src={star} alt="star" />{" "}
+                                            </>
+                                          ) : (
+                                                <>
+                                                  <img src={star} alt="star" />{" "}
+                                                  <img src={star} alt="star" />
+                                                  <img src={star} alt="star" />
+                                                </>
+                                              )
+                                        ) : progressReportItem.rating === 1 ? (
+                                          <span>
+                                            1<img src={star} alt="start" />
+                                          </span>
                                         ) : progressReportItem.rating === 2 ? (
-                                          <>
-                                            <img src={star} alt="star" />{" "}
-                                            <img src={star} alt="star" />{" "}
-                                          </>
+                                          <span>
+                                            2<img src={star} alt="start" />
+                                          </span>
                                         ) : (
-                                          <>
-                                            <img src={star} alt="star" />{" "}
-                                            <img src={star} alt="star" />
-                                            <img src={star} alt="star" />
-                                          </>
-                                        )
-                                      ) : progressReportItem.rating === 1 ? (
-                                        <span>
-                                          1<img src={star} alt="start" />
-                                        </span>
-                                      ) : progressReportItem.rating === 2 ? (
-                                        <span>
-                                          2<img src={star} alt="start" />
-                                        </span>
-                                      ) : (
-                                        <span>
-                                          3<img src={star} alt="start" />
-                                        </span>
-                                      )}
-                                    </td>
-                                    <td>{progressReportItem.level}</td>
-                                    <td>
-                                      <p>{progressReportItem.comment}</p>
-                                    </td>
-                                    <td>
-                                      <IconButton
-                                        className="eye"
-                                        onClick={handleClickViewProgressReport(
-                                          progressReportItem
-                                        )}
-                                      >
-                                        <VisibilityIcon />
-                                      </IconButton>
-                                    </td>
-                                  </tr>
-                                )
-                              )}
-                            </tbody>
-                          </Table>
-                        ) : (
-                          <div className="--noData">
-                            NO PROGRESS REPORTS YET
-                          </div>
-                        )}
+                                                <span>
+                                                  3<img src={star} alt="start" />
+                                                </span>
+                                              )}
+                                      </td>
+                                      <td>{progressReportItem.level}</td>
+                                      <td>
+                                        <p>{progressReportItem.comment}</p>
+                                      </td>
+                                      <td>
+                                        <IconButton
+                                          className="eye"
+                                          onClick={handleClickViewProgressReport(
+                                            progressReportItem
+                                          )}
+                                        >
+                                          <VisibilityIcon />
+                                        </IconButton>
+                                      </td>
+                                    </tr>
+                                  )
+                                )}
+                              </tbody>
+                            </Table>
+                          ) : (
+                            <div className="--noData">
+                              {/* NO PROGRESS REPORTS YET */}
+                            </div>
+                          )}
                       </div>
                     </div>
                   </Collapse>

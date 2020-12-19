@@ -186,6 +186,29 @@ const suspendLessonSchedule = (start_date, end_date, reason, lesson_id, role) =>
   })
 }
 
+const cancelAllLessonSchedule = (id, reason, role) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.schedule
+      set status = $1,
+      reason = $3,
+      cancelled_by = $4
+      WHERE lesson_id IN (SELECT lesson_id FROM public.schedule WHERE id = $2)
+      AND lesson_date > (SELECT NOW())
+      RETURNING *`,
+      ["cancelled", id, reason, role],
+      (error, results) => {
+        if (error) {
+          console.log({ error })
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
 const getUpcomingLesson = (lesson_id) => {
   return new Promise((resolve, reject) => {
     query(
@@ -208,22 +231,27 @@ const getUpcomingLesson = (lesson_id) => {
           reject(error)
         } else {
           const item = results.rows[0]
-          const responseData = {
-            date: item.date,
-            end_hour: item.end_hour,
-            id: item.id,
-            lesson: {
-              end_date: item.end_date,
-              start_date: item.start_date,
-              id: item.lesson_id,
-              instrument: instruments[item.instrument_id],
-            },
-            start_hour: item.start_hour,
-            type: item.status,
-            // zoom_meeting: "123",
-            room_id: item.room_id
+          if (item) {
+            const responseData = {
+              date: item.date,
+              end_hour: item.end_hour,
+              id: item.id,
+              lesson: {
+                end_date: item.end_date,
+                start_date: item.start_date,
+                id: item.lesson_id,
+                instrument: instruments[item.instrument_id],
+              },
+              start_hour: item.start_hour,
+              type: item.status,
+              // zoom_meeting: "123",
+              room_id: item.room_id
+            }
+            resolve(responseData)
+          } else {
+            resolve({})
           }
-          resolve(responseData)
+
         }
       }
     )
@@ -454,5 +482,6 @@ module.exports = {
   getMeetingRoomStudentInfo,
   getMeetingRoomTeacherInfo,
   getTeacherEmailByScheduleId,
-  getStudentEmailByScheduleId
+  getStudentEmailByScheduleId,
+  cancelAllLessonSchedule
 }

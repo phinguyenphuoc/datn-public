@@ -227,7 +227,7 @@ function BookALesson(props) {
     );
 
     dataSchedulesFiltered = storeSchedules.data.filter((item) =>
-      item.date === dateScheduleSelectedFormat && item.type === "booked"// && item.lesson.student
+      item.date === dateScheduleSelectedFormat && item.type !== "cancelled"
     );
   }
 
@@ -241,7 +241,7 @@ function BookALesson(props) {
     );
 
     dataSchedulesFiltered2 = storeSchedules2.data.filter((item) =>
-      item.date === dateScheduleSelectedFormat && item.type === "booked"// && item.lesson.student
+      item.date === dateScheduleSelectedFormat && item.type !== "cancelled"
     );
   }
 

@@ -115,35 +115,10 @@ function HomeTeacher(props) {
     setopenModalReportAProblem(!openModalReportAProblem);
   };
 
-  // const auth = getAuth();
-
-  // React.useEffect(() => {
-  //   if (
-  //     auth.user_password_updated === false ||
-  //     auth.user_payment_updated === false ||
-  //     auth.user_profil_published === false
-  //   ) {
-  //     setOpenModalPasswordUpdated(true);
-  //   }
-  // }, [auth]);
-
-  // const history = useHistory();
-  // const handleSubmitPassWordUpdated = () => {
-  //   let path = "/dashboard/teacher/profile/homemuse-profile";
-  //   if (auth.user_payment_updated === false) {
-  //     path = "/dashboard/teacher/profile/payment-methods";
-  //   }
-  //   if (auth.user_password_updated === false) {
-  //     path = "/dashboard/teacher/profile/password";
-  //   }
-  //   history.push(path);
-  // };
-
   const problems = [
     "We agreed to reschedule",
     "We had technical problems",
     "Student was absent",
-    "Student didn’t confirm this lesson",
     "Other problem",
   ];
 
@@ -246,63 +221,6 @@ function HomeTeacher(props) {
         data={selectedItem}
         handleSubmit={handleSubmitReport}
       />
-      {/* <ModalPasswordUpdated
-        isOpen={openModalPasswordUpdated}
-        onSubmit={handleSubmitPassWordUpdated}
-        content={
-          <div className="content">
-            {auth.user_password_updated === false && (
-              <div className="content__item">
-                <img src={star} alt="star" />
-                <div>
-                  <p>
-                    For security reasons, please make sure to update your
-                    password.
-                  </p>
-                  <p>
-                    <Link to="/dashboard/teacher/profile/password">
-                      Go to Profile &gt; Password.
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            )}
-            {auth.user_payment_updated === false && (
-              <div className="content__item">
-                <img src={star} alt="star" />
-                <div>
-                  <p>
-                    Add a payment method to your account to make sure you get
-                    paid on time.
-                  </p>
-                  <p>
-                    <Link to="/dashboard/teacher/profile/payment-methods">
-                      Go to Profile &gt; Payment methods and follow the
-                      instructions.
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            )}
-            {auth.user_profil_published === false && (
-              <div className="content__item">
-                <img src={star} alt="star" />
-                <div>
-                  <p>
-                    Set up your profile now and get listed on our
-                    website right away!
-                  </p>
-                  <p>
-                    <Link to="/dashboard/teacher/profile/homemuse-profile">
-                      Go to Profile &gt; profile.
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        }
-      /> */}
     </>
   );
 }

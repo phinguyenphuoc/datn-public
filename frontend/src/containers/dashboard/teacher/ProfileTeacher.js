@@ -70,7 +70,7 @@ function ProfileTeacher(props) {
         <Route path="/dashboard/teacher/profile/password" exact>
           <Password handleSubmit={handleUpdatePassword} err={updatePassErr} />
         </Route>
-        <Route path="/dashboard/teacher/profile/homemuse-profile" exact>
+        <Route path="/dashboard/teacher/profile/teacher-profile" exact>
           <HomemuseProfile
             handleSubmit={handleUpdateProfile}
           />

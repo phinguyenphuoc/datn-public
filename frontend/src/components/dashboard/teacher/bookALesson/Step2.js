@@ -582,13 +582,13 @@ function Step2({
             <div className="button-next">
               <p>
                 <span>NOTE:</span> The lesson is set automatically to
-              repeat every week at the same day and time. For a{" "}
+              repeat every week at the same day and time
               </p>
               {(error !== "" ||
                 errorTime !== "" ||
                 errorDate !== "") && (
                   <StyledErrorPanel>
-                    {[error, errorTime, errorDate, errorTrial].map(
+                    {[error, errorTime, errorDate].map(
                       (errorInfo, index) => {
                         return errorInfo !== "" ? (
                           <div key={index}>

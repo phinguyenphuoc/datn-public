@@ -70,11 +70,26 @@ const getListStudentOfTeacher = (teacher_profile_id) => {
 }
 
 const getLessonOfPairStudentAndTeacher = (teacher_profile_id, student_profile_id) => {
-  console.log({ teacher_profile_id, student_profile_id })
   return new Promise((resolve, reject) => {
     query(
       `SELECT * FROM public.lesson WHERE student_id = $1 AND teacher_id = $2`,
       [student_profile_id, teacher_profile_id],
+      (error, results) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(results.rows[0])
+        }
+      }
+    )
+  })
+}
+
+const cancelClass = (id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.lesson SET status = 'cancelled' WHERE id = $1 RETURNING *`,
+      [id],
       (error, results) => {
         if (error) {
           reject(error)
@@ -91,5 +106,6 @@ module.exports = {
   getActiveTeacherLesson,
   getActiveStudentLesson,
   getListStudentOfTeacher,
-  getLessonOfPairStudentAndTeacher
+  getLessonOfPairStudentAndTeacher,
+  cancelClass
 }

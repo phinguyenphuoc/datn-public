@@ -187,7 +187,7 @@ function DashboardProfileTeacherLayout({ userInfo, children }) {
                 <NavLink
                   className="menu__userInfo"
                   activeClassName="--active"
-                  to="/dashboard/teacher/profile/homemuse-profile"
+                  to="/dashboard/teacher/profile/teacher-profile"
                   exact
                 >
                   <p>Teacher profile</p>

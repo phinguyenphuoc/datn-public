@@ -8,13 +8,15 @@ const {
   getScheduleDateForParticularDateOfTeacher,
   rescheduleLessonSchedule,
   getStudentEmailByScheduleId,
-  getTeacherEmailByScheduleId
+  getTeacherEmailByScheduleId,
+  cancelAllLessonSchedule
 } = require('../access/schedule')
 const { getProfileByUserId } = require('../access/common');
 const {
   getActiveStudentLesson,
   getActiveTeacherLesson,
-  getLessonOfPairStudentAndTeacher
+  getLessonOfPairStudentAndTeacher,
+  cancelClass
 } = require('../access/lesson')
 
 const sendMail = require('../utils/email');
@@ -121,7 +123,19 @@ const cancelLessonAPI = async (req, res) => {
         sendMail(
           studentEmail,
           'Cancel Lesson',
-          `Lesson with Student ${profile.first_name} ${profile.last_name} at ${moment(schedule.lesson_date).format('YYYY-MM-DD')} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
+          `Lesson with Teacher ${profile.first_name} ${profile.last_name} at ${moment(schedule.lesson_date).format('YYYY-MM-DD')} ${schedule.start_hour}-${schedule.end_hour} has been cancelled`
+        )
+        res.send({
+          status: "OK"
+        })
+      } else {
+        const schedule = await cancelAllLessonSchedule(id, message, role)
+        await cancelClass(schedule.lesson_id)
+        const studentEmail = await getStudentEmailByScheduleId(schedule.id)
+        sendMail(
+          studentEmail,
+          'Cancel Class',
+          `Class with Teacher ${profile.first_name} ${profile.last_name} has been cancelled by your teacher with reason ${message}`
         )
         res.send({
           status: "OK"
