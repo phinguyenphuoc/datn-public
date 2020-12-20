@@ -34,10 +34,10 @@ const getMonthEarningForTeacher = (startDate, endDate) => {
       INNER JOIN public.instrument as i ON i.id = l.instrument_id
       WHERE ($1 >= l.start_date OR l.end_date >= $2)  
       AND s.lesson_date BETWEEN  $2 and $1
-      AND l.status = $3 AND s.status = $4
+      AND l.status = $3 AND s.status != 'cancelled'
       GROUP BY c.customer_id, l.id, p.id, i.id) as t
       GROUP BY t.customer_id`,
-      [endDate, startDate, "active", "booked"],
+      [endDate, startDate, "active"],
       (err, result) => {
         if (err) {
           reject(err)
@@ -162,7 +162,7 @@ const jobPayoutMoneyToTeacher = () => {
               instrument: item.instruments[index].toUpperCase(),
               studentFullName: item.full_names[index],
               pricePerLesson: priceObj[`${item.prices_ids[index]}`],
-              amount: item.ids.length,
+              amount: item.total_lessons[index],
               totalAmount,
             })
           })
