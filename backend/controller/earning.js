@@ -6,11 +6,10 @@ const moment = require('moment')
 const getRecentEarningAPI = async (req, res) => {
   const { sub } = req.body
   const profile = await getProfileByUserId(sub)
-  const start_date = moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD')
-  const end_date = moment().subtract(1, 'months').endOf('month').format('YYYY-MM-DD')
-  const payment_date = moment().endOf('month').format('YYYY-MM-DD')
+  const start_date = moment().startOf('month').format('YYYY-MM-DD')
+  const end_date = moment().endOf('month').format('YYYY-MM-DD')
+  const payment_date = moment().add(1, 'month').startOf('month').format('YYYY-MM-DD')
   const earning = await getRecentEarning(profile.id, start_date, end_date)
-  console.log(earning)
   let responseData = {
     start_date,
     end_date,
@@ -23,8 +22,8 @@ const getRecentEarningAPI = async (req, res) => {
       start_date,
       end_date,
       payment_date,
-      lessons_given: earning.total_lesson.length,
-      turnover: earning.amount
+      lessons_given: earning.total_lesson,
+      turnover: (earning.total_lesson * earning.gross_price) || '0'
     }
   }
 

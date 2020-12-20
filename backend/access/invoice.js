@@ -38,8 +38,15 @@ const getTeacherEarning = (teacher_id, date) => {
 const getRecentEarning = (teacher_id, start_date, end_date) => {
   return new Promise((resolve, reject) => {
     query(
-      `SELECT * FROM public.invoices
-      WHERE profile_id = $1 AND start_date = $2 and end_date = $3`,
+      `SELECT 
+      l.pricing_id,
+      array_length(ARRAY_AGG(s.id), 1) as total_lesson,
+      pr.gross_price
+      FROM public.lesson as l
+      INNER JOIN public.schedule as s ON s.lesson_id = l.id
+      INNER JOIN public.pricing as pr ON pr.id = l.pricing_id
+      WHERE l.teacher_id = $1 AND s.lesson_date BETWEEN $2 AND $3 AND s.status != 'cancelled'
+      GROUP BY l.pricing_id, pr.gross_price`,
       [teacher_id, start_date, end_date],
       (error, results) => {
         if (error) {
