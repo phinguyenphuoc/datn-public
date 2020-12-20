@@ -85,9 +85,6 @@ const StyledPaymentMethods = styled.section`
 `;
 
 function PaymentMethods() {
-  const auth = getAuth();
-  const isUpdatedPayment = auth.user_payment_updated;
-  const storeTeacher = useSelector((store) => store.teacher.profile.data);
   const storeTeacherStripe = useSelector((store) => store.teacher.stripe);
 
   React.useEffect(() => {
@@ -97,22 +94,6 @@ function PaymentMethods() {
 
   let stripeLink = storeTeacherStripe.link;
 
-  if (!isUpdatedPayment && storeTeacher && Object.keys(storeTeacher).length) {
-    if (storeTeacher.email) {
-      stripeLink += `&stripe_user[email]=${storeTeacher.email}`;
-    }
-    if (storeTeacher.phone) {
-      stripeLink += `&stripe_user[phone_number]=${storeTeacher.phone}`;
-    }
-    if (storeTeacher.first_name) {
-      stripeLink += `&stripe_user[first_name]=${storeTeacher.first_name}`;
-    }
-    if (storeTeacher.last_name) {
-      stripeLink += `&stripe_user[last_name]=${storeTeacher.last_name}`;
-    }
-  }
-
-  console.log(stripeLink)
   return (
     <StyledPaymentMethods>
       {storeTeacherStripe.loading ? (
@@ -120,25 +101,16 @@ function PaymentMethods() {
       ) : (
           <Form className="form-info">
             <div className="stripe">
-              {isUpdatedPayment ? (
-                <p>
-                  We use Stripe to make sure you get paid on time and to keep your
+              <p>
+                We use Stripe to make sure you get paid on time and to keep your
                 personal bank and details secure. Click{" "}
-                  <span className="fw-500">access my account</span> to manage your
-                payment methods on Stripe.
-                </p>
-              ) : (
-                  <p>
-                    We use Stripe to make sure you get paid on time and to keep your
-                personal bank and details secure. Click{" "}
-                    <span className="fw-500">continue</span> to set up your payments
+                <span className="fw-500">continue</span> to set up your payments
                 on Stripe.
-                  </p>
-                )}
+              </p>
               <img src={stripe} alt="stripe" />
             </div>
             <a className="find" href={stripeLink} target="_blank">
-              {isUpdatedPayment ? "Access my account" : "Continue"}
+              Access my account
             </a>
           </Form>
         )}

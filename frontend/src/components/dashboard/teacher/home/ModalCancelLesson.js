@@ -777,7 +777,7 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleCancel, handleSus
                           format="DD/MM/YYYY"
                           value={selectedDateFrom}
                           onChange={handleDateChangeFrom}
-                          minDate={new Date()}
+                          minDate={moment().add(2, "day")}
                           maxDate={moment(new Date()).add(1, "years")}
                           KeyboardButtonProps={{
                             "aria-label": "change date",
