@@ -1,20 +1,16 @@
 import React from "react";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
-import { SingleSelect, SelectInstruments } from "../common";
-import { CITIES, LESSONTYPES } from "../../utils/constants";
+import { SelectInstruments } from "../common";
 import { setSizeTeachersFilter } from "../../redux/actions/global";
 import { updateFilter } from "../../redux/actions/teachers";
 
 function Form({
   onChangeInstruments,
   onSubmit,
-  onChangeLocation,
-  onChangeLessonType,
   openInstruments,
   toggleInstruments,
   onResetInstruments,
-  isLocationDisplayed,
   isDisplayFilter,
   handleClickClose,
   clickApplyFilter,
@@ -77,21 +73,6 @@ function Form({
     return () => window.removeEventListener("scroll", stickyHeader);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleClickTypeAny = (e) => {
-    e.preventDefault();
-    setLessonTypeOnMobile({ value: "", label: "-- Any --" });
-  };
-
-  const handleClickTypeOnline = (e) => {
-    e.preventDefault();
-    setLessonTypeOnMobile({ value: "online", label: "Online lesson" });
-  };
-
-  const handleClickTypeAthome = (e) => {
-    e.preventDefault();
-    setLessonTypeOnMobile({ value: "in-person", label: "At home lesson" });
-  };
 
   React.useEffect(() => {
     if (lessonTypeOnMobile) {
@@ -156,62 +137,6 @@ function Form({
                   />
                 </div>
               </div>
-              <div className="fillter-lessontype">
-                <p>Lesson type</p>
-                <div>
-                  <button
-                    className={classNames(
-                      "button button--primary-light-color",
-                      {
-                        "-isClickLessonType":
-                          filter.lessonType && filter.lessonType.value === "",
-                      }
-                    )}
-                    onClick={handleClickTypeAny}
-                  >
-                    Any
-                  </button>
-                  <button
-                    className={classNames(
-                      "button button--primary-light-color",
-                      {
-                        "-isClickLessonType":
-                          filter.lessonType &&
-                          filter.lessonType.value === "online",
-                      }
-                    )}
-                    onClick={handleClickTypeOnline}
-                  >
-                    Online lesson
-                  </button>
-                  <button
-                    className={classNames(
-                      "button button--primary-light-color",
-                      {
-                        "-isClickLessonType":
-                          filter.lessonType &&
-                          filter.lessonType.value === "in-person",
-                      }
-                    )}
-                    onClick={handleClickTypeAthome}
-                  >
-                    At-home lesson
-                  </button>
-                </div>
-              </div>
-              {isLocationDisplayed && (
-                <div className="fillter-location">
-                  <p>Location</p>
-                  <SingleSelect
-                    name="location-small-screen"
-                    placeholder="Select location(s)"
-                    onChange={onChangeLocation}
-                    value={storeTeachers.filter.location}
-                    options={CITIES}
-                    isDisabled={storeTeachers.loading}
-                  />
-                </div>
-              )}
             </div>
             <div className="button__apply-filter">
               <button

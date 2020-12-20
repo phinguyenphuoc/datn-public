@@ -349,9 +349,7 @@ function BookALesson(props) {
   )} - ${timeEnd}`;
 
   const handleNextBooking = () => {
-    setStep(1);
-    setOpenModalMessageBookLesson(!openModalMessageBookLesson);
-    // getBookingStudent(booking_hash_id);
+    history.push("/dashboard/teacher");
   };
 
   const handleToggleMessage = () => {

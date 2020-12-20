@@ -355,16 +355,16 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleSubmit }) => {
   const [errorDate, setErrorDate] = React.useState("");
 
   const [selectedDateFrom, setSelectedDateFrom] = React.useState(
-    moment(data.date)
+    moment().add(3, "days")
   );
-  const [selectedDateTo, setSelectedDateTo] = React.useState(moment(data.date));
+  const [selectedDateTo, setSelectedDateTo] = React.useState(moment().add(3, "days"));
 
-  React.useEffect(() => {
-    if (data.date) {
-      setSelectedDateFrom(moment(data.date));
-      setSelectedDateTo(moment(data.date));
-    }
-  }, [data.date]);
+  // React.useEffect(() => {
+  //   if (data.date) {
+  //     setSelectedDateFrom(moment(data.date));
+  //     setSelectedDateTo(moment(data.date));
+  //   }
+  // }, [data.date]);
 
   React.useEffect(() => {
     if (moment(selectedDateFrom).isAfter(moment(selectedDateTo))) {
@@ -546,8 +546,8 @@ const ModalCancelLesson = ({ isOpen, handleToggle, data, handleSubmit }) => {
                           format="DD/MM/YYYY"
                           value={selectedDateFrom}
                           onChange={handleDateChangeFrom}
-                          minDate={moment(new Date()).add(3, "days")}
-                          maxDate={moment(new Date()).add(1, "years")}
+                          minDate={moment().add(3, "days")}
+                          maxDate={moment().add(1, "years")}
                           KeyboardButtonProps={{
                             "aria-label": "change date",
                           }}
