@@ -51,8 +51,8 @@ const genInvoicePDF = async (pdfObjData, startDate, endDate, uniqTag) => {
 
   doc.text('Instrument', x1, yStart - 50)
   doc.text('Student', x2, yStart - 50)
-  doc.text('Price/lesson', x3, yStart - 50)
-  doc.text('Amount', x4, yStart - 50)
+  doc.text('Amount', x3, yStart - 50)
+  doc.text('Price/lesson', x4, yStart - 50)
   doc.text('Total', x5, yStart - 50)
 
 
