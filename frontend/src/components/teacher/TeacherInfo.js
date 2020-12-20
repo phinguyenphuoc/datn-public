@@ -25,8 +25,8 @@ function TeacherInfo({ data, isLoadingTeacher, handleClickButtonContact }) {
 
   // show English as default
   const dataLanguages =
-    data.teaching_language && data.teaching_language.data
-      ? data.teaching_language.data
+    data.languages
+      ? data.languages
       : ["English"];
 
   return (

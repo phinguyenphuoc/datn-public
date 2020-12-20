@@ -4,7 +4,6 @@ const { getProfileByUserId, updateGeneralInfo, updateGeneralTeacherInfo, getAllI
 const { createLesson, getActiveTeacherLesson, getListStudentOfTeacher } = require('../access/lesson');
 const { createScheduleForLesson } = require('../access/schedule');
 const { insertOrUpdatePricing } = require('../access/pricing');
-// const { insertOrUpdateSkill } = require('../access/skill');
 const { handleUpdateProfileAvatar } = require('../access/media');
 const { getCustomerPayment } = require('../access/customer');
 
@@ -47,22 +46,6 @@ const listTeacherAPI = async (req, res) => {
     })
     .catch(err => console.log(err))
 
-  // medias.forEach(media => {
-  //   const item = profiles.find(profile => profile.id === media.profile_id)
-  //   if (item) {
-  //     const arrMedias = []
-  //     media.types.forEach((type, index) => {
-  //       arrMedias.push({
-  //         details: null,
-  //         name: "abc.jpg",
-  //         tag: media.tags[index],
-  //         type,
-  //         url: media.urls[index]
-  //       })
-  //     })
-  //     item.medias = arrMedias
-  //   }
-  // })
   pricing.forEach(price => {
     const item = profiles.find(profile => profile.id === price.profile_id)
     if (item) {
@@ -71,7 +54,8 @@ const listTeacherAPI = async (req, res) => {
         arrPricing.push({
           gross_price,
           duration: price.durations[index],
-          id: price.ids[index]
+          id: price.ids[index],
+          enabled: price.enabled[index]
         })
       })
       item.pricings = arrPricing
@@ -297,11 +281,14 @@ const updateTeacherGeneralInfoAPI = async (req, res) => {
     if (phone && address) {
       await updateGeneralInfo(teacher_profile_id, phone, address)
     } else {
-      const { about, background, experience, pickup_line, medias, pricings, skills } = profile
+      const { about, background, experience, pickup_line, medias, pricings, languages } = profile
       const image = medias[0].data
-      await updateGeneralTeacherInfo({ about, background, experience, pickup_line, id: teacher_profile_id })
+      await updateGeneralTeacherInfo({ about, background, experience, pickup_line, id: teacher_profile_id, languages })
       const imageUrl = await uploadImageS3(image)
-      await Promise.all([handleUpdateProfileAvatar(teacher_profile_id, imageUrl), insertOrUpdatePricing(pricings, teacher_profile_id)])
+      await Promise.all([
+        handleUpdateProfileAvatar(teacher_profile_id, imageUrl),
+        insertOrUpdatePricing(pricings, teacher_profile_id)
+      ])
     }
     // get new profile
     const newProfile = await getTeacherProfile(req.body)

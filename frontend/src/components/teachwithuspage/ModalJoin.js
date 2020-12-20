@@ -103,19 +103,12 @@ const ModalJoin = ({ isOpen, handleToggle, handleSubmit }) => {
     if (isEmpty(form.address1)) {
       errorState.address1 = "Address 1 is required ";
     }
-    // if (isEmpty(form.address2)) {
-    //   errorState.address2 = "Address 2 is required ";
-    // }
     if (isEmpty(form.zip)) {
       errorState.zip = "Zip is required ";
     }
     if (isEmpty(form.phoneNumber)) {
       errorState.phoneNumber = "Phone number is required ";
     }
-    if (!form.instruments || form.instruments.length === 0) {
-      errorState.instruments = "At least one instrument is required ";
-    }
-
     return errorState;
   };
 

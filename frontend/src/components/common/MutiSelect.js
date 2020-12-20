@@ -133,7 +133,7 @@ function MutiSelect(props) {
       components={animatedComponents}
       className="react-select-container"
       classNamePrefix="react-select"
-      noOptionsMessage={() => <h3>Instrument not available</h3>}
+      noOptionsMessage={() => <h3>No options</h3>}
       {...props}
     />
   );

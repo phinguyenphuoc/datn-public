@@ -12,7 +12,6 @@ import addfile from "../../../../assets/images/add-file.svg";
 import Slider from "@material-ui/core/Slider";
 import avatar from "../../../../assets/images/avatar-picture.svg";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-import zoom from "../../../../assets/images/zoom.svg";
 import { OPTIONS_LANGUAGES } from "../../../../utils/constants";
 
 const StyledHomemuseProfile = styled.section`
@@ -399,46 +398,21 @@ function HomemuseProfile({
   const [form, setForm] = React.useState({
     pickUpLine: "",
     about: "",
-    instruments: [],
     languages: [{ value: "English", label: "English" }],
     visible_30: false,
     visible_45: false,
     visible_60: false,
-    trialLesson: false,
     pricePer30: "",
     pricePer45: "",
     pricePer60: "",
-    distance: "",
     background1: "",
     background2: "",
     background3: "",
     experience1: "",
     experience2: "",
     experience3: "",
-    teaching_experience: "",
-    teachingTrialDiscount: 0,
-    in_person: false,
-    online: false,
     image: storeTeacherProfile.data.avatar || avatar
   });
-
-  const storeInstruments = useSelector(
-    (store) => store.instruments.data.instruments
-  );
-
-  const optionInstruments = storeInstruments
-    ? storeInstruments.map((item, index) => {
-      return {
-        value: item.name,
-        label: item.name.charAt(0).toUpperCase() + item.name.slice(1),
-      };
-    })
-    : [];
-
-  const isConferencingTools =
-    storeTeacherProfile.data &&
-    storeTeacherProfile.data.conferencing_tools &&
-    storeTeacherProfile.data.conferencing_tools.includes("zoom");
 
   React.useEffect(() => {
     let visible_30 = false;
@@ -472,38 +446,13 @@ function HomemuseProfile({
         storeTeacherProfile.data.experience.length >= 3
         ? storeTeacherProfile.data.experience
         : ["", "", ""];
-    const in_person =
-      storeTeacherProfile.data.teaching_type &&
-        storeTeacherProfile.data.teaching_type.data &&
-        storeTeacherProfile.data.teaching_type.data.length &&
-        storeTeacherProfile.data.teaching_type.data.includes("in-person")
-        ? true
-        : false;
-    const online =
-      storeTeacherProfile.data.teaching_type &&
-        storeTeacherProfile.data.teaching_type.data &&
-        storeTeacherProfile.data.teaching_type.data.length &&
-        storeTeacherProfile.data.teaching_type.data.includes("online")
-        ? true
-        : false;
     setForm({
       ...form,
       pickUpLine: storeTeacherProfile.data.pickup_line || "",
       about: storeTeacherProfile.data.about || "",
-      trialLesson:
-        storeTeacherProfile.data.teaching_trial_discount &&
-          storeTeacherProfile.data.teaching_trial_discount.data === "50"
-          ? true
-          : false,
-      instruments:
-        storeTeacherProfile.data.skills.map((item) => ({
-          label: item.instrument,
-          value: item.instrument,
-        })) || [],
       languages:
-        storeTeacherProfile.data.teaching_language &&
-          storeTeacherProfile.data.teaching_language.data
-          ? storeTeacherProfile.data.teaching_language.data.map((item) => ({
+        storeTeacherProfile.data.languages
+          ? storeTeacherProfile.data.languages.map((item) => ({
             label: item,
             value: item,
           }))
@@ -530,8 +479,6 @@ function HomemuseProfile({
           storeTeacherProfile.data.teaching_experience.data
           ? storeTeacherProfile.data.teaching_experience.data
           : "",
-      in_person,
-      online,
       image: storeTeacherProfile.data.avatar || form.image
     });
     setScale(1);
@@ -550,33 +497,6 @@ function HomemuseProfile({
     }
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
-    }
-    const instruments = form.instruments.map((item) => item.value);
-    let instrumentsRemoved = [];
-    storeTeacherProfile.data.skills.forEach((item) => {
-      if (!instruments.includes(item.instrument)) {
-        return instrumentsRemoved.push({ id: item.id, _destroy: "1" });
-      }
-    });
-    const languages = form.languages.map((item) => item.value);
-    let languagesRemoved = [];
-    if (
-      storeTeacherProfile.data.teaching_language &&
-      storeTeacherProfile.data.teaching_language.data
-    ) {
-      storeTeacherProfile.data.teaching_language.data.forEach((item) => {
-        if (!languages.includes(item)) {
-          return languagesRemoved.push({ id: item.id, _destroy: "1" });
-        }
-      });
-    }
-    let teaching_type = [];
-    if (form.in_person === true && form.online === true) {
-      teaching_type = ["in-person", "online"];
-    } else if (form.in_person === true) {
-      teaching_type = ["in-person"];
-    } else if (form.online === true) {
-      teaching_type = ["online"];
     }
     const pricings = [
       {
@@ -602,19 +522,8 @@ function HomemuseProfile({
         about: form.about,
         background: [form.background1, form.background2, form.background3],
         experience: [form.experience1, form.experience2, form.experience3],
-        teaching_distance: form.distance,
-        teaching_experience: form.teaching_experience,
-        teaching_type,
-        teaching_trial_discount: form.trialLesson ? 50 : 0,
-        skills: [
-          ...form.instruments.map((item) => ({
-            instrument: item.value,
-          })),
-          ...instrumentsRemoved,
-        ],
-        teaching_language: [
+        languages: [
           ...form.languages.map((item) => item.value),
-          ...instrumentsRemoved,
         ],
         pricings: pricings.filter((pricing) => pricing.net_price !== ""),
         medias: [
@@ -669,9 +578,6 @@ function HomemuseProfile({
     ) {
       errorState.experience = "Please fill out all Experience fields";
     }
-    if (!form.instruments || form.instruments.length === 0) {
-      errorState.instruments = "At least one instrument is required ";
-    }
     return errorState;
   };
 
@@ -680,9 +586,7 @@ function HomemuseProfile({
       [
         "pricePer30",
         "pricePer45",
-        "pricePer60",
-        "distance",
-        "teaching_experience",
+        "pricePer60"
       ].includes(event.target.name)
     ) {
       event.target.value = Math.abs(event.target.value);
@@ -708,17 +612,6 @@ function HomemuseProfile({
 
   const handleStringTrim = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value.trim() });
-  };
-
-  const handleChangeInstruments = (value) => {
-    setForm({ ...form, instruments: value });
-  };
-
-  const handleFocusInstruments = () => {
-    setError({
-      ...error,
-      instruments: "",
-    });
   };
 
   const handleChangeLanguages = (value) => {
@@ -791,18 +684,11 @@ function HomemuseProfile({
         <div className="form__about-me">
           <div className="form__item instrument">
             <h3>Instruments</h3>
-            <FormGroup
-              propsInput={{
-                name: "instruments",
-                placeholder: "Instruments",
-                onChange: handleChangeInstruments,
-                onFocus: handleFocusInstruments,
-                value: form.instruments,
-                options: optionInstruments,
-              }}
-              variant="MutiSelect"
-              error={error.instruments}
-            />
+            <h3>
+              <a href="mailto:musicalelearning@gmail.com" target="_blank" rel="noopener noreferrer">
+                email us if you want to update your instrument
+              </a>
+            </h3>
           </div>
           <div className="form__item instrument">
             <h3>languages</h3>

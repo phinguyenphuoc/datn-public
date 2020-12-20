@@ -24,7 +24,7 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
   React.useEffect(() => {
     if (data.pricings && data.pricings.length) {
       const rateDurations = {};
-      const sortedPricings = data.pricings.sort((a, b) =>
+      const sortedPricings = data.pricings.filter(p => p.enabled).sort((a, b) =>
         a.duration > b.duration ? 1 : -1
       );
       sortedPricings.forEach(

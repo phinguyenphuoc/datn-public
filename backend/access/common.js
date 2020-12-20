@@ -108,16 +108,17 @@ const updateGeneralStudentInfo = (student_profile_id, phone_number, address, cit
   })
 }
 
-const updateGeneralTeacherInfo = ({ about, background, experience, pickup_line, id }) => {
+const updateGeneralTeacherInfo = ({ about, background, experience, pickup_line, id, languages }) => {
   return new Promise((resolve, reject) => {
     query(
       `UPDATE  public.profile 
       SET about = $1,
       background = $2,
       experience = $3,
-      pickup_line = $4
+      pickup_line = $4,
+      languages = $6
       WHERE id = $5`,
-      [about, background, experience, pickup_line, id],
+      [about, background, experience, pickup_line, id, languages],
       (err, results) => {
         if (err) {
           reject(err)

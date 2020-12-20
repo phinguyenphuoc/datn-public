@@ -103,9 +103,7 @@ function PaymentMethods() {
             <div className="stripe">
               <p>
                 We use Stripe to make sure you get paid on time and to keep your
-                personal bank and details secure. Click{" "}
-                <span className="fw-500">continue</span> to set up your payments
-                on Stripe.
+                personal bank and details secure.
               </p>
               <img src={stripe} alt="stripe" />
             </div>
