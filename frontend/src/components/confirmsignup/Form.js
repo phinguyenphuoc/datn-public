@@ -1,10 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
-// import ReactGA from "react-ga";
 
 const Form = ({ handleSubmit, handleFocus, loading, error }) => {
   const storeLogin = useSelector((store) => store.login);
@@ -13,12 +11,6 @@ const Form = ({ handleSubmit, handleFocus, loading, error }) => {
   const [form, setForm] = React.useState({ email: defaultEmail, authCode: "" });
 
   const handleSubmitForm = (event) => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: "Navigation to Dashboard at Login Page",
-    //   label: "Click 'Login Button'",
-    // });
-
     event.preventDefault();
     const errorState = validate();
 

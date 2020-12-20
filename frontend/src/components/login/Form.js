@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { FormBox } from "../common";
 import { Form as ReForm } from "reactstrap";
 import { isEmpty, isEmail } from "validator";
-// import ReactGA from "react-ga";
 
 const Form = ({ handleSubmit, errorMessage }) => {
   const [error, setError] = React.useState({});
@@ -15,12 +14,6 @@ const Form = ({ handleSubmit, errorMessage }) => {
   const isSubmitting = storeLogin.loading;
 
   const handleSubmitForm = async (event) => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: "Navigation to Dashboard at Login Page",
-    //   label: "Click 'Login Button'",
-    // });
-
     event.preventDefault();
     const errorState = validate();
 
@@ -58,20 +51,6 @@ const Form = ({ handleSubmit, errorMessage }) => {
       [event.target.name]: "",
     });
     setErrorLogin("");
-  };
-  const handleGaTracking = (type) => {
-    // if (type === "forgot")
-    //   ReactGA.event({
-    //     category: "Navigation",
-    //     action: "Navigation to Forgot Password Page at Login Page",
-    //     label: "Click 'Forgot Password Link'",
-    //   });
-    // else if (type === "teachers")
-    //   ReactGA.event({
-    //     category: "Navigation",
-    //     action: "Navigation to Teachers Page at Login Page",
-    //     label: "Click 'Find your teachere Link'",
-    //   });
   };
 
   return (
@@ -123,7 +102,6 @@ const Form = ({ handleSubmit, errorMessage }) => {
           </div>
           <div>
             <Link
-              onClick={() => handleGaTracking("forgot")}
               to="/forgot-password"
               className="primary"
             >

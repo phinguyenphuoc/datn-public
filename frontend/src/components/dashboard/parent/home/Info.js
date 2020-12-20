@@ -5,8 +5,6 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { Loading, NoData } from "../../../common";
 import avatarDefault from "../../../../assets/images/avatar-picture.svg";
-import student_bg from "../../../../assets/images/bg-info-student.svg";
-import musical from "../../../../assets/images/bg-musical-progress.svg";
 import moderato from "../../../../assets/images/moderato.svg";
 import star from "../../../../assets/images/star.svg";
 import arrow from "../../../../assets/images/arrow-icon.svg";

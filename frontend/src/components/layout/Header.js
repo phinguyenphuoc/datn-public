@@ -8,7 +8,6 @@ import { getAuth, checkRolesAccepted } from "../../utils/helpers";
 import { USER_ROLE_TEACHER, USER_ROLE_STUDENT } from "../../utils/constants";
 import { setHeightHeader, setTopHeader } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
-// import ReactGA from "react-ga";
 
 let lastPageYOffset = 0;
 function Header({ isDashboard, showHideHeader, page }) {
@@ -107,14 +106,6 @@ function Header({ isDashboard, showHideHeader, page }) {
     setTimeout(() => {
       localStorage.setItem("notification", "close");
     }, 250); // 250 is time transition
-  };
-
-  const handleGaTracking = (link) => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: `Navigation to ${link} Page at Footer`,
-    //   label: `Click '${link} Link'`,
-    // });
   };
 
   const renderNavLinks = () => {

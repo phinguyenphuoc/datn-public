@@ -1,6 +1,4 @@
 import React from "react";
-import dashboard from "../../assets/images/dashboard-components.png";
-import dashboard2x from "../../assets/images/dashboard-components@2x.png";
 
 function MusicDashboard(props) {
   return (

@@ -1,17 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-// import ReactGA from "react-ga";
 
 function Footer(props) {
-  const handleGaTracking = (link) => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: `Navigation to ${link} Page at Footer`,
-    //   label: `Click '${link} Link'`,
-    // });
-  };
-
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -26,7 +17,6 @@ function Footer(props) {
             <ul>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("Home")}
                   activeClassName="--active"
                   exact
                   to="/"
@@ -36,7 +26,6 @@ function Footer(props) {
               </li>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("About")}
                   activeClassName="--active"
                   to="/about"
                 >
@@ -45,7 +34,6 @@ function Footer(props) {
               </li>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("How it works")}
                   activeClassName="--active"
                   to="/how-it-works"
                 >
@@ -54,7 +42,6 @@ function Footer(props) {
               </li>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("Teachers")}
                   activeClassName="--active"
                   to="/teachers"
                 >
@@ -70,7 +57,6 @@ function Footer(props) {
             <ul>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("Contact Us")}
                   activeClassName="--active"
                   to="/contact-us"
                 >
@@ -86,18 +72,12 @@ function Footer(props) {
             <ul>
               <li>
                 <NavLink
-                  onClick={() => handleGaTracking("Teach with us")}
                   activeClassName="--active"
                   to="/teach-with-us"
                 >
                   Become our platform's teachers
                 </NavLink>
               </li>
-              {/* <li>
-                <NavLink activeClassName="--active" to="/join-our-team">
-                  Our solution
-                </NavLink>
-              </li> */}
             </ul>
           </div>
         </div>

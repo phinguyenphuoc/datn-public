@@ -67,14 +67,6 @@ const ListTeachers = ({
     listsectionRef,
   ]);
 
-  const handleGaTracking = () => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: "Navigation to Teach with us Page at Teachers Page",
-    //   label: "Click 'Are you a music teacher link'",
-    // });
-  };
-
   React.useEffect(() => {
     const handleScrollButtonFilter = (e) => {
       if (
@@ -103,7 +95,6 @@ const ListTeachers = ({
           <div className="teachers__inner">
             <div className="link">
               <Link
-                onClick={() => handleGaTracking()}
                 to="/teach-with-us"
                 className="secondary"
               >

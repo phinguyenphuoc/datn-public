@@ -1,16 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import ReactGA from "react-ga";
 
 function SearchTeachers() {
-  const handleGaTracking = () => {
-    // ReactGA.event({
-    //   category: "Navigation",
-    //   action: "Navigation to Teachers Page at Homepage",
-    //   label: "Click 'Search for a music teacher Button'",
-    // });
-  };
-
   return (
     <section className="try-homemuse">
       <div className="try-homemuse__inner ds-primary">
@@ -24,7 +15,7 @@ function SearchTeachers() {
             Start your musical journey today!
           </p>
         </div>
-        <Link onClick={() => handleGaTracking()} to="/teachers">
+        <Link to="/teachers">
           <button className="button button--secondary">
             Search for your music teacher
           </button>

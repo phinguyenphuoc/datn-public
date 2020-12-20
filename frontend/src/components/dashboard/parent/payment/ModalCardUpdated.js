@@ -13,7 +13,6 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import tick from "../../../../assets/images/tick-message.svg";
-import logo from "../../../../assets/images/logo-format.svg";
 import classNames from "classnames";
 import {
   getCardSetup,
