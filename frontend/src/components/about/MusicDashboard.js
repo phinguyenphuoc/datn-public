@@ -23,17 +23,14 @@ function MusicDashboard(props) {
             </h2>
           </div>
           <p className="text--large">
-            An efficient partner in your musical learning journey.
+            Powerful and easy to use
           </p>
           <p className="text--large">
             As a student, you get access to a personalized musical
             space.
           </p>
           <p className="text--large">
-            Designed by a team of professionals, the dashboard allows you to
-            manage your schedule and payments, share documents with your teacher
-            and more importantly, keep track of your progress as your musical
-            skills grow!
+            Dashboard allows you to manage your schedule and payments, keep track of your progress as your musical skills grow.
           </p>
         </div>
       </div>

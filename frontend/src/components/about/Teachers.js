@@ -32,9 +32,6 @@ function Teachers() {
           {allTeachers[4] && (
             <img src={allTeachers[4].avatar} alt="teacher avatar" />
           )}
-          {allTeachers[5] && (
-            <img src={allTeachers[5].avatar} alt="teacher avatar" />
-          )}
         </div>
 
         <div className="about__teacher__inner__wrap">
@@ -44,45 +41,40 @@ function Teachers() {
             <h2 className="h2">Meet our Teachers</h2>
           </div>
           <p className="text--large">
-            We have selected highly qualified and dedicated music
-            teachers who are both outstanding as teachers and performers on
-            their instruments.
+            Our teachers are highly qualified and dedicated music
+            teachers.
           </p>
+          <br />
+          <br />
           <p className="text--large">
-            These teachers employ the most modern and positive methods to attain
-            the best results. Their lessons combine fun, engagement and
+            Their lessons combine fun, engagement and
             encouragement to make effective practice a regular habit.
           </p>
+          <br />
+          <br />
           <p className="text--large">
-            Whether you are looking for beginner music lessons for your children
-            or are an adult wanting to fulfill your dreams of playing music, our
+            If you are looking for beginner music lessons to fulfill your dreams of playing music, our
             instructors are ready to help you now!
           </p>
-          <p className="text--large">
-            We are serious about bringing music into your life. Our instructors
-            hold music degrees and have been carefully selected for their
-            personality and dedication to teaching.
-          </p>
+          <br />
+          <br />
         </div>
 
         <div className="about__teacher__imgs--right">
-          {allTeachers[6] && (
+          {allTeachers[5] && (
             <img src={allTeachers[6].avatar} alt="teacher avatar" />
           )}
-          {allTeachers[7] && (
+          {allTeachers[6] && (
             <img src={allTeachers[7].avatar} alt="teacher avatar" />
           )}
-          {allTeachers[8] && (
+          {allTeachers[7] && (
             <img src={allTeachers[8].avatar} alt="teacher avatar" />
           )}
-          {allTeachers[9] && (
+          {allTeachers[8] && (
             <img src={allTeachers[9].avatar} alt="teacher avatar" />
           )}
-          {allTeachers[10] && (
+          {allTeachers[9] && (
             <img src={allTeachers[10].avatar} alt="teacher avatar" />
-          )}
-          {allTeachers[11] && (
-            <img src={allTeachers[11].avatar} alt="teacher avatar" />
           )}
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import star from "../../assets/images/rate.png";
+import star from "../../assets/images/rate1.png";
 import { RATE_DURATIONS } from "../../utils/constants";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 import { useSelector } from "react-redux";
@@ -19,8 +19,6 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
       ? 0
       : Math.round((totalScore / dataReview.length) * 10) / 10;
 
-  const auth = getAuth()
-  const user_payment_updated = auth.user_payment_updated
   React.useEffect(() => {
     if (data.pricings && data.pricings.length) {
       const rateDurations = {};
@@ -33,6 +31,21 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
       setRateDurations(rateDurations);
     }
   }, [data]);
+
+  const auth = getAuth()
+  const user_payment_updated = auth.user_payment_updated
+  const user_role = auth.user_roles
+  let btnString = ""
+  if (user_role.includes("teacher")) {
+    btnString = "Not available for teachers"
+  } else {
+    if (user_payment_updated) {
+      btnString = `Contact ${data.first_name}`
+    } else {
+      btnString = "Verify payment to contact"
+    }
+  }
+
   return (
     <div
       className="teacher__card radius-l sticky"
@@ -84,8 +97,8 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
         <button
           className="button button--secondary"
           onClick={onClickButton}
-          disabled={!user_payment_updated}
-        >{user_payment_updated ? `Contact ${data.first_name}` : "Verify payment to contact"}</button>
+          disabled={!user_payment_updated || user_role.includes("teacher")}
+        >{btnString}</button>
       </div>
     </div>
   );

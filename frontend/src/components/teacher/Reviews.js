@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import star from "../../assets/images/rate.png";
+import star from "../../assets/images/rate1.png";
 import defaultAvatar from "../../assets/images/avatar-picture.svg";
 
 const Reviews = ({ data, dataReview }) => {

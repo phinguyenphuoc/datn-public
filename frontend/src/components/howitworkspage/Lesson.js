@@ -25,14 +25,10 @@ function Lesson(props) {
               As music specialists, we have carefully pre-screened the best
               music teachers based on specific criterias including
               personalities, tutoring experience, teaching methods and
-              interaction with students. This way we make sure that all students
-              are satisfied with their lessons.
+              interaction with students.
             </p>
             <p className="text--large">
-              Experiencing a trial lesson is the best way to test drive a full
-              music lesson without the concerns of a long term commitment, and
-              make sure there is a perfect fit between the student and the
-              teacher. If you’re not happy with your first lesson, no worries:
+              If you’re not happy with your first lesson, no worries:
               Just let us know and we will guide you to find another teacher.
             </p>
           </div>

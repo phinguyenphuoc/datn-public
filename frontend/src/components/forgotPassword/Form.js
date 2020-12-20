@@ -66,7 +66,7 @@ const Form = ({ handleSubmit }) => {
           <div className="forgot-password__inner__form__text">
             <h3>Forgot your password?</h3>
             <p>
-              Please enter your email address to receive a password Forgot link
+              Please enter your email address to receive a password forgot code
             </p>
           </div>
           <div className="error_forgot-password">{errorForgotPassword}</div>

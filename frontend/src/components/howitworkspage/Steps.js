@@ -65,7 +65,7 @@ function Steps(props) {
                 <p className="text--xxxlarge underline underline--blue">03</p>
                 <p className="h4">Connect to your dashboard</p>
                 <p className="text--large">
-                  Receive your credentials and access your personal musical space.
+                  Signup and access your personal musical space.
                 </p>
               </div>
             </div>
@@ -80,7 +80,7 @@ function Steps(props) {
                 <p className="h4">Keep track of your progress</p>
                 <p className="text--large">
                   While having fun learning your favorite instrument, you can
-                  monitor your improvment and grow your skills!
+                  monitor your improvement and grow your skills!
                 </p>
               </div>
             </div>

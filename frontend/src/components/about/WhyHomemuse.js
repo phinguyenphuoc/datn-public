@@ -51,7 +51,7 @@ function WhyHomemuse(props) {
                   Anytime, Anywhere
                 </h3>
                 <p className="text--xlarge">
-                  Take in-person or online lessons at the time and place that
+                  Take online lessons at the time and place that
                   suits you
                 </p>
               </div>

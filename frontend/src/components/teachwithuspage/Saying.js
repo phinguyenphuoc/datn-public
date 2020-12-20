@@ -32,8 +32,6 @@ function Feedback() {
     <section className="feedback feedback__teacher">
       <div className="feedback__inner">
         <div className="text__title">
-          <span className="icon-note"></span>
-          <span className="icon-note-double"></span>
           <h2 className="h2 white">
             What teachers <span className="text--primary">are saying</span>
           </h2>
