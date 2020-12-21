@@ -55,7 +55,6 @@ function HomeTeacher(props) {
   );
 
   const storeBookingStudents = useSelector((store) => store.teacher.bookingStudents);
-  console.log({ storeBookingStudents })
 
   React.useEffect(() => {
     if (

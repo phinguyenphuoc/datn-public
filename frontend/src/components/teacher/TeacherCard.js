@@ -67,12 +67,6 @@ const TeacherCard = ({ data, dataReview, onClickButton }) => {
             ))}
         </div>
         <div className="rating-and-location">
-          {averageScore > 0 && (<div>
-            <img src={star} alt="" className="star" />
-            <p>
-              {averageScore} <span>({dataReview.length} {dataReview.length > 1 ? 'reviews' : 'review'})</span>
-            </p>
-          </div>)}
           <div>
             <span className="icon-map-pin"></span>
             <p>{data.city}</p>
