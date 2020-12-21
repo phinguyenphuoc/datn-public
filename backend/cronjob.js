@@ -74,6 +74,27 @@ const updateSchedulePaymentIntent = (id, payment_intent) => {
   })
 }
 
+
+const updateSchedulePaymentFailed = (id) => {
+  return new Promise((resolve, reject) => {
+    query(
+      `UPDATE public.schedule
+      set status = 'cancelled'
+      WHERE id = $1`,
+      [id],
+      (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(true)
+        }
+      }
+    )
+  })
+}
+
+
+
 const chargeStudent = async (amount, customer_id, payment_method) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -90,6 +111,7 @@ const chargeStudent = async (amount, customer_id, payment_method) => {
     console.log('Error code is: ', err.code);
     const paymentIntentRetrieved = await stripe.paymentIntents.retrieve(err.raw.payment_intent.id);
     console.log('PI retrieved: ', paymentIntentRetrieved.id);
+    return null;
   }
 }
 
@@ -106,12 +128,22 @@ const jobChargeMoneyStudent = () => {
         const scheduleId = item.schedule_id
         const amount = item.price_per_lesson * 100;
         const payment_intent = await chargeStudent(amount, item.customer_id, item.payment_method)
-        await updateSchedulePaymentIntent(scheduleId, payment_intent)
-        await sendMail(
-          item.email,
-          "Lesson tuition fee",
-          `Your upcoming lessons(at ${item.lesson_date} ${item.start_hour}-${item.end_hour}) fee has been collected, please check your dashboard for more details`
-        )
+        if (payment_intent) {
+          await updateSchedulePaymentIntent(scheduleId, payment_intent)
+          await sendMail(
+            item.email,
+            "Lesson tuition fee",
+            `Your upcoming lessons(at ${item.lesson_date} ${item.start_hour}-${item.end_hour}) fee has been collected, please check your dashboard for more details`
+          )
+        } else {
+          await updateSchedulePaymentFailed(scheduleId)
+          await sendMail(
+            item.email,
+            "Lesson tuition fee",
+            `Your upcoming lessons(at ${item.lesson_date} ${item.start_hour}-${item.end_hour}) fee hasn't been collected, your lesson will be cancelled, please contact us if you have any problems`
+          )
+        }
+
       }
     },
     null,
